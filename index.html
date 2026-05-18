@@ -5,179 +5,81 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>전국 출장마사지 예약 안내 | 지역별 방문 마사지 정보 바로GO</title>
   <meta name="description" content="전국 주요 지역의 출장마사지 예약 정보, 서비스 유형, 가격 기준, 이용 전 주의사항을 한눈에 확인하세요. 건전하고 안전한 방문 마사지 이용을 위한 바로GO 안내 페이지입니다." />
-  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="canonical" href="/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="전국 출장마사지 예약 안내 | 바로GO" />
+  <meta property="og:description" content="전국 주요 지역의 출장마사지 예약 정보, 가격 기준, 이용 전 주의사항을 한눈에 확인하세요." />
+  <meta property="og:image" content="/assets/img/og-default.svg" />
+  <meta property="og:site_name" content="바로GO" />
+  <meta property="og:locale" content="ko_KR" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/assets/css/style.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "/#org",
+        "name": "바로GO",
+        "legalName": "YH LAB",
+        "url": "/",
+        "logo": "/assets/img/og-default.svg",
+        "telephone": "0508-202-4719",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "청석로 268",
+          "addressLocality": "파주시",
+          "addressRegion": "경기도",
+          "addressCountry": "KR"
+        },
+        "founder": "김유환",
+        "taxID": "815-26-00585"
+      },
+      {
+        "@type": "WebSite",
+        "@id": "/#website",
+        "url": "/",
+        "name": "바로GO",
+        "inLanguage": "ko-KR",
+        "publisher": { "@id": "/#org" }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "/#webpage",
+        "url": "/",
+        "name": "전국 출장마사지 예약 안내 | 바로GO",
+        "isPartOf": { "@id": "/#website" },
+        "about": { "@id": "/#org" },
+        "primaryImageOfPage": "/assets/img/og-default.svg"
+      }
+    ]
+  }
+  </script>
 </head>
-<body>
+<body data-page="home">
   <a class="skip-link" href="#main">본문 바로가기</a>
 
+  <!--#include header-->
   <header class="site-header" role="banner">
     <div class="header-inner">
       <a href="/" class="brand" aria-label="바로GO 홈으로 이동">
         <span class="brand-mark">바로</span><span class="brand-mark accent">GO</span>
         <span class="brand-tag">전국 방문 마사지 안내</span>
       </a>
-
-      <button
-        class="nav-toggle"
-        type="button"
-        aria-controls="primary-nav"
-        aria-expanded="false"
-        aria-label="메뉴 열기"
-      >
+      <button class="nav-toggle" type="button" aria-controls="primary-nav" aria-expanded="false" aria-label="메뉴 열기">
         <span></span><span></span><span></span>
       </button>
-
-      <nav id="primary-nav" class="primary-nav" aria-label="주요 메뉴">
-        <ul class="nav-list">
-          <li class="nav-item">
-            <a href="/" class="nav-link">홈</a>
-          </li>
-
-          <li class="nav-item has-mega">
-            <button class="nav-link nav-trigger" aria-expanded="false" aria-haspopup="true">
-              지역별 찾기
-              <span class="chev" aria-hidden="true"></span>
-            </button>
-            <div class="mega-panel" role="menu">
-              <div class="mega-grid mega-grid--regions">
-                <a role="menuitem" href="/area/seoul/">서울</a>
-                <a role="menuitem" href="/area/gyeonggi/">경기</a>
-                <a role="menuitem" href="/area/incheon/">인천</a>
-                <a role="menuitem" href="/area/busan/">부산</a>
-                <a role="menuitem" href="/area/daegu/">대구</a>
-                <a role="menuitem" href="/area/daejeon/">대전</a>
-                <a role="menuitem" href="/area/gwangju/">광주</a>
-                <a role="menuitem" href="/area/ulsan/">울산</a>
-                <a role="menuitem" href="/area/sejong/">세종</a>
-                <a role="menuitem" href="/area/gangwon/">강원</a>
-                <a role="menuitem" href="/area/chungbuk/">충북</a>
-                <a role="menuitem" href="/area/chungnam/">충남</a>
-                <a role="menuitem" href="/area/jeonbuk/">전북</a>
-                <a role="menuitem" href="/area/jeonnam/">전남</a>
-                <a role="menuitem" href="/area/gyeongbuk/">경북</a>
-                <a role="menuitem" href="/area/gyeongnam/">경남</a>
-                <a role="menuitem" href="/area/jeju/">제주</a>
-              </div>
-              <p class="mega-note">
-                실제 서비스 가능 여부와 예약 가능 시간은 각 지역 페이지에서 확인하실 수 있습니다.
-              </p>
-            </div>
-          </li>
-
-          <li class="nav-item has-mega">
-            <button class="nav-link nav-trigger" aria-expanded="false" aria-haspopup="true">
-              서비스 안내
-              <span class="chev" aria-hidden="true"></span>
-            </button>
-            <div class="mega-panel" role="menu">
-              <ul class="mega-list">
-                <li><a role="menuitem" href="/service/business-trip-massage/">출장마사지 안내</a></li>
-                <li><a role="menuitem" href="/service/hometai/">홈타이 안내</a></li>
-                <li><a role="menuitem" href="/service/swedish/">스웨디시 마사지 안내</a></li>
-                <li><a role="menuitem" href="/service/aroma/">아로마 마사지 안내</a></li>
-                <li><a role="menuitem" href="/service/sports-massage/">스포츠 마사지 안내</a></li>
-                <li><a role="menuitem" href="/service/couple-massage/">커플 마사지 안내</a></li>
-                <li><a role="menuitem" href="/service/hotel-massage/">호텔 방문 마사지 안내</a></li>
-                <li><a role="menuitem" href="/service/office-massage/">기업·사무실 방문 마사지 안내</a></li>
-              </ul>
-            </div>
-          </li>
-
-          <li class="nav-item has-mega">
-            <button class="nav-link nav-trigger" aria-expanded="false" aria-haspopup="true">
-              예약 안내
-              <span class="chev" aria-hidden="true"></span>
-            </button>
-            <div class="mega-panel" role="menu">
-              <ul class="mega-list">
-                <li><a role="menuitem" href="/reservation/how-to-book/">예약 방법</a></li>
-                <li><a role="menuitem" href="/reservation/price/">가격 및 코스 안내</a></li>
-                <li><a role="menuitem" href="/reservation/check-before-use/">이용 전 확인사항</a></li>
-                <li><a role="menuitem" href="/reservation/cancel-refund/">취소·환불 규정</a></li>
-                <li><a role="menuitem" href="/reservation/payment/">결제 안내</a></li>
-              </ul>
-            </div>
-          </li>
-
-          <li class="nav-item has-mega">
-            <button class="nav-link nav-trigger" aria-expanded="false" aria-haspopup="true">
-              후기·정보
-              <span class="chev" aria-hidden="true"></span>
-            </button>
-            <div class="mega-panel" role="menu">
-              <div class="mega-cols">
-                <div>
-                  <h3 class="mega-heading">이용 경험</h3>
-                  <ul class="mega-list">
-                    <li><a role="menuitem" href="/review/">실제 이용후기</a></li>
-                    <li><a role="menuitem" href="/review/reservation-case/">예약 사례</a></li>
-                    <li><a role="menuitem" href="/review/first-time/">처음 이용 고객 후기</a></li>
-                    <li><a role="menuitem" href="/review/area/">지역별 후기 모음</a></li>
-                  </ul>
-                </div>
-                <div>
-                  <h3 class="mega-heading">마사지 정보</h3>
-                  <ul class="mega-list">
-                    <li><a role="menuitem" href="/guide/what-is-business-trip-massage/">출장마사지란?</a></li>
-                    <li><a role="menuitem" href="/guide/massage-before-after/">마사지 전후 주의사항</a></li>
-                    <li><a role="menuitem" href="/guide/aroma-vs-swedish/">아로마와 스웨디시 차이</a></li>
-                    <li><a role="menuitem" href="/guide/first-time-massage/">처음 이용 전 알아둘 점</a></li>
-                    <li><a role="menuitem" href="/guide/massage-price-standard/">가격이 달라지는 이유</a></li>
-                    <li><a role="menuitem" href="/guide/safe-reservation/">안전한 예약 확인 방법</a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </li>
-
-          <li class="nav-item has-mega">
-            <button class="nav-link nav-trigger" aria-expanded="false" aria-haspopup="true">
-              고객센터
-              <span class="chev" aria-hidden="true"></span>
-            </button>
-            <div class="mega-panel" role="menu">
-              <ul class="mega-list">
-                <li><a role="menuitem" href="/support/notice/">공지사항</a></li>
-                <li><a role="menuitem" href="/support/faq/">자주 묻는 질문</a></li>
-                <li><a role="menuitem" href="/support/contact/">문의하기</a></li>
-                <li><a role="menuitem" href="/support/partnership/">제휴·입점 문의</a></li>
-                <li><a role="menuitem" href="/support/report/">불편 신고</a></li>
-              </ul>
-            </div>
-          </li>
-
-          <li class="nav-item has-mega">
-            <button class="nav-link nav-trigger" aria-expanded="false" aria-haspopup="true">
-              바로GO 소개
-              <span class="chev" aria-hidden="true"></span>
-            </button>
-            <div class="mega-panel" role="menu">
-              <ul class="mega-list">
-                <li><a role="menuitem" href="/about/brand/">브랜드 소개</a></li>
-                <li><a role="menuitem" href="/about/operation-policy/">운영 원칙</a></li>
-                <li><a role="menuitem" href="/about/therapist-policy/">관리사 운영 기준</a></li>
-                <li><a role="menuitem" href="/about/safety-policy/">안전 이용 정책</a></li>
-                <li><a role="menuitem" href="/about/privacy/">개인정보처리방침</a></li>
-                <li><a role="menuitem" href="/about/terms/">이용약관</a></li>
-              </ul>
-            </div>
-          </li>
-        </ul>
-
-        <div class="nav-cta">
-          <a class="btn-tel" href="tel:0508-202-4719" aria-label="예약 전화 0508-202-4719">
-            <span class="btn-tel__label">예약 전화</span>
-            <span class="btn-tel__num">0508-202-4719</span>
-          </a>
-        </div>
-      </nav>
+      <nav id="primary-nav" class="primary-nav" aria-label="주요 메뉴" data-nav></nav>
     </div>
   </header>
 
   <main id="main">
     <section class="hero">
       <div class="hero-inner">
-        <h1>전국 출장마사지 예약, 원하는 지역에서 편하게 찾는 방문 마사지 서비스</h1>
+        <p class="hero-eyebrow">전국 방문 마사지 예약 안내 플랫폼</p>
+        <h1>전국 출장마사지 예약,<br>원하는 지역에서 편하게 찾는 방문 마사지 서비스</h1>
         <p class="hero-lead">
           바로GO는 전국 주요 지역에서 출장마사지 예약 정보를 쉽고 빠르게 확인할 수 있도록 돕는
           방문 마사지 안내 플랫폼입니다. 지역, 시간, 서비스 유형을 선택하고 나에게 맞는
@@ -189,47 +91,190 @@
         </div>
 
         <ul class="trust-grid" aria-label="이용 안내 요약">
-          <li>지역별 예약 가능 여부 안내</li>
-          <li>가격 및 코스 사전 확인</li>
-          <li>이용 전 주의사항 제공</li>
-          <li>개인정보 보호 및 상담 기준 안내</li>
+          <li><strong>지역별 예약 가능 여부</strong>를 사전에 확인할 수 있습니다.</li>
+          <li><strong>가격 및 코스</strong>를 상담 단계에서 미리 안내합니다.</li>
+          <li><strong>이용 전 주의사항</strong>을 항상 함께 제공합니다.</li>
+          <li><strong>개인정보 보호</strong> 및 상담 기준을 준수합니다.</li>
         </ul>
       </div>
     </section>
 
     <section id="regions" class="section">
       <div class="container">
-        <h2>전국 출장마사지 가능 지역 찾기</h2>
-        <p class="section-lead">
-          서울, 경기, 인천, 부산, 대구 등 주요 지역별 출장마사지 정보를 확인할 수 있습니다.
-          각 지역 페이지에서는 예약 가능 시간, 서비스 유형, 이동 가능 범위, 자주 묻는 질문을 함께 안내합니다.
-        </p>
+        <header class="section-head">
+          <h2>전국 출장마사지 가능 지역 찾기</h2>
+          <p class="section-lead">
+            서울, 경기, 인천, 부산, 대구 등 주요 지역별 출장마사지 정보를 확인할 수 있습니다.
+            각 지역 페이지에서는 예약 가능 시간, 서비스 유형, 이동 가능 범위, 자주 묻는 질문을 함께 안내합니다.
+          </p>
+        </header>
+        <div class="region-grid">
+          <a href="/area/seoul/" class="region-card"><span>서울</span></a>
+          <a href="/area/gyeonggi/" class="region-card"><span>경기</span></a>
+          <a href="/area/incheon/" class="region-card"><span>인천</span></a>
+          <a href="/area/busan/" class="region-card"><span>부산</span></a>
+          <a href="/area/daegu/" class="region-card"><span>대구</span></a>
+          <a href="/area/daejeon/" class="region-card"><span>대전</span></a>
+          <a href="/area/gwangju/" class="region-card"><span>광주</span></a>
+          <a href="/area/ulsan/" class="region-card"><span>울산</span></a>
+          <a href="/area/sejong/" class="region-card"><span>세종</span></a>
+          <a href="/area/gangwon/" class="region-card"><span>강원</span></a>
+          <a href="/area/chungbuk/" class="region-card"><span>충북</span></a>
+          <a href="/area/chungnam/" class="region-card"><span>충남</span></a>
+          <a href="/area/jeonbuk/" class="region-card"><span>전북</span></a>
+          <a href="/area/jeonnam/" class="region-card"><span>전남</span></a>
+          <a href="/area/gyeongbuk/" class="region-card"><span>경북</span></a>
+          <a href="/area/gyeongnam/" class="region-card"><span>경남</span></a>
+          <a href="/area/jeju/" class="region-card"><span>제주</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="container">
+        <header class="section-head">
+          <h2>서비스 유형별로 살펴보는 방문 마사지</h2>
+          <p class="section-lead">
+            피로 회복, 컨디션 관리, 출장 후 휴식을 위해 자주 찾는 마사지 유형입니다. 각 서비스의
+            특징과 추천 대상, 소요 시간, 주의사항은 상세 페이지에서 확인할 수 있습니다.
+          </p>
+        </header>
+        <ul class="service-grid">
+          <li>
+            <h3><a href="/service/business-trip-massage/">출장마사지</a></h3>
+            <p>지정한 장소로 관리사가 방문해 진행하는 일반적인 방문 케어입니다. 가정·숙소·사무실 모두 가능합니다.</p>
+          </li>
+          <li>
+            <h3><a href="/service/hometai/">홈타이</a></h3>
+            <p>타이 전통 기법 기반의 스트레칭과 지압이 결합된 방문 케어입니다.</p>
+          </li>
+          <li>
+            <h3><a href="/service/swedish/">스웨디시 마사지</a></h3>
+            <p>오일을 사용한 부드러운 압의 전신 케어로 피로 회복에 자주 선택됩니다.</p>
+          </li>
+          <li>
+            <h3><a href="/service/aroma/">아로마 마사지</a></h3>
+            <p>아로마 오일의 향과 함께 진행하는 이완 중심의 부드러운 케어입니다.</p>
+          </li>
+          <li>
+            <h3><a href="/service/sports-massage/">스포츠 마사지</a></h3>
+            <p>운동 전후 컨디션 관리, 근육 피로 해소를 목적으로 하는 케어입니다.</p>
+          </li>
+          <li>
+            <h3><a href="/service/couple-massage/">커플 마사지</a></h3>
+            <p>두 명이 동시에 진행할 수 있도록 안내되는 옵션입니다.</p>
+          </li>
+          <li>
+            <h3><a href="/service/hotel-massage/">호텔 방문 마사지</a></h3>
+            <p>출장·여행 중 숙소에서 받는 방문 케어로, 시간과 동선이 자유롭습니다.</p>
+          </li>
+          <li>
+            <h3><a href="/service/office-massage/">기업·사무실 방문</a></h3>
+            <p>임직원 복지 차원의 단체 방문 케어로 사전 일정 조율이 필요합니다.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <header class="section-head">
+          <h2>처음 이용해도 쉽게 이해되는 예약 과정</h2>
+          <p class="section-lead">아래 5단계는 모든 지역과 서비스에 공통으로 적용됩니다.</p>
+        </header>
+        <ol class="steps">
+          <li><strong>1. 지역 선택</strong><p>서비스 가능 지역인지 먼저 확인합니다.</p></li>
+          <li><strong>2. 서비스 선택</strong><p>원하는 마사지 유형과 코스를 선택합니다.</p></li>
+          <li><strong>3. 예약 시간 확인</strong><p>가능한 일정과 소요 시간을 함께 안내받습니다.</p></li>
+          <li><strong>4. 이용 조건 확인</strong><p>가격, 결제, 취소 기준, 주의사항을 사전에 안내합니다.</p></li>
+          <li><strong>5. 방문 및 진행</strong><p>예약된 장소로 방문하여 서비스를 진행합니다.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="container two-col">
+        <div>
+          <h2>출장마사지 가격은 어떤 기준으로 달라질까요?</h2>
+          <p>
+            정확한 가격은 <strong>지역, 시간대, 코스 길이, 이동 거리, 예약 상황</strong>에 따라
+            달라집니다. 동일한 서비스라도 심야 시간대나 원거리 이동이 포함되면 비용이 추가될 수
+            있으며, 코스 길이(60·90·120분)에 따라 비용이 구분됩니다. 정확한 비용은
+            <a href="/reservation/price/">가격 및 코스 안내</a> 페이지에서 기준을 확인하실 수 있습니다.
+          </p>
+          <a class="btn btn-ghost" href="/reservation/price/">가격 기준 보기</a>
+        </div>
+        <aside class="callout">
+          <h3>안전한 이용을 위한 안내</h3>
+          <ul class="check-list">
+            <li>불법·퇴폐 서비스는 제공하지 않습니다.</li>
+            <li>예약 전 가격·코스·소요 시간을 확인해 주세요.</li>
+            <li>건강 상태에 따라 이용을 권하지 않는 경우가 있습니다.</li>
+            <li>음주 후 이용은 자제 부탁드립니다.</li>
+            <li>불편 상황은 <a href="/support/report/">불편 신고</a>로 접수 가능합니다.</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <header class="section-head">
+          <h2>실제 이용자가 남긴 예약 경험</h2>
+          <p class="section-lead">예약 과정, 응대, 시간 준수, 청결, 설명의 충분함을 중심으로 정리한 후기입니다.</p>
+        </header>
+        <div class="review-grid">
+          <article class="review-card">
+            <p class="review-meta">서울 · 첫 이용 · 90분 스웨디시</p>
+            <p>"예약 시간보다 5분 정도 일찍 도착했고, 진행 전 코스와 주의사항을 다시 한번 설명해 주셔서 처음이라 걱정했던 부분이 줄었습니다."</p>
+          </article>
+          <article class="review-card">
+            <p class="review-meta">부산 · 호텔 방문 · 60분 아로마</p>
+            <p>"출장 일정 중간에 시간을 비워서 호텔에서 받았는데, 위치 확인과 도착 안내가 명확해 동선에 무리가 없었습니다."</p>
+          </article>
+          <article class="review-card">
+            <p class="review-meta">경기 · 재이용 · 120분 홈타이</p>
+            <p>"가격 기준이 예약 단계에서 명확하게 안내되어 추가 비용 걱정 없이 진행했습니다."</p>
+          </article>
+        </div>
+        <p class="muted"><a href="/review/">전체 후기 보기 →</a></p>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="container">
+        <header class="section-head">
+          <h2>출장마사지 이용 전 알아두면 좋은 정보</h2>
+        </header>
+        <ul class="guide-grid">
+          <li><a href="/guide/what-is-business-trip-massage/"><h3>출장마사지란?</h3><p>방문 마사지 서비스의 정의와 종류를 정리했습니다.</p></a></li>
+          <li><a href="/guide/first-time-massage/"><h3>처음 이용 전 알아둘 점</h3><p>예약 단계에서 확인할 항목을 정리했습니다.</p></a></li>
+          <li><a href="/guide/aroma-vs-swedish/"><h3>아로마와 스웨디시 차이</h3><p>두 서비스의 목적과 진행 방식 차이를 비교합니다.</p></a></li>
+          <li><a href="/guide/massage-before-after/"><h3>마사지 전후 주의사항</h3><p>이용 전·후에 피해야 할 행동을 정리했습니다.</p></a></li>
+          <li><a href="/guide/massage-price-standard/"><h3>가격이 달라지는 이유</h3><p>요금이 변동되는 요소를 분류해 설명합니다.</p></a></li>
+          <li><a href="/guide/safe-reservation/"><h3>안전한 예약 확인 방법</h3><p>안전한 업체를 가려내는 점검 항목입니다.</p></a></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <header class="section-head">
+          <h2>자주 묻는 질문 (FAQ)</h2>
+        </header>
+        <div class="faq">
+          <details><summary>전국 출장마사지 예약은 어떻게 하나요?</summary><p>지역과 서비스 유형을 선택한 뒤, 상담을 통해 가능 시간과 이용 조건을 확인할 수 있습니다.</p></details>
+          <details><summary>출장마사지 가격은 지역마다 다른가요?</summary><p>네. 지역, 시간, 코스, 이동 거리, 예약 상황에 따라 달라질 수 있습니다.</p></details>
+          <details><summary>처음 이용해도 괜찮나요?</summary><p>예약 과정과 이용 전 주의사항, 결제 기준을 사전에 안내해 드리므로 처음이어도 부담 없이 확인하실 수 있습니다.</p></details>
+          <details><summary>불법 서비스도 제공하나요?</summary><p>아니요. 바로GO는 건전한 방문 마사지 안내만 제공합니다.</p></details>
+          <details><summary>지역 페이지는 어떻게 확인하나요?</summary><p>상단의 지역별 찾기에서 시·도 단위로 확인한 뒤, 실제 서비스 가능한 세부 지역으로 이동할 수 있습니다.</p></details>
+        </div>
       </div>
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="container footer-grid">
-      <div>
-        <p class="footer-brand">바로GO</p>
-        <p class="footer-sub">전국 방문 마사지 예약 안내 플랫폼</p>
-      </div>
-      <div class="footer-biz">
-        <p>상호 : 바로GO (YH LAB)</p>
-        <p>대표 : 김유환</p>
-        <p>사업자등록번호 : 815-26-00585</p>
-        <p>주소 : 경기도 파주시 청석로 268</p>
-        <p>예약 전화 : <a href="tel:0508-202-4719">0508-202-4719</a></p>
-      </div>
-      <div class="footer-links">
-        <a href="/about/privacy/">개인정보처리방침</a>
-        <a href="/about/terms/">이용약관</a>
-        <a href="/about/safety-policy/">안전 이용 정책</a>
-      </div>
-    </div>
-    <p class="footer-copy">© 바로GO. 건전하고 안전한 방문 마사지 이용 안내.</p>
-  </footer>
+  <footer class="site-footer" data-footer></footer>
 
-  <script src="assets/js/nav.js" defer></script>
+  <script src="/assets/js/nav.js" defer></script>
 </body>
 </html>
