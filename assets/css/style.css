@@ -1316,3 +1316,144 @@ body[data-page^="area-"]:not([data-page="area-hub"]) .page .block > p:first-of-t
   .region-hero-tel-num { font-size: 16px; }
 }
 
+/* ============================================================
+   Region districts (행정구역 전체) card
+   Reference list of every 시·군·구 in the region — sits between
+   the quick-facts strip and the article sections.
+   ============================================================ */
+.region-districts {
+  position: relative;
+  margin: 18px 0 20px;
+  padding: 28px 30px 24px;
+  background:
+    radial-gradient(420px 200px at 0% 0%, rgba(14, 122, 95, 0.06), transparent 65%),
+    linear-gradient(180deg, #ffffff 0%, #f8faf9 100%);
+  border: 1px solid #dceae3;
+  border-radius: 18px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.025);
+}
+
+.region-districts-head { margin-bottom: 18px; }
+
+.region-districts-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--color-accent);
+  background: #ffffff;
+  border: 1px solid #cfe7dd;
+  padding: 5px 10px 5px 9px;
+  border-radius: 999px;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+.region-districts-eyebrow-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-accent);
+}
+
+.region-districts-headline {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0 0 8px;
+  color: var(--color-ink);
+  line-height: 1.3;
+}
+
+.region-districts-note {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.65;
+  color: #5b6573;
+  max-width: 680px;
+}
+
+.region-districts-body {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.region-districts-group { display: block; }
+.region-districts-group-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #6b7682;
+  margin: 0 0 10px;
+  text-transform: uppercase;
+}
+.region-districts-group-label::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, #e2ece8 0%, transparent 100%);
+}
+.region-districts-group-label span {
+  background: #f3f7f6;
+  border: 1px solid #e2ece8;
+  padding: 3px 10px;
+  border-radius: 999px;
+  color: #36404e;
+  letter-spacing: 0.04em;
+}
+
+.region-districts-grid {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(108px, 1fr));
+  gap: 8px;
+}
+.region-districts-grid li {
+  position: relative;
+  background: #ffffff;
+  border: 1px solid #e2ece8;
+  border-radius: 10px;
+  padding: 11px 12px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--color-ink);
+  text-align: center;
+  letter-spacing: -0.005em;
+  transition: border-color 140ms ease, color 140ms ease,
+              background 140ms ease, transform 140ms ease;
+}
+.region-districts-grid li:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  background: #f3faf7;
+  transform: translateY(-1px);
+}
+
+@media (max-width: 720px) {
+  .region-districts {
+    padding: 22px 20px 20px;
+    border-radius: 14px;
+  }
+  .region-districts-headline { font-size: 19px; }
+  .region-districts-note { font-size: 13.5px; }
+  .region-districts-grid {
+    grid-template-columns: repeat(auto-fill, minmax(86px, 1fr));
+    gap: 6px;
+  }
+  .region-districts-grid li {
+    font-size: 13px;
+    padding: 10px 8px;
+  }
+}
+@media (max-width: 420px) {
+  .region-districts-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
