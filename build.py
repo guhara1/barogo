@@ -2699,7 +2699,142 @@ def _district_hero_cta_html(name):
     )
 
 
-def _district_neighbor_related_html(parent_slug, parent_name, neighbors):
+# 시·군·구 캐릭터별 롱테일 토픽 링크 풀 — 관련 자치구 + 코스·가이드·매거진 매칭
+_DISTRICT_LONG_TAIL_TOPICS = {
+    "business": [
+        ("{name} 비즈니스 권역 야간·심야 출장마사지 가능 시간 안내",       "/magazine/night-worker-recovery/"),
+        ("{name} 회식·접대 직후 컨디션 회복 케어 흐름",                  "/magazine/first-time-essentials/"),
+        ("{name} 호텔 객실 출장마사지 진행 절차와 사전 확인 사항",        "/service/hotel-massage/"),
+        ("{name} 오피스텔·1인 거주 공간에서 받는 출장마사지 안내",        "/service/business-trip-massage/"),
+        ("{name} 출장마사지 60·90·120분 코스 시작 금액 비교",             "/reservation/price/"),
+        ("{name} 출장마사지 예약 절차 5단계와 결제 방법",                 "/reservation/how-to-book/"),
+        ("{name} 코스 선택 — 스웨디시·아로마·스포츠 어떤 것이 맞을까",   "/magazine/course-selection-by-purpose/"),
+    ],
+    "hotel": [
+        ("{name} 호텔 객실 출장마사지 진행 흐름 — 등급별 사전 확인",      "/service/hotel-massage/"),
+        ("{name} 호텔 투숙객을 위한 출장마사지 이용 안내",               "/magazine/hotel-guest-guide/"),
+        ("{name} 외국인 투숙객 대상 영어 안내 가능 여부",                "/magazine/regional-usage-tips/"),
+        ("{name} 새벽·심야 시간대 호텔 객실 케어 가능 패턴",             "/magazine/night-worker-recovery/"),
+        ("{name} 출장마사지 코스별 시작 금액·시간 안내",                 "/reservation/price/"),
+        ("{name} 출장마사지 예약·결제·취소 환불 안내",                   "/reservation/cancel-refund/"),
+        ("{name} 비행 직후 시차 회복을 위한 출장마사지 안내",            "/magazine/jetlag-flight-recovery/"),
+    ],
+    "tech": [
+        ("{name} IT 종사자 야근 후 어깨·목 회복 케어 흐름",              "/magazine/desk-worker-neck-shoulder/"),
+        ("{name} 평일 야간·새벽 시간대 출장마사지 가능 패턴",            "/magazine/night-worker-recovery/"),
+        ("{name} 신축 오피스텔 진입 방식과 사전 확인 사항",              "/service/business-trip-massage/"),
+        ("{name} 운동 후 회복 케어 — 헬스·러닝 누적 부위 안내",          "/magazine/post-workout-recovery/"),
+        ("{name} 스포츠 마사지 코스 안내·기준 가격",                     "/service/sports-massage/"),
+        ("{name} 출장마사지 60·90·120분 코스 비교",                       "/reservation/price/"),
+        ("{name} 출장마사지 예약 절차와 결제 방법",                       "/reservation/how-to-book/"),
+    ],
+    "newtown": [
+        ("{name} 신도시 대단지 가정 방문 출장마사지 안내",               "/service/business-trip-massage/"),
+        ("{name} 가족·커플 동시 진행 코스 안내",                         "/service/couple-massage/"),
+        ("{name} 평일 저녁·주말 가정 방문 가능 시간 안내",                "/magazine/regional-usage-tips/"),
+        ("{name} 이사 직후 회복 케어 — 단지 진입과 동선 안내",            "/magazine/post-moving-recovery/"),
+        ("{name} 출장마사지 코스별 시작 금액 비교",                       "/reservation/price/"),
+        ("{name} 첫 이용자를 위한 코스 선택 가이드",                       "/magazine/first-time-essentials/"),
+        ("{name} 출장마사지 예약 절차 안내",                              "/reservation/how-to-book/"),
+    ],
+    "university": [
+        ("{name} 대학가 1인 가구 오피스텔 출장마사지 안내",              "/service/business-trip-massage/"),
+        ("{name} 평일 저녁·주말 시간대 가능 패턴",                       "/magazine/regional-usage-tips/"),
+        ("{name} 시험 기간 누적 피로 회복 케어 흐름",                    "/magazine/desk-worker-neck-shoulder/"),
+        ("{name} 첫 이용자를 위한 출장마사지 안내",                       "/magazine/first-time-essentials/"),
+        ("{name} 출장마사지 60분 단시간 코스 안내",                        "/reservation/price/"),
+        ("{name} 스웨디시 코스 — 처음 받기에 자주 권해지는 흐름",         "/service/swedish/"),
+        ("{name} 출장마사지 예약·결제 안내",                              "/reservation/how-to-book/"),
+    ],
+    "airport": [
+        ("{name} 공항권 호텔 객실 출장마사지 안내",                       "/service/hotel-massage/"),
+        ("{name} 출국·입국 일정에 맞춘 새벽·심야 진행 가능 패턴",         "/magazine/night-worker-recovery/"),
+        ("{name} 장거리 비행·시차 회복 케어 흐름",                        "/magazine/jetlag-flight-recovery/"),
+        ("{name} 비행 후 다리 부종·하체 회복 케어 안내",                  "/magazine/post-workout-recovery/"),
+        ("{name} 출장마사지 코스별 시작 금액 안내",                       "/reservation/price/"),
+        ("{name} 호텔 투숙객을 위한 출장마사지 흐름 안내",                 "/magazine/hotel-guest-guide/"),
+        ("{name} 출장마사지 예약·결제·환불 안내",                          "/reservation/cancel-refund/"),
+    ],
+    "riverside": [
+        ("{name} 한강·수변 권역 호텔 객실 출장마사지 안내",               "/service/hotel-massage/"),
+        ("{name} 고급 빌라·아파트 가정 방문 케어 안내",                    "/service/business-trip-massage/"),
+        ("{name} 주말 오후·저녁 시간대 가능 패턴",                         "/magazine/regional-usage-tips/"),
+        ("{name} 커플·2인 동시 진행 코스 안내",                            "/service/couple-massage/"),
+        ("{name} 출장마사지 60·90·120분 시작 금액 비교",                  "/reservation/price/"),
+        ("{name} 첫 이용자를 위한 코스 선택 가이드",                       "/magazine/course-selection-by-purpose/"),
+        ("{name} 호텔 객실 진행 절차와 사전 확인 사항",                    "/magazine/hotel-guest-guide/"),
+    ],
+    "mixed": [
+        ("{name} 호텔·오피스텔·가정 진행 장소별 출장마사지 안내",         "/service/business-trip-massage/"),
+        ("{name} 평일 저녁·야간 가능 시간대 패턴",                         "/magazine/regional-usage-tips/"),
+        ("{name} 회식·약속 후 컨디션 회복 케어 흐름",                      "/magazine/first-time-essentials/"),
+        ("{name} 출장마사지 코스별 시작 금액 안내",                        "/reservation/price/"),
+        ("{name} 코스 선택 — 스웨디시·아로마·홈타이 비교",                "/magazine/course-selection-by-purpose/"),
+        ("{name} 출장마사지 예약·결제 절차 안내",                          "/reservation/how-to-book/"),
+        ("{name} 커플 마사지 — 2인 동시 진행 안내",                        "/service/couple-massage/"),
+    ],
+    "residential": [
+        ("{name} 가정 방문 출장마사지 안내",                              "/service/business-trip-massage/"),
+        ("{name} 평일 저녁·주말 가능 시간대 패턴",                         "/magazine/regional-usage-tips/"),
+        ("{name} 첫 이용자를 위한 코스 선택 가이드",                       "/magazine/first-time-essentials/"),
+        ("{name} 사무직 어깨·목 회복 케어 흐름",                            "/magazine/desk-worker-neck-shoulder/"),
+        ("{name} 출장마사지 60·90·120분 시작 금액 비교",                   "/reservation/price/"),
+        ("{name} 스웨디시 코스 — 부드러운 압의 전신 이완",                "/service/swedish/"),
+        ("{name} 출장마사지 예약·결제 안내",                                "/reservation/how-to-book/"),
+        ("{name} 명절 후 가사 노동 회복 케어 안내",                         "/magazine/post-holiday-recovery/"),
+    ],
+}
+
+
+def _district_long_tail_related(parent_slug, parent_name, district_name, neighbors):
+    """인접 자치구 + 롱테일 토픽 링크 풀.
+    캐릭터 기반으로 코스·매거진·예약 안내 페이지로의 관련 링크를 풍부하게 노출."""
+    # 캐릭터 분류
+    char = _classify_district(district_name, parent_name)
+    topic_pool = _DISTRICT_LONG_TAIL_TOPICS.get(char, _DISTRICT_LONG_TAIL_TOPICS["residential"])
+    # 해시 기반으로 6개 토픽 선정 (deterministic, 같은 페이지는 항상 같은 순서)
+    seed = (district_name + parent_name).encode("utf-8")
+    base = int(hashlib.md5(seed).hexdigest(), 16) % len(topic_pool)
+    selected = [topic_pool[(base + i) % len(topic_pool)] for i in range(min(6, len(topic_pool)))]
+    topic_items = "".join(
+        f'<li class="rel-topic-item"><a class="rel-topic-link" href="{target}">'
+        f'<span class="rel-topic-text">{tpl.format(name=district_name)}</span>'
+        f'<span class="rel-topic-arrow" aria-hidden="true">→</span>'
+        '</a></li>'
+        for tpl, target in selected
+    )
+
+    # 인접 자치구 칩 (간결하게 유지)
+    neighbor_chips = "".join(
+        f'<li><a class="rel-chip" href="/area/{parent_slug}/{n_slug}/">{n_name}</a></li>'
+        for n_name, n_slug in neighbors
+    )
+
+    return (
+        '<aside class="related related-rich">'
+        # 1) 롱테일 토픽 (메인)
+        f'<div class="rel-section rel-section-topics">'
+        f'<h2 class="rel-section-title"><span class="rel-eyebrow">RELATED TOPICS</span>{district_name} 관련 함께 보면 좋은 안내</h2>'
+        f'<ul class="rel-topic-list">{topic_items}</ul>'
+        '</div>'
+        # 2) 인접 자치구 (보조)
+        f'<div class="rel-section rel-section-neighbors">'
+        f'<h3 class="rel-section-subtitle">{parent_name} 인접 권역</h3>'
+        f'<ul class="rel-chip-list">'
+        f'<li><a class="rel-chip rel-chip-primary" href="/area/{parent_slug}/">{parent_name} 전체</a></li>'
+        f'{neighbor_chips}'
+        '</ul>'
+        '</div>'
+        '</aside>'
+    )
+
+
+def _district_neighbor_related_html(parent_slug, parent_name, neighbors, district_name=None):
+    """공개 인터페이스 — district_name이 주어지면 롱테일 풍부 버전 사용,
+    아니면 기존 단순 인접 자치구 버전 유지 (호환성)."""
+    if district_name:
+        return _district_long_tail_related(parent_slug, parent_name, district_name, neighbors)
+    # fallback
     items = "".join(
         f'<li><a href="/area/{parent_slug}/{n_slug}/">{n_name}</a></li>'
         for n_name, n_slug in neighbors
@@ -2746,7 +2881,7 @@ def _build_seoul_districts():
                 (d["name"], f"/area/seoul/{d['slug']}/"),
             ],
             body="".join(body_parts),
-            related=_district_neighbor_related_html("seoul", "서울", neighbors),
+            related=_district_neighbor_related_html("seoul", "서울", neighbors, d["name"]),
         )
 
 
@@ -5005,7 +5140,7 @@ def _build_gyeonggi_districts():
                 (d["name"], f"/area/gyeonggi/{d['slug']}/"),
             ],
             body="".join(body_parts),
-            related=_district_neighbor_related_html("gyeonggi", "경기", neighbors),
+            related=_district_neighbor_related_html("gyeonggi", "경기", neighbors, d["name"]),
         )
 
 
@@ -5381,7 +5516,7 @@ def _build_metro_district(parent_slug, parent_name, d, all_in_parent):
             (d["name"], f"/area/{parent_slug}/{d['slug']}/"),
         ],
         body="".join(body_parts),
-        related=_district_neighbor_related_html(parent_slug, parent_name, neighbors),
+        related=_district_neighbor_related_html(parent_slug, parent_name, neighbors, d["name"]),
     )
 
 
