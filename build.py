@@ -31,6 +31,16 @@ def _asset_version():
 ASSET_VERSION = _asset_version()
 BUILD_DATE = date.today().isoformat()
 
+# 카노니컬 도메인 — 사이트맵·RSS·IndexNow 절대 URL용
+SITE_ORIGIN = "https://barogo.vip"
+
+# 검색엔진 사이트 소유확인 (메인 페이지에만 출력)
+NAVER_SITE_VERIFICATION = "b57d88f4a33afb6841a11b9daeab602026073743"
+GOOGLE_SITE_VERIFICATION = "Z42u1VVXAU0EyvtQBxa370QqMgpBPnrHW4kV7Gcevug"
+
+# IndexNow 키 — 32~128자 hex (Bing·Yandex·Naver 빠른 인덱싱 프로토콜)
+INDEXNOW_KEY = "b57d88f4a33afb6841a11b9daeab602026073743"
+
 SITE = {
     "name": "바로GO",
     "tagline": "전국 출장마사지 안내",
@@ -305,7 +315,12 @@ PAGE_TPL = """<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{title}</title>
 <meta name="description" content="{description}">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+<meta name="googlebot" content="index,follow,max-image-preview:large,max-snippet:-1">
+<meta name="yeti" content="index,follow">
 <link rel="canonical" href="{url}">
+<link rel="alternate" type="application/rss+xml" title="바로GO 매거진 RSS" href="/feed.xml">
+{verification}
 <meta property="og:type" content="{og_type}">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{description}">
@@ -462,6 +477,11 @@ def render(page):
         footer=FOOTER,
         jsonld=json.dumps(jsonld, ensure_ascii=False),
         asset_v=ASSET_VERSION,
+        verification=(
+            f'<meta name="naver-site-verification" content="{NAVER_SITE_VERIFICATION}">\n'
+            f'<meta name="google-site-verification" content="{GOOGLE_SITE_VERIFICATION}">'
+            if url == "/" else ""
+        ),
     )
 
     out_path = ROOT / page["path"]
@@ -13141,23 +13161,184 @@ add(
 # ============================================================
 # build
 # ============================================================
+def _sitemap_priority_and_freq(url):
+    """URL 패턴별 priority·changefreq 결정.
+    구글은 priority/changefreq 를 무시하지만 네이버·빙·얀덱스는 참고함."""
+    if url == "/":
+        return ("1.0", "daily")
+    if url.startswith("/magazine/"):
+        if url == "/magazine/" or "/category/" in url or "/page/" in url:
+            return ("0.9", "daily")
+        return ("0.8", "weekly")
+    if url.startswith("/service/"):
+        return ("0.9", "weekly")
+    if url.startswith("/reservation/") or url.startswith("/about/team/"):
+        return ("0.8", "monthly")
+    if url.startswith("/area/"):
+        # 깊이가 깊을수록 우선순위 낮춤 (행정동 < 자치구 < 광역시·도)
+        depth = url.strip("/").count("/")
+        if depth <= 1:        return ("0.85", "weekly")    # /area/seoul/
+        if depth == 2:        return ("0.75", "weekly")    # /area/seoul/gangnam/
+        return ("0.6", "monthly")                          # 행정동
+    if url.startswith("/about/") or url.startswith("/support/"):
+        return ("0.5", "monthly")
+    if url.startswith("/review/"):
+        return ("0.7", "weekly")
+    return ("0.6", "monthly")
+
+
 def write_sitemap(paths):
-    items = ["<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
-             "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">"]
-    # add home
+    """절대 URL + priority + changefreq + lastmod 포함 사이트맵.
+    매거진 글은 published 일자를 lastmod 으로 사용."""
+    # 매거진 글 url → published 매핑 (있으면 사용)
+    mag_dates = {}
+    for art in MAGAZINE_ARTICLES:
+        mag_dates[f"/magazine/{art['slug']}/"] = art.get("published", BUILD_DATE)
+
+    items = ['<?xml version="1.0" encoding="UTF-8"?>',
+             '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
     urls = ["/"] + ["/" + p.replace("/index.html", "/") for p in paths]
     seen = set()
     for u in urls:
-        if u in seen: continue
+        if u in seen:
+            continue
         seen.add(u)
-        items.append(f"  <url><loc>{u}</loc><lastmod>{BUILD_DATE}</lastmod></url>")
+        prio, freq = _sitemap_priority_and_freq(u)
+        lastmod = mag_dates.get(u, BUILD_DATE)
+        loc = SITE_ORIGIN + u
+        items.append(
+            f"  <url><loc>{loc}</loc>"
+            f"<lastmod>{lastmod}</lastmod>"
+            f"<changefreq>{freq}</changefreq>"
+            f"<priority>{prio}</priority></url>"
+        )
     items.append("</urlset>")
     (ROOT / "sitemap.xml").write_text("\n".join(items) + "\n", encoding="utf-8")
 
 
+def write_rss():
+    """매거진 RSS 2.0 피드 — 최신글 우선, 최대 50개.
+    네이버·구글 뉴스봇·블로그 어그리게이터가 빠르게 발견하도록."""
+    sorted_articles = sorted(
+        MAGAZINE_ARTICLES,
+        key=lambda a: a.get("published", "0000-00-00"),
+        reverse=True,
+    )[:50]
+
+    def esc(s):
+        return (str(s)
+                .replace("&", "&amp;")
+                .replace("<", "&lt;")
+                .replace(">", "&gt;")
+                .replace('"', "&quot;"))
+
+    def rfc822(dstr):
+        # YYYY-MM-DD → RFC822 (Asia/Seoul)
+        try:
+            from datetime import datetime
+            d = datetime.strptime(dstr, "%Y-%m-%d")
+            return d.strftime("%a, %d %b %Y 09:00:00 +0900")
+        except Exception:
+            return ""
+
+    lines = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">',
+        '<channel>',
+        '<title>바로GO 매거진 — 출장마사지 운영팀 안내</title>',
+        f'<link>{SITE_ORIGIN}/magazine/</link>',
+        f'<atom:link href="{SITE_ORIGIN}/feed.xml" rel="self" type="application/rss+xml" />',
+        '<description>출장마사지 운영팀이 직접 안내하는 코스·예약·라이프스타일·웰니스 매거진</description>',
+        '<language>ko-KR</language>',
+        f'<lastBuildDate>{rfc822(BUILD_DATE)}</lastBuildDate>',
+        f'<generator>barogo static</generator>',
+        f'<copyright>© YH LAB · 바로GO</copyright>',
+        f'<image><url>{SITE_ORIGIN}/assets/img/barogo_logo_true_transparent.png</url>'
+        f'<title>바로GO 매거진</title><link>{SITE_ORIGIN}/magazine/</link></image>',
+    ]
+    for art in sorted_articles:
+        link = f"{SITE_ORIGIN}/magazine/{art['slug']}/"
+        pub = rfc822(art.get("published", BUILD_DATE))
+        lines += [
+            '<item>',
+            f'<title>{esc(art["title"])}</title>',
+            f'<link>{link}</link>',
+            f'<guid isPermaLink="true">{link}</guid>',
+            f'<pubDate>{pub}</pubDate>',
+            f'<category>{esc(art.get("category",""))}</category>',
+            f'<description>{esc(art.get("desc",""))}</description>',
+            f'<dc:creator>바로GO 운영팀</dc:creator>',
+            '</item>',
+        ]
+    lines += ['</channel>', '</rss>']
+    (ROOT / "feed.xml").write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
 def write_robots():
-    txt = "User-agent: *\nAllow: /\nSitemap: /sitemap.xml\n"
-    (ROOT / "robots.txt").write_text(txt, encoding="utf-8")
+    """모든 봇 허용 + 구글·네이버·빙·다음 명시적 허용 + 절대 sitemap URL.
+    네이버 Yeti, 다음 Daumoa, 빙 Bingbot, 구글 Googlebot 모두 별도 명시."""
+    lines = [
+        "# 바로GO robots.txt — 모든 검색엔진 전체 허용",
+        "User-agent: *",
+        "Allow: /",
+        "",
+        "# 구글",
+        "User-agent: Googlebot",
+        "Allow: /",
+        "",
+        "User-agent: Googlebot-Image",
+        "Allow: /",
+        "",
+        "User-agent: Googlebot-News",
+        "Allow: /",
+        "",
+        "# 네이버",
+        "User-agent: Yeti",
+        "Allow: /",
+        "",
+        "User-agent: NaverBot",
+        "Allow: /",
+        "",
+        "# 다음·카카오",
+        "User-agent: Daumoa",
+        "Allow: /",
+        "",
+        "# 빙·마이크로소프트",
+        "User-agent: Bingbot",
+        "Allow: /",
+        "",
+        "User-agent: msnbot",
+        "Allow: /",
+        "",
+        "# 얀덱스",
+        "User-agent: Yandex",
+        "Allow: /",
+        "",
+        "# 던킹·DuckDuckGo",
+        "User-agent: DuckDuckBot",
+        "Allow: /",
+        "",
+        "# 사이트맵 (절대 URL)",
+        f"Sitemap: {SITE_ORIGIN}/sitemap.xml",
+        f"Sitemap: {SITE_ORIGIN}/feed.xml",
+        "",
+        "# Host 힌트 (네이버·얀덱스 권장)",
+        f"Host: {SITE_ORIGIN.replace('https://','').replace('http://','')}",
+        "",
+    ]
+    (ROOT / "robots.txt").write_text("\n".join(lines), encoding="utf-8")
+
+
+def write_indexnow():
+    """IndexNow 키 파일 — Bing·Yandex·Naver 가 즉시 URL 변경 통지를 받기 위한 키.
+    파일명과 내용이 동일해야 함. /<key>.txt 와 /.well-known/IndexNow 둘 다 노출."""
+    key = INDEXNOW_KEY
+    # 루트 키 파일
+    (ROOT / f"{key}.txt").write_text(key, encoding="utf-8")
+    # .well-known 도 함께
+    wk = ROOT / ".well-known"
+    wk.mkdir(exist_ok=True)
+    (wk / "IndexNow").write_text(key, encoding="utf-8")
 
 
 def main():
@@ -13167,7 +13348,9 @@ def main():
     for p in PAGES:
         paths.append(render(p))
     write_sitemap(paths)
+    write_rss()
     write_robots()
+    write_indexnow()
     print(f"Built {len(paths)} pages.")
 
 
