@@ -9232,6 +9232,18 @@ def _mag_author_for(slug):
     return _MAG_AUTHORS[idx]
 
 
+def _ko_particle_eul_reul(word):
+    """한글 마지막 글자의 받침 유무로 을/를 선택."""
+    if not word:
+        return "를"
+    last = word.strip()[-1]
+    code = ord(last)
+    # 한글 음절 범위
+    if 0xAC00 <= code <= 0xD7A3:
+        return "을" if (code - 0xAC00) % 28 else "를"
+    return "를"
+
+
 # 매거진 글별 읽는 시간(분) — 본문 분량 기준
 _MAG_READ_MIN = {
     "first-time-essentials": 6,
@@ -10074,13 +10086,14 @@ for art in MAGAZINE_ARTICLES:
 
     # 글 끝 디렉터 바이오 카드 (큰 사이즈)
     _author = _mag_author_for(art["slug"])
+    _particle = _ko_particle_eul_reul(_author["specialty"])
     author_bio_html = (
         '<aside class="mag-author-bio">'
         f'<span class="mag-author-bio-avatar" aria-hidden="true">{_author["name"][0]}</span>'
         '<div class="mag-author-bio-text">'
         f'<span class="mag-author-bio-eyebrow">WRITTEN BY</span>'
         f'<strong class="mag-author-bio-name">{_author["name"]} <span>{_author["role"]}</span></strong>'
-        f'<p class="mag-author-bio-desc">바로GO 에디토리얼팀에서 <em>{_author["specialty"]}</em>를 담당합니다. 운영 데이터·상담 기록을 바탕으로 신뢰할 수 있는 가이드를 집필합니다.</p>'
+        f'<p class="mag-author-bio-desc">바로GO 에디토리얼팀에서 <em>{_author["specialty"]}</em>{_particle} 담당합니다. 운영 데이터·상담 기록을 바탕으로 신뢰할 수 있는 가이드를 집필합니다.</p>'
         '<a class="mag-author-bio-link" href="/magazine/">바로GO 매거진 더 보기 →</a>'
         '</div></aside>'
     )

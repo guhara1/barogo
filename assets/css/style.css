@@ -4691,59 +4691,28 @@ a.mag-cat-pill:hover {
 .mag-article-body {
   max-width: none;
   margin: 0;
-  counter-reset: mag-h2;
 }
-/* 첫 섹션 첫 단락 드롭캡 */
-.mag-article-body > section.block:first-of-type > h2:first-of-type + p::first-letter {
-  float: left;
-  font-size: 4.2em;
-  line-height: 0.88;
-  padding: 6px 12px 0 0;
-  font-weight: 900;
-  color: var(--color-accent);
-  letter-spacing: -0.04em;
-  font-family: Georgia, "Iowan Old Style", "Apple Garamond", serif;
-}
-/* h2에 자동 번호 매김 */
+/* h2 — 좌측 액센트 바, 한글 가독성 우선 */
 .mag-article-body h2 {
   position: relative;
-  display: flex;
-  align-items: baseline;
-  gap: 14px;
-  font-size: clamp(22px, 2.4vw, 28px);
+  font-size: clamp(20px, 2.2vw, 24px);
   font-weight: 800;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.02em;
+  line-height: 1.45;
   color: var(--color-ink);
-  margin: 48px 0 18px;
-  padding: 0;
-  border-bottom: none;
+  margin: 52px 0 18px;
+  padding: 2px 0 2px 16px;
+  border: none;
   scroll-margin-top: 90px;
   word-break: keep-all;
 }
 .mag-article-body h2::before {
-  counter-increment: mag-h2;
-  content: counter(mag-h2, decimal-leading-zero);
-  flex-shrink: 0;
-  font-size: 14px;
-  font-weight: 800;
-  color: var(--color-accent);
-  letter-spacing: 0.1em;
-  background: linear-gradient(180deg, rgba(11,90,71,0.10), rgba(11,90,71,0.04));
-  border: 1px solid var(--color-accent-soft, #cfe3dc);
-  padding: 6px 11px;
-  border-radius: 8px;
-  line-height: 1;
-  align-self: center;
-  font-feature-settings: "tnum";
-}
-/* h2 아래 강조선 */
-.mag-article-body h2::after {
   content: "";
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(90deg, var(--color-accent-soft, #cfe3dc), transparent);
-  align-self: center;
-  margin-left: 4px;
+  position: absolute;
+  left: 0; top: 6px; bottom: 6px;
+  width: 4px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, var(--color-accent), var(--color-gold));
 }
 
 .mag-article-body p {
@@ -4757,8 +4726,9 @@ a.mag-cat-pill:hover {
 .mag-article-body p strong {
   color: var(--color-ink);
   font-weight: 700;
-  background: linear-gradient(180deg, transparent 60%, rgba(246, 203, 64, 0.32) 60%);
-  padding: 0 2px;
+}
+.mag-article-body p strong::after {
+  content: "";
 }
 
 .mag-article-body ul,
@@ -5015,7 +4985,4 @@ a.mag-cat-pill:hover {
     font-size: 26px;
   }
   .mag-author-bio-name { font-size: 17px; }
-  .mag-article-body h2 { gap: 10px; }
-  .mag-article-body h2::before { font-size: 12px; padding: 5px 8px; }
-  .mag-article-body h2::after { display: none; }
 }
