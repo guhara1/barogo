@@ -1611,15 +1611,23 @@ body[data-page^="area-"]:not([data-page="area-hub"]) .page .block > p:first-of-t
 }
 
 /* 가격표 */
+.price-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 14px 0 16px;
+  border-radius: 12px;
+}
 .price-table {
   width: 100%;
   border-collapse: collapse;
-  margin: 14px 0 16px;
+  margin: 0 0 0;
   font-size: 14.5px;
   background: #fff;
   border: 1px solid #e8eae8;
   border-radius: 12px;
   overflow: hidden;
+  min-width: 480px;
 }
 .price-table thead {
   background: #f3f6f4;

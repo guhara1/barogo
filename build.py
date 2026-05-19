@@ -561,6 +561,56 @@ _LONG_TAIL = {
     "실제 이용 후기·예약 사례·지역별 모음 페이지",
     "처음 이용·예약 사례·권역별 이용 패턴 후기 모음",
   ],
+  "/about/": [
+    "운영사 사업자 정보와 6개 공식 문서를 모은 회사 소개 페이지",
+    "바로GO 브랜드·운영 원칙·정책 문서를 한곳에 정리한 페이지",
+  ],
+  "/about/brand/": [
+    "바로GO를 시작한 이유와 운영 미션·4가지 약속 정리",
+    "다른 출장마사지 안내 채널과 다른 점, 운영 사업자 책임 구조 안내",
+    "운영사 YH LAB의 브랜드 철학과 향후 로드맵",
+  ],
+  "/about/operation-policy/": [
+    "예약·가격·후기·콘텐츠·AI 사용 등 8개 영역의 운영 원칙 공개",
+    "투명한 운영을 위한 자체 규정 — 표현·광고·데이터 정책 정리",
+    "AI 보조 도구 사용 시 검수 절차와 책임 저자 표기 정책 안내",
+  ],
+  "/about/therapist-policy/": [
+    "협력 관리사 자격·검증 절차·교육·평가·위반 시 조치 기준",
+    "관리사 모집부터 운영 의무까지 6개 영역의 운영 기준 정리",
+    "분기 평가와 등급 운영을 통한 관리사 품질 관리 안내",
+  ],
+  "/about/safety-policy/": [
+    "안전 이용 정책 — 금지 사항·24시간 신고 채널·위반 시 조치 안내",
+    "이용자·관리사 양측의 안전을 보호하기 위한 7개 영역 정책",
+    "청소년 보호·법적 협조 절차를 포함한 안전 이용 정책 전문",
+  ],
+  "/about/privacy/": [
+    "개인정보 수집·이용·보관·이용자 권리 안내 (11개 조항)",
+    "결제 정보·예약 정보 처리 방식과 안전성 확보 조치 정리",
+    "이용자 열람·정정·삭제 요청 처리 절차와 보호책임자 연락처",
+  ],
+  "/about/terms/": [
+    "예약·결제·취소·책임 한계 등 14개 조항 정식 이용약관",
+    "회사·이용자 의무와 분쟁 해결 절차를 정리한 약관 전문",
+    "서비스 제공 범위·면책 조항·분쟁 관할이 명시된 이용약관",
+  ],
+  "/support/contact/": [
+    "운영팀에 직접 접수하는 문의 양식과 응답 예상 시간",
+    "예약·정책·정정 요청을 운영팀으로 전달하는 채널 안내",
+  ],
+  "/support/report/": [
+    "안전 정책 위반·불편 사항을 24시간 접수하는 신고 채널",
+    "운영팀이 직접 확인하는 신고 접수 페이지와 처리 절차",
+  ],
+  "/support/notice/": [
+    "정책 변경·서비스 안내·운영 공지를 시행일과 함께 모은 페이지",
+    "주요 변경 사항을 시행일순으로 정리한 공지사항 모음",
+  ],
+  "/support/faq/": [
+    "예약·가격·이용 전 자주 묻는 질문을 카테고리별로 정리",
+    "처음 이용하시는 분이 가장 궁금해하는 질문에 대한 답변 모음",
+  ],
 }
 
 
@@ -1540,6 +1590,35 @@ def _region_cta_html(name):
     )
 
 
+def _region_price_section(name):
+    """시·도 1차 페이지용 코스·가격표 (모든 지역 공통)."""
+    return (
+        '<section class="block">'
+        f'<h2>{name} 권역 코스·가격 안내</h2>'
+        '<p>아래는 코스별·시간별 <strong>시작 금액(부터)</strong>입니다. 진행 장소(호텔·가정·오피스텔), '
+        '시간대(주간·심야), 이동 거리에 따라 일부 조정될 수 있으며, 최종 금액은 사전 전화 상담에서 안내됩니다. '
+        '사전 동의 없는 추가 비용은 부과되지 않습니다.</p>'
+        '<div class="price-table-wrap">'
+        '<table class="price-table">'
+        '<thead><tr><th scope="col">코스</th><th scope="col">60분</th><th scope="col">90분</th><th scope="col">120분</th></tr></thead>'
+        '<tbody>'
+        '<tr><th scope="row">홈타이(타이)</th><td>90,000원부터</td><td>110,000원부터</td><td>130,000원부터</td></tr>'
+        '<tr><th scope="row">아로마</th><td>100,000원부터</td><td>120,000원부터</td><td>140,000원부터</td></tr>'
+        '<tr><th scope="row">스웨디시(힐링)</th><td>110,000원부터</td><td>130,000원부터</td><td>150,000원부터</td></tr>'
+        '<tr><th scope="row">스페셜·스포츠</th><td>120,000원부터</td><td>140,000원부터</td><td>160,000원부터</td></tr>'
+        '<tr><th scope="row">커플(2인 합산)</th><td>180,000원부터</td><td>220,000원부터</td><td>260,000원부터</td></tr>'
+        '</tbody>'
+        '</table>'
+        '</div>'
+        '<ul class="price-note">'
+        '<li>※ 본 가격표는 전국 공통 시작 금액이며, 자세한 코스 안내는 <a href="/reservation/price/">가격 안내</a> 페이지에서 확인하실 수 있습니다.</li>'
+        '<li>※ 결제 수단·세금계산서는 <a href="/reservation/payment/">결제 안내</a> 페이지를 참고해 주세요.</li>'
+        '<li>※ 본 가격 안내 최종 업데이트 : 2026년 5월 기준</li>'
+        '</ul>'
+        '</section>'
+    )
+
+
 # Per-region hero CTA copy — short, region-specific headline shown inside the
 # hero card right above the phone button. Each line names actual districts so
 # the CTA reads as a designer-written tagline, not generic boilerplate.
@@ -2004,6 +2083,7 @@ for r in REGIONS:
             _region_facts_html(r["slug"])
             + _region_districts_html(r["slug"])
             + r["body"]
+            + _region_price_section(r["name"])
             + _region_cta_html(r["name"])
         ),
         related=r["related"],
