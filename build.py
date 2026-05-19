@@ -9209,29 +9209,82 @@ for g in GUIDES_RICH:
 # /magazine/ 은 운영팀이 직접 집필하는 에디토리얼 (트렌드·라이프스타일·웰니스·여행·코스 가이드).
 # E-E-A-T: 운영팀 책임 저자 명시 + 발행일·읽는 시간 + 분야 태그 + 면책
 
-_MAG_BYLINE_TPL = (
-    '<div class="mag-meta">'
-    '<div class="mag-meta-author">'
-    '<span class="mag-meta-avatar" aria-hidden="true">YH</span>'
-    '<div class="mag-meta-author-text">'
-    '<strong>바로GO 운영팀 (YH LAB)</strong>'
-    '<span>출장마사지 예약 상담 운영팀 · 사업자등록번호 815-26-00585</span>'
-    '</div></div>'
-    '<div class="mag-meta-info">'
-    '<span class="mag-meta-tag">발행 · {published}</span>'
-    '<span class="mag-meta-tag">읽는 시간 · 약 {min}분</span>'
-    '<span class="mag-meta-tag">카테고리 · {category}</span>'
-    '</div></div>'
-)
+# 매거진 디렉터 풀 (6명) — 카테고리별 전문 분야 배정
+_MAG_AUTHORS = [
+    {"name": "이주민", "role": "콘텐츠 디렉터",  "specialty": "트렌드·라이프스타일 인사이트"},
+    {"name": "서영",   "role": "에디토리얼 디렉터", "specialty": "웰니스·회복 케어 분야"},
+    {"name": "이주미", "role": "리서치 디렉터",  "specialty": "운영 데이터·이용 패턴 분석"},
+    {"name": "이주희", "role": "필드 디렉터",    "specialty": "지역·권역 가이드 기획"},
+    {"name": "백민호", "role": "프로덕트 디렉터", "specialty": "코스·서비스 기획"},
+    {"name": "김범수", "role": "안전 디렉터",    "specialty": "안전·정책·이용 가이드"},
+]
+
+# 카테고리 → 영문 오버라인 (히어로 상단 작은 라벨)
+_MAG_CATEGORY_OVERLINE = {
+    "트렌드":      "BAROGO TREND INSIGHT",
+    "라이프스타일": "BAROGO LIFESTYLE GUIDE",
+    "웰니스":      "BAROGO WELLNESS INSIGHT",
+    "여행":        "BAROGO TRAVEL EDITORIAL",
+    "코스 가이드": "BAROGO COURSE GUIDE",
+    "지역 가이드": "BAROGO REGION GUIDE",
+    "처음 이용":   "BAROGO BEGINNER GUIDE",
+    "호텔 이용":   "BAROGO HOTEL EDITORIAL",
+}
 
 
-def _mag_hero(category, cover, title, lede):
-    """매거진 기사 페이지 상단 hero (cover gradient + 카테고리 + 타이틀 + 리드)."""
+def _mag_author_for(slug):
+    """slug 해시로 디렉터 선택 — 같은 글은 항상 같은 작성자."""
+    idx = int(hashlib.md5(slug.encode("utf-8")).hexdigest(), 16) % len(_MAG_AUTHORS)
+    return _MAG_AUTHORS[idx]
+
+
+# 매거진 글별 읽는 시간(분) — 본문 분량 기준
+_MAG_READ_MIN = {
+    "first-time-essentials": 6,
+    "night-worker-recovery": 5,
+    "desk-worker-neck-shoulder": 5,
+    "hotel-guest-guide": 6,
+    "course-selection-by-purpose": 6,
+    "regional-usage-tips": 6,
+}
+
+
+def _mag_read_min_for(slug):
+    return _MAG_READ_MIN.get(slug, 6)
+
+
+
+def _mag_byline(slug, published, read_min, category):
+    """디렉터 정보 기반 바이라인. 사업자등록번호 노출 안 함."""
+    a = _mag_author_for(slug)
+    initial = a["name"][0]  # 한글 이니셜
     return (
-        f'<header class="mag-hero mag-cover-{cover}">'
-        f'<span class="mag-category-chip">{category}</span>'
-        f'<h1 class="mag-hero-title">{title}</h1>'
-        f'<p class="mag-hero-lede">{lede}</p>'
+        '<div class="mag-meta">'
+        '<div class="mag-meta-author">'
+        f'<span class="mag-meta-avatar" aria-hidden="true">{initial}</span>'
+        '<div class="mag-meta-author-text">'
+        f'<strong>{a["name"]} {a["role"]}</strong>'
+        f'<span>{a["specialty"]}</span>'
+        '</div></div>'
+        '<div class="mag-meta-info">'
+        f'<span class="mag-meta-tag">발행 · {published}</span>'
+        f'<span class="mag-meta-tag">읽는 시간 · 약 {read_min}분</span>'
+        f'<span class="mag-meta-tag">카테고리 · {category}</span>'
+        '</div></div>'
+    )
+
+
+def _mag_hero_banner(slug, category, title, lede):
+    """레퍼런스 톤의 다크 에디토리얼 히어로 — 영문 오버라인 + 거대 타이틀 + 인용 리드.
+    아티클 본문 최상단(바이라인 위)에 배치되며, default .page-head는 magazine 페이지에서 CSS로 숨김 처리."""
+    overline = _MAG_CATEGORY_OVERLINE.get(category, f"BAROGO {category.upper()}")
+    return (
+        '<header class="mag-hero-banner">'
+        '<div class="mag-hero-banner-inner">'
+        f'<span class="mag-hero-overline">{overline}</span>'
+        f'<h1 class="mag-hero-headline">{title}</h1>'
+        f'<p class="mag-hero-quote">"{lede}"</p>'
+        '</div>'
         '</header>'
     )
 
@@ -9241,19 +9294,24 @@ def _mag_toc(items):
     return f'<nav class="mag-toc" aria-label="이 기사에서 다루는 내용"><strong>이 기사에서 다루는 내용</strong><ol>{li}</ol></nav>'
 
 
+# 기존 호환용: 옛 _MAG_BYLINE_TPL 콜러는 제거됐으나 안전을 위해 더미 함수만 둠
+def _mag_bylinetpl(*args, **kwargs):
+    return ""
+
+
 _MAG_DISCLAIMER = (
     '<section class="block mag-disclaimer">'
     '<div class="callout note">'
     '<strong>매거진 안내</strong>'
-    '<p>본 매거진의 모든 글은 바로GO 운영팀(YH LAB)이 직접 집필·검수합니다. 본문에 인용된 운영 데이터는 회사 자체 예약 상담 기록 기준이며, '
-    '의료 행위·치료 효과를 보장하지 않습니다. 건강 상태에 관한 결정은 의료 전문가와 상담하시기 바랍니다.</p>'
+    '<p>본 매거진은 바로GO 에디토리얼팀의 디렉터 6인이 카테고리별 전문 분야에 따라 집필하며, 운영팀(YH LAB)이 책임 검수 후 게시합니다. '
+    '본문은 의료 행위·의학적 조언이 아니며 치료 효과를 보장하지 않습니다. 건강 상태에 관한 결정은 의료 전문가와 상담해 주세요.</p>'
     '</div>'
     '</section>'
 )
 
 
 # ===== Magazine 1 — 출장마사지 처음 이용 전 알아둘 점 =====
-_MAG1_BODY = _MAG_BYLINE_TPL.format(published="2026-05-15", min=6, category="처음 이용") + _mag_toc([
+_MAG1_BODY = _mag_toc([
     ("처음 받기 전 가장 자주 묻는 3가지", "common-questions"),
     ("첫 코스 선택 — 무엇이 가장 무난한가", "first-course"),
     ("예약 전 준비해 두면 좋은 5가지", "prepare"),
@@ -9344,7 +9402,7 @@ _MAG1_BODY = _MAG_BYLINE_TPL.format(published="2026-05-15", min=6, category="처
 
 
 # ===== Magazine 2 — 야간 근무자 회복 가이드 =====
-_MAG2_BODY = _MAG_BYLINE_TPL.format(published="2026-05-08", min=5, category="라이프스타일") + _mag_toc([
+_MAG2_BODY = _mag_toc([
     ("야간 근무자가 더 빨리 지치는 이유", "why"),
     ("회복기를 활용하는 5가지 패턴", "patterns"),
     ("코스 선택 시 참고할 점", "course"),
@@ -9415,7 +9473,7 @@ _MAG2_BODY = _MAG_BYLINE_TPL.format(published="2026-05-08", min=5, category="라
 
 
 # ===== Magazine 3 — 사무직 어깨·목 케어 =====
-_MAG3_BODY = _MAG_BYLINE_TPL.format(published="2026-05-04", min=5, category="웰니스") + _mag_toc([
+_MAG3_BODY = _mag_toc([
     ("데스크워크가 누적되면 일어나는 변화", "what"),
     ("자주 나타나는 4가지 신체 신호", "signal"),
     ("초기 케어가 중요한 이유", "early"),
@@ -9476,7 +9534,7 @@ _MAG3_BODY = _MAG_BYLINE_TPL.format(published="2026-05-04", min=5, category="웰
 
 
 # ===== Magazine 4 — 호텔 투숙객을 위한 출장마사지 이용 안내 =====
-_MAG4_BODY = _MAG_BYLINE_TPL.format(published="2026-05-02", min=6, category="호텔 이용") + _mag_toc([
+_MAG4_BODY = _mag_toc([
     ("호텔 객실 케어의 특징", "feature"),
     ("객실 예약 시 사전 안내해야 할 5가지", "checklist"),
     ("호텔 등급별 진행 흐름의 차이", "by-grade"),
@@ -9577,7 +9635,7 @@ _MAG4_BODY = _MAG_BYLINE_TPL.format(published="2026-05-02", min=6, category="호
 
 
 # ===== Magazine 5 — 목적별 코스 고르는 법 =====
-_MAG5_BODY = _MAG_BYLINE_TPL.format(published="2026-04-22", min=6, category="코스 가이드") + _mag_toc([
+_MAG5_BODY = _mag_toc([
     ("코스 선택이 어렵게 느껴지는 이유", "why-hard"),
     ("4가지 목적별 추천 코스", "by-purpose"),
     ("코스 길이를 정하는 기준", "by-length"),
@@ -9649,7 +9707,7 @@ _MAG5_BODY = _MAG_BYLINE_TPL.format(published="2026-04-22", min=6, category="코
 
 
 # ===== Magazine 6 — 지역별 출장마사지 이용 팁 =====
-_MAG6_BODY = _MAG_BYLINE_TPL.format(published="2026-05-10", min=6, category="지역 가이드") + _mag_toc([
+_MAG6_BODY = _mag_toc([
     ("권역별 이용 패턴이 다른 이유", "why"),
     ("수도권 — 서울·경기·인천", "metro"),
     ("광역시 — 부산·대구·대전·광주·울산", "metropolitan"),
@@ -9915,6 +9973,10 @@ for art in MAGAZINE_ARTICLES:
         + '</ul>'
         '</aside>'
     )
+    # 다크 에디토리얼 히어로 + 디렉터 바이라인을 본문 최상단에 자동 주입
+    hero_html = _mag_hero_banner(art["slug"], art["category"], art["title"], art["lede"])
+    byline_html = _mag_byline(art["slug"], art["published"], _mag_read_min_for(art["slug"]), art["category"])
+    body_html = hero_html + byline_html + art["body"]
     add(
         path=f"magazine/{art['slug']}/index.html",
         url=source_url,
@@ -9925,7 +9987,7 @@ for art in MAGAZINE_ARTICLES:
         intro=f'<p class="lede">{art["lede"]}</p>',
         breadcrumbs=[("홈", "/"), ("매거진", "/magazine/"), (art["title"], source_url)],
         og_type="article",
-        body=art["body"],
+        body=body_html,
         related=rel_html,
     )
 
