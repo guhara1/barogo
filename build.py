@@ -2635,6 +2635,212 @@ _build_seoul_districts()
 _build_seoul_dong_pages()
 
 
+# ============================================================
+# 3차 행정동/읍·면 페이지 생성기 (Seoul 외 모든 지역 공통)
+# ============================================================
+import hashlib as _hashlib
+
+_HANGUL_INI = ['g','kk','n','d','tt','r','m','b','pp','s','ss','','j','jj','ch','k','t','p','h']
+_HANGUL_MED = ['a','ae','ya','yae','eo','e','yeo','ye','o','wa','wae','oe','yo','u','wo','we','wi','yu','eu','ui','i']
+_HANGUL_FIN = ['','k','k','k','n','n','n','t','l','k','m','l','l','l','l','l','m','p','p','t','t','ng','j','t','k','t','p','h']
+
+def _romanize_hangul(text):
+    out = []
+    for ch in text:
+        code = ord(ch)
+        if 0xAC00 <= code <= 0xD7A3:
+            o = code - 0xAC00
+            init = o // (21 * 28)
+            med = (o % (21 * 28)) // 28
+            fin = o % 28
+            out.append(_HANGUL_INI[init] + _HANGUL_MED[med] + _HANGUL_FIN[fin])
+        elif ch.isascii() and (ch.isalnum() or ch == '-'):
+            out.append(ch.lower())
+    return ''.join(out)
+
+
+_DONG_SUFFIX_RE = re.compile(r'(동|읍|면|리|가)$')
+
+def _romanize_dong(name):
+    base = _DONG_SUFFIX_RE.sub('', name)
+    slug = _romanize_hangul(base)
+    return slug or _romanize_hangul(name) or 'x'
+
+
+def _dong_short_parent(text, max_len=70):
+    if not text:
+        return ''
+    s = text.split('.')[0].strip()
+    if len(s) > max_len:
+        s = s[:max_len].rsplit(' ', 1)[0]
+    return s + '.'
+
+
+def _dong_pick(name, salt, n):
+    h = _hashlib.md5((name + '|' + salt).encode('utf-8')).hexdigest()
+    return int(h[:8], 16) % n
+
+
+# 직관적이고 자연스러운 8개의 인트로 변형 — 동 이름/부모 명/부모 짧은 설명을 결합해 유니크함을 확보
+_DONG_INTRO_TPL = [
+    "{dong}은 {parent}에 속한 행정 단위로, {p_short} 권역의 일부입니다. 정확한 가능 시간·진행 장소는 전화 상담에서 안내됩니다.",
+    "{dong}은 {parent} 내 행정구역으로, {p_short} 인접 동과 비슷한 권역 흐름이 적용됩니다.",
+    "{dong}은 행정상 {parent}에 포함되며, {p_short} 권역의 시간대·이동 가능 패턴을 공유합니다.",
+    "{dong} 권역은 {parent}의 일부로 운영됩니다. {p_short} 일대 진행 장소·코스 안내가 동일하게 적용됩니다.",
+    "{dong}은 {parent} 행정 구역 안의 동입니다. {p_short} 권역 안내가 그대로 이어집니다.",
+    "{dong}은 {parent}에 속하며, {p_short} 일대 인접 동과 함께 권역 동선이 안내됩니다.",
+    "{dong}은 {parent} 내 위치한 행정 단위로, {p_short} 권역 가능 시간 범위 안에서 확인됩니다.",
+    "{dong}은 {parent} 권역의 한 동입니다. {p_short} 인근 동과 시간대 가능 여부가 공유됩니다.",
+]
+
+# 8개의 디스크립션 변형 (160자 이내) — 동 이름·부모 이름·지역명을 모두 포함하여 검색 결과 차별화
+_DONG_DESC_TPL = [
+    "{dong}({parent}) 방문 마사지 가능 시간·진행 장소·코스 안내. {region} 권역 동 단위 정보를 전화 상담에서 바로 확인하실 수 있습니다.",
+    "{region} {parent} {dong} 방문 마사지 안내 — 호텔·가정·오피스텔 진행 장소와 권역 가능 시간을 정리한 정보 페이지입니다.",
+    "{dong} 방문 마사지 권역 안내. {region} {parent} 인접 동과 동일한 권역 흐름이 적용되며, 정확한 시간은 전화 상담에서 안내됩니다.",
+    "{parent} {dong} 권역 방문 마사지 페이지 — 가능 시간·이동·코스를 {region} 권역 기준으로 정리해 두었습니다.",
+    "{dong} 방문 마사지 가능 시간 안내({region} {parent}). 권역 일대 진행 장소·이동 가능 여부 전화 확인.",
+    "{region} {parent} 행정 단위 {dong} 방문 마사지 안내. 권역 가능 시간·코스 정보를 페이지·전화로 확인 가능합니다.",
+    "{dong} 권역 방문 마사지 가능 안내. {region} {parent} 일대 동선·진행 장소 정보를 전화 상담으로 바로 안내드립니다.",
+    "{dong} 방문 마사지 안내 — {region} {parent} 권역의 진행 장소·시간대·코스를 정리한 정보 페이지.",
+]
+
+# 추가 보조 단락 (권역 운영 패턴 묘사) — 부모 character + dong-localized 변형
+_DONG_PATTERN_TPL = [
+    "{dong}은 {parent} 권역 내에서 가정 방문과 호텔·오피스텔 객실 방문이 함께 안내되는 동입니다. 시간대별 가능 여부는 전화 상담에서 안내됩니다.",
+    "{dong} 권역은 인접 동과 동일한 진행 패턴을 따릅니다. 평일 저녁·심야 시간 가능 여부는 사전 전화 확인이 가장 정확합니다.",
+    "{dong}은 권역 단위로 가능 시간이 안내되며, 동 단위로 시간이 따로 분리되지 않습니다. 정확한 시간대는 전화 상담을 통해 확인하실 수 있습니다.",
+    "{dong}에서의 진행은 {parent} 일대 인접 동과 동선을 공유합니다. 코스·이동·진행 장소는 전화 상담에서 안내됩니다.",
+    "{dong}은 {parent} 권역 안에서 운영되는 단위로, 가능 시간·이동 가능 여부는 권역 기준으로 안내됩니다.",
+    "{dong} 권역의 시간대 가능 여부는 동 단위가 아닌 {parent} 권역 단위로 운영되며, 사전 전화 확인이 권장됩니다.",
+]
+
+
+def _build_subordinate_dong_pages(region_slug, region_name, district):
+    """sub_label이 없는(=행정동·읍·면 직접 자녀를 갖는) 부모 단위에 대해
+    행정동 단위 3차 페이지를 생성한다. 슬러그/내용은 해시 기반 변형으로 페이지마다 차별화."""
+    if district.get("sub_label"):
+        return
+    parent_name = district["name"]
+    parent_slug = district["slug"]
+    parent_char = district.get("character", "") or district.get("lede", "")
+    p_short = _dong_short_parent(parent_char or district.get("lede", "") or parent_name)
+    slug_map = district.get("_dong_slug_map") or {}
+    consolidated = list(slug_map.keys()) if slug_map else _consolidate_dongs(district.get("subs", []))
+    if not consolidated:
+        return
+    for dong_name in consolidated:
+        dong_slug = slug_map.get(dong_name) or _romanize_dong(dong_name)
+        ti = _dong_pick(dong_name, "intro", len(_DONG_INTRO_TPL))
+        di = _dong_pick(dong_name, "desc", len(_DONG_DESC_TPL))
+        pi = _dong_pick(dong_name, "pat", len(_DONG_PATTERN_TPL))
+        intro_text = _DONG_INTRO_TPL[ti].format(dong=dong_name, parent=parent_name, p_short=p_short)
+        desc_text = _DONG_DESC_TPL[di].format(dong=dong_name, parent=parent_name, region=region_name)
+        pattern_text = _DONG_PATTERN_TPL[pi].format(dong=dong_name, parent=parent_name)
+        if len(desc_text) > 160:
+            desc_text = desc_text[:160].rsplit(' ', 1)[0]
+        siblings = [n for n in consolidated if n != dong_name]
+        sib_chips = "".join(
+            f'<li class="has-link"><a href="/area/{region_slug}/{parent_slug}/{slug_map.get(s, _romanize_dong(s))}/">{s}'
+            '<span class="region-districts-grid-arrow" aria-hidden="true">→</span>'
+            '</a></li>'
+            for s in siblings
+        )
+        sib_card = (
+            '<section class="region-districts" aria-label="같은 권역 인접 단위">'
+            '<header class="region-districts-head">'
+            '<span class="region-districts-eyebrow">'
+            '<span class="region-districts-eyebrow-dot" aria-hidden="true"></span>'
+            f'{parent_name} 인접 단위'
+            '</span>'
+            f'<h2 class="region-districts-headline">{parent_name}의 다른 단위 {len(siblings)}곳</h2>'
+            f'<p class="region-districts-note">{dong_name}과 같은 {parent_name} 권역의 다른 행정 단위입니다. 단위 간 이동·가능 시간은 다르므로 사전 전화 확인이 권장됩니다.</p>'
+            '</header>'
+            '<div class="region-districts-body">'
+            '<div class="region-districts-group">'
+            f'<ul class="region-districts-grid">{sib_chips}</ul>'
+            '</div></div></section>'
+        ) if siblings else ''
+        char_section = (
+            '<section class="block">'
+            f'<h2>{dong_name} 권역 특성</h2>'
+            f'<p>{intro_text}</p>'
+            + (f'<p>참고 — {parent_name} 권역 전반: {parent_char}</p>' if parent_char else '')
+            + '</section>'
+        )
+        pattern_section = (
+            '<section class="block">'
+            f'<h2>{dong_name} 이용 패턴</h2>'
+            f'<p>{pattern_text}</p>'
+            '</section>'
+        )
+        backlink_section = (
+            '<section class="block">'
+            f'<h2>{dong_name} 방문 마사지 예약 안내</h2>'
+            f'<p>{dong_name} 일대 정확한 가능 시간·코스·이동 가능 여부는 전화 상담에서 안내됩니다. '
+            f'{region_name} {parent_name} 권역 전체 안내는 '
+            f'<a href="/area/{region_slug}/{parent_slug}/">{parent_name} 안내 페이지</a>를 참고하세요.</p>'
+            '</section>'
+        )
+        add(
+            path=f"area/{region_slug}/{parent_slug}/{dong_slug}/index.html",
+            url=f"/area/{region_slug}/{parent_slug}/{dong_slug}/",
+            slug=f"area-{region_slug}-{parent_slug}-{dong_slug}",
+            title=f"{dong_name} 방문 마사지 안내 · {parent_name} | {region_name} | 바로GO",
+            description=desc_text,
+            h1=f"{dong_name} 방문 마사지 이용 안내",
+            intro=f'<p class="lede">{intro_text}</p>' + _district_hero_cta_html(dong_name),
+            breadcrumbs=[
+                ("홈", "/"),
+                ("지역별 찾기", "/area/"),
+                (region_name, f"/area/{region_slug}/"),
+                (parent_name, f"/area/{region_slug}/{parent_slug}/"),
+                (dong_name, f"/area/{region_slug}/{parent_slug}/{dong_slug}/"),
+            ],
+            body=char_section + pattern_section + sib_card + backlink_section + _region_cta_html(dong_name),
+            related=(
+                '<aside class="related">'
+                '<h2>관련 안내</h2>'
+                '<ul>'
+                f'<li><a href="/area/{region_slug}/{parent_slug}/">{parent_name} 전체 안내</a></li>'
+                f'<li><a href="/area/{region_slug}/">{region_name} 전체 안내</a></li>'
+                '<li><a href="/reservation/how-to-book/">예약 방법</a></li>'
+                '<li><a href="/reservation/price/">가격 및 코스 안내</a></li>'
+                '</ul>'
+                '</aside>'
+            ),
+        )
+
+
+def _register_region_dongs(region_slug, districts):
+    """Pre-populate DONG_PAGE_INDEX so 2차 페이지 칩이 링크로 렌더됨.
+    또한 district["_dong_slug_map"]에 슬러그 매핑을 저장해 페이지 빌드시 재사용."""
+    for d in districts:
+        if d.get("sub_label"):
+            continue
+        parent_name = d["name"]
+        parent_slug = d["slug"]
+        consolidated = _consolidate_dongs(d.get("subs", []))
+        used = set()
+        slug_map = {}
+        for dn in consolidated:
+            base = _romanize_dong(dn) or "x"
+            ds = base
+            i = 2
+            while ds in used:
+                ds = f"{base}-{i}"
+                i += 1
+            used.add(ds)
+            slug_map[dn] = ds
+            DONG_PAGE_INDEX[(region_slug, parent_name, dn)] = f"/area/{region_slug}/{parent_slug}/{ds}/"
+        d["_dong_slug_map"] = slug_map
+
+
+def _build_region_dong_pages(region_slug, region_name, districts):
+    for d in districts:
+        _build_subordinate_dong_pages(region_slug, region_name, d)
+
+
 # ------------------------------------------------------------
 # 경기도 31 시·군 (수원·성남·고양·용인 등 시 with 구는 sub_label="구")
 # ------------------------------------------------------------
@@ -3025,29 +3231,35 @@ def _build_gyeonggi_districts():
             headline = f'{d["name"]} {sub_label}'
             note = f'{d["name"]}는 행정상 {sub_label}로 구성됩니다. 권역별 가능 시간은 전화 상담에서 확인됩니다.'
             eyebrow_label = "행정구 전체"
+            chip_items = []
+            for s in displayed:
+                href = DISTRICT_PAGE_INDEX.get(("gyeonggi", f"{d['name']}/{s}"))
+                if href:
+                    chip_items.append(
+                        f'<li class="has-link"><a href="{href}">{s}'
+                        '<span class="region-districts-grid-arrow" aria-hidden="true">→</span>'
+                        '</a></li>'
+                    )
+                else:
+                    chip_items.append(f'<li>{s}</li>')
+            chips_html = "".join(chip_items)
+            dong_card = (
+                f'<section class="region-districts" aria-label="{eyebrow_label}">'
+                '<header class="region-districts-head">'
+                '<span class="region-districts-eyebrow">'
+                '<span class="region-districts-eyebrow-dot" aria-hidden="true"></span>'
+                f'{eyebrow_label}'
+                '</span>'
+                f'<h2 class="region-districts-headline">{headline}</h2>'
+                f'<p class="region-districts-note">{note}</p>'
+                '</header>'
+                '<div class="region-districts-body">'
+                '<div class="region-districts-group">'
+                f'<ul class="region-districts-grid">{chips_html}</ul>'
+                '</div></div></section>'
+            )
         else:
-            displayed = _consolidate_dongs(d["subs"])
-            headline = f'{d["name"]} {len(displayed)}개 행정동'
-            note = f'{d["name"]} 전체 행정동에서 안내가 가능합니다. 시간대·이동 가능 여부는 동별로 다르며, 정확한 가능 시간은 전화 상담에서 확인됩니다.'
-            eyebrow_label = "행정동 전체"
-        chips_html = "".join(f"<li>{s}</li>" for s in displayed)
-        dong_card = (
-            f'<section class="region-districts" aria-label="{eyebrow_label}">'
-            '<header class="region-districts-head">'
-            '<span class="region-districts-eyebrow">'
-            '<span class="region-districts-eyebrow-dot" aria-hidden="true"></span>'
-            f'{eyebrow_label}'
-            '</span>'
-            f'<h2 class="region-districts-headline">{headline}</h2>'
-            f'<p class="region-districts-note">{note}</p>'
-            '</header>'
-            '<div class="region-districts-body">'
-            '<div class="region-districts-group">'
-            f'<ul class="region-districts-grid">{chips_html}</ul>'
-            '</div>'
-            '</div>'
-            '</section>'
-        )
+            dong_card = _district_dong_card_html(d["name"], d["subs"], region_slug="gyeonggi")
         body_parts = [
             _district_facts_html(d["facts"]),
             dong_card,
@@ -3087,11 +3299,323 @@ def _build_gyeonggi_districts():
         )
 
 
-# Pre-register Gyeonggi pages in the chip index so 1차 chips link.
+# Pre-register Gyeonggi 시·군 pages in the chip index so 1차 chips link.
 for _d in GYEONGGI_DISTRICTS:
     DISTRICT_PAGE_INDEX[("gyeonggi", _d["name"])] = f"/area/gyeonggi/{_d['slug']}/"
 
+# ------------------------------------------------------------
+# 경기도 6 시 with 구 — 행정구 17곳 + 각 구의 행정동 (3차)
+# ------------------------------------------------------------
+GYEONGGI_GU_DATA = {
+  "suwon": {"name":"수원시","gus":[
+    {"slug":"jangan","name":"장안구",
+     "lede":"수원시 장안구는 정자·영화·송죽·연무 일대 수원 북부 행정 권역으로, 화서역·성균관대 자연과학캠퍼스 인근 주거·학원가에서 평일 저녁 가정 방문 비중이 큽니다.",
+     "facts":[("행정동","7개"),("주요 시간대","평일 저녁"),("호텔/가정","가정 비중↑"),("특이점","화서역·성균관대")],
+     "subs":["파장동","율천동","정자동","영화동","송죽동","조원동","연무동"],
+     "character":"장안구는 화서역(분당선) 일대 신축 단지·서호 인근 주거 권역과 성균관대 자연과학캠퍼스·송죽동 학원가 권역에서 평일 저녁 가정 방문 비중이 큽니다. 정자·영화·조원 단지 가정 방문이 자주 들어옵니다.",
+     "pattern":"장안구는 평일 저녁 7~10시 가정 방문 비중이 큽니다.",
+     "faqs":[("화서역 인근 가능한가요?","화서역 일대 신축 단지 가정 방문이 자주 안내됩니다."),("성균관대 인근 원룸 가능한가요?","율천동 일대 원룸·오피스텔 가정 방문이 안내됩니다."),("정자동·조원동 가능한가요?","정자·조원 주거 단지 가정 방문이 안내됩니다.")]},
+    {"slug":"gwonseon","name":"권선구",
+     "lede":"수원시 권선구는 수원역·매산·호매실·곡선 일대 교통·상업·신축 단지 혼합 권역으로, 수원역 호텔과 권선·호매실 신축 단지 가정 방문이 함께 안내됩니다.",
+     "facts":[("행정동","10개"),("주요 시간대","평일 저녁·야간"),("호텔/가정","혼합"),("특이점","수원역")],
+     "subs":["세류동","권선동","매산동","평동","서둔동","구운동","곡선동","입북동","호매실동","금곡동"],
+     "character":"권선구는 수원역·노보텔 앰배서더 수원·호텔 캐슬 일대 호텔 객실 방문과 권선·호매실·곡선 신축 단지 가정 방문이 함께 안내됩니다. 매산·세류 일대 야간 권역 동선도 활발합니다.",
+     "pattern":"권선구는 평일 저녁부터 야간 시간대까지 비중이 큽니다.",
+     "faqs":[("수원역 노보텔 가능한가요?","수원역 일대 노보텔 앰배서더 수원·호텔 캐슬 객실 방문이 안내됩니다."),("호매실·곡선 가정 방문 가능한가요?","호매실·곡선 신축 단지 가정 방문이 자주 안내됩니다."),("야간 시간 가능한가요?","권선구는 수원역 일대 야간 시간대 비중이 큽니다.")]},
+    {"slug":"paldal","name":"팔달구",
+     "lede":"수원시 팔달구는 수원 화성·행궁동·인계동 일대 도심·관광 권역으로, 라마다 플라자 수원·이비스 앰배서더 수원 화성 등 호텔 객실 방문 비중이 큰 구입니다.",
+     "facts":[("행정동","8개"),("주요 시간대","평일 저녁·주말"),("호텔/가정","호텔 비중↑"),("특이점","수원 화성·행궁동")],
+     "subs":["행궁동","매교동","매산동","고등동","화서동","지동","우만동","인계동"],
+     "character":"팔달구는 행궁동·매교 일대 라마다 플라자 수원·이비스 앰배서더 수원 화성·호텔 그란츠 등 호텔 객실 방문과 인계동 나혜석거리 일대 오피스텔 방문이 자주 안내됩니다. 수원 화성 관광 일정과 결합된 야간 객실 비중이 큽니다.",
+     "pattern":"팔달구는 평일 저녁·주말 호텔 객실 방문 비중이 큽니다.",
+     "faqs":[("라마다 플라자 수원 가능한가요?","행궁동 일대 라마다 플라자 수원 객실 방문이 안내됩니다."),("이비스 앰배서더 수원 화성 가능한가요?","팔달구 화성 인근 호텔 객실 방문이 자주 안내됩니다."),("인계동 오피스텔 가능한가요?","인계동 나혜석거리 일대 오피스텔 방문이 안내됩니다.")]},
+    {"slug":"yeongtong","name":"영통구",
+     "lede":"수원시 영통구는 광교·매탄·이의 일대 삼성전자 본사 권역으로, 광교호수공원 호텔과 매탄·망포 주거 단지에서 평일 저녁 케어 비중이 가장 큰 구입니다.",
+     "facts":[("행정동","6개"),("주요 시간대","평일 저녁"),("호텔/가정","혼합"),("특이점","삼성전자 본사·광교")],
+     "subs":["매탄동","원천동","이의동","광교동","영통동","망포동"],
+     "character":"영통구는 삼성전자 본사(매탄)와 광교호수공원·갤러리아 광교·코트야드 메리어트 수원 일대 호텔 객실 방문, 망포·영통 신축 단지 가정 방문이 함께 안내됩니다. 삼성전자 출장 일정과 결합된 야간 비중이 가장 큰 권역입니다.",
+     "pattern":"영통구는 평일 저녁 비중이 크고, 광교 일대는 야간도 가능한 권역이 있습니다.",
+     "faqs":[("코트야드 메리어트 수원 가능한가요?","광교 일대 코트야드 메리어트 수원 객실 방문이 자주 안내됩니다."),("삼성전자 출장 일정 가능한가요?","매탄·이의 일대 삼성전자 출장 호텔 객실 방문이 자주 안내됩니다."),("망포·영통 가정 방문 가능한가요?","망포·영통 신축 단지 가정 방문이 안내됩니다.")]},
+  ]},
+  "seongnam": {"name":"성남시","gus":[
+    {"slug":"sujeong","name":"수정구",
+     "lede":"성남시 수정구는 모란·신흥·산성·위례 일대 원도심과 위례신도시가 혼합된 권역으로, 모란역 가정 방문과 위례 신축 단지 객실 방문이 함께 안내됩니다.",
+     "facts":[("행정동","11개"),("주요 시간대","평일 저녁"),("호텔/가정","가정 비중↑"),("특이점","모란역·위례신도시")],
+     "subs":["신흥동","태평동","수진동","단대동","산성동","양지동","복정동","위례동","신촌동","고등동","시흥동"],
+     "character":"수정구는 모란역 일대 신흥·수진동 원도심 주거 권역과 위례신도시(위례·창곡천 일대) 신축 아파트 단지 가정 방문이 함께 안내됩니다. 산성·태평·단대 일대 가정 방문 비중도 큽니다.",
+     "pattern":"수정구는 평일 저녁 가정 방문 비중이 큽니다.",
+     "faqs":[("모란역 인근 가능한가요?","신흥·수진동 일대 모란역 인근 주거 권역 가정 방문이 자주 안내됩니다."),("위례신도시 가능한가요?","위례동 일대 신축 단지 가정 방문이 안내됩니다."),("복정동 가능한가요?","복정 일대 주거 권역 가정 방문이 안내됩니다.")]},
+    {"slug":"jungwon","name":"중원구",
+     "lede":"성남시 중원구는 중앙·금광·상대원·도촌 일대 성남 행정 중심 권역으로, 성남시청·성남종합운동장 인근 주거·산업 단지에서 평일 저녁 가정 방문 비중이 큽니다.",
+     "facts":[("행정동","7개"),("주요 시간대","평일 저녁"),("호텔/가정","가정 비중↑"),("특이점","성남시청·상대원")],
+     "subs":["성남동","금광동","은행동","상대원동","중앙동","하대원동","도촌동"],
+     "character":"중원구는 성남시청·성남종합운동장(중앙동) 행정 권역과 상대원 산업 단지·주거 권역에서 평일 저녁 가정 방문 비중이 큽니다. 도촌동 신축 단지·은행동 주거 권역 안내도 자주 들어옵니다.",
+     "pattern":"중원구는 평일 저녁 비중이 큽니다.",
+     "faqs":[("성남시청 인근 가능한가요?","중앙동·하대원 일대 가정 방문이 안내됩니다."),("상대원 가능한가요?","상대원 일대 주거 권역 가정 방문이 안내됩니다."),("도촌동 신축 단지 가능한가요?","도촌동 신축 단지 가정 방문이 자주 안내됩니다.")]},
+    {"slug":"bundang","name":"분당구",
+     "lede":"성남시 분당구는 판교·정자·서현 일대 IT·금융 클러스터로, 판교 테크노밸리 출장 호텔 객실 방문과 분당 신도시 주거 가정 방문이 함께 안내됩니다.",
+     "facts":[("행정동","12개"),("주요 시간대","평일 저녁·야간"),("호텔/가정","혼합"),("특이점","판교 테크노밸리")],
+     "subs":["분당동","수내동","정자동","서현동","이매동","야탑동","판교동","백현동","삼평동","운중동","구미동","금곡동"],
+     "character":"분당구는 판교 테크노밸리(삼평·백현·운중)의 카카오·네이버·NHN 출장 일정과 결합된 코트야드 메리어트 판교 호텔 객실 방문, 정자·수내·서현 분당 신도시 주거 가정 방문이 함께 안내됩니다. 야탑·이매 오피스텔 방문도 자주 들어옵니다.",
+     "pattern":"분당구는 평일 저녁부터 야간까지 비중이 큽니다.",
+     "faqs":[("코트야드 메리어트 판교 가능한가요?","삼평·백현 일대 코트야드 메리어트 판교 객실 방문이 자주 안내됩니다."),("정자·서현 주거 단지 가능한가요?","정자·수내·서현 일대 가정 방문이 안내됩니다."),("판교 테크노밸리 출장 가능한가요?","판교 출장 일정 호텔 객실 방문이 자주 안내됩니다.")]},
+  ]},
+  "goyang": {"name":"고양시","gus":[
+    {"slug":"deogyang","name":"덕양구",
+     "lede":"고양시 덕양구는 삼송·원흥·향동·창릉 신도시와 행신·능곡 원도심이 혼합된 권역으로, 신축 단지 가정 방문 비중이 큽니다.",
+     "facts":[("행정동","19개"),("주요 시간대","평일 저녁"),("호텔/가정","가정 비중↑"),("특이점","삼송·원흥 신도시")],
+     "subs":["화정동","효자동","신도동","창릉동","능곡동","행주동","행신동","화전동","대덕동","관산동","흥도동","주교동","원신동","고양동","성사동","삼송동","용두동","도내동","향동동"],
+     "character":"덕양구는 삼송지구·원흥·향동·창릉 신도시 신축 아파트 단지 가정 방문과 화정·행신·능곡 원도심 주거 권역 가정 방문이 함께 안내됩니다. 농협대·서울외곽순환도로 인접 권역 객실 방문도 자주 들어옵니다.",
+     "pattern":"덕양구는 평일 저녁 비중이 큽니다.",
+     "faqs":[("삼송지구 가능한가요?","삼송동 일대 신축 단지 가정 방문이 자주 안내됩니다."),("향동·원흥 가능한가요?","향동·원신 일대 신도시 단지 가정 방문이 안내됩니다."),("화정·행신 원도심 가능한가요?","화정·행신·능곡 일대 주거 권역 가정 방문이 안내됩니다.")]},
+    {"slug":"ilsandong","name":"일산동구",
+     "lede":"고양시 일산동구는 정발산·마두·백석·장항 일대 일산 동부 도심으로, 라페스타·웨스턴돔 호텔과 정발산·식사 주거 단지 가정 방문이 함께 안내됩니다.",
+     "facts":[("행정동","8개"),("주요 시간대","평일 저녁"),("호텔/가정","혼합"),("특이점","라페스타·MBC 일산")],
+     "subs":["식사동","중산동","정발산동","풍산동","백석동","마두동","장항동","고봉동"],
+     "character":"일산동구는 라페스타·웨스턴돔(장항) 일대 라마다 일산·인터컨티넨탈 일산 등 호텔 객실 방문과 정발산·마두·식사 주거 단지 가정 방문이 함께 안내됩니다. MBC 일산 드림센터 인접 권역 특성상 야간도 활발합니다.",
+     "pattern":"일산동구는 평일 저녁·야간 비중이 큽니다.",
+     "faqs":[("라마다 일산 가능한가요?","장항동 일대 라마다 호텔 객실 방문이 자주 안내됩니다."),("정발산·식사 가능한가요?","정발산·식사 일대 주거 단지 가정 방문이 안내됩니다."),("MBC 일산 가능한가요?","장항동 일대 권역 객실 방문이 안내됩니다.")]},
+    {"slug":"ilsanseo","name":"일산서구",
+     "lede":"고양시 일산서구는 주엽·대화·탄현·덕이 일대 일산 서부 권역으로, 킨텍스·고양종합운동장 호텔과 주엽·대화 주거 단지 가정 방문이 함께 안내됩니다.",
+     "facts":[("행정동","9개"),("주요 시간대","평일 저녁·전시 시즌"),("호텔/가정","혼합"),("특이점","킨텍스")],
+     "subs":["일산동","일산본동","탄현동","주엽동","대화동","송산동","송포동","덕이동","가좌동"],
+     "character":"일산서구는 킨텍스(대화) 전시 일정과 결합된 소노캄 고양·MVL 호텔 킨텍스·베스트웨스턴 노블레스 등 호텔 객실 방문과 주엽·일산·탄현 주거 단지 가정 방문이 함께 안내됩니다. 전시 시즌 비중이 크게 증가합니다.",
+     "pattern":"일산서구는 평일 저녁·전시 시즌 비중이 큽니다.",
+     "faqs":[("소노캄 고양 가능한가요?","대화동 일대 소노캄 고양 객실 방문이 자주 안내됩니다."),("MVL 호텔 킨텍스 가능한가요?","대화동 킨텍스 인접 호텔 객실 방문이 안내됩니다."),("주엽·일산 가정 가능한가요?","주엽·일산·탄현 일대 주거 단지 가정 방문이 안내됩니다.")]},
+  ]},
+  "yongin": {"name":"용인시","gus":[
+    {"slug":"cheoin","name":"처인구",
+     "lede":"용인시 처인구는 김량장·역북·삼가 원도심과 포곡·모현·남사·이동 농촌형 읍·면이 혼합된 권역으로, 에버랜드 일정과 결합된 호텔 객실 방문이 자주 안내됩니다.",
+     "facts":[("행정 단위","11개"),("주요 시간대","평일 저녁·시즌"),("호텔/가정","혼합"),("특이점","에버랜드")],
+     "subs":["중앙동","역북동","유림동","동부동","포곡읍","모현읍","이동읍","남사읍","원삼면","백암면","양지면"],
+     "character":"처인구는 에버랜드·캐리비안베이(포곡읍) 일정과 결합된 홈브릿지 호텔 용인·소노캄 디스커버리 호텔 객실 방문과 역북·중앙 원도심 가정 방문이 함께 안내됩니다. 모현·이동·남사 읍·면 권역은 이동 거리 사전 확인이 필요한 경우가 있습니다.",
+     "pattern":"처인구는 평일 저녁과 시즌(에버랜드) 비중이 큽니다.",
+     "faqs":[("에버랜드 호텔 가능한가요?","포곡읍 일대 홈브릿지 호텔 용인·소노캄 디스커버리 객실 방문이 안내됩니다."),("역북·중앙 원도심 가능한가요?","역북·중앙 일대 주거 권역 가정 방문이 안내됩니다."),("모현·남사 읍 가능한가요?","모현·남사·이동 읍 권역도 안내되나 이동 거리 사전 확인이 필요합니다.")]},
+    {"slug":"giheung","name":"기흥구",
+     "lede":"용인시 기흥구는 신갈·영덕·동백·죽전 일대 도시형 권역으로, 삼성전자 기흥캠퍼스 출장과 동백·죽전 주거 단지 가정 방문이 함께 안내됩니다.",
+     "facts":[("행정동","14개"),("주요 시간대","평일 저녁"),("호텔/가정","혼합"),("특이점","삼성전자 기흥캠퍼스")],
+     "subs":["신갈동","영덕동","기흥동","서농동","구갈동","상갈동","보라동","상하동","보정동","마북동","동백동","청덕동","죽전동"],
+     "character":"기흥구는 삼성전자 기흥캠퍼스(영덕·기흥) 출장 일정과 결합된 라비돌 호텔·소노캄 호텔 객실 방문, 동백·죽전·보정 주거 단지 가정 방문이 함께 안내됩니다. 신갈·구갈 일대 GTX·분당선 인접 권역도 활발합니다.",
+     "pattern":"기흥구는 평일 저녁 비중이 큽니다.",
+     "faqs":[("삼성전자 기흥캠퍼스 출장 가능한가요?","영덕·기흥 일대 호텔 객실 방문이 자주 안내됩니다."),("죽전·동백 가정 가능한가요?","죽전·동백 신축 단지 가정 방문이 안내됩니다."),("보정·마북 가능한가요?","보정·마북 일대 주거 권역 가정 방문이 안내됩니다.")]},
+    {"slug":"suji","name":"수지구",
+     "lede":"용인시 수지구는 죽전·동천·풍덕천·상현·성복 일대 분당 인접 주거 권역으로, 신축 아파트 단지 가정 방문 비중이 가장 큰 구입니다.",
+     "facts":[("행정동","6개"),("주요 시간대","평일 저녁"),("호텔/가정","가정 비중↑"),("특이점","분당 인접·죽전")],
+     "subs":["풍덕천동","죽전동","동천동","상현동","성복동","신봉동"],
+     "character":"수지구는 죽전·풍덕천 일대 분당선 신축 단지와 상현·성복·동천 일대 광교산 인접 단지에서 평일 저녁 가정 방문 비중이 가장 큽니다. 신봉동 일대 가정 방문도 자주 들어옵니다.",
+     "pattern":"수지구는 평일 저녁 가정 방문 비중이 큽니다.",
+     "faqs":[("죽전·풍덕천 가능한가요?","죽전·풍덕천 일대 분당선 신축 단지 가정 방문이 자주 안내됩니다."),("성복·상현 가능한가요?","성복·상현·신봉 일대 광교산 인접 단지 가정 방문이 안내됩니다."),("동천 가능한가요?","동천동 일대 주거 단지 가정 방문이 안내됩니다.")]},
+  ]},
+  "ansan": {"name":"안산시","gus":[
+    {"slug":"sangnok","name":"상록구",
+     "lede":"안산시 상록구는 사동·본오·반월·부곡 일대 안산 동부 권역으로, 한양대 ERICA·반월공단 동측 주거 단지에서 평일 저녁 가정 방문 비중이 큽니다.",
+     "facts":[("행정동","10개"),("주요 시간대","평일 저녁"),("호텔/가정","가정 비중↑"),("특이점","한양대 ERICA")],
+     "subs":["사동","본오동","반월동","부곡동","월피동","성포동","일동","이동","안산동","사이동"],
+     "character":"상록구는 한양대 ERICA 캠퍼스(사동) 인근 주거·원룸 권역과 본오·반월 일대 주거 단지 가정 방문 비중이 큽니다. 부곡·월피 일대 원도심·신축 혼합 권역에서도 가정 방문 안내가 자주 들어옵니다.",
+     "pattern":"상록구는 평일 저녁 비중이 큽니다.",
+     "faqs":[("한양대 ERICA 인근 가능한가요?","사동 일대 원룸·오피스텔 가정 방문이 안내됩니다."),("본오·반월 가능한가요?","본오·반월 일대 주거 단지 가정 방문이 자주 안내됩니다."),("부곡·월피 가능한가요?","부곡·월피 일대 가정 방문이 안내됩니다.")]},
+    {"slug":"danwon","name":"단원구",
+     "lede":"안산시 단원구는 고잔·호수·원곡·초지·대부 일대 안산 서부 권역으로, 안산중앙역 호텔과 대부도 펜션 객실 방문이 함께 안내됩니다.",
+     "facts":[("행정동","9개"),("주요 시간대","평일 저녁·주말"),("호텔/가정","혼합"),("특이점","대부도·중앙역")],
+     "subs":["와동","고잔동","호수동","원곡동","신길동","초지동","선부동","대부동","풍도동"],
+     "character":"단원구는 안산중앙역 일대 호텔·오피스텔 객실 방문과 대부도·풍도 일대 펜션·풀빌라 객실 방문이 함께 안내됩니다. 고잔·호수·초지 신축 단지 가정 방문도 자주 들어옵니다.",
+     "pattern":"단원구는 평일 저녁·주말 비중이 큽니다.",
+     "faqs":[("안산중앙역 호텔 가능한가요?","고잔·호수 일대 호텔·오피스텔 객실 방문이 안내됩니다."),("대부도 펜션 가능한가요?","대부동 일대 펜션·풀빌라 객실 방문이 안내됩니다."),("초지·호수 가정 가능한가요?","초지·호수 일대 신축 단지 가정 방문이 안내됩니다.")]},
+  ]},
+  "anyang": {"name":"안양시","gus":[
+    {"slug":"manan","name":"만안구",
+     "lede":"안양시 만안구는 안양·석수·박달 일대 안양 원도심 권역으로, 1번 국도·안양천 인근 주거·상업 권역 가정 방문이 자주 안내됩니다.",
+     "facts":[("행정동","3개"),("주요 시간대","평일 저녁"),("호텔/가정","가정 비중↑"),("특이점","안양역·중앙시장")],
+     "subs":["안양동","석수동","박달동"],
+     "character":"만안구는 안양역·중앙시장(안양동) 일대 원도심 주거·상업 권역, 석수·박달 일대 신축 단지·관악산 인접 권역에서 평일 저녁 가정 방문 비중이 큽니다.",
+     "pattern":"만안구는 평일 저녁 비중이 큽니다.",
+     "faqs":[("안양역 인근 가능한가요?","안양동 일대 안양역 권역 가정 방문이 안내됩니다."),("석수·박달 가능한가요?","석수·박달 일대 신축 단지 가정 방문이 안내됩니다."),("관악산 인접 가능한가요?","석수동 관악산 인접 주거 권역 가정 방문이 안내됩니다.")]},
+    {"slug":"dongan","name":"동안구",
+     "lede":"안양시 동안구는 평촌·범계·인덕원 일대 동안 신도시 권역으로, 평촌학원가·범계로데오 인근 주거 단지 가정 방문 비중이 매우 큰 구입니다.",
+     "facts":[("행정동","11개"),("주요 시간대","평일 저녁"),("호텔/가정","가정 비중↑↑"),("특이점","평촌학원가·범계")],
+     "subs":["비산동","부흥동","달안동","관양동","부림동","평촌동","평안동","귀인동","호계동","범계동","신촌동"],
+     "character":"동안구는 평촌신도시 학원가(평촌·귀인·부림)와 범계로데오·인덕원 일대 주거 단지에서 평일 저녁 가정 방문 비중이 매우 큽니다. 관양·호계 일대 단지 가정 방문도 활발합니다.",
+     "pattern":"동안구는 평일 저녁 비중이 매우 큽니다.",
+     "faqs":[("평촌·귀인 가능한가요?","평촌·귀인·부림 일대 학원가 인근 주거 단지 가정 방문이 자주 안내됩니다."),("범계로데오 가능한가요?","범계동 일대 주거 단지 가정 방문이 안내됩니다."),("인덕원 가능한가요?","관양·호계 일대 인덕원 인근 단지 가정 방문이 안내됩니다.")]},
+  ]},
+}
+
+# 행정구 단위 인덱스 사전 등록 (시 페이지의 구 칩이 링크로 렌더되도록)
+for _si_slug, _si_data in GYEONGGI_GU_DATA.items():
+    _si_name = _si_data["name"]
+    for _gu in _si_data["gus"]:
+        DISTRICT_PAGE_INDEX[("gyeonggi", f"{_si_name}/{_gu['name']}")] = (
+            f"/area/gyeonggi/{_si_slug}/{_gu['slug']}/"
+        )
+        # 구 산하 동 인덱스도 미리 등록 → 구 페이지 chip이 링크로 렌더됨
+        _used = set()
+        _sm = {}
+        for _dn in _consolidate_dongs(_gu["subs"]):
+            _ds = _romanize_dong(_dn) or "x"
+            _base = _ds
+            _i = 2
+            while _ds in _used:
+                _ds = f"{_base}-{_i}"
+                _i += 1
+            _used.add(_ds)
+            _sm[_dn] = _ds
+            DONG_PAGE_INDEX[("gyeonggi", _gu["name"], _dn)] = (
+                f"/area/gyeonggi/{_si_slug}/{_gu['slug']}/{_ds}/"
+            )
+        _gu["_dong_slug_map"] = _sm
+
+
+def _build_gyeonggi_gu_pages():
+    """경기 6 시 with 구 → 행정구 페이지 + 각 구 산하 행정동 페이지 생성."""
+    for si_slug, si_data in GYEONGGI_GU_DATA.items():
+        si_name = si_data["name"]
+        gus = si_data["gus"]
+        gu_name_to_slug = {g["name"]: g["slug"] for g in gus}
+        for gu in gus:
+            gu_slug = gu["slug"]
+            gu_name = gu["name"]
+            # 인접 구(같은 시 안의 다른 구) → related
+            sibling_gus = [(g["name"], g["slug"]) for g in gus if g["slug"] != gu_slug]
+            sib_items = "".join(
+                f'<li><a href="/area/gyeonggi/{si_slug}/{sg_slug}/">{sg_name}</a></li>'
+                for sg_name, sg_slug in sibling_gus
+            )
+            related_html = (
+                '<aside class="related">'
+                f'<h2>{si_name} 인접 구</h2>'
+                '<ul>'
+                f'<li><a href="/area/gyeonggi/{si_slug}/">{si_name} 전체</a></li>'
+                f'{sib_items}'
+                '</ul>'
+                '</aside>'
+            )
+            # 동 chip card - 구 페이지에는 region_slug="gyeonggi"로 DONG_PAGE_INDEX 조회
+            dong_card = _district_dong_card_html(gu_name, gu["subs"], region_slug="gyeonggi")
+            body_parts = [
+                _district_facts_html(gu["facts"]),
+                dong_card,
+                '<section class="block">'
+                f'<h2>{gu_name} 권역 특성</h2>'
+                f'<p>{gu["character"]}</p>'
+                '</section>',
+                '<section class="block">'
+                f'<h2>{gu_name} 이용 시간 패턴</h2>'
+                f'<p>{gu["pattern"]}</p>'
+                '</section>',
+                _district_faqs_html(gu_name, gu["faqs"]),
+                _region_cta_html(gu_name),
+            ]
+            add(
+                path=f"area/gyeonggi/{si_slug}/{gu_slug}/index.html",
+                url=f"/area/gyeonggi/{si_slug}/{gu_slug}/",
+                slug=f"area-gyeonggi-{si_slug}-{gu_slug}",
+                title=_district_title(gu_name, f"{si_name} | 경기", gu["facts"]),
+                description=_district_description(gu["lede"], gu_name, f"{si_name} | 경기"),
+                h1=f"{gu_name} 방문 마사지 이용 안내",
+                intro=f'<p class="lede">{gu["lede"]}</p>' + _district_hero_cta_html(gu_name),
+                breadcrumbs=[
+                    ("홈", "/"),
+                    ("지역별 찾기", "/area/"),
+                    ("경기", "/area/gyeonggi/"),
+                    (si_name, f"/area/gyeonggi/{si_slug}/"),
+                    (gu_name, f"/area/gyeonggi/{si_slug}/{gu_slug}/"),
+                ],
+                body="".join(body_parts),
+                related=related_html,
+            )
+            # 동 페이지들 (3차)
+            consolidated = list(gu["_dong_slug_map"].keys())
+            p_short = _dong_short_parent(gu["character"] or gu["lede"] or gu_name)
+            for dong_name in consolidated:
+                dong_slug = gu["_dong_slug_map"][dong_name]
+                ti = _dong_pick(dong_name, "intro", len(_DONG_INTRO_TPL))
+                di = _dong_pick(dong_name, "desc", len(_DONG_DESC_TPL))
+                pi = _dong_pick(dong_name, "pat", len(_DONG_PATTERN_TPL))
+                intro_text = _DONG_INTRO_TPL[ti].format(dong=dong_name, parent=gu_name, p_short=p_short)
+                desc_text = _DONG_DESC_TPL[di].format(dong=dong_name, parent=gu_name, region=f"경기 {si_name}")
+                if len(desc_text) > 160:
+                    desc_text = desc_text[:160].rsplit(' ', 1)[0]
+                pattern_text = _DONG_PATTERN_TPL[pi].format(dong=dong_name, parent=gu_name)
+                siblings = [n for n in consolidated if n != dong_name]
+                sib_chips = "".join(
+                    f'<li class="has-link"><a href="/area/gyeonggi/{si_slug}/{gu_slug}/{gu["_dong_slug_map"][s]}/">{s}'
+                    '<span class="region-districts-grid-arrow" aria-hidden="true">→</span>'
+                    '</a></li>'
+                    for s in siblings
+                )
+                sib_card = (
+                    '<section class="region-districts" aria-label="같은 권역 인접 단위">'
+                    '<header class="region-districts-head">'
+                    '<span class="region-districts-eyebrow">'
+                    '<span class="region-districts-eyebrow-dot" aria-hidden="true"></span>'
+                    f'{gu_name} 인접 단위'
+                    '</span>'
+                    f'<h2 class="region-districts-headline">{gu_name}의 다른 단위 {len(siblings)}곳</h2>'
+                    f'<p class="region-districts-note">{dong_name}과 같은 {gu_name} 권역의 다른 행정 단위입니다.</p>'
+                    '</header>'
+                    '<div class="region-districts-body">'
+                    '<div class="region-districts-group">'
+                    f'<ul class="region-districts-grid">{sib_chips}</ul>'
+                    '</div></div></section>'
+                ) if siblings else ''
+                char_section = (
+                    '<section class="block">'
+                    f'<h2>{dong_name} 권역 특성</h2>'
+                    f'<p>{intro_text}</p>'
+                    f'<p>참고 — {gu_name} 권역 전반: {gu["character"]}</p>'
+                    '</section>'
+                )
+                pattern_section = (
+                    '<section class="block">'
+                    f'<h2>{dong_name} 이용 패턴</h2>'
+                    f'<p>{pattern_text}</p>'
+                    '</section>'
+                )
+                backlink_section = (
+                    '<section class="block">'
+                    f'<h2>{dong_name} 방문 마사지 예약 안내</h2>'
+                    f'<p>{dong_name} 일대 정확한 가능 시간·코스·이동 가능 여부는 전화 상담에서 안내됩니다. '
+                    f'경기 {si_name} {gu_name} 권역 전체 안내는 '
+                    f'<a href="/area/gyeonggi/{si_slug}/{gu_slug}/">{gu_name} 안내 페이지</a>를 참고하세요.</p>'
+                    '</section>'
+                )
+                add(
+                    path=f"area/gyeonggi/{si_slug}/{gu_slug}/{dong_slug}/index.html",
+                    url=f"/area/gyeonggi/{si_slug}/{gu_slug}/{dong_slug}/",
+                    slug=f"area-gyeonggi-{si_slug}-{gu_slug}-{dong_slug}",
+                    title=f"{dong_name} 방문 마사지 안내 · {gu_name} | {si_name} | 경기 | 바로GO",
+                    description=desc_text,
+                    h1=f"{dong_name} 방문 마사지 이용 안내",
+                    intro=f'<p class="lede">{intro_text}</p>' + _district_hero_cta_html(dong_name),
+                    breadcrumbs=[
+                        ("홈", "/"),
+                        ("지역별 찾기", "/area/"),
+                        ("경기", "/area/gyeonggi/"),
+                        (si_name, f"/area/gyeonggi/{si_slug}/"),
+                        (gu_name, f"/area/gyeonggi/{si_slug}/{gu_slug}/"),
+                        (dong_name, f"/area/gyeonggi/{si_slug}/{gu_slug}/{dong_slug}/"),
+                    ],
+                    body=char_section + pattern_section + sib_card + backlink_section + _region_cta_html(dong_name),
+                    related=(
+                        '<aside class="related">'
+                        '<h2>관련 안내</h2>'
+                        '<ul>'
+                        f'<li><a href="/area/gyeonggi/{si_slug}/{gu_slug}/">{gu_name} 전체 안내</a></li>'
+                        f'<li><a href="/area/gyeonggi/{si_slug}/">{si_name} 전체 안내</a></li>'
+                        '<li><a href="/area/gyeonggi/">경기 전체 안내</a></li>'
+                        '<li><a href="/reservation/how-to-book/">예약 방법</a></li>'
+                        '</ul>'
+                        '</aside>'
+                    ),
+                )
+
+
+# Pre-populate DONG_PAGE_INDEX for 시 without 구
+_register_region_dongs("gyeonggi", GYEONGGI_DISTRICTS)
+
 _build_gyeonggi_districts()
+_build_region_dong_pages("gyeonggi", "경기", GYEONGGI_DISTRICTS)
+_build_gyeonggi_gu_pages()
 
 
 # ============================================================
@@ -3106,27 +3630,24 @@ def _build_metro_district(parent_slug, parent_name, d, all_in_parent):
         headline = f'{d["name"]} {sub_label}'
         note = f'{d["name"]}는 행정상 {sub_label}로 구성됩니다. 권역별 가능 시간은 전화 상담에서 확인됩니다.'
         eyebrow_label = "행정구 전체"
+        chips_html = "".join(f"<li>{s}</li>" for s in displayed)
+        dong_card = (
+            f'<section class="region-districts" aria-label="{eyebrow_label}">'
+            '<header class="region-districts-head">'
+            '<span class="region-districts-eyebrow">'
+            '<span class="region-districts-eyebrow-dot" aria-hidden="true"></span>'
+            f'{eyebrow_label}'
+            '</span>'
+            f'<h2 class="region-districts-headline">{headline}</h2>'
+            f'<p class="region-districts-note">{note}</p>'
+            '</header>'
+            '<div class="region-districts-body">'
+            '<div class="region-districts-group">'
+            f'<ul class="region-districts-grid">{chips_html}</ul>'
+            '</div></div></section>'
+        )
     else:
-        displayed = _consolidate_dongs(d["subs"])
-        headline = f'{d["name"]} {len(displayed)}개 행정동'
-        note = f'{d["name"]} 전체 행정동에서 안내가 가능합니다. 시간대·이동 가능 여부는 동별로 다르며, 정확한 가능 시간은 전화 상담에서 확인됩니다.'
-        eyebrow_label = "행정동 전체"
-    chips_html = "".join(f"<li>{s}</li>" for s in displayed)
-    dong_card = (
-        f'<section class="region-districts" aria-label="{eyebrow_label}">'
-        '<header class="region-districts-head">'
-        '<span class="region-districts-eyebrow">'
-        '<span class="region-districts-eyebrow-dot" aria-hidden="true"></span>'
-        f'{eyebrow_label}'
-        '</span>'
-        f'<h2 class="region-districts-headline">{headline}</h2>'
-        f'<p class="region-districts-note">{note}</p>'
-        '</header>'
-        '<div class="region-districts-body">'
-        '<div class="region-districts-group">'
-        f'<ul class="region-districts-grid">{chips_html}</ul>'
-        '</div></div></section>'
-    )
+        dong_card = _district_dong_card_html(d["name"], d["subs"], region_slug=parent_slug)
     body_parts = [
         _district_facts_html(d["facts"]),
         dong_card,
@@ -3775,6 +4296,15 @@ for _d in GWANGJU_DISTRICTS:
 for _d in ULSAN_DISTRICTS:
     DISTRICT_PAGE_INDEX[("ulsan", _d["name"])] = f"/area/ulsan/{_d['slug']}/"
 
+# Pre-populate DONG_PAGE_INDEX for 광역시 + 세종
+_register_region_dongs("busan",   BUSAN_DISTRICTS)
+_register_region_dongs("incheon", INCHEON_DISTRICTS)
+_register_region_dongs("daegu",   DAEGU_DISTRICTS)
+_register_region_dongs("daejeon", DAEJEON_DISTRICTS)
+_register_region_dongs("gwangju", GWANGJU_DISTRICTS)
+_register_region_dongs("ulsan",   ULSAN_DISTRICTS)
+_register_region_dongs("sejong",  SEJONG_DISTRICTS)
+
 for _d in BUSAN_DISTRICTS:
     _build_metro_district("busan", "부산", _d, BUSAN_DISTRICTS)
 for _d in INCHEON_DISTRICTS:
@@ -3789,6 +4319,15 @@ for _d in ULSAN_DISTRICTS:
     _build_metro_district("ulsan", "울산", _d, ULSAN_DISTRICTS)
 for _d in SEJONG_DISTRICTS:
     _build_metro_district("sejong", "세종", _d, SEJONG_DISTRICTS)
+
+# 3차 행정동 페이지 일괄 생성
+_build_region_dong_pages("busan",   "부산", BUSAN_DISTRICTS)
+_build_region_dong_pages("incheon", "인천", INCHEON_DISTRICTS)
+_build_region_dong_pages("daegu",   "대구", DAEGU_DISTRICTS)
+_build_region_dong_pages("daejeon", "대전", DAEJEON_DISTRICTS)
+_build_region_dong_pages("gwangju", "광주", GWANGJU_DISTRICTS)
+_build_region_dong_pages("ulsan",   "울산", ULSAN_DISTRICTS)
+_build_region_dong_pages("sejong",  "세종", SEJONG_DISTRICTS)
 
 
 # ============================================================
@@ -3997,8 +4536,10 @@ GANGWON_DISTRICTS = [
 
 for _d in GANGWON_DISTRICTS:
     DISTRICT_PAGE_INDEX[("gangwon", _d["name"])] = f"/area/gangwon/{_d['slug']}/"
+_register_region_dongs("gangwon", GANGWON_DISTRICTS)
 for _d in GANGWON_DISTRICTS:
     _build_metro_district("gangwon", "강원", _d, GANGWON_DISTRICTS)
+_build_region_dong_pages("gangwon", "강원", GANGWON_DISTRICTS)
 
 
 # ============================================================
@@ -4128,8 +4669,10 @@ CHUNGBUK_DISTRICTS = [
    ],"neighbors":["jecheon","yeongju","yeongwol"]},
 ]
 
+_register_region_dongs("chungbuk", CHUNGBUK_DISTRICTS)
 for _d in CHUNGBUK_DISTRICTS:
     _build_metro_district("chungbuk", "충북", _d, CHUNGBUK_DISTRICTS)
+_build_region_dong_pages("chungbuk", "충북", CHUNGBUK_DISTRICTS)
 
 
 # ============================================================
@@ -4303,8 +4846,10 @@ CHUNGNAM_DISTRICTS = [
    ],"neighbors":["seosan","hongseong","boryeong"]},
 ]
 
+_register_region_dongs("chungnam", CHUNGNAM_DISTRICTS)
 for _d in CHUNGNAM_DISTRICTS:
     _build_metro_district("chungnam", "충남", _d, CHUNGNAM_DISTRICTS)
+_build_region_dong_pages("chungnam", "충남", CHUNGNAM_DISTRICTS)
 
 
 # ============================================================
@@ -4467,8 +5012,10 @@ JEONBUK_DISTRICTS = [
    ],"neighbors":["gochang","gimje","gunsan"]},
 ]
 
+_register_region_dongs("jeonbuk", JEONBUK_DISTRICTS)
 for _d in JEONBUK_DISTRICTS:
     _build_metro_district("jeonbuk", "전북", _d, JEONBUK_DISTRICTS)
+_build_region_dong_pages("jeonbuk", "전북", JEONBUK_DISTRICTS)
 
 
 # ============================================================
@@ -4719,8 +5266,10 @@ JEONNAM_DISTRICTS = [
    ],"neighbors":["mokpo","muan","jindo"]},
 ]
 
+_register_region_dongs("jeonnam", JEONNAM_DISTRICTS)
 for _d in JEONNAM_DISTRICTS:
     _build_metro_district("jeonnam", "전남", _d, JEONNAM_DISTRICTS)
+_build_region_dong_pages("jeonnam", "전남", JEONNAM_DISTRICTS)
 
 
 # ============================================================
@@ -4971,8 +5520,10 @@ GYEONGBUK_DISTRICTS = [
    ],"neighbors":["uljin"]},
 ]
 
+_register_region_dongs("gyeongbuk", GYEONGBUK_DISTRICTS)
 for _d in GYEONGBUK_DISTRICTS:
     _build_metro_district("gyeongbuk", "경북", _d, GYEONGBUK_DISTRICTS)
+_build_region_dong_pages("gyeongbuk", "경북", GYEONGBUK_DISTRICTS)
 
 
 # ============================================================
@@ -5179,8 +5730,10 @@ GYEONGNAM_DISTRICTS = [
    ],"neighbors":["geochang","uiryeong","goryeong"]},
 ]
 
+_register_region_dongs("gyeongnam", GYEONGNAM_DISTRICTS)
 for _d in GYEONGNAM_DISTRICTS:
     _build_metro_district("gyeongnam", "경남", _d, GYEONGNAM_DISTRICTS)
+_build_region_dong_pages("gyeongnam", "경남", GYEONGNAM_DISTRICTS)
 
 
 # ============================================================
@@ -5211,8 +5764,10 @@ JEJU_DISTRICTS = [
    ],"neighbors":["jeju-si"]},
 ]
 
+_register_region_dongs("jeju", JEJU_DISTRICTS)
 for _d in JEJU_DISTRICTS:
     _build_metro_district("jeju", "제주", _d, JEJU_DISTRICTS)
+_build_region_dong_pages("jeju", "제주", JEJU_DISTRICTS)
 
 
 # ---------- service hub ----------
