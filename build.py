@@ -1190,6 +1190,54 @@ REGIONS = [
 },
 ]
 
+# Per-region "quick facts" strip — 4 short, scannable stats shown directly
+# under the hero. Values are written, not derived, so each region has its own
+# voice on the strip (e.g. 부산=관광 호텔↑, 울산=장기 출장 재방문, 세종=가정 비중↑).
+REGION_FACTS = {
+  "seoul":     [("권역", "6개 권역"), ("주요 시간대", "평일 저녁~심야"), ("호텔/가정", "강남·도심 호텔↑"), ("특이점", "심야 가능 권역 존재")],
+  "gyeonggi":  [("권역", "4개 권역"), ("주요 시간대", "평일 저녁"), ("호텔/가정", "신도시 가정·산업 호텔"), ("특이점", "광역 이동료 발생")],
+  "incheon":   [("권역", "3개 권역"), ("주요 시간대", "환승·평일 저녁"), ("호텔/가정", "공항·송도 호텔↑"), ("특이점", "단시간 코스 비중")],
+  "busan":     [("권역", "3개 권역"), ("주요 시간대", "야간·주말"), ("호텔/가정", "관광 호텔 압도적"), ("성수기", "여름·연말 사전 예약")],
+  "daegu":     [("권역", "4개 권역"), ("주요 시간대", "평일 저녁"), ("호텔/가정", "수성 가정·도심 호텔"), ("시즌", "여름 폭염 야간 권장")],
+  "daejeon":   [("권역", "4개 권역"), ("주요 시간대", "평일 저녁"), ("호텔/가정", "유성·둔산 호텔↑"), ("특이점", "연구단지 출장")],
+  "gwangju":   [("권역", "4개 권역"), ("주요 시간대", "평일 저녁"), ("호텔/가정", "가정 방문 비중↑"), ("특이점", "상무지구 컨벤션")],
+  "ulsan":     [("권역", "5개 권역"), ("주요 시간대", "평일 야간"), ("호텔/가정", "산업단지 호텔 압도적"), ("특이점", "장기 출장 재방문")],
+  "sejong":    [("권역", "5개 권역"), ("주요 시간대", "평일 저녁"), ("호텔/가정", "가정 비중↑(호텔 적음)"), ("특이점", "정부청사 인접")],
+  "gangwon":   [("권역", "영동·영서 2축"), ("주요 시간대", "시즌별 변동"), ("호텔/가정", "관광 객실 비중↑"), ("성수기", "여름·겨울 사전 예약")],
+  "chungbuk":  [("권역", "5개 권역"), ("주요 시간대", "환승·평일 저녁"), ("호텔/가정", "오송·청주 호텔↑"), ("특이점", "KTX 단시간 코스")],
+  "chungnam":  [("권역", "4개 권역"), ("주요 시간대", "평일 저녁"), ("호텔/가정", "산업 호텔·해안 펜션"), ("특이점", "권역별 이동 분리")],
+  "jeonbuk":   [("권역", "4개 권역"), ("주요 시간대", "평일 저녁"), ("호텔/가정", "한옥·역세권 혼합"), ("특이점", "익산 KTX 환승")],
+  "jeonnam":   [("권역", "5개 권역"), ("주요 시간대", "야간"), ("호텔/가정", "여수 야경 호텔↑"), ("성수기", "축제 시즌 사전 예약")],
+  "gyeongbuk": [("권역", "5개 권역"), ("주요 시간대", "평일 저녁"), ("호텔/가정", "산업·관광 양분"), ("성수기", "경주 봄·가을 마감 빠름")],
+  "gyeongnam": [("권역", "5개 권역"), ("주요 시간대", "평일 저녁"), ("호텔/가정", "거제 산업·김해 환승"), ("특이점", "장기 외국인 케이스")],
+  "jeju":      [("권역", "5개 권역"), ("주요 시간대", "휴양 일정 기반"), ("호텔/가정", "리조트·풀빌라 압도적"), ("성수기", "휴가철 사전 예약 필수")],
+}
+
+
+def _region_facts_html(slug):
+    facts = REGION_FACTS.get(slug, [])
+    if not facts:
+        return ""
+    items = "".join(
+        f'<div class="region-fact"><span class="region-fact-label">{label}</span>'
+        f'<span class="region-fact-value">{value}</span></div>'
+        for label, value in facts
+    )
+    return f'<div class="region-facts" role="list" aria-label="권역 요약">{items}</div>'
+
+
+def _region_cta_html(name):
+    return (
+        '<aside class="region-cta">'
+        f'<div class="region-cta-text"><h3>{name} 권역 바로 상담</h3>'
+        '<p>예약 가능 시간·코스·이동 가능 권역은 전화 상담에서 안내드립니다.</p></div>'
+        '<a class="region-cta-btn" href="tel:0508-202-4719">'
+        '<span class="region-cta-btn-label">예약 전화</span>'
+        '<span class="region-cta-btn-num">0508-202-4719</span></a>'
+        '</aside>'
+    )
+
+
 for r in REGIONS:
     add(
         path=f"area/{r['slug']}/index.html",
@@ -1200,7 +1248,7 @@ for r in REGIONS:
         h1=r["h1"],
         intro=f'<p class="lede">{r["lede"]}</p>',
         breadcrumbs=[("홈", "/"), ("지역별 찾기", "/area/"), (r["name"], f"/area/{r['slug']}/")],
-        body=r["body"],
+        body=_region_facts_html(r["slug"]) + r["body"] + _region_cta_html(r["name"]),
         related=r["related"],
     )
 
