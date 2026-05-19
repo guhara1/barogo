@@ -1290,7 +1290,7 @@ def _region_hero_cta_html(slug):
         '</svg>'
         '</span>'
         '<span class="region-hero-tel-text">'
-        '<span class="region-hero-tel-label">예약 전화 · 24시간</span>'
+        '<span class="region-hero-tel-label">24시간 예약 전화</span>'
         '<span class="region-hero-tel-num">0508-202-4719</span>'
         '</span>'
         '</a>'
