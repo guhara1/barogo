@@ -1082,3 +1082,242 @@ body[data-page^="area-"]:not([data-page="area-hub"]) .related li a:hover {
   }
 }
 
+/* ----- Region hero refinements (v2) ----- */
+body[data-page^="area-"]:not([data-page="area-hub"]) .page-head {
+  padding: 36px 36px 28px;
+  border-radius: 20px;
+}
+body[data-page^="area-"]:not([data-page="area-hub"]) .page-head::before {
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(6px);
+}
+body[data-page^="area-"]:not([data-page="area-hub"]) .page-head h1 {
+  font-size: clamp(26px, 3.2vw, 36px);
+  line-height: 1.22;
+  letter-spacing: -0.028em;
+  margin: 0 0 14px;
+}
+body[data-page^="area-"]:not([data-page="area-hub"]) .page-head .lede {
+  font-size: 16px;
+  line-height: 1.7;
+  margin: 0 0 22px;
+  color: #36404e;
+  max-width: 720px;
+}
+
+/* Hero CTA card (inside .page-head, below lede) */
+.region-hero-cta {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 16px 14px 20px;
+  background: #ffffff;
+  border: 1px solid #d9ece4;
+  border-radius: 14px;
+  box-shadow: 0 4px 14px rgba(14, 95, 75, 0.07);
+}
+.region-hero-cta-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+.region-hero-cta-headline {
+  font-size: 15.5px;
+  font-weight: 800;
+  letter-spacing: -0.012em;
+  color: var(--color-ink);
+  line-height: 1.5;
+}
+.region-hero-cta-sub {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  color: #5b6573;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+}
+.dot-live {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #16a34a;
+  box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.6);
+  animation: dot-pulse 1.8s ease-out infinite;
+  flex: 0 0 7px;
+}
+@keyframes dot-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.55); }
+  70%  { box-shadow: 0 0 0 8px rgba(22, 163, 74, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dot-live { animation: none; }
+}
+
+.region-hero-tel {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 20px;
+  background: linear-gradient(135deg, var(--color-accent) 0%, #0a5a48 100%);
+  border-radius: 12px;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 800;
+  line-height: 1.2;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 8px 18px rgba(14, 122, 95, 0.28);
+  transition: transform 140ms ease, box-shadow 140ms ease, filter 140ms ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.region-hero-tel:hover,
+.region-hero-tel:focus-visible {
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 14px 26px rgba(14, 122, 95, 0.36);
+  filter: brightness(1.04);
+  outline: none;
+}
+.region-hero-tel-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  flex: 0 0 32px;
+}
+.region-hero-tel-text {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 1px;
+  align-items: flex-start;
+}
+.region-hero-tel-label {
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  opacity: 0.92;
+  text-transform: uppercase;
+}
+.region-hero-tel-num {
+  font-size: 17.5px;
+  letter-spacing: 0.015em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Quick-facts strip — refined */
+.region-facts {
+  margin: 22px 0 0;
+  gap: 8px;
+}
+.region-fact {
+  padding: 12px 14px 12px 18px;
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+}
+.region-fact::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 10px;
+  bottom: 10px;
+  width: 3px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, var(--color-accent) 0%, #0b6450 100%);
+  opacity: 0.85;
+}
+.region-fact-label {
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+}
+.region-fact-value {
+  font-size: 14.5px;
+  font-weight: 800;
+}
+
+/* Section counter — small "01 / 02 ..." in card corner */
+body[data-page^="area-"]:not([data-page="area-hub"]) .page {
+  counter-reset: region-section;
+}
+body[data-page^="area-"]:not([data-page="area-hub"]) .page .block {
+  counter-increment: region-section;
+}
+body[data-page^="area-"]:not([data-page="area-hub"]) .page .block::after {
+  content: counter(region-section, decimal-leading-zero);
+  position: absolute;
+  top: 22px;
+  right: 26px;
+  font-size: 11.5px;
+  font-weight: 800;
+  color: rgba(14, 122, 95, 0.36);
+  letter-spacing: 0.1em;
+  font-variant-numeric: tabular-nums;
+  pointer-events: none;
+}
+/* Reserve right margin on H2 so it doesn't collide with counter */
+body[data-page^="area-"]:not([data-page="area-hub"]) .page .block h2 {
+  padding-right: 56px;
+  font-size: 21px;
+}
+
+/* Tighten check-list inside .block headings */
+body[data-page^="area-"]:not([data-page="area-hub"]) .page .block > p:first-of-type {
+  margin-top: 0;
+}
+
+/* Responsive: hero CTA stacks below 720px */
+@media (max-width: 720px) {
+  body[data-page^="area-"]:not([data-page="area-hub"]) .page-head {
+    padding: 28px 22px 24px;
+    border-radius: 16px;
+  }
+  body[data-page^="area-"]:not([data-page="area-hub"]) .page-head h1 {
+    font-size: 24px;
+    line-height: 1.25;
+  }
+  body[data-page^="area-"]:not([data-page="area-hub"]) .page-head .lede {
+    font-size: 15px;
+    margin-bottom: 18px;
+  }
+  .region-hero-cta {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 14px;
+    gap: 12px;
+  }
+  .region-hero-tel {
+    justify-content: center;
+    padding: 13px 18px;
+  }
+  .region-hero-tel-icon { width: 28px; height: 28px; flex-basis: 28px; }
+  body[data-page^="area-"]:not([data-page="area-hub"]) .page .block h2 {
+    padding-right: 40px;
+    font-size: 18.5px;
+  }
+  body[data-page^="area-"]:not([data-page="area-hub"]) .page .block::after {
+    top: 18px;
+    right: 18px;
+  }
+}
+@media (max-width: 420px) {
+  body[data-page^="area-"]:not([data-page="area-hub"]) .page-head h1 {
+    font-size: 22px;
+  }
+  .region-hero-cta-headline { font-size: 14.5px; }
+  .region-hero-cta-sub { font-size: 12px; }
+  .region-hero-tel-num { font-size: 16px; }
+}
+

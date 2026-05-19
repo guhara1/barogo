@@ -1238,6 +1238,66 @@ def _region_cta_html(name):
     )
 
 
+# Per-region hero CTA copy — short, region-specific headline shown inside the
+# hero card right above the phone button. Each line names actual districts so
+# the CTA reads as a designer-written tagline, not generic boilerplate.
+REGION_HERO_CTA = {
+  "seoul":     "권역 6곳 가능 시간이 모두 다른 서울, 바로 상담",
+  "gyeonggi":  "31개 시·군의 경기, 권역 분리해 정확히 안내",
+  "incheon":   "공항 환승부터 송도 출장까지, 단시간 코스도 가능",
+  "busan":     "해운대·광안 관광 호텔 야간 케어, 사전 예약 권장",
+  "daegu":     "수성 가정·동성로 호텔, 권역별 가능 시간 안내",
+  "daejeon":   "유성 연구단지·둔산 출장, 일정에 맞춰 상담",
+  "gwangju":   "상무·첨단·수완 평일 저녁, 가정·호텔 모두 안내",
+  "ulsan":     "산업단지 야간·장기 출장 재방문, 정기 예약 가능",
+  "sejong":    "정부청사 인근 평일 저녁, 가정 방문 중심 안내",
+  "gangwon":   "강릉·속초·평창 시즌 객실 케어, 사전 예약 권장",
+  "chungbuk":  "오송 KTX·청주공항 환승, 단시간 코스부터 가능",
+  "chungnam":  "천안 KTX 산업·태안 펜션, 권역 분리해 안내",
+  "jeonbuk":   "전주 한옥·익산 KTX·새만금, 권역별 일정 안내",
+  "jeonnam":   "여수 야경·순천·광양, 권역마다 다른 가능 시간",
+  "gyeongbuk": "포항·경주·구미·안동 네 권역 모두 가능",
+  "gyeongnam": "거제 조선소·김해공항, 출장 일정에 맞춰 상담",
+  "jeju":      "제주시·서귀포·애월·함덕 휴양 객실 케어 안내",
+}
+
+
+def _region_hero_cta_html(slug):
+    headline = REGION_HERO_CTA.get(
+        slug, "전화로 권역·가능 시간을 바로 안내드립니다"
+    )
+    return (
+        '<div class="region-hero-cta">'
+        '<div class="region-hero-cta-text">'
+        f'<strong class="region-hero-cta-headline">{headline}</strong>'
+        '<span class="region-hero-cta-sub">'
+        '<span class="dot-live"></span>'
+        '전화로 권역·가능 시간·코스를 바로 안내드립니다 · 24시간 상담'
+        '</span>'
+        '</div>'
+        '<a class="region-hero-tel" '
+        'href="tel:0508-202-4719" '
+        'aria-label="예약 전화 0508-202-4719">'
+        '<span class="region-hero-tel-icon" aria-hidden="true">'
+        '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" '
+        'stroke="currentColor" stroke-width="2" stroke-linecap="round" '
+        'stroke-linejoin="round">'
+        '<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 '
+        '19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3'
+        'a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 '
+        '9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 '
+        '2.81.7A2 2 0 0 1 22 16.92z"/>'
+        '</svg>'
+        '</span>'
+        '<span class="region-hero-tel-text">'
+        '<span class="region-hero-tel-label">예약 전화 · 24시간</span>'
+        '<span class="region-hero-tel-num">0508-202-4719</span>'
+        '</span>'
+        '</a>'
+        '</div>'
+    )
+
+
 for r in REGIONS:
     add(
         path=f"area/{r['slug']}/index.html",
@@ -1246,7 +1306,7 @@ for r in REGIONS:
         title=r["title"],
         description=r["description"],
         h1=r["h1"],
-        intro=f'<p class="lede">{r["lede"]}</p>',
+        intro=f'<p class="lede">{r["lede"]}</p>' + _region_hero_cta_html(r["slug"]),
         breadcrumbs=[("홈", "/"), ("지역별 찾기", "/area/"), (r["name"], f"/area/{r['slug']}/")],
         body=_region_facts_html(r["slug"]) + r["body"] + _region_cta_html(r["name"]),
         related=r["related"],
