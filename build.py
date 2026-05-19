@@ -2549,9 +2549,20 @@ def _district_facts_html(facts):
 
 
 def _district_dong_card_html(name, dongs, region_slug=None):
-    # 3차 동 페이지 비활성화 — 칩은 평문 li로만 렌더 (스팸 정책 부합)
+    # 서울·경기·인천: DONG_PAGE_INDEX에 등록된 동은 <a> 링크 칩, 그 외는 평문 li
     dongs = sorted(_consolidate_dongs(dongs))
-    chips = "".join(f"<li>{n}</li>" for n in dongs)
+    parts = []
+    for dn in dongs:
+        url = DONG_PAGE_INDEX.get((region_slug, name, dn)) if region_slug else None
+        if url:
+            parts.append(
+                f'<li class="has-link"><a href="{url}">{dn}'
+                '<span class="region-districts-grid-arrow" aria-hidden="true">→</span>'
+                '</a></li>'
+            )
+        else:
+            parts.append(f'<li>{dn}</li>')
+    chips = "".join(parts)
     return (
         '<section class="region-districts" aria-label="행정동 전체">'
         '<header class="region-districts-head">'
@@ -3750,7 +3761,7 @@ def _build_dong_rich_body(*, dong_name, parent_name, region_name, parent_char,
 
 # Seoul 자치구 + 동 페이지 빌드 (모든 _shared_*/리치 헬퍼 정의 완료 후 실행)
 _build_seoul_districts()
-# _build_seoul_dong_pages()  # 3차 동 페이지 비활성화 (스팸 정책 부합)
+_build_seoul_dong_pages()  # 사용자 요청으로 재활성화 (서울)
 
 
 # ------------------------------------------------------------
@@ -4580,8 +4591,7 @@ def _build_gyeonggi_gu_pages():
                 body="".join(body_parts),
                 related=related_html,
             )
-            # 동 페이지들 (3차) — 비활성화 (스팸 정책 부합)
-            continue
+            # 동 페이지들 (3차) — 경기 시·구 단위 동 페이지 (재활성화)
             consolidated = list(gu["_dong_slug_map"].keys())
             sorted_dongs = sorted(consolidated)
             for dong_name in consolidated:
@@ -4658,7 +4668,7 @@ def _build_gyeonggi_gu_pages():
 _register_region_dongs("gyeonggi", GYEONGGI_DISTRICTS)
 
 _build_gyeonggi_districts()
-# _build_region_dong_pages("gyeonggi", "경기", GYEONGGI_DISTRICTS)  # 3차 동 페이지 비활성화
+_build_region_dong_pages("gyeonggi", "경기", GYEONGGI_DISTRICTS)  # 사용자 요청으로 재활성화
 _build_gyeonggi_gu_pages()
 
 
@@ -5366,7 +5376,7 @@ for _d in SEJONG_DISTRICTS:
 
 # 3차 행정동 페이지 일괄 생성
 # _build_region_dong_pages("busan",   "부산", BUSAN_DISTRICTS)  # 3차 동 페이지 비활성화
-# _build_region_dong_pages("incheon", "인천", INCHEON_DISTRICTS)  # 3차 동 페이지 비활성화
+_build_region_dong_pages("incheon", "인천", INCHEON_DISTRICTS)  # 사용자 요청으로 재활성화
 # _build_region_dong_pages("daegu",   "대구", DAEGU_DISTRICTS)  # 3차 동 페이지 비활성화
 # _build_region_dong_pages("daejeon", "대전", DAEJEON_DISTRICTS)  # 3차 동 페이지 비활성화
 # _build_region_dong_pages("gwangju", "광주", GWANGJU_DISTRICTS)  # 3차 동 페이지 비활성화
