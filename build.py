@@ -51,119 +51,121 @@ HEADER = """<a class="skip-link" href="#main">본문 바로가기</a>
         <li class="nav-item"><a href="/" class="nav-link">홈</a></li>
         <li class="nav-item has-mega">
           <button class="nav-link nav-trigger" aria-expanded="false" aria-haspopup="true">지역별 찾기<span class="chev"></span></button>
-          <div class="mega-panel">
-            <div class="mega-grid mega-grid--regions">
-              <a href="/area/seoul/">서울</a><a href="/area/gyeonggi/">경기</a>
-              <a href="/area/incheon/">인천</a><a href="/area/busan/">부산</a>
-              <a href="/area/daegu/">대구</a><a href="/area/daejeon/">대전</a>
-              <a href="/area/gwangju/">광주</a><a href="/area/ulsan/">울산</a>
-              <a href="/area/sejong/">세종</a><a href="/area/gangwon/">강원</a>
-              <a href="/area/chungbuk/">충북</a><a href="/area/chungnam/">충남</a>
-              <a href="/area/jeonbuk/">전북</a><a href="/area/jeonnam/">전남</a>
-              <a href="/area/gyeongbuk/">경북</a><a href="/area/gyeongnam/">경남</a>
-              <a href="/area/jeju/">제주</a>
+          <div class="mega-panel mega-panel-album mega-panel-wide">
+            <h3 class="mega-album-title">시·도별 출장마사지 안내</h3>
+            <div class="mega-album-grid mega-album-grid--regions">
+              <a class="mega-tile" href="/area/seoul/"><span class="mega-tile-name">서울</span><span class="mega-tile-sub">25개 자치구</span></a>
+              <a class="mega-tile" href="/area/gyeonggi/"><span class="mega-tile-name">경기</span><span class="mega-tile-sub">31개 시·군</span></a>
+              <a class="mega-tile" href="/area/incheon/"><span class="mega-tile-name">인천</span><span class="mega-tile-sub">10개 구·군</span></a>
+              <a class="mega-tile" href="/area/busan/"><span class="mega-tile-name">부산</span><span class="mega-tile-sub">해운대·서면</span></a>
+              <a class="mega-tile" href="/area/daegu/"><span class="mega-tile-name">대구</span><span class="mega-tile-sub">수성·동성로</span></a>
+              <a class="mega-tile" href="/area/daejeon/"><span class="mega-tile-name">대전</span><span class="mega-tile-sub">유성·둔산</span></a>
+              <a class="mega-tile" href="/area/gwangju/"><span class="mega-tile-name">광주</span><span class="mega-tile-sub">상무·첨단</span></a>
+              <a class="mega-tile" href="/area/ulsan/"><span class="mega-tile-name">울산</span><span class="mega-tile-sub">남구·동구</span></a>
+              <a class="mega-tile" href="/area/sejong/"><span class="mega-tile-name">세종</span><span class="mega-tile-sub">정부청사</span></a>
+              <a class="mega-tile" href="/area/gangwon/"><span class="mega-tile-name">강원</span><span class="mega-tile-sub">강릉·속초</span></a>
+              <a class="mega-tile" href="/area/chungbuk/"><span class="mega-tile-name">충북</span><span class="mega-tile-sub">청주·충주</span></a>
+              <a class="mega-tile" href="/area/chungnam/"><span class="mega-tile-name">충남</span><span class="mega-tile-sub">천안·아산</span></a>
+              <a class="mega-tile" href="/area/jeonbuk/"><span class="mega-tile-name">전북</span><span class="mega-tile-sub">전주·익산</span></a>
+              <a class="mega-tile" href="/area/jeonnam/"><span class="mega-tile-name">전남</span><span class="mega-tile-sub">여수·순천</span></a>
+              <a class="mega-tile" href="/area/gyeongbuk/"><span class="mega-tile-name">경북</span><span class="mega-tile-sub">포항·경주</span></a>
+              <a class="mega-tile" href="/area/gyeongnam/"><span class="mega-tile-name">경남</span><span class="mega-tile-sub">창원·김해</span></a>
+              <a class="mega-tile" href="/area/jeju/"><span class="mega-tile-name">제주</span><span class="mega-tile-sub">호텔·풀빌라</span></a>
             </div>
-            <p class="mega-note">실제 서비스 가능 여부와 예약 가능 시간은 각 지역 페이지에서 확인하실 수 있습니다.</p>
+            <a class="mega-album-footer-link" href="/area/">전국 지역 안내 전체 보기 →</a>
           </div>
         </li>
         <li class="nav-item has-mega">
           <button class="nav-link nav-trigger" aria-expanded="false" aria-haspopup="true">서비스 안내<span class="chev"></span></button>
-          <div class="mega-panel">
-            <ul class="mega-list">
-              <li><a href="/service/business-trip-massage/">출장마사지</a></li>
-              <li><a href="/service/hometai/">홈타이</a></li>
-              <li><a href="/service/swedish/">스웨디시 마사지</a></li>
-              <li><a href="/service/aroma/">아로마 마사지</a></li>
-              <li><a href="/service/sports-massage/">스포츠 마사지</a></li>
-              <li><a href="/service/couple-massage/">커플 마사지</a></li>
-              <li><a href="/service/hotel-massage/">호텔 출장마사지</a></li>
-              <li><a href="/service/office-massage/">기업·사무실 출장마사지</a></li>
-            </ul>
+          <div class="mega-panel mega-panel-album">
+            <h3 class="mega-album-title">출장마사지 서비스</h3>
+            <div class="mega-album-grid mega-album-grid--service">
+              <a class="mega-card" href="/service/business-trip-massage/"><span class="mega-card-title">출장마사지</span><span class="mega-card-sub">전체 개요·진행 흐름</span></a>
+              <a class="mega-card" href="/service/swedish/"><span class="mega-card-title">스웨디시</span><span class="mega-card-sub">오일·부드러운 압</span></a>
+              <a class="mega-card" href="/service/aroma/"><span class="mega-card-title">아로마</span><span class="mega-card-sub">향과 함께 이완</span></a>
+              <a class="mega-card" href="/service/hometai/"><span class="mega-card-title">홈타이</span><span class="mega-card-sub">옷 입고 스트레칭</span></a>
+              <a class="mega-card" href="/service/sports-massage/"><span class="mega-card-title">스포츠</span><span class="mega-card-sub">근육 회복·부위 케어</span></a>
+              <a class="mega-card" href="/service/couple-massage/"><span class="mega-card-title">커플</span><span class="mega-card-sub">2인 동시 진행</span></a>
+              <a class="mega-card" href="/service/hotel-massage/"><span class="mega-card-title">호텔 출장</span><span class="mega-card-sub">객실·여행지</span></a>
+              <a class="mega-card" href="/service/office-massage/"><span class="mega-card-title">기업·사무실</span><span class="mega-card-sub">단체·복지</span></a>
+            </div>
+            <a class="mega-album-footer-link" href="/service/">서비스 한눈에 비교 보기 →</a>
           </div>
         </li>
         <li class="nav-item has-mega">
           <button class="nav-link nav-trigger" aria-expanded="false" aria-haspopup="true">예약 안내<span class="chev"></span></button>
-          <div class="mega-panel">
-            <ul class="mega-list">
-              <li><a href="/reservation/how-to-book/">예약 방법</a></li>
-              <li><a href="/reservation/price/">가격 및 코스 안내</a></li>
-              <li><a href="/reservation/check-before-use/">이용 전 확인사항</a></li>
-              <li><a href="/reservation/cancel-refund/">취소·환불 규정</a></li>
-              <li><a href="/reservation/payment/">결제 안내</a></li>
-            </ul>
+          <div class="mega-panel mega-panel-album">
+            <h3 class="mega-album-title">예약·결제 가이드</h3>
+            <div class="mega-album-grid mega-album-grid--steps">
+              <a class="mega-card mega-card-step" href="/reservation/how-to-book/"><span class="mega-card-num">01</span><span class="mega-card-title">예약 방법</span><span class="mega-card-sub">5단계 절차 안내</span></a>
+              <a class="mega-card mega-card-step" href="/reservation/price/"><span class="mega-card-num">02</span><span class="mega-card-title">가격·코스</span><span class="mega-card-sub">코스별 시작 금액</span></a>
+              <a class="mega-card mega-card-step" href="/reservation/check-before-use/"><span class="mega-card-num">03</span><span class="mega-card-title">이용 전 확인</span><span class="mega-card-sub">사전 권장 체크리스트</span></a>
+              <a class="mega-card mega-card-step" href="/reservation/cancel-refund/"><span class="mega-card-num">04</span><span class="mega-card-title">취소·환불</span><span class="mega-card-sub">시간대별 환불 기준</span></a>
+              <a class="mega-card mega-card-step" href="/reservation/payment/"><span class="mega-card-num">05</span><span class="mega-card-title">결제 안내</span><span class="mega-card-sub">결제 수단·영수증</span></a>
+            </div>
           </div>
         </li>
         <li class="nav-item has-mega">
           <button class="nav-link nav-trigger" aria-expanded="false" aria-haspopup="true">후기·정보<span class="chev"></span></button>
-          <div class="mega-panel mega-panel-wide">
-            <div class="mega-cols mega-cols-3">
-              <div>
-                <h3 class="mega-heading">이용 경험</h3>
-                <ul class="mega-list">
-                  <li><a href="/review/">실제 이용후기</a></li>
-                  <li><a href="/review/reservation-case/">예약 사례</a></li>
-                  <li><a href="/review/first-time/">처음 이용 고객 후기</a></li>
-                  <li><a href="/review/area/">지역별 후기 모음</a></li>
-                </ul>
+          <div class="mega-panel mega-panel-album mega-panel-xwide">
+            <div class="mega-album-section">
+              <h3 class="mega-album-title">실제 이용 후기</h3>
+              <div class="mega-album-grid mega-album-grid--guide">
+                <a class="mega-card" href="/review/"><span class="mega-card-title">전체 후기</span><span class="mega-card-sub">검수된 이용 경험</span></a>
+                <a class="mega-card" href="/review/first-time/"><span class="mega-card-title">처음 이용 후기</span><span class="mega-card-sub">초보 이용자 후기</span></a>
+                <a class="mega-card" href="/review/reservation-case/"><span class="mega-card-title">예약 사례</span><span class="mega-card-sub">5가지 대표 패턴</span></a>
+                <a class="mega-card" href="/review/area/"><span class="mega-card-title">지역별 후기</span><span class="mega-card-sub">권역별 이용 패턴</span></a>
               </div>
-              <div>
-                <h3 class="mega-heading">마사지 정보</h3>
-                <ul class="mega-list">
-                  <li><a href="/guide/what-is-business-trip-massage/">출장마사지란?</a></li>
-                  <li><a href="/guide/massage-before-after/">마사지 전후 주의사항</a></li>
-                  <li><a href="/guide/aroma-vs-swedish/">아로마와 스웨디시 차이</a></li>
-                  <li><a href="/guide/first-time-massage/">처음 이용 전 알아둘 점</a></li>
-                  <li><a href="/guide/massage-price-standard/">가격이 달라지는 이유</a></li>
-                  <li><a href="/guide/safe-reservation/">안전한 예약 확인 방법</a></li>
-                </ul>
+            </div>
+            <div class="mega-album-section">
+              <h3 class="mega-album-title">마사지 정보</h3>
+              <div class="mega-album-grid mega-album-grid--guide">
+                <a class="mega-card" href="/guide/what-is-business-trip-massage/"><span class="mega-card-title">출장마사지란?</span><span class="mega-card-sub">서비스 정의·차이</span></a>
+                <a class="mega-card" href="/guide/aroma-vs-swedish/"><span class="mega-card-title">아로마 vs 스웨디시</span><span class="mega-card-sub">코스 비교 가이드</span></a>
+                <a class="mega-card" href="/guide/first-time-massage/"><span class="mega-card-title">처음 이용 가이드</span><span class="mega-card-sub">사전 알아둘 점</span></a>
+                <a class="mega-card" href="/guide/massage-before-after/"><span class="mega-card-title">전후 주의사항</span><span class="mega-card-sub">권장 컨디션 관리</span></a>
+                <a class="mega-card" href="/guide/massage-price-standard/"><span class="mega-card-title">가격 기준</span><span class="mega-card-sub">달라지는 4가지 이유</span></a>
+                <a class="mega-card" href="/guide/safe-reservation/"><span class="mega-card-title">안전한 예약</span><span class="mega-card-sub">확인 체크포인트</span></a>
               </div>
-              <div>
-                <h3 class="mega-heading">매거진 <span class="mega-badge">NEW</span></h3>
-                <ul class="mega-list">
-                  <li><a href="/magazine/"><strong>매거진 전체 보기</strong></a></li>
-                  <li><a href="/magazine/first-time-essentials/">출장마사지 처음 이용 전 알아둘 점</a></li>
-                  <li><a href="/magazine/night-worker-recovery/">야간 근무자를 위한 피로 회복 루틴</a></li>
-                  <li><a href="/magazine/desk-worker-neck-shoulder/">사무직 어깨·목 긴장 관리법</a></li>
-                  <li><a href="/magazine/hotel-guest-guide/">호텔 투숙객을 위한 출장마사지 이용 안내</a></li>
-                  <li><a href="/magazine/course-selection-by-purpose/">출장마사지 코스 고르는 기준</a></li>
-                  <li><a href="/magazine/regional-usage-tips/">지역별 출장마사지 이용 팁</a></li>
-                </ul>
+            </div>
+            <div class="mega-album-section">
+              <h3 class="mega-album-title">매거진 <span class="mega-badge">NEW</span></h3>
+              <div class="mega-album-grid mega-album-grid--mag">
+{MAGAZINE_CARDS}
               </div>
+              <a class="mega-album-footer-link" href="/magazine/">매거진 전체 보기 →</a>
             </div>
           </div>
         </li>
         <li class="nav-item has-mega">
           <button class="nav-link nav-trigger" aria-expanded="false" aria-haspopup="true">고객센터<span class="chev"></span></button>
-          <div class="mega-panel">
-            <ul class="mega-list">
-              <li><a href="/support/notice/">공지사항</a></li>
-              <li><a href="/support/faq/">자주 묻는 질문</a></li>
-              <li><a href="/support/contact/">문의하기</a></li>
-              <li><a href="/support/partnership/">제휴·입점 문의</a></li>
-              <li><a href="/support/report/">불편 신고</a></li>
-            </ul>
+          <div class="mega-panel mega-panel-album">
+            <h3 class="mega-album-title">고객센터</h3>
+            <div class="mega-album-grid mega-album-grid--guide">
+              <a class="mega-card" href="/support/notice/"><span class="mega-card-title">공지사항</span><span class="mega-card-sub">운영 변경·정책 공지</span></a>
+              <a class="mega-card" href="/support/faq/"><span class="mega-card-title">자주 묻는 질문</span><span class="mega-card-sub">예약·결제·이용 FAQ</span></a>
+              <a class="mega-card" href="/support/contact/"><span class="mega-card-title">문의하기</span><span class="mega-card-sub">전화·이메일 안내</span></a>
+              <a class="mega-card" href="/support/partnership/"><span class="mega-card-title">제휴·광고 문의</span><span class="mega-card-sub">광고·입점 양식</span></a>
+              <a class="mega-card" href="/support/report/"><span class="mega-card-title">불편 신고</span><span class="mega-card-sub">24시간 운영팀 직통</span></a>
+            </div>
           </div>
         </li>
         <li class="nav-item has-mega">
           <button class="nav-link nav-trigger" aria-expanded="false" aria-haspopup="true">바로GO 소개<span class="chev"></span></button>
-          <div class="mega-panel">
-            <ul class="mega-list">
-              <li><a href="/about/brand/">브랜드 소개</a></li>
-              <li><a href="/about/operation-policy/">운영 원칙</a></li>
-              <li><a href="/about/therapist-policy/">관리사 운영 기준</a></li>
-              <li><a href="/about/safety-policy/">안전 이용 정책</a></li>
-              <li><a href="/about/privacy/">개인정보처리방침</a></li>
-              <li><a href="/about/terms/">이용약관</a></li>
-            </ul>
+          <div class="mega-panel mega-panel-album">
+            <h3 class="mega-album-title">회사 정보·정책</h3>
+            <div class="mega-album-grid mega-album-grid--guide">
+              <a class="mega-card" href="/about/brand/"><span class="mega-card-title">브랜드 소개</span><span class="mega-card-sub">운영 미션·약속</span></a>
+              <a class="mega-card" href="/about/operation-policy/"><span class="mega-card-title">운영 원칙</span><span class="mega-card-sub">예약·가격·후기 정책</span></a>
+              <a class="mega-card" href="/about/therapist-policy/"><span class="mega-card-title">관리사 기준</span><span class="mega-card-sub">협력·검증·평가</span></a>
+              <a class="mega-card" href="/about/safety-policy/"><span class="mega-card-title">안전 이용 정책</span><span class="mega-card-sub">금지·신고·청소년 보호</span></a>
+              <a class="mega-card" href="/about/privacy/"><span class="mega-card-title">개인정보처리방침</span><span class="mega-card-sub">수집·이용·권리</span></a>
+              <a class="mega-card" href="/about/terms/"><span class="mega-card-title">이용약관</span><span class="mega-card-sub">14개 조항</span></a>
+            </div>
           </div>
         </li>
+        <li class="nav-item nav-cta"><a href="tel:0508-202-4719" class="nav-tel" aria-label="예약 전화 0508-202-4719"><span>예약</span><strong>0508-202-4719</strong></a></li>
       </ul>
-      <div class="nav-cta">
-        <a class="btn-tel" href="tel:0508-202-4719" aria-label="예약 전화 0508-202-4719">
-          <span class="btn-tel__label">예약 전화</span>
-          <span class="btn-tel__num">0508-202-4719</span>
-        </a>
-      </div>
     </nav>
   </div>
 </header>"""
@@ -9793,6 +9795,32 @@ MAGAZINE_ARTICLES = [
 ]
 
 
+# 메가메뉴에 자동 주입되는 매거진 미니카드 (발행일 내림차순 상위 6편)
+def _render_mega_magazine_cards(limit=6):
+    """발행일 기준 최신 N편을 앨범형 미니카드로 렌더링.
+    HEADER의 {MAGAZINE_CARDS} 자리에 main() 시작 시 주입됨."""
+    sorted_arts = sorted(
+        MAGAZINE_ARTICLES,
+        key=lambda a: a.get("published", ""),
+        reverse=True,
+    )[:limit]
+    parts = []
+    for a in sorted_arts:
+        # 타이틀이 너무 길면 mega 미니카드용으로 약식 표기
+        title = a["title"].split(" — ")[0] if " — " in a["title"] else a["title"]
+        if len(title) > 24:
+            title = title[:22] + "…"
+        parts.append(
+            f'                <a class="mega-mag-card" href="/magazine/{a["slug"]}/">'
+            f'<span class="mega-mag-cover mag-cover-{a["cover"]}">'
+            f'<span class="mega-mag-cat">{a["category"]}</span>'
+            f'</span>'
+            f'<span class="mega-mag-title">{title}</span>'
+            f'</a>'
+        )
+    return "\n".join(parts)
+
+
 # ---------- Magazine hub ----------
 def _mag_hub_card(idx, art, featured=False):
     cls = "mag-card mag-card-featured" if featured else "mag-card"
@@ -11086,6 +11114,8 @@ def write_robots():
 
 
 def main():
+    global HEADER
+    HEADER = HEADER.replace("{MAGAZINE_CARDS}", _render_mega_magazine_cards())
     paths = []
     for p in PAGES:
         paths.append(render(p))
