@@ -70,14 +70,14 @@ HEADER = """<a class="skip-link" href="#main">본문 바로가기</a>
           <button class="nav-link nav-trigger" aria-expanded="false" aria-haspopup="true">서비스 안내<span class="chev"></span></button>
           <div class="mega-panel">
             <ul class="mega-list">
-              <li><a href="/service/business-trip-massage/">출장마사지 안내</a></li>
-              <li><a href="/service/hometai/">홈타이 안내</a></li>
-              <li><a href="/service/swedish/">스웨디시 마사지 안내</a></li>
-              <li><a href="/service/aroma/">아로마 마사지 안내</a></li>
-              <li><a href="/service/sports-massage/">스포츠 마사지 안내</a></li>
-              <li><a href="/service/couple-massage/">커플 마사지 안내</a></li>
-              <li><a href="/service/hotel-massage/">호텔 방문 마사지 안내</a></li>
-              <li><a href="/service/office-massage/">기업·사무실 방문 마사지 안내</a></li>
+              <li><a href="/service/business-trip-massage/">출장마사지</a></li>
+              <li><a href="/service/hometai/">홈타이</a></li>
+              <li><a href="/service/swedish/">스웨디시 마사지</a></li>
+              <li><a href="/service/aroma/">아로마 마사지</a></li>
+              <li><a href="/service/sports-massage/">스포츠 마사지</a></li>
+              <li><a href="/service/couple-massage/">커플 마사지</a></li>
+              <li><a href="/service/hotel-massage/">호텔 방문 마사지</a></li>
+              <li><a href="/service/office-massage/">기업·사무실 방문 마사지</a></li>
             </ul>
           </div>
         </li>
@@ -6768,25 +6768,54 @@ add(
   path="service/index.html",
   url="/service/",
   slug="service-hub",
-  title="방문 마사지 서비스 안내 | 출장마사지·홈타이·스웨디시 외 | 바로GO",
-  description="출장마사지·홈타이·스웨디시·아로마·스포츠·커플·호텔·기업 방문 마사지 등 서비스 유형별 특징과 추천 대상, 진행 방식을 한눈에 비교하세요.",
-  h1="서비스 안내",
-  intro='<p class="lede">방문 마사지는 목적과 진행 방식이 서로 다릅니다. 이 페이지에서는 각 서비스의 특징과 추천 대상을 비교해 두었으니, 본인의 컨디션과 일정에 맞는 유형을 골라 상세 페이지로 이동해 보세요.</p>',
-  breadcrumbs=[("홈", "/"), ("서비스 안내", "/service/")],
+  title="출장마사지 서비스 한눈에 비교 — 스웨디시·아로마·홈타이·스포츠 외 | 바로GO",
+  description="스웨디시·아로마·홈타이·스포츠·커플·호텔 방문·기업 방문 등 8개 출장마사지 서비스의 특징·추천 대상·압력·복장·코스 길이를 한눈에 비교하실 수 있는 페이지입니다.",
+  h1="서비스",
+  intro='<p class="lede">출장마사지는 목적·압력·복장·진행 방식이 서로 다릅니다. 8개 서비스 유형을 한 표로 비교해 두었으니, 본인의 컨디션과 일정에 맞는 코스를 골라 상세 페이지로 이동해 주세요.</p>',
+  breadcrumbs=[("홈", "/"), ("서비스", "/service/")],
   body="""
 <section class="block">
+<h2>서비스 유형 8종 한눈에 비교</h2>
+<div class="price-table-wrap">
+<table class="compare-table">
+<thead><tr><th scope="col">서비스</th><th scope="col">압력</th><th scope="col">오일</th><th scope="col">복장</th><th scope="col">주 목적</th></tr></thead>
+<tbody>
+<tr><th scope="row"><a href="/service/swedish/">스웨디시</a></th><td>부드러움</td><td>사용</td><td>탈의·타월</td><td>이완·수면 보조</td></tr>
+<tr><th scope="row"><a href="/service/aroma/">아로마</a></th><td>부드러움</td><td>아로마 오일</td><td>탈의·타월</td><td>릴랙스·심신 안정</td></tr>
+<tr><th scope="row"><a href="/service/hometai/">홈타이</a></th><td>중강도</td><td>사용 안 함</td><td>옷 입은 채</td><td>스트레칭·가동성</td></tr>
+<tr><th scope="row"><a href="/service/sports-massage/">스포츠</a></th><td>중강도-강함</td><td>일부 사용</td><td>운동복·반탈의</td><td>운동 회복·부위 케어</td></tr>
+<tr><th scope="row"><a href="/service/couple-massage/">커플</a></th><td>코스별</td><td>코스별</td><td>코스별</td><td>2인 동시 진행</td></tr>
+<tr><th scope="row"><a href="/service/hotel-massage/">호텔 방문</a></th><td>코스별</td><td>코스별</td><td>코스별</td><td>출장·여행 회복</td></tr>
+<tr><th scope="row"><a href="/service/office-massage/">기업 방문</a></th><td>의자형·매트형</td><td>일반적으로 미사용</td><td>업무복 위</td><td>임직원 복지</td></tr>
+<tr><th scope="row"><a href="/service/business-trip-massage/">출장마사지 일반</a></th><td>—</td><td>—</td><td>—</td><td>전체 개요·진행 흐름</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+<section class="block">
+<h2>서비스 페이지 바로가기</h2>
 <ul class="service-grid">
-<li><h3><a href="/service/business-trip-massage/">출장마사지</a></h3><p>지정한 장소로 관리사가 방문해 진행하는 일반 방문 케어입니다.</p></li>
-<li><h3><a href="/service/hometai/">홈타이</a></h3><p>타이 전통 기법 기반의 스트레칭·지압 결합 케어입니다.</p></li>
-<li><h3><a href="/service/swedish/">스웨디시</a></h3><p>오일을 이용한 부드러운 압의 전신 이완 케어입니다.</p></li>
-<li><h3><a href="/service/aroma/">아로마</a></h3><p>아로마 오일의 향과 함께 진행하는 이완 중심 케어입니다.</p></li>
-<li><h3><a href="/service/sports-massage/">스포츠 마사지</a></h3><p>운동 전후 컨디션 관리에 자주 선택되는 케어입니다.</p></li>
-<li><h3><a href="/service/couple-massage/">커플 마사지</a></h3><p>두 명이 동시에 진행할 수 있도록 안내되는 옵션입니다.</p></li>
-<li><h3><a href="/service/hotel-massage/">호텔 방문</a></h3><p>출장·여행 중 숙소에서 받는 방문 케어입니다.</p></li>
-<li><h3><a href="/service/office-massage/">기업·사무실 방문</a></h3><p>임직원 복지 차원의 단체 방문 케어입니다.</p></li>
+<li><h3><a href="/service/business-trip-massage/">출장마사지</a></h3><p>전체 진행 흐름·코스 종류·이용 흐름 5단계 정리</p></li>
+<li><h3><a href="/service/swedish/">스웨디시 마사지</a></h3><p>오일 베이스 부드러운 압력, 처음 이용에 가장 권장</p></li>
+<li><h3><a href="/service/aroma/">아로마 마사지</a></h3><p>향과 부드러운 압의 조합, 수면 전 이완에 자주 안내</p></li>
+<li><h3><a href="/service/hometai/">홈타이</a></h3><p>옷 입은 채 진행, 스트레칭·지압 결합으로 가동성 정비</p></li>
+<li><h3><a href="/service/sports-massage/">스포츠 마사지</a></h3><p>근육 결 케어, 운동 후 회복·부위 집중에 권장</p></li>
+<li><h3><a href="/service/couple-massage/">커플 마사지</a></h3><p>2인 동시 진행, 공간 조건·합산 가격 정리</p></li>
+<li><h3><a href="/service/hotel-massage/">호텔 방문 마사지</a></h3><p>호텔 유형별 진행 차이·객실 사전 안내 항목</p></li>
+<li><h3><a href="/service/office-massage/">기업·사무실 방문 마사지</a></h3><p>단체 케어, 의자·매트형 옵션 및 사전 협의 항목</p></li>
 </ul>
 </section>
+<section class="block">
+<h2>코스를 고르는 가장 빠른 기준 3가지</h2>
+<ul class="check-list">
+<li><strong>목적</strong> — 수면·이완(스웨디시·아로마), 가동성(홈타이), 회복(스포츠)</li>
+<li><strong>복장 선호</strong> — 탈의 부담 없음(홈타이), 탈의·오일 가능(스웨디시·아로마)</li>
+<li><strong>장소</strong> — 호텔 객실(호텔 방문), 가정(스웨디시·홈타이), 사무실(기업 방문)</li>
+</ul>
+<p>코스 선택이 어렵다면 <a href="/magazine/course-selection-by-purpose/">목적별 코스 고르는 법</a> 매거진을 참고해 주세요. 운영팀의 매칭 의사결정 흐름을 그대로 공개합니다.</p>
+</section>
 """,
+  related=_rel("/service/", ["/reservation/price/", "/reservation/how-to-book/", "/guide/first-time-massage/", "/magazine/course-selection-by-purpose/"], title="이어서 살펴볼 페이지"),
 )
 
 SERVICES = [
@@ -6816,62 +6845,782 @@ SERVICES = [
    ["임직원 복지 프로그램 운영 담당자", "분기별 단체 케어를 검토 중인 기업", "이벤트성으로 단체 케어를 진행하려는 부서"]),
 ]
 
+# ---------- Service detail rich bodies (E-E-A-T 강화) ----------
+# 가이드/매거진과 동일한 .guide-meta / .guide-toc / callout 스타일을 재사용
+_SVC_BYLINE = (
+    '<div class="guide-meta">'
+    '<div class="guide-meta-author">'
+    '<span class="guide-meta-avatar" aria-hidden="true">YH</span>'
+    '<div class="guide-meta-author-text">'
+    '<strong>바로GO 운영팀 (YH LAB)</strong>'
+    '<span>출장마사지 예약 상담 운영팀 · 사업자등록번호 815-26-00585</span>'
+    '</div></div>'
+    '<div class="guide-meta-info">'
+    '<span class="guide-meta-tag">최종 업데이트 · 2026-05</span>'
+    '<span class="guide-meta-tag">운영팀 검수 완료</span>'
+    '</div></div>'
+)
+
+_SVC_DISCLAIMER = (
+    '<section class="block">'
+    '<div class="callout note">'
+    '<strong>면책 안내</strong>'
+    '<p>본 페이지의 정보는 일반 출장마사지 안내 자료이며, 의료 행위·의학적 조언이 아닙니다. 건강 상태와 관련된 결정은 의료 전문가와 상담해 주세요. '
+    '본 페이지는 YH LAB(바로GO 운영) 사업자등록번호 815-26-00585·대표 김유환·경기도 파주시 청석로 268 의 책임 하에 작성·관리됩니다.</p>'
+    '</div>'
+    '</section>'
+)
+
+
+def _svc_toc(items):
+    li = "".join(f'<li><a href="#{anchor}">{label}</a></li>' for label, anchor in items)
+    return f'<nav class="guide-toc" aria-label="이 페이지에서 다루는 내용"><strong>이 페이지에서 다루는 내용</strong><ol>{li}</ol></nav>'
+
+
+def _svc_faq(items):
+    rows = "".join(f"<details><summary>{q}</summary><p>{a}</p></details>" for q, a in items)
+    return f'<section class="block" id="faq"><h2>자주 묻는 질문</h2><div class="faq">{rows}</div></section>'
+
+
+# Per-service rich body (각 페이지 고유 콘텐츠 — 템플릿 치환이 아닌 직접 작성)
+SERVICES_RICH = {
+
+"business-trip-massage": {
+  "title": "출장마사지 — 진행 방식·코스 종류·이용 흐름 | 바로GO",
+  "desc": "출장마사지의 정의, 매장형 마사지와의 차이, 코스 6종 비교, 진행 흐름 5단계, 이용 전 권장사항까지 운영팀이 직접 정리한 안내 페이지입니다.",
+  "h1": "출장마사지",
+  "lede": "지정된 시간·장소(가정·호텔·오피스텔·펜션)에 관리사가 방문해 진행하는 마사지를 가리킵니다. 매장형과 다른 진행 방식, 코스 종류, 이용 흐름을 운영팀 관점에서 정리했습니다.",
+  "toc": [("출장마사지란 무엇인가", "what"), ("매장형 마사지와의 차이", "vs-store"),
+          ("어떤 경우에 자주 선택되는가", "when"), ("코스 종류 비교", "courses"),
+          ("진행 흐름 5단계", "flow"), ("이용 전 권장사항", "before"), ("자주 묻는 질문", "faq")],
+  "body": """
+<section class="block" id="what">
+<h2>출장마사지란 무엇인가</h2>
+<p>출장마사지는 이용자가 지정한 시간·장소에 관리사가 직접 방문해 코스를 진행하는 방식의 마사지를 가리킵니다. 가정·호텔 객실·오피스텔·서비스 아파트·풀빌라 등 다양한 공간에서 진행되며, 매장에 방문할 필요가 없어 이동 시간이 절약되고, 진행 후 곧바로 휴식·수면으로 이어질 수 있다는 점이 가장 큰 특징입니다.</p>
+<p>출장마사지는 합법적인 사업자가 안내·운영하는 서비스이며, 본 사이트(바로GO)는 운영사 YH LAB이 직접 예약 상담·관리사 배정·진행 관리를 담당합니다. 운영 원칙과 안전 정책은 <a href="/about/operation-policy/">운영 원칙</a>·<a href="/about/safety-policy/">안전 이용 정책</a>에 공개되어 있습니다.</p>
+</section>
+
+<section class="block" id="vs-store">
+<h2>매장형 마사지와의 차이</h2>
+<table class="compare-table">
+<thead><tr><th scope="col">구분</th><th scope="col">매장형</th><th scope="col">출장형(본 서비스)</th></tr></thead>
+<tbody>
+<tr><th scope="row">진행 장소</th><td>매장 룸</td><td>가정·호텔·오피스텔·펜션</td></tr>
+<tr><th scope="row">이동</th><td>이용자가 매장 방문</td><td>관리사가 지정 장소 방문</td></tr>
+<tr><th scope="row">진행 후 흐름</th><td>매장 → 귀가</td><td>곧바로 휴식·수면 연결</td></tr>
+<tr><th scope="row">시간대</th><td>매장 영업시간</td><td>야간·심야 안내 가능</td></tr>
+<tr><th scope="row">사전 합의</th><td>코스만 선택</td><td>장소·시간·동선까지 합의</td></tr>
+</tbody>
+</table>
+</section>
+
+<section class="block" id="when">
+<h2>어떤 경우에 자주 선택되는가</h2>
+<ul class="check-list">
+<li>야근·심야 일정 후 바로 회복이 필요할 때</li>
+<li>출장·여행지 호텔에서 짧은 회복 시간을 활용하고 싶을 때</li>
+<li>이동 후 곧바로 휴식·수면으로 이어가고 싶을 때</li>
+<li>가정에서 가족과 동선 충돌 없이 진행하고 싶을 때</li>
+<li>매장 방문 자체가 부담스러운 컨디션일 때</li>
+</ul>
+</section>
+
+<section class="block" id="courses">
+<h2>코스 종류 비교</h2>
+<p>대표적으로 다음 6개 코스가 운영되며, 목적·시간·압력 선호에 따라 선택이 달라집니다. 가격 기준은 <a href="/reservation/price/">가격 안내</a> 페이지에서 확인하실 수 있습니다.</p>
+<ul class="check-list">
+<li><a href="/service/swedish/"><strong>스웨디시</strong></a> — 오일 사용·부드러운 압. 처음 이용·수면 보조에 가장 자주 안내됩니다.</li>
+<li><a href="/service/aroma/"><strong>아로마</strong></a> — 향과 부드러운 압의 조합. 릴랙스·심야 시간대에 자주 선택됩니다.</li>
+<li><a href="/service/hometai/"><strong>홈타이</strong></a> — 옷 입은 채 진행, 스트레칭 결합. 근육 가동성 정비에 적합합니다.</li>
+<li><a href="/service/sports-massage/"><strong>스포츠 마사지</strong></a> — 강한 압·근육 결 케어. 운동 후 회복에 안내됩니다.</li>
+<li><a href="/service/couple-massage/"><strong>커플</strong></a> — 2인 동시 진행. 기념일·동행 진행 시 안내됩니다.</li>
+<li><a href="/service/hotel-massage/"><strong>호텔 방문</strong></a> — 호텔 객실 진행 특화. 출장·여행 일정에 자주 안내됩니다.</li>
+</ul>
+</section>
+
+<section class="block" id="flow">
+<h2>진행 흐름 5단계</h2>
+<ol class="steps">
+<li><strong>전화 상담</strong><p>지역·시간·코스·진행 장소를 사전 합의합니다.</p></li>
+<li><strong>예약 확정</strong><p>가격·취소 기준 안내 후 동의 시 확정됩니다.</p></li>
+<li><strong>관리사 배정·이동</strong><p>도착 예정 시각이 사전 안내됩니다.</p></li>
+<li><strong>코스 진행</strong><p>선택한 시간 내에서 코스가 진행됩니다.</p></li>
+<li><strong>결제·마무리</strong><p>합의된 결제 방식으로 종료. 사후 권장 사항 안내.</p></li>
+</ol>
+<p>전체 절차는 <a href="/reservation/how-to-book/">예약 방법</a>에 상세하게 정리되어 있습니다.</p>
+</section>
+
+<section class="block" id="before">
+<h2>이용 전 권장사항</h2>
+<ul class="check-list">
+<li>고열·급성 통증·외상·수술 직후에는 이용을 권하지 않습니다.</li>
+<li>식사 직후·과도한 음주 후 진행은 자제해 주세요.</li>
+<li>임신·특정 질환·약물 복용 중인 경우 예약 단계에서 알려주세요.</li>
+<li>피부 트러블·자극이 있는 부위는 진행에서 제외할 수 있습니다.</li>
+<li>진행 공간에 동행자(가족·아이)가 있는 경우 사전에 안내해 주세요.</li>
+</ul>
+<p>상세 체크리스트는 <a href="/reservation/check-before-use/">이용 전 확인사항</a>에 정리되어 있습니다.</p>
+</section>
+""",
+  "faqs": [
+    ("매장 마사지와 효과 차이가 있나요?",
+     "코스 자체의 효과는 같지만, 출장형은 이동·대기 시간이 없어 진행 후 휴식·수면 연결이 매끄럽다는 점이 가장 큰 차이입니다."),
+    ("처음 이용하는데 어떤 코스가 가장 무난한가요?",
+     "스웨디시 60분이 가장 자주 권장됩니다. 부드러운 압력과 오일 케어로 부담이 적습니다. 자세한 첫 이용 가이드는 <a href=\"/guide/first-time-massage/\">처음 이용 전 알아둘 점</a>을 참고해 주세요."),
+    ("의료적 효과를 보장하나요?",
+     "출장마사지는 의료 행위가 아니며, 치료 효과를 보장하지 않습니다. 특정 통증이 분명하면 의료 진단을 먼저 받으시기를 권장합니다."),
+  ],
+},
+
+"swedish": {
+  "title": "스웨디시 마사지 — 압력·진행 방식·추천 대상 | 바로GO",
+  "desc": "스웨디시 마사지의 진행 방식, 압력 강도, 다른 코스와의 차이, 코스 길이별 활용법, 이용 전 권장사항을 운영팀이 정리한 안내 페이지입니다.",
+  "h1": "스웨디시 마사지",
+  "lede": "오일을 사용해 부드러운 압력으로 전신을 이완하는 가장 대중적인 출장마사지 코스입니다. 처음 받으시는 분과 수면 보조 목적에 가장 자주 안내됩니다.",
+  "toc": [("스웨디시의 특징", "feature"), ("다른 코스와의 차이", "vs"),
+          ("어떤 분께 권장되는가", "audience"), ("코스 길이별 활용법", "length"),
+          ("진행 흐름", "flow"), ("이용 전 주의사항", "before"), ("자주 묻는 질문", "faq")],
+  "body": """
+<section class="block" id="feature">
+<h2>스웨디시의 특징</h2>
+<p>스웨디시(Swedish)는 19세기 스웨덴에서 정립된 마사지 기법으로, 오일을 사용해 전신을 길게 쓸어 올리는 동작(effleurage) 중심으로 진행됩니다. 부드러운 압력과 일정한 리듬으로 진행되기 때문에, 강한 자극에 부담을 느끼는 분에게도 적합합니다.</p>
+<ul class="check-list">
+<li>전신을 길게 쓸어 올리는 기본 동작 중심</li>
+<li>오일 사용으로 마찰을 최소화한 부드러운 진행</li>
+<li>릴랙스·수면 진입에 가장 자주 안내되는 코스</li>
+<li>60·90·120분 모든 길이에서 선호되는 유형</li>
+</ul>
+</section>
+
+<section class="block" id="vs">
+<h2>다른 코스와의 차이</h2>
+<table class="compare-table">
+<thead><tr><th scope="col">비교</th><th scope="col">스웨디시</th><th scope="col">아로마</th><th scope="col">홈타이</th></tr></thead>
+<tbody>
+<tr><th scope="row">압력</th><td>부드러움</td><td>부드러움</td><td>중강도</td></tr>
+<tr><th scope="row">오일</th><td>사용</td><td>아로마 오일</td><td>사용 안 함</td></tr>
+<tr><th scope="row">복장</th><td>탈의·타월</td><td>탈의·타월</td><td>옷 입은 채</td></tr>
+<tr><th scope="row">주 효과</th><td>이완·수면</td><td>릴랙스·향</td><td>스트레칭·가동성</td></tr>
+</tbody>
+</table>
+</section>
+
+<section class="block" id="audience">
+<h2>어떤 분께 권장되는가</h2>
+<ul class="check-list">
+<li>처음 출장마사지를 이용하시는 분</li>
+<li>피로 회복·이완이 목적이신 분</li>
+<li>잠들기 전 부드러운 케어를 원하시는 분</li>
+<li>강한 압력에 부담을 느끼시는 분</li>
+<li>야근·심야 일정 후 빠른 휴식 진입이 필요한 분</li>
+</ul>
+</section>
+
+<section class="block" id="length">
+<h2>코스 길이별 활용법</h2>
+<div class="dos-donts">
+<div class="dos">
+<strong>60분 코스</strong>
+<ul>
+<li>처음 이용·체험 권장</li>
+<li>심야 시간·짧은 회복</li>
+<li>다음 날 이른 일정이 있을 때</li>
+</ul>
+</div>
+<div class="dos">
+<strong>90분 코스</strong>
+<ul>
+<li>가장 자주 선택되는 표준 길이</li>
+<li>전신 균형 회복</li>
+<li>업무 누적 피로 해소</li>
+</ul>
+</div>
+<div class="dos">
+<strong>120분 코스</strong>
+<ul>
+<li>주말·여유 일정용</li>
+<li>깊은 이완·수면 보조</li>
+<li>특정 부위 추가 케어 포함</li>
+</ul>
+</div>
+</div>
+</section>
+
+<section class="block" id="flow">
+<h2>진행 흐름</h2>
+<ol class="steps">
+<li><strong>도착·간단한 안내</strong><p>건강 상태·선호 압력을 확인합니다.</p></li>
+<li><strong>샤워 권장</strong><p>오일이 더 잘 흡수되도록 샤워가 권장됩니다.</p></li>
+<li><strong>전신 케어 진행</strong><p>등·다리·팔·어깨·목·머리 순으로 진행되는 것이 일반적입니다.</p></li>
+<li><strong>마무리</strong><p>오일 정리, 수분 섭취, 휴식 권장 안내가 이어집니다.</p></li>
+</ol>
+</section>
+
+<section class="block" id="before">
+<h2>이용 전 주의사항</h2>
+<ul class="check-list">
+<li>오일 알레르기가 있는 경우 사전에 알려주세요.</li>
+<li>피부 자극이 있는 부위는 제외 진행이 가능합니다.</li>
+<li>식사 직후(1시간 이내) 또는 음주 후 진행은 자제해 주세요.</li>
+<li>임신 중인 경우 진행 가능 여부를 사전 상담에서 확인합니다.</li>
+</ul>
+</section>
+""",
+  "faqs": [
+    ("오일이 옷·침구에 묻을까 걱정됩니다.",
+     "관리사가 타월·시트를 함께 준비하므로 일반적으로 오일이 옷·침구에 묻지 않습니다. 진행 후 가벼운 샤워가 권장됩니다."),
+    ("아로마와 가장 큰 차이가 무엇인가요?",
+     "스웨디시는 일반 오일로 압력 케어 중심, 아로마는 향과 함께 진행하는 점이 가장 큰 차이입니다. 자세한 비교는 <a href=\"/guide/aroma-vs-swedish/\">아로마와 스웨디시 차이</a>에 정리되어 있습니다."),
+    ("매주 받아도 괜찮나요?",
+     "주 1회 정기 케어는 일반적으로 무리가 없습니다. 다만 본인 컨디션에 따라 간격을 조정하시는 것을 권장합니다."),
+  ],
+},
+
+"aroma": {
+  "title": "아로마 마사지 — 향·압력·릴랙스 코스 안내 | 바로GO",
+  "desc": "아로마 마사지의 특징, 자주 안내되는 향 계열, 추천 대상, 진행 흐름, 이용 전 주의사항까지 운영팀이 정리한 안내 페이지입니다.",
+  "h1": "아로마 마사지",
+  "lede": "아로마 오일의 향과 부드러운 압력을 함께 사용하는 이완 중심 코스입니다. 잠들기 전 휴식 시간대나 스트레스로 인한 긴장이 누적된 때에 자주 안내됩니다.",
+  "toc": [("아로마 마사지의 특징", "feature"), ("향이 컨디션에 미치는 영향", "scent"),
+          ("자주 안내되는 향 계열", "scent-types"), ("어떤 분께 권장되는가", "audience"),
+          ("진행 흐름", "flow"), ("이용 전 주의사항", "before"), ("자주 묻는 질문", "faq")],
+  "body": """
+<section class="block" id="feature">
+<h2>아로마 마사지의 특징</h2>
+<p>아로마 마사지는 식물성 에센셜 오일을 베이스 오일에 희석해 사용하는 마사지로, 향과 함께 부드러운 압력으로 진행되는 이완 중심 코스입니다. 압력은 스웨디시와 비슷하게 부드럽지만, 향이 함께 작용하면서 신경 안정·심신 이완 효과가 더 두드러지는 경향이 있습니다.</p>
+</section>
+
+<section class="block" id="scent">
+<h2>향이 컨디션에 미치는 영향</h2>
+<p>향은 후각 신경을 통해 직접 뇌의 변연계(limbic system)에 도달하기 때문에, 다른 감각보다 빠르게 감정·이완 상태에 영향을 줍니다. 따라서 아로마는 단순히 마사지에 향을 더한 것이 아니라, 향 자체가 케어의 일부로 작동합니다.</p>
+<div class="callout note">
+<strong>참고</strong>
+<p>아로마는 의료 행위가 아니며, 특정 질환을 치료한다고 보장하지 않습니다. 본 페이지의 내용은 일반적 이완 효과에 관한 정성적 안내입니다.</p>
+</div>
+</section>
+
+<section class="block" id="scent-types">
+<h2>자주 안내되는 향 계열</h2>
+<ul class="check-list">
+<li><strong>라벤더</strong> — 가장 대표적. 신경 안정·수면 보조 목적에 자주 안내</li>
+<li><strong>유칼립투스·페퍼민트</strong> — 상쾌하고 시원한 느낌. 두통·집중력 저하 시 권장</li>
+<li><strong>시트러스(레몬·오렌지·베르가못)</strong> — 가볍고 밝은 분위기. 낮 시간·우울감 환기</li>
+<li><strong>로즈·일랑일랑</strong> — 풍부한 플로럴. 기념일·특별한 일정에 자주 안내</li>
+<li><strong>샌달우드·시더우드</strong> — 안정감 있는 우디 톤. 깊은 이완·명상적 분위기</li>
+</ul>
+<p>향 선택은 일반적으로 사전 상담에서 함께 결정됩니다. 특정 향에 알레르기·민감도가 있는 경우 반드시 미리 알려주세요.</p>
+</section>
+
+<section class="block" id="audience">
+<h2>어떤 분께 권장되는가</h2>
+<ul class="check-list">
+<li>스트레스로 인한 긴장이 누적된 분</li>
+<li>잠들기 전 깊은 이완을 원하시는 분</li>
+<li>강한 압이 부담스러우신 분</li>
+<li>여행지·호텔에서 휴식 케어를 받으시는 분</li>
+<li>기념일·특별한 일정에 케어를 함께 진행하시는 분</li>
+</ul>
+</section>
+
+<section class="block" id="flow">
+<h2>진행 흐름</h2>
+<ol class="steps">
+<li><strong>향 선택</strong><p>사전에 상담된 향 또는 도착 시 함께 선택합니다.</p></li>
+<li><strong>샤워 권장</strong><p>오일 흡수와 향이 더 잘 작용하도록 샤워가 권장됩니다.</p></li>
+<li><strong>전신 케어 진행</strong><p>부드러운 압력으로 등·다리·팔·어깨 순 진행이 일반적입니다.</p></li>
+<li><strong>마무리</strong><p>오일·향 정리, 수분 섭취, 휴식 권장.</p></li>
+</ol>
+</section>
+
+<section class="block" id="before">
+<h2>이용 전 주의사항</h2>
+<ul class="check-list">
+<li>특정 향 알레르기·천식 등이 있는 경우 사전에 알려주세요.</li>
+<li>임신 중에는 일부 에센셜 오일이 권장되지 않을 수 있어 사전 상담이 필요합니다.</li>
+<li>향이 강하면 두통이 발생할 수 있어 사용량은 일반적으로 조절됩니다.</li>
+<li>코스 후 향이 옷·머리카락에 남을 수 있어 외출 일정과의 간격을 고려해 주세요.</li>
+</ul>
+</section>
+""",
+  "faqs": [
+    ("향을 직접 가져가도 되나요?",
+     "관리사가 준비한 오일 외 별도 향 사용은 위생·관리 기준상 일반적으로 권장되지 않습니다. 선호 향이 있다면 사전 상담에서 알려주세요."),
+    ("아로마와 스웨디시 중 무엇이 좋을까요?",
+     "이완·수면 보조가 주 목적이라면 향이 함께 작용하는 아로마, 압력 케어가 주 목적이라면 스웨디시가 자주 안내됩니다. <a href=\"/guide/aroma-vs-swedish/\">아로마와 스웨디시 차이</a>에서 비교를 확인하실 수 있습니다."),
+    ("향이 옷에 너무 강하게 남을까요?",
+     "향의 농도는 일반적으로 조절되어 진행 직후에는 가볍게 남는 정도입니다. 외출 일정이 있는 경우 90분 이상 간격을 권장합니다."),
+  ],
+},
+
+"hometai": {
+  "title": "홈타이 — 진행 방식·복장·코스 길이 | 바로GO",
+  "desc": "홈타이(타이 마사지)의 진행 방식, 옷을 입은 채 진행되는 특징, 권장 공간 조건, 코스 길이 안내, 이용 전 주의사항까지 운영팀이 정리한 안내 페이지입니다.",
+  "h1": "홈타이",
+  "lede": "타이 전통 기법 기반의 스트레칭과 지압을 결합한 출장마사지입니다. 옷을 입은 상태로 진행되며, 오일을 사용하지 않아 사후 정리가 간편합니다.",
+  "toc": [("홈타이가 무엇인가", "what"), ("다른 코스와의 차이", "vs"),
+          ("권장 공간 조건", "space"), ("어떤 분께 권장되는가", "audience"),
+          ("진행 흐름", "flow"), ("이용 전 주의사항", "before"), ("자주 묻는 질문", "faq")],
+  "body": """
+<section class="block" id="what">
+<h2>홈타이가 무엇인가</h2>
+<p>홈타이는 타이 전통 마사지(Thai massage) 기법을 가정·숙소에서 진행하는 형태로, 관절 가동 범위를 활용한 스트레칭과 손·팔꿈치를 사용한 지압을 결합한 코스입니다. 오일을 사용하지 않고 옷을 입은 상태에서 진행하기 때문에 사후 정리가 간편하다는 점이 큰 장점입니다.</p>
+</section>
+
+<section class="block" id="vs">
+<h2>다른 코스와의 차이</h2>
+<table class="compare-table">
+<thead><tr><th scope="col">항목</th><th scope="col">홈타이</th><th scope="col">스웨디시·아로마</th></tr></thead>
+<tbody>
+<tr><th scope="row">오일</th><td>사용 안 함</td><td>사용</td></tr>
+<tr><th scope="row">복장</th><td>편안한 옷</td><td>탈의 + 타월</td></tr>
+<tr><th scope="row">동작</th><td>스트레칭·지압</td><td>쓸어 올리기 위주</td></tr>
+<tr><th scope="row">압력</th><td>중강도</td><td>부드러움</td></tr>
+<tr><th scope="row">주 효과</th><td>가동성 정비·근육 이완</td><td>이완·수면 보조</td></tr>
+</tbody>
+</table>
+</section>
+
+<section class="block" id="space">
+<h2>권장 공간 조건</h2>
+<p>홈타이는 바닥에 매트를 깔고 진행되는 경우가 많아 공간 조건이 다른 코스보다 다소 까다롭습니다.</p>
+<ul class="check-list">
+<li>바닥에 가로 2m × 세로 2.5m 정도의 평평한 공간 확보</li>
+<li>러그·매트 또는 평평한 침대 위에서도 진행 가능</li>
+<li>천장 조명 위치·가구 동선 고려</li>
+<li>옷은 신축성 있는 면 소재 권장 (운동복·잠옷 등)</li>
+</ul>
+</section>
+
+<section class="block" id="audience">
+<h2>어떤 분께 권장되는가</h2>
+<ul class="check-list">
+<li>오일이 부담스러우신 분 (피부 자극·정리 부담)</li>
+<li>어깨·골반·고관절 가동성에 관심이 있으신 분</li>
+<li>장시간 앉아서 일해 몸이 굳은 느낌이 드는 분</li>
+<li>운동 후 근육 가동 범위 회복이 필요한 분</li>
+<li>탈의가 부담스러우신 분</li>
+</ul>
+</section>
+
+<section class="block" id="flow">
+<h2>진행 흐름</h2>
+<ol class="steps">
+<li><strong>공간 세팅·옷 안내</strong><p>매트를 깔고 편한 옷으로 환복합니다.</p></li>
+<li><strong>발·다리부터 진행</strong><p>발끝에서 시작해 무릎·골반 방향으로 진행됩니다.</p></li>
+<li><strong>등·어깨·팔</strong><p>몸을 옆으로 눕히거나 앉은 자세에서 진행되기도 합니다.</p></li>
+<li><strong>전신 스트레칭 마무리</strong><p>최종적으로 전신 가동 범위를 정리합니다.</p></li>
+</ol>
+</section>
+
+<section class="block" id="before">
+<h2>이용 전 주의사항</h2>
+<ul class="check-list">
+<li>식사 직후에는 스트레칭 동작이 불편할 수 있어 1-2시간 간격을 권장합니다.</li>
+<li>허리·골반·무릎에 부상·만성 통증이 있는 경우 사전에 알려주세요.</li>
+<li>임신 중인 경우 진행 가능 여부를 사전 상담에서 확인합니다.</li>
+<li>고혈압·심장 질환·디스크 등 특정 질환이 있는 경우 의료 진단이 우선입니다.</li>
+</ul>
+</section>
+""",
+  "faqs": [
+    ("오일 마사지보다 더 아픈가요?",
+     "압력 자체는 중강도이지만, 스트레칭 동작이 가동 범위 끝에서 작용해 시원함이 더 분명하게 느껴지는 편입니다. 강도는 사전·중간에 조정됩니다."),
+    ("옷은 어떤 걸 준비하면 좋을까요?",
+     "신축성 있는 면 소재 운동복·잠옷이 가장 좋습니다. 청바지·정장처럼 신축성 없는 옷은 동작이 제한됩니다."),
+    ("매트가 없는데 침대에서도 가능한가요?",
+     "가능합니다. 다만 너무 푹신한 침대는 압력이 분산되어 진행이 어려울 수 있어, 사전 상담에서 공간 조건을 함께 확인합니다."),
+  ],
+},
+
+"sports-massage": {
+  "title": "스포츠 마사지 — 부위 집중·운동 회복 코스 | 바로GO",
+  "desc": "스포츠 마사지의 진행 방식, 운동 전후 활용법, 부위별 집중 케어, 자주 안내되는 시점, 이용 전 주의사항까지 운영팀이 정리한 안내 페이지입니다.",
+  "h1": "스포츠 마사지",
+  "lede": "운동 전후 컨디션 관리와 근육 피로 해소를 목적으로 진행되는 출장마사지 코스입니다. 근육 결을 따라 압력을 분배해 특정 부위 집중 케어가 가능합니다.",
+  "toc": [("스포츠 마사지의 특징", "feature"), ("운동 전후 활용법", "pre-post"),
+          ("부위별 집중 케어", "by-part"), ("자주 안내되는 시점", "when"),
+          ("진행 흐름", "flow"), ("이용 전 주의사항", "before"), ("자주 묻는 질문", "faq")],
+  "body": """
+<section class="block" id="feature">
+<h2>스포츠 마사지의 특징</h2>
+<p>스포츠 마사지는 근육 결을 따라 압력을 분배하고, 특정 부위에 집중 케어가 가능한 코스입니다. 강한 압을 선호하는 분에게도 안내 가능하며, 일반 이완 케어와 달리 근육 회복·가동 범위 정비에 초점이 맞춰져 있습니다.</p>
+<ul class="check-list">
+<li>근육 결을 따라 압을 분배하는 진행 방식</li>
+<li>전신 또는 특정 부위(어깨·허리·다리) 집중 가능</li>
+<li>강한 압 선호자에게도 안내 가능</li>
+<li>운동 후 회복·근육 뭉침 해소에 권장</li>
+</ul>
+</section>
+
+<section class="block" id="pre-post">
+<h2>운동 전후 활용법</h2>
+<div class="dos-donts">
+<div class="dos">
+<strong>운동 전 (예방·준비)</strong>
+<ul>
+<li>가벼운 압력으로 진행</li>
+<li>가동 범위 확장·근육 활성화 목적</li>
+<li>운동 1-2시간 전 권장</li>
+</ul>
+</div>
+<div class="dos">
+<strong>운동 후 (회복·해소)</strong>
+<ul>
+<li>중강도 압력으로 진행</li>
+<li>젖산·노폐물 순환 보조</li>
+<li>운동 직후 30분-2시간 사이 권장</li>
+</ul>
+</div>
+</div>
+</section>
+
+<section class="block" id="by-part">
+<h2>부위별 집중 케어</h2>
+<table class="compare-table">
+<thead><tr><th scope="col">부위</th><th scope="col">자주 안내되는 상황</th><th scope="col">코스 길이</th></tr></thead>
+<tbody>
+<tr><th scope="row">어깨·승모근</th><td>웨이트 후 / 사무직 누적</td><td>60-90분</td></tr>
+<tr><th scope="row">허리·등</th><td>스쿼트·데드리프트 후</td><td>90분</td></tr>
+<tr><th scope="row">다리·종아리</th><td>러닝·등산 후</td><td>60-120분</td></tr>
+<tr><th scope="row">전신</th><td>장시간 운동·종합 회복</td><td>120분</td></tr>
+</tbody>
+</table>
+</section>
+
+<section class="block" id="when">
+<h2>자주 안내되는 시점</h2>
+<ul class="check-list">
+<li>주 3회 이상 정기 운동 후 누적 피로 해소</li>
+<li>마라톤·트레일러닝 등 장시간 운동 후 회복</li>
+<li>등산·라이딩 후 다리·허리 근육 케어</li>
+<li>웨이트 트레이닝 슬럼프 시 가동성 회복</li>
+<li>경기·대회 직전 컨디션 정비</li>
+</ul>
+</section>
+
+<section class="block" id="flow">
+<h2>진행 흐름</h2>
+<ol class="steps">
+<li><strong>운동 이력·통증 부위 확인</strong><p>최근 운동량·특정 부위 통증 여부를 점검합니다.</p></li>
+<li><strong>전신 또는 부위 집중 결정</strong><p>코스 시간에 맞춰 진행 범위를 합의합니다.</p></li>
+<li><strong>케어 진행</strong><p>근육 결을 따라 압력을 분배하며 진행됩니다.</p></li>
+<li><strong>마무리·권장 사항</strong><p>수분 보충·다음 운동까지 휴식 권장 등 안내.</p></li>
+</ol>
+</section>
+
+<section class="block" id="before">
+<h2>이용 전 주의사항</h2>
+<ul class="check-list">
+<li>급성 부상·염좌·인대 파열이 의심되면 의료 진단이 우선입니다.</li>
+<li>운동 직후 1시간 이내는 컨디션이 불안정해 진행이 권장되지 않습니다.</li>
+<li>탈수 상태에서는 진행이 어렵습니다. 수분 보충 후 진행.</li>
+<li>강한 압이 부담스러우면 사전·중간에 조절을 요청해 주세요.</li>
+</ul>
+</section>
+""",
+  "faqs": [
+    ("운동 직후 바로 받아도 되나요?",
+     "직후 1시간 이내는 컨디션이 불안정해 권장되지 않습니다. 운동 후 30분-2시간 사이가 가장 효과적인 시점입니다."),
+    ("강한 압을 더 강하게 해주실 수 있나요?",
+     "압력 조절은 사전·중간에 모두 가능합니다. 다만 본인 컨디션·근육 상태에 따라 무리한 강도는 권장되지 않습니다."),
+    ("일반 스웨디시와 어떻게 다른가요?",
+     "스웨디시는 부드러운 압의 이완 중심, 스포츠는 근육 결 케어와 부위 집중이 특징입니다. 운동 회복 목적이라면 스포츠가 적합합니다."),
+  ],
+},
+
+"couple-massage": {
+  "title": "커플 마사지 — 2인 동시 진행·공간 조건·가격 | 바로GO",
+  "desc": "커플 마사지의 진행 방식, 공간 조건, 자주 선택되는 일정, 코스 선택 흐름, 가격 기준, 이용 전 주의사항까지 운영팀이 정리한 안내 페이지입니다.",
+  "h1": "커플 마사지",
+  "lede": "두 분이 같은 시간대에 동시에 진행할 수 있도록 안내되는 코스입니다. 기념일·여행·동행 일정에 자주 선택되며, 진행 공간 조건이 일반 코스와 다소 다릅니다.",
+  "toc": [("커플 코스 개요", "what"), ("진행 환경·공간 조건", "space"),
+          ("자주 선택되는 일정", "when"), ("코스 선택 흐름", "course"),
+          ("가격 기준", "price"), ("이용 전 주의사항", "before"), ("자주 묻는 질문", "faq")],
+  "body": """
+<section class="block" id="what">
+<h2>커플 코스 개요</h2>
+<p>커플 코스는 두 분이 같은 시간대에 동시에 진행되는 케어입니다. 일반 1인 코스와 가장 큰 차이는 관리사 2인이 함께 방문해 한 공간(또는 두 객실)에서 동시에 진행한다는 점입니다. 같은 시간·같은 코스 선택이 기본이며, 동일하지 않은 코스로도 진행 가능합니다(사전 상담 필요).</p>
+</section>
+
+<section class="block" id="space">
+<h2>진행 환경·공간 조건</h2>
+<ul class="check-list">
+<li>한 공간(거실·넓은 룸·풀빌라 거실)에 2개의 진행 자리 확보</li>
+<li>또는 같은 숙소 내 2개 객실 분리 진행</li>
+<li>호텔 진행 시 트윈룸·스위트룸 권장</li>
+<li>가정 진행 시 사전에 공간 동선 확인 필요</li>
+</ul>
+<div class="callout tip">
+<strong>공간이 좁다면?</strong>
+<p>같은 시간에 진행이 어렵다면 시간차 진행(1인씩 순차)도 가능합니다. 사전 상담에서 함께 결정됩니다.</p>
+</div>
+</section>
+
+<section class="block" id="when">
+<h2>자주 선택되는 일정</h2>
+<ul class="check-list">
+<li>기념일·생일·결혼기념일</li>
+<li>여행지 호텔·풀빌라에서 함께 받는 일정</li>
+<li>장기 출장 후 가족·연인과의 회복 일정</li>
+<li>특별한 휴가 일정의 마무리 케어</li>
+</ul>
+</section>
+
+<section class="block" id="course">
+<h2>코스 선택 흐름</h2>
+<ol class="steps">
+<li><strong>동일 코스 권장</strong><p>같은 시간·같은 코스가 진행이 매끄럽습니다.</p></li>
+<li><strong>코스 분리 가능</strong><p>한 분은 스웨디시, 다른 분은 홈타이 등 분리 가능 (사전 상담).</p></li>
+<li><strong>시간 길이</strong><p>60·90·120분 중 합의된 동일 시간으로 진행.</p></li>
+<li><strong>관리사 배정</strong><p>가능한 경우 성별·경력 선호도 사전 안내.</p></li>
+</ol>
+</section>
+
+<section class="block" id="price">
+<h2>가격 기준</h2>
+<p>커플 코스의 가격은 2인 합산 기준으로 안내됩니다. 코스·시간에 따라 시작 금액이 달라지며, 자세한 기준은 <a href="/reservation/price/">가격 안내</a>에 정리되어 있습니다.</p>
+<table class="compare-table">
+<thead><tr><th scope="col">시간</th><th scope="col">2인 합산 시작 금액</th></tr></thead>
+<tbody>
+<tr><th scope="row">60분</th><td>180,000원부터</td></tr>
+<tr><th scope="row">90분</th><td>220,000원부터</td></tr>
+<tr><th scope="row">120분</th><td>260,000원부터</td></tr>
+</tbody>
+</table>
+<p class="muted">진행 장소·시간대에 따라 일부 조정될 수 있으며, 최종 금액은 사전 상담에서 안내됩니다.</p>
+</section>
+
+<section class="block" id="before">
+<h2>이용 전 주의사항</h2>
+<ul class="check-list">
+<li>각자의 건강 상태(임신·질환·알레르기 등)를 사전에 알려주세요.</li>
+<li>같은 공간에서 진행 시 향·압력 선호가 다른 경우 사전 조율됩니다.</li>
+<li>예약 변경·취소 시 1인 단위가 아닌 커플 단위로 처리됩니다.</li>
+<li>호텔 진행 시 객실 인원·체크인 정보를 함께 안내해 주세요.</li>
+</ul>
+</section>
+""",
+  "faqs": [
+    ("꼭 같은 코스를 선택해야 하나요?",
+     "기본은 같은 코스가 권장되지만, 사전 상담에서 분리 코스(예: 한 분 스웨디시 / 한 분 홈타이)도 안내됩니다."),
+    ("진행 중에 대화해도 되나요?",
+     "물론 가능합니다. 다만 깊은 이완을 위해서는 진행 중반부터 조용히 받으시는 분들이 많습니다."),
+    ("한 분만 취소할 수 있나요?",
+     "커플 코스는 2인 단위로 확정되기 때문에 1인 단독 취소는 일반적으로 어렵습니다. 자세한 기준은 <a href=\"/reservation/cancel-refund/\">취소·환불 규정</a>을 참고해 주세요."),
+  ],
+},
+
+"hotel-massage": {
+  "title": "호텔 방문 마사지 — 객실 진행·체크인·시간대 | 바로GO",
+  "desc": "호텔 객실에서 진행되는 출장마사지의 특징, 호텔 유형별 차이, 객실 사전 안내 정보, 자주 선택되는 시간대, 이용 전 주의사항을 정리한 안내 페이지입니다.",
+  "h1": "호텔 방문 마사지",
+  "lede": "출장·여행 일정 중 숙소에서 진행되는 출장마사지입니다. 호텔 유형(비즈니스·5성·레지던스·풀빌라)에 따라 진행 흐름이 조금씩 다르며, 객실 정보 사전 공유가 진행의 핵심입니다.",
+  "toc": [("호텔 진행의 특징", "feature"), ("호텔 유형별 차이", "by-hotel"),
+          ("객실 사전 안내 정보", "checklist"), ("자주 선택되는 시간대", "time"),
+          ("진행 흐름", "flow"), ("이용 전 주의사항", "before"), ("자주 묻는 질문", "faq")],
+  "body": """
+<section class="block" id="feature">
+<h2>호텔 진행의 특징</h2>
+<p>호텔 객실 진행은 가정 방문과 비교해 공간이 정돈되어 있고, 진행 후 곧바로 휴식·수면으로 이어갈 수 있다는 점이 가장 큰 장점입니다. 출장·여행 일정 중 짧은 회복 시간을 활용하시는 분들이 자주 선택합니다.</p>
+<ul class="check-list">
+<li>객실 호수·층 정보 사전 확인 필수</li>
+<li>공동현관·엘리베이터 출입 안내 필요</li>
+<li>심야 시간대 문의가 가장 많은 진행 유형</li>
+<li>관리사 도착 직후 곧바로 진행 가능</li>
+</ul>
+</section>
+
+<section class="block" id="by-hotel">
+<h2>호텔 유형별 차이</h2>
+<table class="compare-table">
+<thead><tr><th scope="col">호텔 유형</th><th scope="col">진행 특이사항</th></tr></thead>
+<tbody>
+<tr><th scope="row">5성·럭셔리 (강남·도심)</th><td>공동현관 출입 절차, 게스트 등록 권장</td></tr>
+<tr><th scope="row">비즈니스 호텔</th><td>가장 진행이 매끄러운 유형, 객실 공간 충분</td></tr>
+<tr><th scope="row">레지던스·서비스 아파트</th><td>주방·세탁 공간 분리, 사전 게스트 등록 필요</td></tr>
+<tr><th scope="row">풀빌라·독채 (제주·강원)</th><td>독립 공간, 커플 코스 자유로움, 동선 안내 필요</td></tr>
+<tr><th scope="row">부티크 호텔</th><td>객실이 작은 경우 진행 자세·동선 사전 합의</td></tr>
+</tbody>
+</table>
+</section>
+
+<section class="block" id="checklist">
+<h2>객실 사전 안내 정보</h2>
+<ul class="check-list">
+<li><strong>호텔명·객실 호수·층</strong> — 출입·도착 시간 안내에 필수</li>
+<li><strong>체크인 시간</strong> — 진행 시작 시각과의 간격 확인</li>
+<li><strong>객실 크기·유형</strong> — 더블·트윈·스위트에 따라 진행 방식 차이</li>
+<li><strong>동행자 정보</strong> — 동행자가 있는 경우 진행 시 안내</li>
+<li><strong>특별 출입 조건</strong> — 일부 호텔은 게스트 사전 등록 필요</li>
+</ul>
+</section>
+
+<section class="block" id="time">
+<h2>자주 선택되는 시간대</h2>
+<div class="dos-donts">
+<div class="dos">
+<strong>출장 일정 (평일)</strong>
+<ul>
+<li>저녁 미팅 후 22-00시 사이</li>
+<li>다음 날 일정에 따라 60-90분</li>
+<li>스웨디시·아로마 자주 안내</li>
+</ul>
+</div>
+<div class="dos">
+<strong>여행 일정 (주말·휴가)</strong>
+<ul>
+<li>체크인 후 저녁 시간대</li>
+<li>여유 있는 90-120분</li>
+<li>커플 코스 함께 안내</li>
+</ul>
+</div>
+</div>
+</section>
+
+<section class="block" id="flow">
+<h2>진행 흐름</h2>
+<ol class="steps">
+<li><strong>객실 정보 사전 공유</strong><p>호텔명·호수·층·체크인 시간 안내.</p></li>
+<li><strong>관리사 도착·진입</strong><p>공동현관 출입 후 객실 노크.</p></li>
+<li><strong>객실 세팅</strong><p>타월·시트 준비 (5분 이내).</p></li>
+<li><strong>코스 진행</strong><p>합의된 코스 시간 진행.</p></li>
+<li><strong>결제·마무리</strong><p>객실 정리 후 종료.</p></li>
+</ol>
+</section>
+
+<section class="block" id="before">
+<h2>이용 전 주의사항</h2>
+<ul class="check-list">
+<li>일부 5성 호텔은 외부 게스트 출입에 별도 등록이 필요할 수 있습니다.</li>
+<li>객실이 매우 협소한 경우 진행 자세를 사전에 조정할 수 있습니다.</li>
+<li>체크아웃 직전에는 진행 시간 여유가 부족할 수 있어 권장되지 않습니다.</li>
+<li>호텔 측에 마사지 진행 사실을 별도로 알릴 필요는 일반적으로 없습니다.</li>
+</ul>
+</section>
+""",
+  "faqs": [
+    ("호텔 직원에게 미리 알려야 하나요?",
+     "일반적으로는 별도 통보가 필요하지 않습니다. 다만 일부 5성 호텔은 외부 출입에 게스트 등록을 권장하기도 합니다."),
+    ("객실이 작아도 가능한가요?",
+     "더블룸 정도면 진행이 충분합니다. 매우 협소한 부티크 객실은 진행 자세·동선을 사전에 합의합니다."),
+    ("풀빌라에서도 가능한가요?",
+     "가능합니다. 풀빌라는 독립 공간이라 커플 코스 진행에도 가장 적합합니다. 다만 위치에 따라 이동 거리 변수가 큽니다."),
+  ],
+},
+
+"office-massage": {
+  "title": "기업·사무실 방문 마사지 — 단체 케어·복지 프로그램 | 바로GO",
+  "desc": "임직원 복지·이벤트 목적의 단체 출장마사지 안내. 사전 협의 항목, 진행 공간 조건, 코스 옵션(10·20·30분 단위), 이용 흐름을 정리한 안내 페이지입니다.",
+  "h1": "기업·사무실 방문 마사지",
+  "lede": "임직원 복지 프로그램·분기 이벤트·연말 케어 등 단체로 진행되는 출장마사지입니다. 일반 1인 코스와 달리 사전 협의 단계가 더 많아 운영팀과의 상세 상담이 필요합니다.",
+  "toc": [("단체 케어 개요", "what"), ("사전 협의 항목", "preset"),
+          ("진행 공간 조건", "space"), ("코스 옵션", "options"),
+          ("진행 흐름", "flow"), ("이용 전 주의사항", "before"), ("자주 묻는 질문", "faq")],
+  "body": """
+<section class="block" id="what">
+<h2>단체 케어 개요</h2>
+<p>기업·사무실 방문 마사지는 임직원 복지·이벤트 목적으로 진행되는 단체 출장마사지입니다. 개인 코스와 달리 인원·시간·공간을 사전에 협의해야 하며, 짧은 케어를 여러 명에게 순차로 제공하는 방식이 일반적입니다.</p>
+<ul class="check-list">
+<li>10인·20인·30인 등 인원 단위 안내</li>
+<li>1인당 10·20·30분 단위 짧은 케어</li>
+<li>사내 공간 또는 별도 공간 진행</li>
+<li>분기·연말 이벤트로 자주 진행</li>
+</ul>
+</section>
+
+<section class="block" id="preset">
+<h2>사전 협의 항목</h2>
+<p>단체 케어는 다음 항목을 사전에 함께 확정해야 진행이 매끄럽습니다.</p>
+<ul class="check-list">
+<li><strong>진행 일자·시간</strong> — 시간대·시작/종료 시각</li>
+<li><strong>인원·1인 케어 시간</strong> — 총 인원과 1인당 분 단위</li>
+<li><strong>진행 공간</strong> — 별도 공간 확보 여부, 동선</li>
+<li><strong>코스 종류</strong> — 어깨·목 케어 / 발 케어 / 전신 등</li>
+<li><strong>결제·세금계산서</strong> — 법인 결제·정산 일정</li>
+</ul>
+</section>
+
+<section class="block" id="space">
+<h2>진행 공간 조건</h2>
+<ul class="check-list">
+<li>의자형 케어 — 작은 회의실 1개로 가능 (어깨·목·발)</li>
+<li>매트형 케어 — 별도 공간 (2m × 2.5m) 권장 (전신 가벼운 케어)</li>
+<li>대기·전환 동선 — 다음 인원 대기 공간 별도 권장</li>
+<li>소음·조명 — 가능한 한 조용한 공간 권장</li>
+</ul>
+</section>
+
+<section class="block" id="options">
+<h2>코스 옵션</h2>
+<table class="compare-table">
+<thead><tr><th scope="col">옵션</th><th scope="col">시간</th><th scope="col">권장 인원·상황</th></tr></thead>
+<tbody>
+<tr><th scope="row">의자형 어깨·목</th><td>10·15·20분</td><td>20-30인 짧은 케어</td></tr>
+<tr><th scope="row">의자형 발 케어</th><td>15·20분</td><td>장시간 서서 일하는 직군</td></tr>
+<tr><th scope="row">매트형 전신 (간이)</th><td>20·30분</td><td>10-15인 / 충분한 공간 확보</td></tr>
+<tr><th scope="row">이벤트 패키지</th><td>맞춤 협의</td><td>연말 송년·창립일 이벤트</td></tr>
+</tbody>
+</table>
+</section>
+
+<section class="block" id="flow">
+<h2>진행 흐름</h2>
+<ol class="steps">
+<li><strong>사전 상담·견적</strong><p>인원·시간·공간 조건을 운영팀과 협의합니다.</p></li>
+<li><strong>일정·결제 확정</strong><p>법인 결제 방식과 세금계산서 발행을 함께 확정합니다.</p></li>
+<li><strong>진행 당일 세팅</strong><p>관리사 도착 후 공간 세팅(약 15-20분).</p></li>
+<li><strong>순차 케어 진행</strong><p>대기·진행·교체 순으로 흐름 운영.</p></li>
+<li><strong>마무리·정리</strong><p>공간 원상 복구 후 종료.</p></li>
+</ol>
+</section>
+
+<section class="block" id="before">
+<h2>이용 전 주의사항</h2>
+<ul class="check-list">
+<li>진행 인원이 많을수록 사전 협의 일정에 여유가 필요합니다 (최소 1-2주 권장).</li>
+<li>진행 공간 조건이 미흡하면 관리사 도착 직후 추가 세팅이 필요할 수 있습니다.</li>
+<li>임직원 개별 건강 상태(임신·질환 등)는 본인이 사전 안내해 주세요.</li>
+<li>법인 결제는 사전 견적·계약 확정 후 진행됩니다.</li>
+</ul>
+</section>
+""",
+  "faqs": [
+    ("최소 진행 인원이 있나요?",
+     "10인부터 안내됩니다. 그 이하 인원은 일반 출장마사지 1인 단위 예약을 권장드립니다."),
+    ("세금계산서·법인 결제가 가능한가요?",
+     "가능합니다. 사전 견적 단계에서 사업자번호와 정산 일정을 함께 확정합니다."),
+    ("관리사가 몇 명 방문하나요?",
+     "인원·시간에 따라 다릅니다. 일반적으로 10-15인 진행 시 2-3명, 20-30인 진행 시 3-4명이 방문합니다."),
+  ],
+},
+}
+
+
+_SVC_RELATED = {
+    "business-trip-massage": ["/service/swedish/", "/service/aroma/", "/reservation/how-to-book/", "/reservation/price/", "/guide/first-time-massage/"],
+    "swedish": ["/service/aroma/", "/guide/aroma-vs-swedish/", "/reservation/price/", "/guide/first-time-massage/"],
+    "aroma": ["/service/swedish/", "/guide/aroma-vs-swedish/", "/reservation/price/", "/guide/first-time-massage/"],
+    "hometai": ["/service/swedish/", "/service/sports-massage/", "/reservation/price/", "/guide/first-time-massage/"],
+    "sports-massage": ["/service/hometai/", "/guide/massage-before-after/", "/reservation/price/", "/reservation/check-before-use/"],
+    "couple-massage": ["/service/swedish/", "/service/hotel-massage/", "/reservation/price/", "/reservation/how-to-book/"],
+    "hotel-massage": ["/service/business-trip-massage/", "/reservation/late-night/", "/reservation/how-to-book/", "/magazine/travel-hotel-massage-guide/"],
+    "office-massage": ["/reservation/how-to-book/", "/reservation/payment/", "/about/operation-policy/"],
+}
+
+
 for slug, name, summary, features, audience in SERVICES:
-    feat_html = "".join(f"<li>{x}</li>" for x in features)
-    aud_html = "".join(f"<li>{x}</li>" for x in audience)
+    s = SERVICES_RICH[slug]
     add(
         path=f"service/{slug}/index.html",
         url=f"/service/{slug}/",
         slug=f"service-{slug}",
-        title=f"{name} 안내 | 특징·추천 대상·진행 방식 | 바로GO",
-        description=f"{name}의 특징과 추천 대상, 진행 방식, 소요 시간, 이용 전 주의사항을 정리했습니다. 건전하고 안전한 방문 마사지 이용 안내입니다.",
-        h1=f"{name} 안내",
-        intro=f'<p class="lede">{summary}</p>',
-        breadcrumbs=[("홈", "/"), ("서비스 안내", "/service/"), (name, f"/service/{slug}/")],
-        body=f"""
-<section class="block">
-<h2>주요 특징</h2>
-<ul class="check-list">{feat_html}</ul>
-</section>
-<section class="block">
-<h2>추천 대상</h2>
-<ul class="check-list">{aud_html}</ul>
-</section>
-<section class="block">
-<h2>진행 방식</h2>
-<ol class="steps">
-<li><strong>예약 확정</strong><p>지역·시간·코스가 확정되면 관리사 일정을 배정합니다.</p></li>
-<li><strong>방문 안내</strong><p>도착 예정 시간을 사전에 안내합니다.</p></li>
-<li><strong>코스 진행</strong><p>선택한 코스 시간 내에서 진행합니다.</p></li>
-<li><strong>마무리 안내</strong><p>이용 후 권장 사항(수분 섭취 등)을 안내합니다.</p></li>
-</ol>
-</section>
-<section class="block">
-<h2>소요 시간 안내</h2>
-<p>일반적으로 60분 / 90분 / 120분 코스로 운영됩니다. 이동·준비·마무리 시간을 포함해 예정 시간보다 여유 있게 일정을 잡아두시는 것을 권장합니다.</p>
-</section>
-<section class="block">
-<h2>이용 전 주의사항</h2>
-<ul class="check-list">
-<li>고열·급성 통증·외상 등 신체 상태에 따라 이용을 권하지 않는 경우가 있습니다.</li>
-<li>식사 직후·과도한 음주 후 이용은 자제 부탁드립니다.</li>
-<li>임신 중이거나 특정 질환이 있는 경우 예약 단계에서 미리 알려주세요.</li>
-<li>특정 부위의 피부 트러블이 있는 경우 해당 부위를 제외하고 진행할 수 있습니다.</li>
-</ul>
-<p class="muted">방문 마사지는 의료 행위가 아니며, 치료 효과를 보장하지 않습니다.</p>
-</section>
-""",
-        related=_rel(
-            f"/service/{slug}/",
-            [
-                "/reservation/price/",
-                "/reservation/how-to-book/",
-                "/guide/first-time-massage/",
-                "/reservation/check-before-use/",
-                "/guide/massage-before-after/",
-            ],
-            title="관련 안내",
-        ),
+        title=s["title"],
+        description=s["desc"],
+        h1=s["h1"],
+        intro=f'<p class="lede">{s["lede"]}</p>',
+        breadcrumbs=[("홈", "/"), ("서비스", "/service/"), (s["h1"], f"/service/{slug}/")],
+        body=_SVC_BYLINE + _svc_toc(s["toc"]) + s["body"] + _svc_faq(s["faqs"]) + _SVC_DISCLAIMER,
+        related=_rel(f"/service/{slug}/", _SVC_RELATED[slug], title="이어서 살펴볼 페이지"),
     )
 
 # ---------- Reservation pages ----------
