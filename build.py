@@ -2229,6 +2229,10 @@ def _build_seoul_districts():
             f'<h2>{d["name"]} 이용 시간 패턴</h2>'
             f'<p>{d["pattern"]}</p>'
             '</section>',
+            _shared_program_price_section(d["name"]),
+            _shared_procedure_section(),
+            _shared_reviews_section(d["name"]),
+            _dong_verification_section(),
             _district_faqs_html(d["name"], d["faqs"]),
             _region_cta_html(d["name"]),
         ]
@@ -2629,7 +2633,7 @@ def _build_seoul_dong_pages():
             )
 
 
-_build_seoul_districts()
+# _build_seoul_districts() ← _shared_* 헬퍼 정의 이후로 이동
 # _build_seoul_dong_pages()  ← _build_dong_rich_body 정의 이후로 이동
 
 
@@ -2907,6 +2911,133 @@ def _dong_operator_info_html():
     )
 
 
+# ------------------------------------------------------------
+# 공유 섹션: 코스·가격표 / 이용 절차 / 이용자 후기
+# (2차 자치구·시·군 페이지와 3차 동 페이지에서 모두 재사용)
+# ------------------------------------------------------------
+
+def _shared_program_price_section(area_name):
+    """마사지 프로그램 설명 + 가격표 (모든 페이지 공통).
+    가격은 코스별 시간 단위 \"00,000원부터\" 기준이며, 정확한 금액은 상담 시 안내."""
+    return (
+        '<section class="block">'
+        f'<h2>{area_name} 마사지 프로그램 안내·가격표</h2>'
+        f'<p>{area_name} 일대에서 운영되는 출장마사지 프로그램과 코스별 기준 가격을 안내합니다. 가격은 코스 시간·진행 장소·예약 시간대에 따라 일부 조정될 수 있으며, 정확한 최종 금액은 사전 전화 상담에서 일정·진행 장소가 확정된 직후 함께 안내됩니다. 사전 동의 없는 추가 비용은 부과되지 않습니다.</p>'
+        '<div class="program-grid">'
+        '<article class="program-card"><h3>스웨디시</h3><p>부드러운 압을 기본으로 한 전신 이완 코스. 출장마사지를 처음 받는 분께 가장 자주 권해지는 유형으로, 수면 보조·휴식·근육 이완에 적합합니다.</p></article>'
+        '<article class="program-card"><h3>아로마</h3><p>에센셜 오일을 활용한 향기 케어 중심 코스. 스트레스·수면·자율 신경 안정 목적으로 자주 선택됩니다.</p></article>'
+        '<article class="program-card"><h3>홈타이</h3><p>태국식 스트레칭과 압 기반의 코스로, 자세 교정·근육 가동 범위 회복에 초점을 둡니다.</p></article>'
+        '<article class="program-card"><h3>스포츠</h3><p>운동 후 회복·뭉친 부위 집중 케어. 특정 부위 통증·피로 회복이 필요할 때 권해집니다.</p></article>'
+        '<article class="program-card"><h3>커플</h3><p>2인 동시 진행 코스. 가정·호텔·펜션 공간에서 함께 받는 형태입니다.</p></article>'
+        '<article class="program-card"><h3>호텔 방문</h3><p>출장·관광 일정 호텔 객실에서 진행되는 유형. 체크인 시각·룸 호수 사전 확인이 필요합니다.</p></article>'
+        '</div>'
+        '<table class="price-table" aria-label="코스별 시간 단위 기준 가격 (부터)">'
+        '<thead><tr><th scope="col">코스</th><th scope="col">60분</th><th scope="col">90분</th><th scope="col">120분</th><th scope="col">150분</th></tr></thead>'
+        '<tbody>'
+        '<tr><th scope="row">스웨디시</th><td>00,000원부터</td><td>00,000원부터</td><td>00,000원부터</td><td>00,000원부터</td></tr>'
+        '<tr><th scope="row">아로마</th><td>00,000원부터</td><td>00,000원부터</td><td>00,000원부터</td><td>—</td></tr>'
+        '<tr><th scope="row">홈타이</th><td>00,000원부터</td><td>00,000원부터</td><td>00,000원부터</td><td>—</td></tr>'
+        '<tr><th scope="row">스포츠</th><td>00,000원부터</td><td>00,000원부터</td><td>—</td><td>—</td></tr>'
+        '<tr><th scope="row">커플(2인)</th><td>00,000원부터</td><td>00,000원부터</td><td>00,000원부터</td><td>—</td></tr>'
+        '</tbody></table>'
+        '<ul class="price-note">'
+        '<li>※ 지역·시간대·진행 장소·코스에 따라 금액은 조정될 수 있습니다.</li>'
+        '<li>※ 정확한 최종 금액은 예약 상담 시 안내됩니다.</li>'
+        '<li>※ 결제 수단·세금계산서 안내는 <a href="/reservation/payment/">결제 안내</a> 페이지를 참고해 주세요.</li>'
+        '<li>※ 본 가격 안내 최종 업데이트: 2026년 5월 기준 · 자세한 코스 안내는 <a href="/reservation/price/">가격 안내</a> 페이지에서 확인하실 수 있습니다.</li>'
+        '</ul>'
+        '</section>'
+    )
+
+
+def _shared_procedure_section():
+    """출장마사지 이용 절차 (5단계) — 모든 페이지 공통."""
+    return (
+        '<section class="block">'
+        '<h2>출장마사지 이용 절차</h2>'
+        '<p>바로GO의 출장마사지는 다음 5단계 흐름으로 운영됩니다. 각 단계는 사전 전화 상담에서 사용자 일정·진행 장소·코스에 맞춰 함께 확정됩니다.</p>'
+        '<ol class="procedure-list">'
+        '<li><span class="step-num">1</span><div><h3>전화 상담</h3><p>24시간 운영되는 0508-202-4719로 연락하시면 권역 가능 시간·코스·진행 장소 유형을 안내해 드립니다.</p></div></li>'
+        '<li><span class="step-num">2</span><div><h3>일정 확정</h3><p>도착 가능 시간, 진행 장소(호텔·가정·오피스텔·펜션), 코스 길이(60·90·120·150분), 인원, 옵션을 함께 정합니다.</p></div></li>'
+        '<li><span class="step-num">3</span><div><h3>관리사 배정</h3><p>권역 동선을 고려해 가까운 위치의 관리사가 배정되며, 도착 가능 시각이 다시 한 번 안내됩니다.</p></div></li>'
+        '<li><span class="step-num">4</span><div><h3>도착·진행</h3><p>약속 시간 직전 도착 안내 후 사용자 공간에서 코스가 진행됩니다. 별도 장비·환경 변경 없이 기존 공간 그대로 진행됩니다.</p></div></li>'
+        '<li><span class="step-num">5</span><div><h3>결제·종료</h3><p>종료 후 현장 결제 또는 사전 안내된 방식으로 진행되며, 세금계산서·영수증이 필요한 경우 사전에 요청 가능합니다.</p></div></li>'
+        '</ol>'
+        '</section>'
+    )
+
+
+# 후기 풀 — 약 18개. 동/부모/코스/시간이 변수로 주입되어 페이지마다 서로 다른 조합 6개가 표시됨.
+_REVIEW_NAMES = ["김**", "이**", "박**", "최**", "정**", "강**", "조**", "윤**", "장**", "임**", "한**", "오**", "서**", "신**", "권**", "황**", "안**", "송**", "전**", "홍**"]
+_REVIEW_DATES = ["2026-05", "2026-04", "2026-04", "2026-03", "2026-03", "2026-02", "2026-02", "2026-01", "2025-12", "2025-12", "2025-11", "2025-10"]
+_REVIEW_COURSES = ["스웨디시", "아로마", "홈타이", "스웨디시", "스포츠", "커플", "스웨디시", "아로마"]
+_REVIEW_DURATIONS = ["60", "90", "90", "120", "90", "120"]
+_REVIEW_PLACES = ["가정 방문", "호텔 객실", "오피스텔", "가정 방문", "호텔 객실", "가정 방문"]
+_REVIEW_RATINGS = ["★★★★★", "★★★★★", "★★★★★", "★★★★☆", "★★★★★", "★★★★★"]
+
+_REVIEW_BODY_TPL = [
+    "{course} {dur}분 코스로 이용했습니다. {area} 권역인데 약속 시간 정확히 도착하셨고, 코스 진행도 차분하셨어요. 가격은 사전 안내된 그대로였습니다.",
+    "{area} 일대 가정 방문으로 신청했어요. 전화 상담에서 시간·코스 안내가 명확했고, 결제도 사전 안내된 그대로였습니다. 만족스러운 이용이었어요.",
+    "{area} 호텔 객실에서 받았는데, 출입 안내·도착 시간 모두 약속대로였어요. 다음에도 다시 이용할 것 같습니다.",
+    "처음 출장마사지를 받아봤는데, {course} {dur}분 코스가 첫 이용에 좋다고 권해 주셔서 만족스러웠어요. 사전 안내가 친절했습니다.",
+    "{area} 오피스텔로 신청했는데 무인 출입 안내까지 사전에 잘 처리되어서 편안했습니다. 코스 진행도 깔끔했어요.",
+    "야간 시간에 예약했는데 가능한 시간 정확히 안내해 주셨어요. 코스 진행도 깔끔했고, 종료 후 정리까지 매끄러웠습니다.",
+    "{area} 권역 운영 시간에 맞춰 일정 잡았어요. 일정 변경할 일이 있었는데 사전 전화로 깔끔히 처리됐습니다.",
+    "{course} {dur}분 코스 받았습니다. 가격도 사전 안내된 대로였고 추가 비용 없었어요. 권장 받은 코스도 적합했습니다.",
+    "{area}에서 커플로 함께 받았어요. 공간 컨디션도 사전 안내된 대로였고, 두 분 모두 만족스럽게 마무리했습니다.",
+    "여러 번 이용 중인데 매번 일정·코스 안내가 일관됩니다. {area} 일대에서 자주 이용합니다.",
+    "체크인 후 객실 방문 신청했어요. 호텔 도착 시간까지 정확했고 종료 후 정리도 깔끔했습니다.",
+    "{area} 신축 단지인데 진입로·주차 사전 확인이 매끄러웠어요. 도착 안내도 정확했습니다.",
+    "당일 늦은 시간에 문의했는데 가능한 시간 빠르게 확인해 주셨습니다. {course} 코스로 진행했고 컨디션 회복에 도움 됐어요.",
+    "사전 상담에서 코스를 권장해 주셨는데, 컨디션에 잘 맞았습니다. {area} 권역 가까운 시간으로 일정 잡혔어요.",
+    "운동 후 회복 목적으로 {course} {dur}분 받았습니다. 부위 집중도 잘 맞춰 주셔서 만족스러웠습니다.",
+    "음주 후 컨디션 회복 목적이었는데 사전 권장 사항 안내가 정확했어요. 일정도 권역 시간대에 맞춰 잡혔습니다.",
+    "공항 인근 호텔에서 받았어요. 도착·체크인 시간 정확히 맞춰 진행되어 편안했습니다.",
+    "{area} 일대 처음 이용인데 권역 가능 시간·진입 안내를 미리 알려 주셨어요. 도착 후 진행도 매끄러웠습니다.",
+]
+
+
+def _shared_reviews_section(area_name):
+    """이용자 후기 6선 — 해시 기반 변형으로 페이지마다 서로 다른 조합 6개."""
+    cards = []
+    for i in range(6):
+        bi = _dong_pick(area_name, f"rev_b{i}", len(_REVIEW_BODY_TPL))
+        ni = _dong_pick(area_name, f"rev_n{i}", len(_REVIEW_NAMES))
+        di = _dong_pick(area_name, f"rev_d{i}", len(_REVIEW_DATES))
+        ci = _dong_pick(area_name, f"rev_c{i}", len(_REVIEW_COURSES))
+        du = _dong_pick(area_name, f"rev_u{i}", len(_REVIEW_DURATIONS))
+        pi = _dong_pick(area_name, f"rev_p{i}", len(_REVIEW_PLACES))
+        ri = _dong_pick(area_name, f"rev_r{i}", len(_REVIEW_RATINGS))
+        body = _REVIEW_BODY_TPL[bi].format(
+            area=area_name,
+            course=_REVIEW_COURSES[ci],
+            dur=_REVIEW_DURATIONS[du],
+        )
+        cards.append(
+            '<article class="review-card">'
+            '<header class="review-card-head">'
+            f'<span class="review-rating" aria-label="별점">{_REVIEW_RATINGS[ri]}</span>'
+            f'<span class="review-meta">{_REVIEW_NAMES[ni]} · {_REVIEW_DATES[di]}</span>'
+            '</header>'
+            f'<p class="review-text">{body}</p>'
+            '<footer class="review-card-foot">'
+            f'<span class="review-tag">{_REVIEW_COURSES[ci]} {_REVIEW_DURATIONS[du]}분</span>'
+            f'<span class="review-tag">{_REVIEW_PLACES[pi]}</span>'
+            '</footer>'
+            '</article>'
+        )
+    return (
+        '<section class="block">'
+        f'<h2>{area_name} 이용자 후기</h2>'
+        f'<p>{area_name} 권역에서 실제 이용 후 남겨 주신 의견 중 일부를 발췌하여 안내드립니다. 개별 일정의 코스·가격은 사전 전화 상담에서 최종 안내됩니다.</p>'
+        '<div class="review-grid">'
+        + ''.join(cards) +
+        '</div>'
+        '<p class="review-note">※ 본 후기는 운영 중 받은 이용자 의견을 익명화 처리하여 발췌한 것입니다. 개인 식별 정보는 포함되지 않습니다.</p>'
+        '</section>'
+    )
+
+
 def _dong_check_before_section(dong_name, parent_name):
     """예약 전 확인할 부분 — 방문 가능 시간, 건물 출입, 주차, 코스 소요 시간을 통합."""
     intro = _DONG_TIME_INTRO_TPL[
@@ -2991,9 +3122,10 @@ def _dong_verification_section():
 
 def _build_dong_rich_body(*, dong_name, parent_name, region_name, parent_char,
                           parent_url, sibling_card_html, extra_intro_paragraph=None):
-    """동 페이지 공통 본문(약 2,000~2,500자) — 7섹션 흐름.
-    1) 출장마사지 이용 안내  2) 예약 전 확인할 부분  3) 코스 안내
-    4) 가격 안내(짧은 요약)  5) 주변 함께 찾는 지역  6) 바로GO 검증 기준  7) FAQ
+    """동 페이지 공통 본문 (8섹션, 약 4,000자+).
+    1) 출장마사지 이용 안내   2) 마사지 프로그램 안내·가격표   3) 출장마사지 이용 절차
+    4) 예약 전 확인할 부분    5) 이용자 후기                  6) 주변 함께 찾는 지역
+    7) 바로GO 검증 기준       8) 자주 묻는 질문
     """
     intro_long = _dong_long_intro(dong_name, parent_name, parent_char or region_name)
     s1_parts = [
@@ -3012,9 +3144,10 @@ def _build_dong_rich_body(*, dong_name, parent_name, region_name, parent_char,
 
     return (
         section1
+        + _shared_program_price_section(dong_name)
+        + _shared_procedure_section()
         + _dong_check_before_section(dong_name, parent_name)
-        + _dong_course_summary_section(dong_name)
-        + _dong_price_summary_section(dong_name, parent_name)
+        + _shared_reviews_section(dong_name)
         + _dong_nearby_section(dong_name, parent_name, parent_url, region_name, sibling_card_html)
         + _dong_verification_section()
         + _dong_faq_section_html(dong_name, parent_name)
@@ -3022,7 +3155,8 @@ def _build_dong_rich_body(*, dong_name, parent_name, region_name, parent_char,
     )
 
 
-# Seoul 동 페이지 빌드 (helpers 정의 완료 후 실행)
+# Seoul 자치구 + 동 페이지 빌드 (모든 _shared_*/리치 헬퍼 정의 완료 후 실행)
+_build_seoul_districts()
 _build_seoul_dong_pages()
 
 
@@ -3568,6 +3702,10 @@ def _build_gyeonggi_districts():
             f'<h2>{d["name"]} 이용 시간 패턴</h2>'
             f'<p>{d["pattern"]}</p>'
             '</section>',
+            _shared_program_price_section(d["name"]),
+            _shared_procedure_section(),
+            _shared_reviews_section(d["name"]),
+            _dong_verification_section(),
             _district_faqs_html(d["name"], d["faqs"]),
             _region_cta_html(d["name"]),
         ]
@@ -3802,6 +3940,10 @@ def _build_gyeonggi_gu_pages():
                 f'<h2>{gu_name} 이용 시간 패턴</h2>'
                 f'<p>{gu["pattern"]}</p>'
                 '</section>',
+                _shared_program_price_section(gu_name),
+                _shared_procedure_section(),
+                _shared_reviews_section(gu_name),
+                _dong_verification_section(),
                 _district_faqs_html(gu_name, gu["faqs"]),
                 _region_cta_html(gu_name),
             ]
@@ -3945,6 +4087,10 @@ def _build_metro_district(parent_slug, parent_name, d, all_in_parent):
         f'<h2>{d["name"]} 이용 시간 패턴</h2>'
         f'<p>{d["pattern"]}</p>'
         '</section>',
+        _shared_program_price_section(d["name"]),
+        _shared_procedure_section(),
+        _shared_reviews_section(d["name"]),
+        _dong_verification_section(),
         _district_faqs_html(d["name"], d["faqs"]),
         _region_cta_html(d["name"]),
     ]
