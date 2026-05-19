@@ -4324,10 +4324,11 @@ body[data-page^="magazine-"] main > .container > article > .breadcrumbs {
 }
 .mag-hero-quote {
   margin: 0;
-  font-size: clamp(13px, 1.4vw, 15px);
+  font-size: clamp(15px, 1.5vw, 17px);
   line-height: 1.7;
-  color: rgba(255, 255, 255, 0.62);
-  font-style: italic;
+  color: #ffb547;
+  font-style: normal;
+  font-weight: 600;
   max-width: 720px;
   letter-spacing: -0.005em;
 }
