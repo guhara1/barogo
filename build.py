@@ -2169,25 +2169,7 @@ DISTRICT_PAGE_INDEX = {
 }
 
 
-for r in REGIONS:
-    add(
-        path=f"area/{r['slug']}/index.html",
-        url=f"/area/{r['slug']}/",
-        slug=f"area-{r['slug']}",
-        title=r["title"],
-        description=r["description"],
-        h1=r["h1"],
-        intro=f'<p class="lede">{r["lede"]}</p>' + _region_hero_cta_html(r["slug"]),
-        breadcrumbs=[("홈", "/"), ("지역별 찾기", "/area/"), (r["name"], f"/area/{r['slug']}/")],
-        body=(
-            _region_facts_html(r["slug"])
-            + _region_districts_html(r["slug"])
-            + r["body"]
-            + _region_price_section(r["name"])
-            + _region_cta_html(r["name"])
-        ),
-        related=r["related"],
-    )
+# 1차 페이지 add는 _shared_* 헬퍼 정의 이후로 지연 처리됩니다 (파일 하단).
 
 
 # ============================================================
@@ -2740,6 +2722,7 @@ def _build_seoul_districts():
             f'<h2>{d["name"]} 권역 특성</h2>'
             f'<p>{d["character"]}</p>'
             '</section>',
+            _district_rich_sections(d["name"], "서울"),
             '<section class="block">'
             f'<h2>{d["name"]} 이용 시간 패턴</h2>'
             f'<p>{d["pattern"]}</p>'
@@ -3757,6 +3740,107 @@ def _dong_time_section_html(dong_name, parent_name):
     )
 
 
+def _classify_district(district_name, parent_name=None):
+    """2차 시·군·구 캐릭터 분류 (_PARENT_CHAR_MAP 우선, fallback residential)."""
+    if district_name in _PARENT_CHAR_MAP:
+        return _PARENT_CHAR_MAP[district_name]
+    # 시·도 단위 fallback (예: 부산·해운대 인접)
+    return "residential"
+
+
+# 시·군·구 캐릭터별 인트로 풀 (각 4개 변형, 9 캐릭터 = 36 distinct)
+_DISTRICT_CHAR_INTRO = {
+    "business": [
+        "{name}은 {parent} 권역의 비즈니스·금융 중심으로, 평일 야간 시간대 출장마사지 요청이 가장 많이 안내되는 자치구입니다. 회식·접대·출장 일정 직후의 호텔 객실·오피스텔 진행 비중이 다른 자치구보다 두드러집니다.",
+        "{parent}의 핵심 비즈니스 자치구인 {name}에서는 평일 야간 케어가 자주 안내됩니다. 오피스 종사자·출장객의 컨디션 회복을 목적으로 한 60·90분 코스가 가장 많이 선택되며, 사전 전화 상담에서 권역 동선과 일정이 함께 조율됩니다.",
+        "{name}은 {parent} 권역 안에서 비즈니스·금융 종사자 비중이 가장 높은 자치구로 분류됩니다. 평일 야간·심야 시간대 호텔 객실 케어 요청이 자주 안내되며, 비즈니스 호텔과 오피스텔이 진행 장소로 자주 선택됩니다.",
+        "비즈니스 미팅·회식·출장 일정이 집중되는 {parent} {name} 권역에서는 출장마사지 운영도 야간 시간대에 집중됩니다. 컨디션 정돈을 목적으로 한 부드러운 압력의 스웨디시 코스가 자주 권해집니다.",
+    ],
+    "hotel": [
+        "{name}은 {parent} 권역의 호텔·관광 중심 자치구로, 국내외 투숙객의 객실 케어 요청이 가장 자주 안내됩니다. 외국인 투숙객 비중이 일정 비율 있어 사전 영어 안내가 함께 진행되는 경우가 있습니다.",
+        "{parent}의 핵심 관광·호텔 권역인 {name}에서는 출장마사지가 주로 호텔 객실에서 진행됩니다. 체크인 직후·체크아웃 직전 시간대의 케어 요청이 자주 안내되며, 객실 등급별 진입 절차가 사전 전화에서 안내됩니다.",
+        "{name} 권역은 {parent} 호텔 인프라가 가장 밀집한 자치구로, 출장마사지 진행도 호텔 객실 중심으로 운영됩니다. 60·90분 단위 코스가 짧은 체류 일정에 맞춰 자주 선택됩니다.",
+        "관광·국제 회의 일정이 집중되는 {parent} {name} 권역에서는 24시간 운영 호텔의 객실 케어가 자주 안내됩니다. 새벽·심야 시간대 진행 비중이 다른 자치구보다 높은 편입니다.",
+    ],
+    "tech": [
+        "{name}은 {parent} 권역의 IT·테크 클러스터로, 야간 근무·새벽 근무가 자주 있는 직군의 회복 케어 요청이 다수입니다. 평일 야간·주말 오후 출장마사지 비중이 가장 높은 자치구로 분류됩니다.",
+        "IT·R&D 종사자가 밀집한 {parent} {name} 자치구에서는 야근 직후의 컨디션 정돈 케어가 자주 안내됩니다. 신축 오피스텔·서비스 레지던스에서의 진행 비중이 높습니다.",
+        "{name} 권역은 {parent}의 IT·스타트업 클러스터로 운영되며, 평일 야간 시간대의 오피스텔·신축 아파트 케어 요청이 다수입니다. 보안 게이트·공동현관 출입 방식이 단지마다 다른 환경입니다.",
+        "{parent}의 테크 산업 거점인 {name}에서는 어깨·목·허리 누적 케어가 자주 안내됩니다. 스포츠·홈타이 코스 선택 비중이 다른 자치구보다 높은 편입니다.",
+    ],
+    "newtown": [
+        "{name}은 {parent} 권역의 신도시 자치구로, 대단지 아파트·신축 빌라가 주를 이룹니다. 평일 저녁·주말 가정 방문 케어가 가장 자주 안내되며, 단지 게이트 진입·방문자 등록 절차가 사전 전화에서 함께 안내됩니다.",
+        "{parent}의 신도시 권역인 {name}에서는 가정 방문 진행이 가장 많이 안내됩니다. 신축 단지의 공동현관·엘리베이터 진입 방식이 사전 전화에서 함께 조율됩니다.",
+        "신축 대단지 아파트가 밀집한 {parent} {name} 자치구에서는 가족 단위·커플 단위의 케어 요청이 자주 안내됩니다. 평일 저녁·주말 오후가 가장 자주 선택됩니다.",
+        "{name}을 포함한 {parent} 신도시 권역은 가정 방문 비중이 높은 지역으로, 90·120분 코스 선택이 권역 평균보다 많습니다. 가정 공간에서 충분한 시간 케어가 가능한 환경입니다.",
+    ],
+    "university": [
+        "{name}은 {parent} 권역의 대학가·학원가 자치구로, 평일 저녁·주말 시간대의 오피스텔·원룸 케어 요청이 자주 안내됩니다. 1인 가구 비중이 높은 권역 특성이 운영에 반영됩니다.",
+        "{parent}의 대학·고시·학원 인프라가 밀집한 {name}에서는 야간 시간대의 오피스텔 진행이 다수입니다. 시험 기간·학업 누적 시기의 어깨·목 회복 케어 요청이 일정 비율 있습니다.",
+        "대학가 1인 가구 비중이 큰 {parent} {name} 자치구에서는 60분 단위 코스 선택이 권역 평균보다 높습니다. 짧고 부드러운 코스가 자주 권해집니다.",
+        "{name} 권역은 {parent}의 대학 클러스터로 운영되며, 평일 저녁·주말 오피스텔·원룸 진행이 자주 안내됩니다. 거주 환경이 좁은 경우 진행 가능한 자세·동선이 사전 전화에서 함께 안내됩니다.",
+    ],
+    "airport": [
+        "{name}은 {parent} 권역의 공항·교통 거점 자치구로, 출국·입국 일정에 맞춘 호텔 객실 케어 요청이 자주 안내됩니다. 공항권 24시간 운영 호텔의 객실 진행 비중이 다른 자치구보다 높습니다.",
+        "{parent} 공항 인접 권역인 {name}에서는 출장객·여행객의 호텔·게스트하우스 객실 케어가 다수입니다. 짧은 체류 일정에 맞춘 60·90분 코스가 자주 선택됩니다.",
+        "공항·국제 교통 인프라에 인접한 {parent} {name} 자치구에서는 새벽·심야 시간대 진행이 자주 안내됩니다. 비행 일정에 맞춘 권역 동선이 사전 전화에서 조율됩니다.",
+        "{name} 권역은 {parent}의 공항·물류 거점으로 운영되며, 장거리 비행 후 다리 부종 케어 요청이 자주 안내됩니다. 90분 코스 중 하체에 집중하는 흐름이 권해집니다.",
+    ],
+    "riverside": [
+        "{name}은 {parent} 권역의 강변·수변 자치구로, 한강·해운대 등 수변 인프라 인근에 호텔·고급 빌라가 분포합니다. 평일 저녁·주말 호텔과 가정 진행이 혼재하는 환경입니다.",
+        "{parent}의 수변 권역인 {name}에서는 호텔·고급 주거의 케어 요청이 자주 안내됩니다. 90·120분 코스 선택이 권역 평균보다 많은 편입니다.",
+        "강·바다에 인접한 {parent} {name} 자치구는 호텔과 고급 빌라·아파트가 함께 분포해 진행 장소 유형의 폭이 넓습니다. 주말 오후·저녁 시간대 진행이 가장 자주 안내됩니다.",
+        "{name} 권역은 {parent}의 수변 인프라 거점으로 운영되며, 한강·해변 인근 호텔 객실 진행 비중이 다른 자치구보다 두드러집니다. 주차 인프라가 좋은 권역 특성상 관리사 차량 진입이 비교적 매끄럽습니다.",
+    ],
+    "mixed": [
+        "{name}은 {parent} 권역의 주상복합 자치구로, 호텔·오피스텔·가정 방문이 고루 안내됩니다. 사용자 일정·동행 인원에 맞춰 진행 장소가 사전 전화에서 함께 권해집니다.",
+        "{parent} 상권·주거가 혼합된 {name}에서는 출장마사지가 호텔·오피스텔·아파트 가운데 사용자 선택에 따라 진행됩니다. 평일 저녁·야간 시간대 케어 요청이 자주 안내됩니다.",
+        "{name} 권역은 {parent}의 상업·주거 복합 구역으로, 진행 장소 유형의 폭이 넓습니다. 60·90·120분 코스가 고르게 안내되며, 권역 동선은 사전 전화에서 함께 조율됩니다.",
+        "상권 활동과 주거가 혼재된 {parent} {name} 자치구에서는 출장마사지 운영도 다양한 장소·시간대에 안내됩니다. 사용자 일정에 맞춰 가장 매끄러운 진행 흐름이 권해집니다.",
+    ],
+    "residential": [
+        "{name}은 {parent} 권역의 주거 중심 자치구로, 가정 방문 진행이 가장 자주 안내됩니다. 평일 저녁·주말 오후 시간대의 케어 요청이 다수이며, 단지 진입 방식이 사전 전화에서 함께 안내됩니다.",
+        "{parent}의 주거 권역인 {name}에서는 아파트·빌라·단독주택의 가정 방문 케어가 자주 안내됩니다. 사전 전화에서 공동현관·엘리베이터 진입 방식이 조율됩니다.",
+        "주거 비중이 높은 {parent} {name} 자치구는 평일 저녁·주말 가정 방문 진행이 가장 자주 안내되는 환경입니다. 단지 동선·주차 가능 여부가 사전 전화에서 함께 확인됩니다.",
+        "{name} 권역은 {parent}의 주거 중심으로 운영되며, 가정 방문 진행이 다수입니다. 어린 자녀가 있는 가구의 경우 자녀 취침 시간 이후 케어 요청이 자주 안내됩니다.",
+    ],
+}
+
+
+def _district_long_intro_section(district_name, parent_name):
+    """2차 자치구 페이지 — 캐릭터 기반 long intro 섹션."""
+    char = _classify_district(district_name, parent_name)
+    pool = _DISTRICT_CHAR_INTRO.get(char, _DISTRICT_CHAR_INTRO["residential"])
+    seed = (district_name + parent_name).encode("utf-8")
+    idx = int(hashlib.md5(seed).hexdigest(), 16) % len(pool)
+    intro = pool[idx].format(name=district_name, parent=parent_name)
+    # 캐릭터별 이용 패턴 단락
+    usage_pool = _DONG_CHAR_USAGE.get(char, _DONG_CHAR_USAGE["residential"])
+    u_idx = int(hashlib.md5((district_name + "usage").encode("utf-8")).hexdigest(), 16) % len(usage_pool)
+    usage = usage_pool[u_idx]
+    return (
+        '<section class="block">'
+        f'<h2>{district_name} 출장마사지 권역 안내</h2>'
+        f'<p>{intro}</p>'
+        f'<p>{usage}</p>'
+        '</section>'
+    )
+
+
+def _district_rich_sections(district_name, parent_name):
+    """2차 자치구 페이지에 추가되는 풍부 섹션 모음.
+    행정동 페이지와 동일한 구조로 가격표·진행 방식·후기·검증 섹션을 포함."""
+    return (
+        _district_long_intro_section(district_name, parent_name) +
+        _shared_program_price_section(district_name) +
+        _shared_procedure_section(district_name) +
+        _dong_place_section_html(district_name, parent_name) +
+        _shared_reviews_section(district_name) +
+        _dong_check_before_section(district_name, parent_name) +
+        _dong_verification_section(district_name)
+    )
+
+
 def _dong_place_section_html(dong_name, parent_name):
     intro = _DONG_PLACE_INTRO_TPL[
         _dong_pick(dong_name, "place", len(_DONG_PLACE_INTRO_TPL))
@@ -4266,6 +4350,33 @@ def _build_dong_rich_body(*, dong_name, parent_name, region_name, parent_char,
         + _dong_verification_section(dong_name)
         + _dong_faq_section_html(dong_name, parent_name)
         + _region_cta_html(dong_name)
+    )
+
+
+# 1차 시·도 페이지 add — _shared_* 헬퍼 정의 이후에 실행되어야 함
+for r in REGIONS:
+    add(
+        path=f"area/{r['slug']}/index.html",
+        url=f"/area/{r['slug']}/",
+        slug=f"area-{r['slug']}",
+        title=r["title"],
+        description=r["description"],
+        h1=r["h1"],
+        intro=f'<p class="lede">{r["lede"]}</p>' + _region_hero_cta_html(r["slug"]),
+        breadcrumbs=[("홈", "/"), ("지역별 찾기", "/area/"), (r["name"], f"/area/{r['slug']}/")],
+        body=(
+            _region_facts_html(r["slug"])
+            + _region_districts_html(r["slug"])
+            + r["body"]
+            + _region_price_section(r["name"])
+            + _shared_procedure_section(r["name"])
+            + _dong_place_section_html(r["name"], r["name"])
+            + _shared_reviews_section(r["name"])
+            + _dong_check_before_section(r["name"], r["name"])
+            + _dong_verification_section(r["name"])
+            + _region_cta_html(r["name"])
+        ),
+        related=r["related"],
     )
 
 
@@ -4839,6 +4950,7 @@ def _build_gyeonggi_districts():
             f'<h2>{d["name"]} 권역 특성</h2>'
             f'<p>{d["character"]}</p>'
             '</section>',
+            _district_rich_sections(d["name"], "경기"),
             '<section class="block">'
             f'<h2>{d["name"]} 이용 시간 패턴</h2>'
             f'<p>{d["pattern"]}</p>'
@@ -5073,6 +5185,7 @@ def _build_gyeonggi_gu_pages():
                 f'<h2>{gu_name} 권역 특성</h2>'
                 f'<p>{gu["character"]}</p>'
                 '</section>',
+                _district_rich_sections(gu_name, f"경기 {si_name}"),
                 '<section class="block">'
                 f'<h2>{gu_name} 이용 시간 패턴</h2>'
                 f'<p>{gu["pattern"]}</p>'
@@ -5213,6 +5326,7 @@ def _build_metro_district(parent_slug, parent_name, d, all_in_parent):
         f'<h2>{d["name"]} 권역 특성</h2>'
         f'<p>{d["character"]}</p>'
         '</section>',
+        _district_rich_sections(d["name"], parent_name),
         '<section class="block">'
         f'<h2>{d["name"]} 이용 시간 패턴</h2>'
         f'<p>{d["pattern"]}</p>'
