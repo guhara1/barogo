@@ -2599,3 +2599,239 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   .program-grid { grid-template-columns: 1fr; }
   .region-facts { grid-template-columns: 1fr 1fr; }
 }
+
+/* ============================================================
+   ✦ FIX — CTA 가시성 / 칩 시인성 / 권역 카드 대비 강화
+   ============================================================ */
+
+/* CTA 박스 — 헤드라인·서브텍스트 모두 명확한 흰색 */
+.region-hero-cta {
+  background: linear-gradient(135deg, #0b1a1a 0%, var(--color-accent) 55%, var(--color-accent-strong) 100%);
+  padding: 24px 28px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 18px 44px rgba(11, 26, 26, 0.22);
+}
+.region-hero-cta * { text-decoration: none !important; }
+.region-hero-cta-text { color: #fff; }
+.region-hero-cta-headline {
+  display: block;
+  color: #ffffff !important;
+  font-size: 17.5px !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.02em;
+  line-height: 1.45;
+  margin-bottom: 8px;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.10);
+}
+.region-hero-cta-sub {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.92) !important;
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+}
+
+/* 전화 pill — 골드 액센트 + 명확한 다크 텍스트 */
+.region-hero-tel,
+.region-hero-tel:link,
+.region-hero-tel:visited {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 22px 14px 14px;
+  background: #ffffff;
+  color: var(--color-ink) !important;
+  border-radius: var(--radius-pill);
+  border: 2px solid var(--color-gold) !important;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22), 0 0 0 4px rgba(200, 162, 104, 0.18);
+  text-decoration: none !important;
+  font-weight: 800;
+  transition: transform var(--dur-2) var(--ease-out), box-shadow var(--dur-2) var(--ease-out);
+}
+.region-hero-tel:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.30), 0 0 0 5px rgba(200, 162, 104, 0.28);
+}
+.region-hero-tel-icon {
+  width: 40px; height: 40px;
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-strong) 100%);
+  color: #fff !important;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  box-shadow: inset 0 -2px 4px rgba(0, 0, 0, 0.18);
+}
+.region-hero-tel-icon svg { width: 18px; height: 18px; }
+.region-hero-tel-text {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 2px;
+  line-height: 1.15;
+}
+.region-hero-tel-label {
+  display: block;
+  font-size: 11px !important;
+  color: var(--color-ink-mute) !important;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.region-hero-tel-num {
+  display: block;
+  font-size: 22px !important;
+  font-weight: 900 !important;
+  letter-spacing: -0.015em !important;
+  color: var(--color-ink) !important;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+  text-decoration: none !important;
+  border: none !important;
+}
+
+/* 권역 요약 (region-facts) — 더 강한 깊이감, 골드 라인 액센트 */
+.region-facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin: 22px 0 28px;
+}
+.region-fact {
+  background: linear-gradient(180deg, #ffffff 0%, var(--color-accent-mute) 100%);
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius);
+  padding: 18px 20px 20px;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--dur-2) var(--ease-out), box-shadow var(--dur-2) var(--ease-out);
+}
+.region-fact::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 3px;
+  background: linear-gradient(90deg, var(--color-accent), var(--color-gold));
+}
+.region-fact::after {
+  content: "";
+  position: absolute;
+  right: -24px; top: -24px;
+  width: 60px; height: 60px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(11, 90, 71, 0.10) 0%, transparent 70%);
+}
+.region-fact:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+.region-fact-label {
+  font-size: 11.5px;
+  color: var(--color-accent-strong);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 800;
+  position: relative;
+  margin-bottom: 4px;
+}
+.region-fact-value {
+  font-size: 19px;
+  font-weight: 800;
+  color: var(--color-ink);
+  letter-spacing: -0.025em;
+  line-height: 1.25;
+  position: relative;
+}
+
+/* 행정구역 카드 — 부드러운 cream 배경 + 칩 시인성 강화 */
+.region-districts {
+  background:
+    linear-gradient(180deg, var(--color-bg-tinted) 0%, var(--color-accent-mute) 100%);
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius-lg);
+  padding: clamp(26px, 3.4vw, 36px);
+  box-shadow: var(--shadow-sm);
+}
+.region-districts-eyebrow {
+  background: #ffffff;
+  border: 1px solid var(--color-accent-soft);
+  color: var(--color-accent-strong);
+  box-shadow: 0 2px 6px rgba(11, 90, 71, 0.08);
+}
+.region-districts-headline {
+  color: var(--color-ink);
+  margin-top: 8px !important;
+}
+
+/* 칩 — 화이트 → 골드 보더 + 액센트 텍스트로 시인성 끌어올림 */
+.region-districts-grid {
+  gap: 10px;
+}
+.region-districts-grid li {
+  background: #ffffff;
+  border: 1.5px solid var(--color-line-strong);
+  border-radius: var(--radius-pill);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-ink);
+  letter-spacing: -0.015em;
+  box-shadow: 0 1px 2px rgba(11, 26, 26, 0.04);
+  transition: all var(--dur-2) var(--ease-out);
+  position: relative;
+}
+.region-districts-grid li.has-link {
+  padding: 0;
+  background: linear-gradient(180deg, #ffffff 0%, #f7faf8 100%);
+  border-color: var(--color-accent-soft);
+}
+.region-districts-grid li.has-link a {
+  padding: 12px 16px;
+  color: var(--color-accent-strong) !important;
+  border: none !important;
+  border-bottom: none !important;
+  text-decoration: none !important;
+  font-weight: 700;
+}
+.region-districts-grid li.has-link::before {
+  content: "";
+  position: absolute;
+  left: 12px; top: 50%;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  transform: translateY(-50%) scale(0);
+  transition: transform var(--dur-2) var(--ease-out);
+  opacity: 0.4;
+}
+.region-districts-grid li.has-link:hover {
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-strong) 100%);
+  border-color: var(--color-accent-strong);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(11, 90, 71, 0.28);
+}
+.region-districts-grid li.has-link:hover a {
+  color: #ffffff !important;
+}
+.region-districts-grid li.has-link:hover::before {
+  background: var(--color-gold);
+  transform: translateY(-50%) scale(1);
+  opacity: 1;
+}
+.region-districts-grid-arrow { color: inherit; }
+
+@media (max-width: 720px) {
+  .region-hero-cta { padding: 18px 18px; flex-direction: column; align-items: stretch; }
+  .region-hero-cta-text { width: 100%; }
+  .region-hero-tel { width: 100%; justify-content: center; padding: 14px 18px; }
+  .region-hero-cta-headline { font-size: 15.5px !important; }
+  .region-hero-tel-num { font-size: 20px !important; }
+  .region-fact { padding: 14px 16px 16px; }
+  .region-fact-value { font-size: 16px; }
+  .region-districts { padding: 20px 18px 22px; }
+  .region-districts-grid { grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 8px; }
+  .region-districts-grid li { font-size: 13px; }
+  .region-districts-grid li.has-link a { padding: 10px 12px; }
+}
