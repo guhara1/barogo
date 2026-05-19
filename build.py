@@ -2936,13 +2936,13 @@ def _shared_program_price_section(area_name):
         '<article class="program-card"><h3>호텔 방문</h3><p>출장·관광 일정 호텔 객실에서 진행되는 유형. 체크인 시각·룸 호수 사전 확인이 필요합니다.</p></article>'
         '</div>'
         '<table class="price-table" aria-label="코스별 시간 단위 기준 가격 (부터)">'
-        '<thead><tr><th scope="col">코스</th><th scope="col">60분</th><th scope="col">90분</th><th scope="col">120분</th><th scope="col">150분</th></tr></thead>'
+        '<thead><tr><th scope="col">코스</th><th scope="col">60분</th><th scope="col">90분</th><th scope="col">120분</th></tr></thead>'
         '<tbody>'
-        '<tr><th scope="row">스웨디시</th><td>00,000원부터</td><td>00,000원부터</td><td>00,000원부터</td><td>00,000원부터</td></tr>'
-        '<tr><th scope="row">아로마</th><td>00,000원부터</td><td>00,000원부터</td><td>00,000원부터</td><td>—</td></tr>'
-        '<tr><th scope="row">홈타이</th><td>00,000원부터</td><td>00,000원부터</td><td>00,000원부터</td><td>—</td></tr>'
-        '<tr><th scope="row">스포츠</th><td>00,000원부터</td><td>00,000원부터</td><td>—</td><td>—</td></tr>'
-        '<tr><th scope="row">커플(2인)</th><td>00,000원부터</td><td>00,000원부터</td><td>00,000원부터</td><td>—</td></tr>'
+        '<tr><th scope="row">홈타이(타이)</th><td>90,000원부터</td><td>110,000원부터</td><td>130,000원부터</td></tr>'
+        '<tr><th scope="row">아로마</th><td>100,000원부터</td><td>120,000원부터</td><td>140,000원부터</td></tr>'
+        '<tr><th scope="row">스웨디시(힐링)</th><td>110,000원부터</td><td>130,000원부터</td><td>150,000원부터</td></tr>'
+        '<tr><th scope="row">스페셜·스포츠</th><td>120,000원부터</td><td>140,000원부터</td><td>160,000원부터</td></tr>'
+        '<tr><th scope="row">커플(2인 합산)</th><td>180,000원부터</td><td>220,000원부터</td><td>260,000원부터</td></tr>'
         '</tbody></table>'
         '<ul class="price-note">'
         '<li>※ 지역·시간대·진행 장소·코스에 따라 금액은 조정될 수 있습니다.</li>'
@@ -3164,11 +3164,39 @@ _build_seoul_districts()
 _build_seoul_dong_pages()
 
 
+# ------------------------------------------------------------
+# 지방(수도권 외) 군 단위 — 3차 읍·면 페이지 생성/링크 제외 대상
+# 사이트 전체 품질 신호 보호 목적 (helpful content 시스템 사이트 단위 신호 대응).
+# 2차 군 페이지는 유지하되, 산하 읍·면 3차 페이지는 생성하지 않고
+# 칩도 평문(li)으로 렌더링되도록 함.
+# ------------------------------------------------------------
+_LOCAL_METRO_GUNS = {
+    ("busan",  "기장군"),
+    ("daegu",  "달성군"),
+    ("daegu",  "군위군"),
+    ("ulsan",  "울주군"),
+}
+_LOCAL_DO_REGIONS = {
+    "gangwon", "chungbuk", "chungnam",
+    "jeonbuk", "jeonnam", "gyeongbuk", "gyeongnam",
+}
+
+def _is_rural_gun(region_slug, district):
+    name = district.get("name", "")
+    if (region_slug, name) in _LOCAL_METRO_GUNS:
+        return True
+    if region_slug in _LOCAL_DO_REGIONS and name.endswith("군"):
+        return True
+    return False
+
+
 def _build_subordinate_dong_pages(region_slug, region_name, district):
     """sub_label이 없는(=행정동·읍·면 직접 자녀를 갖는) 부모 단위에 대해
     행정동 단위 3차 페이지를 생성한다. 슬러그/내용은 해시 기반 변형으로 페이지마다 차별화."""
     if district.get("sub_label"):
         return
+    if _is_rural_gun(region_slug, district):
+        return  # 지방 군 단위 읍·면은 3차 페이지 생성 제외
     parent_name = district["name"]
     parent_slug = district["slug"]
     parent_char = district.get("character", "") or district.get("lede", "")
@@ -3253,6 +3281,8 @@ def _register_region_dongs(region_slug, districts):
     for d in districts:
         if d.get("sub_label"):
             continue
+        if _is_rural_gun(region_slug, d):
+            continue  # 지방 군 단위는 동/읍/면 인덱스 등록 제외 → 칩이 평문 li로 렌더
         parent_name = d["name"]
         parent_slug = d["slug"]
         consolidated = _consolidate_dongs(d.get("subs", []))
@@ -6368,39 +6398,39 @@ add(
 <h2>코스별 기준 가격 (시간 단위 · "부터" 기준)</h2>
 <p>아래 가격은 코스별 일반 권역 기준 시작 금액입니다. 진행 장소·예약 시간대·이동 거리에 따라 일부 조정될 수 있으며, 최종 금액은 예약 상담 시 안내됩니다.</p>
 
-<h3>스웨디시 코스</h3>
+<h3>홈타이(타이) 코스</h3>
 <ul class="check-list">
-<li>60분 — 00,000원부터</li>
-<li>90분 — 00,000원부터</li>
-<li>120분 — 00,000원부터</li>
-<li>150분 — 00,000원부터</li>
+<li>60분 — 90,000원부터</li>
+<li>90분 — 110,000원부터</li>
+<li>120분 — 130,000원부터</li>
 </ul>
 
 <h3>아로마 코스</h3>
 <ul class="check-list">
-<li>60분 — 00,000원부터</li>
-<li>90분 — 00,000원부터</li>
-<li>120분 — 00,000원부터</li>
+<li>60분 — 100,000원부터</li>
+<li>90분 — 120,000원부터</li>
+<li>120분 — 140,000원부터</li>
 </ul>
 
-<h3>홈타이 코스</h3>
+<h3>스웨디시(힐링) 코스</h3>
 <ul class="check-list">
-<li>60분 — 00,000원부터</li>
-<li>90분 — 00,000원부터</li>
-<li>120분 — 00,000원부터</li>
+<li>60분 — 110,000원부터</li>
+<li>90분 — 130,000원부터</li>
+<li>120분 — 150,000원부터</li>
 </ul>
 
-<h3>스포츠 마사지 코스</h3>
+<h3>스페셜·스포츠 코스</h3>
 <ul class="check-list">
-<li>60분 — 00,000원부터</li>
-<li>90분 — 00,000원부터</li>
+<li>60분 — 120,000원부터</li>
+<li>90분 — 140,000원부터</li>
+<li>120분 — 160,000원부터</li>
 </ul>
 
 <h3>커플(2인 동시) 코스</h3>
 <ul class="check-list">
-<li>60분 — 00,000원부터 (2인 합산)</li>
-<li>90분 — 00,000원부터 (2인 합산)</li>
-<li>120분 — 00,000원부터 (2인 합산)</li>
+<li>60분 — 180,000원부터 (2인 합산)</li>
+<li>90분 — 220,000원부터 (2인 합산)</li>
+<li>120분 — 260,000원부터 (2인 합산)</li>
 </ul>
 </section>
 
