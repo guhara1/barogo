@@ -5323,3 +5323,384 @@ a.mag-meta-avatar { text-decoration: none !important; }
   .team-profile-avatar { width: 72px; height: 72px; font-size: 30px; }
   .team-profile-row { grid-template-columns: 64px 1fr; gap: 8px; font-size: 13.5px; }
 }
+
+/* ============================================================
+   Area pages — 풍부 섹션 카드형 UI/UX 강화
+   ============================================================ */
+
+/* 섹션 리드 문장 (h2 하단 설명) — 공통 */
+.section-lede {
+  font-size: 15.5px;
+  line-height: 1.75;
+  color: var(--color-ink-soft, #2d3a3a);
+  margin: 6px 0 18px;
+  word-break: keep-all;
+  max-width: 880px;
+}
+
+/* ============================================================
+   예약 전 확인할 부분 — 6장 아이콘 카드 그리드
+   ============================================================ */
+.check-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 14px;
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.check-card {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 14px;
+  padding: 16px 18px;
+  background: #fff;
+  border: 1px solid var(--color-line);
+  border-radius: 14px;
+  align-items: start;
+  transition: all 180ms var(--ease-out);
+}
+.check-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(11,26,26,0.08);
+  border-color: var(--color-accent-soft, #cfe3dc);
+}
+.check-card-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(11,90,71,0.10), rgba(246,203,64,0.10));
+  position: relative;
+  flex-shrink: 0;
+}
+.check-card-icon::before {
+  font-size: 20px;
+  line-height: 1;
+}
+.check-card--clock .check-card-icon::before     { content: "🕐"; }
+.check-card--door .check-card-icon::before      { content: "🚪"; }
+.check-card--car .check-card-icon::before       { content: "🅿️"; }
+.check-card--hourglass .check-card-icon::before { content: "⏱"; }
+.check-card--people .check-card-icon::before    { content: "👥"; }
+.check-card--heart .check-card-icon::before     { content: "❤"; color: #e0566a; }
+.check-card-body { min-width: 0; }
+.check-card-title {
+  display: block;
+  font-size: 14.5px;
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  color: var(--color-ink);
+  margin: 2px 0 6px;
+}
+.check-card-desc {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--color-ink-soft, #2d3a3a);
+  word-break: keep-all;
+}
+
+/* ============================================================
+   진행 장소 유형 — 5장 카드 그리드 (이모지 아이콘)
+   ============================================================ */
+.place-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 14px;
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.place-card {
+  padding: 20px 18px;
+  background: #fff;
+  border: 1px solid var(--color-line);
+  border-radius: 14px;
+  transition: all 180ms var(--ease-out);
+  position: relative;
+}
+.place-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 22px rgba(11,26,26,0.10);
+  border-color: var(--color-accent-soft, #cfe3dc);
+}
+.place-card-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(11,90,71,0.12), rgba(246,203,64,0.12));
+  margin-bottom: 12px;
+}
+.place-card-icon::before { font-size: 22px; line-height: 1; }
+.place-card--hotel .place-card-icon::before   { content: "🏨"; }
+.place-card--home .place-card-icon::before    { content: "🏠"; }
+.place-card--office .place-card-icon::before  { content: "🏢"; }
+.place-card--pension .place-card-icon::before { content: "🌿"; }
+.place-card--biz .place-card-icon::before     { content: "💼"; }
+.place-card-title {
+  font-size: 15.5px;
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  color: var(--color-ink);
+  margin: 0 0 8px;
+}
+.place-card-desc {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: var(--color-ink-soft, #2d3a3a);
+  word-break: keep-all;
+}
+.place-card-link {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--color-accent) !important;
+  text-decoration: none !important;
+  border-bottom: 1px dotted var(--color-accent-soft, #cfe3dc);
+}
+.place-card-link:hover { color: var(--color-accent-strong) !important; }
+
+/* ============================================================
+   이용 절차 — 5단계 타임라인 (좌측 세로 레일 + 번호 원)
+   ============================================================ */
+.procedure-list {
+  list-style: none;
+  padding: 0;
+  margin: 18px 0 0;
+  position: relative;
+}
+.procedure-list::before {
+  content: "";
+  position: absolute;
+  left: 19px;
+  top: 24px;
+  bottom: 24px;
+  width: 2px;
+  background: linear-gradient(180deg, var(--color-accent), var(--color-gold));
+  opacity: 0.5;
+}
+.procedure-list > li {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: 18px;
+  padding: 4px 0 22px 0;
+  align-items: start;
+  position: relative;
+}
+.procedure-list > li:last-child { padding-bottom: 4px; }
+.procedure-list .step-num {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--color-accent), var(--color-accent-strong, #094238));
+  color: #fff;
+  font-weight: 900;
+  font-size: 17px;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 6px 14px rgba(11,90,71,0.30);
+  flex-shrink: 0;
+  font-feature-settings: "tnum";
+}
+.procedure-list > li > div {
+  padding: 4px 18px 16px;
+  background: #fff;
+  border: 1px solid var(--color-line);
+  border-radius: 12px;
+  position: relative;
+}
+.procedure-list > li > div::before {
+  content: "";
+  position: absolute;
+  left: -8px;
+  top: 14px;
+  width: 0; height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-right: 8px solid #fff;
+  filter: drop-shadow(-1px 0 0 var(--color-line));
+}
+.procedure-list > li h3 {
+  margin: 12px 0 6px;
+  font-size: 15.5px;
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  color: var(--color-ink);
+}
+.procedure-list > li p {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: var(--color-ink-soft, #2d3a3a);
+  word-break: keep-all;
+}
+
+/* ============================================================
+   바로GO 검증 기준 — 신뢰 카드 그리드
+   ============================================================ */
+.verify-h2-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px; height: 24px;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  vertical-align: middle;
+  transform: translateY(-2px);
+}
+.verify-h2-mark::before { content: "✓"; }
+.verify-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 14px;
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.verify-card {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 14px;
+  padding: 16px 18px;
+  background: linear-gradient(180deg, #fff, #fbfcfb);
+  border: 1px solid var(--color-line);
+  border-left: 3px solid var(--color-accent);
+  border-radius: 12px;
+  align-items: start;
+  transition: all 180ms var(--ease-out);
+}
+.verify-card:hover {
+  border-left-color: var(--color-gold);
+  box-shadow: 0 8px 16px rgba(11,90,71,0.06);
+}
+.verify-card-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(11,90,71,0.12), rgba(246,203,64,0.10));
+  flex-shrink: 0;
+}
+.verify-card-icon::before { font-size: 18px; line-height: 1; }
+.verify-card--badge .verify-card-icon::before  { content: "🏢"; }
+.verify-card--phone .verify-card-icon::before  { content: "☎"; color: var(--color-accent); }
+.verify-card--course .verify-card-icon::before { content: "📋"; }
+.verify-card--area .verify-card-icon::before   { content: "🗺"; }
+.verify-card--refund .verify-card-icon::before { content: "💳"; }
+.verify-card--shield .verify-card-icon::before { content: "🛡"; color: var(--color-accent); }
+.verify-card-title {
+  display: block;
+  font-size: 14.5px;
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  color: var(--color-ink);
+  margin: 0 0 6px;
+}
+.verify-card-desc {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--color-ink-soft, #2d3a3a);
+  word-break: keep-all;
+}
+
+/* ============================================================
+   이용자 후기 — 카드 강화 (이미 review-card 있음, 시각 강화만)
+   ============================================================ */
+.review-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 14px;
+  margin: 18px 0 0;
+}
+.review-card {
+  position: relative;
+  padding: 22px 20px 18px;
+  background: #fff;
+  border: 1px solid var(--color-line);
+  border-radius: 14px;
+  transition: all 180ms var(--ease-out);
+}
+.review-card::before {
+  content: "\201C";
+  position: absolute;
+  top: 6px; right: 14px;
+  font-size: 46px;
+  line-height: 1;
+  color: var(--color-accent-soft, #cfe3dc);
+  font-family: Georgia, serif;
+  font-weight: 700;
+}
+.review-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(11,26,26,0.10);
+}
+.review-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.review-rating {
+  font-size: 14px;
+  color: #f4a72b;
+  letter-spacing: 1px;
+}
+.review-meta {
+  font-size: 11.5px;
+  color: var(--color-ink-mute);
+  font-feature-settings: "tnum";
+}
+.review-text {
+  margin: 0 0 12px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--color-ink);
+  word-break: keep-all;
+}
+.review-card-foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.review-tag {
+  display: inline-flex;
+  padding: 3px 10px;
+  background: var(--color-bg-elev);
+  border: 1px solid var(--color-line);
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--color-ink-soft, #2d3a3a);
+  letter-spacing: -0.005em;
+}
+.review-note {
+  margin: 16px 0 0;
+  font-size: 12px;
+  color: var(--color-ink-mute);
+}
+
+@media (max-width: 600px) {
+  .check-grid, .place-grid, .verify-grid, .review-grid {
+    grid-template-columns: 1fr;
+  }
+  .procedure-list::before { left: 15px; }
+  .procedure-list .step-num { width: 32px; height: 32px; font-size: 14px; }
+  .procedure-list > li { grid-template-columns: 32px 1fr; gap: 14px; }
+}

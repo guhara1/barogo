@@ -3845,17 +3845,29 @@ def _dong_place_section_html(dong_name, parent_name):
     intro = _DONG_PLACE_INTRO_TPL[
         _dong_pick(dong_name, "place", len(_DONG_PLACE_INTRO_TPL))
     ].format(dong=dong_name, parent=parent_name)
+    places = [
+        ("hotel",   "호텔 객실",  "출장·비즈니스·관광 일정과 함께 자주 진행됩니다. 체크인 시각·룸 컨디션·층 정보를 사전 확인 후 도착 시각을 정합니다.", "/service/hotel-massage/"),
+        ("home",    "가정",       f"{parent_name} 주거 단지에서 평일 저녁 비중이 가장 큰 유형입니다. 공동현관 비밀번호·층 안내·반려동물 유무를 사전 확인합니다.", ""),
+        ("office",  "오피스텔",  "1인 가구·주거형 오피스텔에서 진행되며, 무인 출입 시스템·키오스크·엘리베이터 카드 키 등 출입 방식 사전 안내가 필요합니다.", ""),
+        ("pension", "펜션·풀빌라","휴양 일정과 결합되는 유형으로, 진입로 폭·주차 가능 여부·도착 안내(외부 조명·도어 잠금 방식) 등을 사전에 함께 확인합니다.", ""),
+        ("biz",     "기업·사무실","사내 휴게 공간 컨디션에 맞춰 진행됩니다. 단체 일정의 경우 사전 일정 조율이 필요합니다.", "/service/office-massage/"),
+    ]
+    cards = "".join(
+        '<li class="place-card place-card--{ic}">'
+        '<span class="place-card-icon" aria-hidden="true"></span>'
+        '<h3 class="place-card-title">{t}</h3>'
+        '<p class="place-card-desc">{d}{link}</p>'
+        '</li>'.format(
+            ic=ic, t=t, d=d,
+            link=(f' <a class="place-card-link" href="{href}">자세히 →</a>' if href else "")
+        )
+        for ic, t, d, href in places
+    )
     return (
         '<section class="block">'
         f'<h2>{dong_name} 진행 장소 유형</h2>'
-        f'<p>{intro}</p>'
-        '<ul>'
-        '<li><strong>호텔 객실</strong> — 출장·비즈니스·관광 일정과 함께 자주 진행됩니다. 체크인 시각·룸 컨디션·층 정보를 사전 확인 후 도착 시각을 정합니다. <a href="/service/hotel-massage/">호텔 출장마사지</a> 페이지 참고.</li>'
-        f'<li><strong>가정</strong> — {parent_name} 주거 단지에서 평일 저녁 비중이 가장 큰 유형입니다. 공동현관 비밀번호·층 안내·반려동물 유무를 사전 확인합니다.</li>'
-        '<li><strong>오피스텔</strong> — 1인 가구·주거형 오피스텔에서 진행되며, 무인 출입 시스템·키오스크·엘리베이터 카드 키 등 출입 방식 사전 안내가 필요합니다.</li>'
-        '<li><strong>펜션·풀빌라</strong> — 휴양 일정과 결합되는 유형으로, 진입로 폭·주차 가능 여부·도착 안내(외부 조명·도어 잠금 방식) 등을 사전에 함께 확인합니다.</li>'
-        '<li><strong>기업·사무실</strong> — 사내 휴게 공간 컨디션에 맞춰 진행됩니다. 단체 일정의 경우 사전 일정 조율이 필요합니다. <a href="/service/office-massage/">기업 출장</a> 페이지 참고.</li>'
-        '</ul>'
+        f'<p class="section-lede">{intro}</p>'
+        f'<ul class="place-grid">{cards}</ul>'
         '</section>'
     )
 
@@ -4182,7 +4194,7 @@ _CHECK_HEALTH_TPL = [
 
 
 def _dong_check_before_section(dong_name, parent_name):
-    """예약 전 확인할 부분 — 지역별 변형으로 페이지마다 고유 문구."""
+    """예약 전 확인할 부분 — 6개 아이콘 카드 그리드."""
     p = _dong_pick
     intro = _DONG_TIME_INTRO_TPL[p(dong_name, "check", len(_DONG_TIME_INTRO_TPL))].format(
         dong=dong_name, parent=parent_name
@@ -4193,18 +4205,28 @@ def _dong_check_before_section(dong_name, parent_name):
     course = _CHECK_COURSE_TPL[p(dong_name, "ch_course", len(_CHECK_COURSE_TPL))]
     opt = _CHECK_OPT_TPL[p(dong_name, "ch_opt", len(_CHECK_OPT_TPL))]
     health = _CHECK_HEALTH_TPL[p(dong_name, "ch_health", len(_CHECK_HEALTH_TPL))]
+    cards = [
+        ("clock",   "방문 가능 시간",   time),
+        ("door",    "건물 출입 방식",   entry),
+        ("car",     "주차 가능 여부",   park),
+        ("hourglass","코스 소요 시간",  course),
+        ("people",  "인원·옵션",       opt),
+        ("heart",   "건강·컨디션",     health),
+    ]
+    cards_html = "".join(
+        f'<li class="check-card check-card--{icon}">'
+        f'<span class="check-card-icon" aria-hidden="true"></span>'
+        f'<div class="check-card-body">'
+        f'<strong class="check-card-title">{title}</strong>'
+        f'<p class="check-card-desc">{desc}</p>'
+        '</div></li>'
+        for icon, title, desc in cards
+    )
     return (
         '<section class="block">'
         f'<h2>{dong_name}에서 예약 전 확인할 부분</h2>'
-        f'<p>{intro} 아래 항목은 사전 전화 상담에서 함께 확인되는 기본 정보입니다.</p>'
-        '<ul>'
-        f'<li><strong>방문 가능 시간</strong> — {time}</li>'
-        f'<li><strong>건물 출입 방식</strong> — {entry}</li>'
-        f'<li><strong>주차 가능 여부</strong> — {park}</li>'
-        f'<li><strong>코스 소요 시간</strong> — {course}</li>'
-        f'<li><strong>인원·옵션</strong> — {opt}</li>'
-        f'<li><strong>건강·컨디션</strong> — {health}</li>'
-        '</ul>'
+        f'<p class="section-lede">{intro} 아래 항목은 사전 전화 상담에서 함께 확인되는 기본 정보입니다.</p>'
+        f'<ul class="check-grid">{cards_html}</ul>'
         '</section>'
     )
 
@@ -4291,27 +4313,31 @@ _V_PREUSE_TPL = [
 
 
 def _dong_verification_section(area_name="본 권역"):
-    """바로GO 검증 기준 — E-E-A-T 신뢰 신호. 지역별 변형."""
+    """바로GO 검증 기준 — E-E-A-T 신뢰 카드 그리드."""
     p = _dong_pick
     intro = _VERIFY_INTRO_TPL[p(area_name, "v_intro", len(_VERIFY_INTRO_TPL))].format(area=area_name)
-    op = _V_OPERATOR_TPL[p(area_name, "v_op", len(_V_OPERATOR_TPL))]
-    co = _V_CONSULT_TPL[p(area_name, "v_co", len(_V_CONSULT_TPL))]
-    cr = _V_COURSE_TPL[p(area_name, "v_cr", len(_V_COURSE_TPL))]
-    ar = _V_AREA_TPL[p(area_name, "v_ar", len(_V_AREA_TPL))]
-    ca = _V_CANCEL_TPL[p(area_name, "v_ca", len(_V_CANCEL_TPL))]
-    pu = _V_PREUSE_TPL[p(area_name, "v_pu", len(_V_PREUSE_TPL))]
+    items = [
+        ("badge",  "운영 주체",         _V_OPERATOR_TPL[p(area_name, "v_op", len(_V_OPERATOR_TPL))]),
+        ("phone",  "상담 응대",         _V_CONSULT_TPL[p(area_name, "v_co", len(_V_CONSULT_TPL))]),
+        ("course", "코스 안내 기준",   _V_COURSE_TPL[p(area_name, "v_cr", len(_V_COURSE_TPL))]),
+        ("area",   "운영 시간·권역 기준", _V_AREA_TPL[p(area_name, "v_ar", len(_V_AREA_TPL))]),
+        ("refund", "취소·환불·결제",   _V_CANCEL_TPL[p(area_name, "v_ca", len(_V_CANCEL_TPL))]),
+        ("shield", "이용 전 안내",     _V_PREUSE_TPL[p(area_name, "v_pu", len(_V_PREUSE_TPL))]),
+    ]
+    cards = "".join(
+        '<li class="verify-card verify-card--{ic}">'
+        '<span class="verify-card-icon" aria-hidden="true"></span>'
+        '<div class="verify-card-body">'
+        '<strong class="verify-card-title">{t}</strong>'
+        '<p class="verify-card-desc">{d}</p>'
+        '</div></li>'.format(ic=ic, t=t, d=d)
+        for ic, t, d in items
+    )
     return (
         '<section class="block">'
-        '<h2>바로GO 검증 기준</h2>'
-        f'<p>{intro}</p>'
-        '<ul>'
-        f'<li><strong>운영 주체</strong> — {op}</li>'
-        f'<li><strong>상담 응대</strong> — {co}</li>'
-        f'<li><strong>코스 안내 기준</strong> — {cr}</li>'
-        f'<li><strong>운영 시간·권역 기준</strong> — {ar}</li>'
-        f'<li><strong>취소·환불·결제</strong> — {ca}</li>'
-        f'<li><strong>이용 전 안내</strong> — {pu}</li>'
-        '</ul>'
+        '<h2><span class="verify-h2-mark" aria-hidden="true"></span>바로GO 검증 기준</h2>'
+        f'<p class="section-lede">{intro}</p>'
+        f'<ul class="verify-grid">{cards}</ul>'
         '</section>'
     )
 
