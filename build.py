@@ -2124,7 +2124,7 @@ def _district_facts_html(facts):
 
 
 def _district_dong_card_html(name, dongs, region_slug=None):
-    dongs = _consolidate_dongs(dongs)
+    dongs = sorted(_consolidate_dongs(dongs))
     chip_items = []
     for n in dongs:
         href = DONG_PAGE_INDEX.get((region_slug, name, n)) if region_slug else None
@@ -2561,7 +2561,7 @@ def _build_seoul_dong_pages():
     for parent_slug, dongs in SEOUL_DONGS.items():
         parent_name = _SEOUL_DIST_NAME_BY_SLUG[parent_slug]
         slug_by_name = {n: s for n, s, _ in dongs}
-        names = [n for n, _, _ in dongs]
+        names = sorted([n for n, _, _ in dongs])
         for dong_name, dong_slug, char in dongs:
             siblings = [n for n in names if n != dong_name]
             sib_chips = "".join(
@@ -2729,6 +2729,7 @@ def _build_subordinate_dong_pages(region_slug, region_name, district):
     consolidated = list(slug_map.keys()) if slug_map else _consolidate_dongs(district.get("subs", []))
     if not consolidated:
         return
+    sorted_dongs = sorted(consolidated)
     for dong_name in consolidated:
         dong_slug = slug_map.get(dong_name) or _romanize_dong(dong_name)
         ti = _dong_pick(dong_name, "intro", len(_DONG_INTRO_TPL))
@@ -2739,7 +2740,7 @@ def _build_subordinate_dong_pages(region_slug, region_name, district):
         pattern_text = _DONG_PATTERN_TPL[pi].format(dong=dong_name, parent=parent_name)
         if len(desc_text) > 160:
             desc_text = desc_text[:160].rsplit(' ', 1)[0]
-        siblings = [n for n in consolidated if n != dong_name]
+        siblings = [n for n in sorted_dongs if n != dong_name]
         sib_chips = "".join(
             f'<li class="has-link"><a href="/area/{region_slug}/{parent_slug}/{slug_map.get(s, _romanize_dong(s))}/">{s}'
             '<span class="region-districts-grid-arrow" aria-hidden="true">→</span>'
@@ -3227,7 +3228,7 @@ def _build_gyeonggi_districts():
     for d in GYEONGGI_DISTRICTS:
         sub_label = d.get("sub_label")
         if sub_label:
-            displayed = d["subs"]
+            displayed = sorted(d["subs"])
             headline = f'{d["name"]} {sub_label}'
             note = f'{d["name"]}는 행정상 {sub_label}로 구성됩니다. 권역별 가능 시간은 전화 상담에서 확인됩니다.'
             eyebrow_label = "행정구 전체"
@@ -3474,8 +3475,11 @@ def _build_gyeonggi_gu_pages():
         for gu in gus:
             gu_slug = gu["slug"]
             gu_name = gu["name"]
-            # 인접 구(같은 시 안의 다른 구) → related
-            sibling_gus = [(g["name"], g["slug"]) for g in gus if g["slug"] != gu_slug]
+            # 인접 구(같은 시 안의 다른 구) → related (ㄱㄴㄷ 정렬)
+            sibling_gus = sorted(
+                [(g["name"], g["slug"]) for g in gus if g["slug"] != gu_slug],
+                key=lambda t: t[0],
+            )
             sib_items = "".join(
                 f'<li><a href="/area/gyeonggi/{si_slug}/{sg_slug}/">{sg_name}</a></li>'
                 for sg_name, sg_slug in sibling_gus
@@ -3525,6 +3529,7 @@ def _build_gyeonggi_gu_pages():
             )
             # 동 페이지들 (3차)
             consolidated = list(gu["_dong_slug_map"].keys())
+            sorted_dongs = sorted(consolidated)
             p_short = _dong_short_parent(gu["character"] or gu["lede"] or gu_name)
             for dong_name in consolidated:
                 dong_slug = gu["_dong_slug_map"][dong_name]
@@ -3536,7 +3541,7 @@ def _build_gyeonggi_gu_pages():
                 if len(desc_text) > 160:
                     desc_text = desc_text[:160].rsplit(' ', 1)[0]
                 pattern_text = _DONG_PATTERN_TPL[pi].format(dong=dong_name, parent=gu_name)
-                siblings = [n for n in consolidated if n != dong_name]
+                siblings = [n for n in sorted_dongs if n != dong_name]
                 sib_chips = "".join(
                     f'<li class="has-link"><a href="/area/gyeonggi/{si_slug}/{gu_slug}/{gu["_dong_slug_map"][s]}/">{s}'
                     '<span class="region-districts-grid-arrow" aria-hidden="true">→</span>'
@@ -3626,7 +3631,7 @@ _build_gyeonggi_gu_pages()
 def _build_metro_district(parent_slug, parent_name, d, all_in_parent):
     sub_label = d.get("sub_label")
     if sub_label:
-        displayed = d["subs"]
+        displayed = sorted(d["subs"])
         headline = f'{d["name"]} {sub_label}'
         note = f'{d["name"]}는 행정상 {sub_label}로 구성됩니다. 권역별 가능 시간은 전화 상담에서 확인됩니다.'
         eyebrow_label = "행정구 전체"
