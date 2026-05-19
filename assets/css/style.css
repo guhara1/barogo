@@ -2055,12 +2055,14 @@ body { font-size: var(--fs-base); line-height: 1.65; }
   border-radius: var(--radius-pill);
 }
 .region-districts-grid li.has-link:hover {
-  background: var(--color-accent);
+  background: #ffffff;
   border-color: var(--color-accent);
   transform: translateY(-1px);
-  box-shadow: var(--shadow-sm);
+  box-shadow:
+    0 0 0 3px rgba(11, 90, 71, 0.12),
+    0 4px 10px rgba(11, 90, 71, 0.06);
 }
-.region-districts-grid li.has-link:hover a { color: #fff; }
+.region-districts-grid li.has-link:hover a { color: var(--color-accent); }
 .region-districts-grid-arrow {
   font-size: 12px;
   opacity: 0;
@@ -3039,20 +3041,22 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   opacity: 0.4;
 }
 .region-districts-grid li.has-link:hover {
-  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-strong) 100%);
-  border-color: var(--color-accent-strong);
+  background: #ffffff;
+  border-color: var(--color-accent);
   transform: translateY(-2px);
-  box-shadow: 0 8px 18px rgba(11, 90, 71, 0.28);
+  box-shadow:
+    0 0 0 3px rgba(11, 90, 71, 0.14),
+    0 6px 14px rgba(11, 90, 71, 0.08);
 }
 .region-districts-grid li.has-link:hover a {
-  color: #ffffff !important;
+  color: var(--color-accent) !important;
 }
 .region-districts-grid li.has-link:hover::before {
   background: var(--color-gold);
   transform: translateY(-50%) scale(1);
   opacity: 1;
 }
-.region-districts-grid-arrow { color: inherit; }
+.region-districts-grid-arrow { color: var(--color-accent); }
 
 @media (max-width: 720px) {
   .region-hero-cta { padding: 18px 18px; flex-direction: column; align-items: stretch; }
