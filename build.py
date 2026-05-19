@@ -9942,20 +9942,12 @@ def _mag_mini_card(a):
         f'</a>'
     )
 
-_latest_three = _mag_sorted[:3]
-_archive_three = _mag_sorted[3:6]
 _albums = (
-    '<div class="mega-mag-cols hub-mag-cols">'
     '<div class="mega-mag-block">'
-    '<h2 class="mega-mag-block-title"><span class="mega-mag-block-eyebrow">LATEST</span>최신 글</h2>'
-    '<div class="mega-mag-grid">'
-    + "".join(_mag_mini_card(a) for a in _latest_three)
+    '<h2 class="mega-mag-block-title"><span class="mega-mag-block-eyebrow">FEATURED</span>발행 매거진</h2>'
+    '<div class="mega-mag-grid hub-mag-grid-4">'
+    + "".join(_mag_mini_card(a) for a in _mag_sorted)
     + '</div></div>'
-    '<div class="mega-mag-block">'
-    '<h2 class="mega-mag-block-title"><span class="mega-mag-block-eyebrow">ARCHIVE</span>이전 글</h2>'
-    '<div class="mega-mag-grid">'
-    + "".join(_mag_mini_card(a) for a in _archive_three)
-    + '</div></div></div>'
 )
 
 # 카테고리별 상세 섹션 (하단)

@@ -4575,17 +4575,13 @@ a.mag-cat-pill:hover {
   width: 16px;
   height: 16px;
 }
-.hub-mag-cols {
-  padding-top: 0;
-  border-top: none;
-  gap: 28px;
-}
-.hub-mag-cols .mega-mag-grid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
+/* 가로 4열 그리드 — 한 줄에 4장, 줄 수는 글 수에 따라 자동 증가 */
+.hub-mag-grid-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  gap: 18px;
 }
 .hub-mag-card .mega-mag-cover {
-  height: 120px;
+  height: 150px;
   padding: 12px;
 }
 .hub-mag-card .mega-mag-cat {
@@ -4598,12 +4594,14 @@ a.mag-cat-pill:hover {
   -webkit-line-clamp: 3;
   line-height: 1.5;
 }
-@media (max-width: 900px) {
-  .hub-mag-cols { grid-template-columns: 1fr; gap: 22px; }
-  .hub-mag-cols .mega-mag-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 1080px) {
+  .hub-mag-grid-4 { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+}
+@media (max-width: 760px) {
+  .hub-mag-grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  .hub-mag-card .mega-mag-cover { height: 120px; }
 }
 @media (max-width: 600px) {
   .mag-hub-top { padding: 18px 16px; }
-  .hub-mag-cols .mega-mag-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .hub-mag-card .mega-mag-cover { height: 96px; }
+  .hub-mag-card .mega-mag-cover { height: 110px; }
 }
