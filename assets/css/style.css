@@ -117,14 +117,17 @@ button { font: inherit; cursor: pointer; }
   gap: 8px;
   font-weight: 800;
   letter-spacing: -0.01em;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
-.brand-mark { font-size: 22px; }
+.brand-mark { font-size: 22px; white-space: nowrap; }
 .brand-mark.accent { color: var(--color-accent); }
 .brand-tag {
   font-size: 12px;
   color: var(--color-ink-soft);
   font-weight: 500;
   margin-left: 6px;
+  white-space: nowrap;
 }
 
 /* ===== Primary Nav ===== */
@@ -2271,6 +2274,10 @@ body { font-size: var(--fs-base); line-height: 1.65; }
   position: relative;
   transition: transform var(--dur-2) var(--ease-out), box-shadow var(--dur-2) var(--ease-out);
 }
+.procedure-list > li > div {
+  flex: 1 1 auto;
+  min-width: 0;
+}
 .procedure-list > li:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
@@ -3161,8 +3168,13 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 .steps > li {
   counter-increment: stp;
   display: grid;
-  grid-template-columns: 36px 1fr;
-  gap: 14px;
+  grid-template-columns: 36px minmax(0, 1fr);
+  grid-template-areas:
+    "num title"
+    "num desc";
+  column-gap: 14px;
+  row-gap: 4px;
+  align-items: start;
   padding: 16px 18px;
   background: var(--color-bg-elev);
   border: 1px solid var(--color-line);
@@ -3171,6 +3183,8 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 }
 .steps > li::before {
   content: counter(stp);
+  grid-area: num;
+  align-self: center;
   width: 36px; height: 36px;
   border-radius: 50%;
   background: linear-gradient(135deg, var(--color-accent), var(--color-accent-strong));
@@ -3183,18 +3197,23 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   box-shadow: 0 4px 10px rgba(11, 90, 71, 0.22);
 }
 .steps > li > strong {
+  grid-area: title;
   display: block;
   font-size: 15px;
   font-weight: 800;
-  margin-bottom: 4px;
+  margin-bottom: 0;
   letter-spacing: -0.01em;
   color: var(--color-ink);
+  align-self: center;
+  min-width: 0;
 }
 .steps > li > p {
+  grid-area: desc;
   margin: 0;
   font-size: 13.5px;
   line-height: 1.7;
   color: var(--color-ink-soft);
+  min-width: 0;
 }
 
 /* Check list */
