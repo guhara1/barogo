@@ -10107,8 +10107,9 @@ for art in MAGAZINE_ARTICLES:
         byline_html +
         '<div class="mag-article-grid">'
         '<aside class="mag-article-side">' + side_toc + '</aside>'
-        '<div class="mag-article-body">' + clean_body + author_bio_html + '</div>'
+        '<div class="mag-article-body">' + clean_body + '</div>'
         '</div>' +
+        author_bio_html +
         prev_next_html
     )
     add(
