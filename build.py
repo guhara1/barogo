@@ -8,6 +8,7 @@ plus per-page metadata (title, description, JSON-LD), so the generator is
 just plumbing — content lives in the PAGES list below.
 """
 from __future__ import annotations
+import hashlib
 import json
 import os
 import pathlib
@@ -323,6 +324,208 @@ def add(**kwargs):
     PAGES.append(kwargs)
 
 
+# ---------- 내부링크 long-tail 앵커 풀 ----------
+# 동일 타깃이라도 출처별로 다른 앵커 텍스트가 노출되도록 (source, target) 해시로 선택.
+# 단순 키워드 반복(스팸 신호) 회피 + 클릭 의도가 명확한 서술형 앵커.
+_LONG_TAIL = {
+  "/service/business-trip-massage/": [
+    "출장마사지가 무엇인지부터 진행 방식·이용 가능 장소까지 정리",
+    "출장마사지가 일반 매장 마사지와 다른 점과 적합한 상황 안내",
+    "처음 알아보시는 분을 위한 출장마사지 서비스 개요와 진행 흐름",
+    "방문 마사지가 아닌 출장마사지의 운영 원칙과 진행 방식 안내",
+  ],
+  "/service/hotel-massage/": [
+    "호텔 객실에서 진행할 때 사전에 확인해야 하는 체크인·층·룸 정보",
+    "출장·여행지 호텔 예약 시 알아두면 좋은 준비사항 정리",
+    "호텔 객실 진행 시 자주 안내되는 코스 길이와 시간대 안내",
+    "객실 진행 시 공동현관·엘리베이터 출입 안내가 필요한 이유",
+  ],
+  "/service/swedish/": [
+    "스웨디시 마사지의 진행 방식과 압력 강도, 적합한 컨디션 안내",
+    "오일을 사용한 부드러운 전신 케어, 스웨디시가 권장되는 상황",
+    "처음 받으시는 분에게 자주 안내되는 스웨디시 코스 길이",
+    "릴랙스·수면 개선을 목적으로 스웨디시를 선택할 때 참고할 점",
+  ],
+  "/service/aroma/": [
+    "아로마 오일 종류별 효과와 향 선택 시 참고할 점 정리",
+    "릴랙스·수면 개선 목적으로 자주 안내되는 아로마 코스 안내",
+    "아로마 마사지 진행 흐름과 사전에 알아둘 점 정리",
+    "특정 향 알레르기·민감도가 있는 경우 사전 안내가 필요한 이유",
+  ],
+  "/service/hometai/": [
+    "타이 전통 방식의 홈타이 코스 진행 순서와 추천 길이 안내",
+    "근육 이완·스트레칭 목적으로 자주 안내되는 홈타이 코스 정리",
+    "옷을 입은 채 진행되는 홈타이의 특징과 사전 준비사항",
+    "전통 타이 마사지를 가정·숙소에서 받을 때 권장 공간 조건",
+  ],
+  "/service/sports-massage/": [
+    "운동 후 근육 회복 목적의 스포츠 마사지 코스 안내",
+    "특정 부위 집중 케어가 필요할 때 권장되는 스포츠 마사지 진행 방식",
+    "근육통·뭉침 케어로 자주 문의되는 스포츠 코스 길이 정리",
+    "러닝·웨이트 직후 회복을 위해 스포츠 마사지를 선택할 때 참고할 점",
+  ],
+  "/service/office-massage/": [
+    "오피스·공유오피스에서 진행 시 사전 확인해야 하는 보안·공간 조건",
+    "사내 출장 케어 시 자주 안내되는 단시간 코스와 동선 안내",
+    "회사 공간에서 진행이 어려울 경우 인근 호텔·자택을 권하는 이유",
+  ],
+  "/service/couple-massage/": [
+    "2인 동시 진행 가능한 코스와 합산 가격 기준 정리",
+    "커플·가족이 함께 받을 때 권장되는 공간 조건과 코스 길이",
+    "한 공간에서 2인 진행 시 사전에 함께 확정되는 정보 안내",
+  ],
+  "/reservation/how-to-book/": [
+    "출장마사지 예약을 5단계로 진행하는 전체 흐름 안내",
+    "처음 예약하시는 분을 위한 상담·확정·진행 절차 정리",
+    "지역 확인부터 결제까지 예약 진행 시 함께 확정되는 항목",
+    "전화 상담 단계에서 일정·장소·코스가 함께 정해지는 과정 안내",
+  ],
+  "/reservation/price/": [
+    "코스 길이·시간대·진행 장소별 출장마사지 기준 가격 정리",
+    "60·90·120·150분 코스 가격이 어떻게 결정되는지 4가지 기준 안내",
+    "예약 전 사전 안내되는 코스별 시작 금액과 추가 비용 정책",
+    "동일 코스라도 시간대·권역에 따라 가격이 달라지는 이유",
+  ],
+  "/reservation/visit-area/": [
+    "출장 가능한 권역과 이동 거리·시간대별 가능 여부 안내",
+    "예약 전 거주지·숙소가 서비스 가능 권역인지 확인하는 방법",
+    "광역시·도 단위 출장 가능 권역과 광역 이동 기준 정리",
+  ],
+  "/reservation/late-night/": [
+    "야간·새벽 시간대에 예약이 가능한 권역과 마감 시간 안내",
+    "심야·새벽 예약 시 사전 상담에서 함께 확인되는 이동 조건",
+    "자정 이후 호텔 진행이 가능한 권역 정리와 주의사항",
+    "야근 후·심야 도착 일정에 맞춰 예약할 때 참고할 시간대 안내",
+  ],
+  "/reservation/check-before-use/": [
+    "예약 전 건강 상태·공간·음주·복장 사전 권장 체크리스트",
+    "처음 이용 전 미리 확인해 두면 진행이 매끄러운 준비사항 정리",
+    "안전한 진행을 위해 사전에 알려주시면 좋은 정보 모음",
+  ],
+  "/reservation/cancel-refund/": [
+    "시간대별 취소·환불 기준과 변경 가능 시점 정리",
+    "예약 후 일정 변경 시 가능한 시간 범위와 환불 비율 안내",
+    "취소·환불 진행 시 사전에 알아두면 좋은 정책 안내",
+  ],
+  "/reservation/payment/": [
+    "현장 결제·계좌이체·카드 결제 가능 수단과 영수증 발행 안내",
+    "결제 수단별 사전 준비사항과 세금계산서 발행 절차 정리",
+    "예약 확정 후 결제 진행 시 자주 안내되는 사항",
+  ],
+  "/guide/what-is-business-trip-massage/": [
+    "출장마사지가 무엇인지부터 진행 방식·법적 구분까지 정리한 입문 안내",
+    "방문 마사지와 출장마사지의 차이와 적합한 상황 정리",
+    "처음 출장마사지를 알아보시는 분을 위한 기본 개념 가이드",
+  ],
+  "/guide/massage-before-after/": [
+    "마사지 전후 권장되는 식사·음주·휴식 시간과 주의사항 정리",
+    "효과를 높이는 마사지 전후 컨디션 관리 가이드",
+    "마사지 후 권장되는 수분 섭취·휴식 시간에 대한 안내",
+  ],
+  "/guide/aroma-vs-swedish/": [
+    "아로마와 스웨디시의 진행 방식·압력·향 차이를 비교한 가이드",
+    "두 코스 중 무엇을 받을지 고민될 때 참고할 비교 정보",
+    "목적별로 어떤 코스가 더 적합한지 정리한 비교 안내",
+  ],
+  "/guide/first-time-massage/": [
+    "처음 출장마사지를 이용하시는 분이 알아두면 좋은 점 정리",
+    "첫 이용 전 자주 묻는 질문과 사전에 알아둘 사항 안내",
+    "초보 이용자를 위한 코스 선택·복장·공간 준비 가이드",
+  ],
+  "/guide/massage-price-standard/": [
+    "마사지 가격이 코스·시간·장소·시간대에 따라 달라지는 4가지 이유",
+    "동일 코스라도 가격 차이가 발생하는 기준에 대한 상세 설명",
+    "예약 전 가격 비교 시 참고할 수 있는 기준 정리",
+  ],
+  "/guide/safe-reservation/": [
+    "안전한 예약을 위해 사전에 확인해야 하는 5가지 체크포인트",
+    "신뢰할 수 있는 출장마사지 업체를 확인하는 방법 정리",
+    "사업자 정보·약관·환불 정책 등 예약 전 검토할 항목",
+  ],
+  "/review/first-time/": [
+    "처음 이용 고객 후기로 보는 진행 흐름과 자주 묻는 사항",
+    "첫 이용 후 가장 자주 언급된 만족·아쉬움 포인트 정리",
+  ],
+  "/review/reservation-case/": [
+    "실제 예약 사례로 보는 시간대·코스·장소별 안내 패턴",
+    "다양한 예약 상황별 진행 흐름과 안내 내용 정리",
+  ],
+  "/review/area/": [
+    "지역별 후기 모음으로 보는 권역별 이용 패턴",
+    "권역별 자주 안내된 코스와 시간대 정리",
+  ],
+  "/area/": [
+    "전국 시·도 단위 출장마사지 안내 페이지 모음",
+    "광역시·도별 권역 특성과 자주 안내되는 시간대 정리",
+  ],
+  "/service/": [
+    "코스별 진행 방식·압력·소요시간 비교 페이지",
+    "스웨디시·아로마·홈타이 등 서비스 유형별 안내",
+  ],
+  "/reservation/": [
+    "예약 방법·가격·취소·결제까지 전체 예약 정보 허브",
+    "처음 이용 전 살펴볼 예약 관련 안내 모음",
+  ],
+  "/guide/": [
+    "마사지 정보 가이드 — 입문부터 사전 준비까지 주제별 정리",
+    "출장마사지 관련 자주 묻는 주제를 모은 정보 가이드",
+  ],
+  "/review/": [
+    "실제 이용 후기·예약 사례·지역별 모음 페이지",
+    "처음 이용·예약 사례·권역별 이용 패턴 후기 모음",
+  ],
+}
+
+
+_AREA_NAMES = {
+  "seoul": "서울", "gyeonggi": "경기", "incheon": "인천",
+  "busan": "부산", "daegu": "대구", "daejeon": "대전",
+  "gwangju": "광주", "ulsan": "울산", "sejong": "세종",
+  "gangwon": "강원", "chungbuk": "충북", "chungnam": "충남",
+  "jeonbuk": "전북", "jeonnam": "전남", "gyeongbuk": "경북",
+  "gyeongnam": "경남", "jeju": "제주",
+}
+
+_AREA_ANCHOR_TPLS = [
+  "{name} 권역의 출장마사지 이용 패턴과 자주 안내되는 시간대",
+  "{name} 일대에서 자주 문의되는 코스와 진행 장소 안내",
+  "{name} 권역 출장 가능 범위와 인접 지역 이동 안내",
+  "{name} 전체 권역 특성과 시간대별 안내 정리",
+]
+
+
+def _anchor_for(source_url, target_url):
+    """target_url에 대한 long-tail 앵커 텍스트 선택 (source_url 시드)."""
+    # /area/{slug}/ 단일 시·도 페이지는 동적 앵커
+    m = re.match(r"^/area/([a-z]+)/$", target_url)
+    if m and m.group(1) in _AREA_NAMES:
+        name = _AREA_NAMES[m.group(1)]
+        seed = f"{source_url}|{target_url}".encode("utf-8")
+        idx = int(hashlib.md5(seed).hexdigest(), 16) % len(_AREA_ANCHOR_TPLS)
+        return _AREA_ANCHOR_TPLS[idx].format(name=name)
+    pool = _LONG_TAIL.get(target_url)
+    if pool:
+        seed = f"{source_url}|{target_url}".encode("utf-8")
+        idx = int(hashlib.md5(seed).hexdigest(), 16) % len(pool)
+        return pool[idx]
+    return target_url
+
+
+def _rel(source_url, target_urls, title="함께 보면 좋은 안내"):
+    """source_url에서 target_urls 각각으로 가는 long-tail 앵커 aside 생성."""
+    items = []
+    seen = set()
+    for tu in target_urls:
+        if tu in seen or tu == source_url:
+            continue
+        seen.add(tu)
+        text = _anchor_for(source_url, tu)
+        items.append(f'<li><a href="{tu}">{text}</a></li>')
+    if not items:
+        return ""
+    return f'<aside class="related"><h2>{title}</h2><ul>{"".join(items)}</ul></aside>'
+
+
 # ---------- Region hub ----------
 add(
   path="area/index.html",
@@ -423,7 +626,7 @@ REGIONS = [
 </div>
 </section>
 """,
-  "related": '<aside class="related"><h2>함께 보면 좋은 안내</h2><ul><li><a href="/service/hotel-massage/">호텔 방문 마사지</a></li><li><a href="/reservation/late-night/">심야·새벽 예약 안내</a></li><li><a href="/guide/safe-reservation/">안전한 예약 확인 방법</a></li></ul></aside>',
+  "related": _rel("/area/seoul/", ["/service/hotel-massage/", "/reservation/late-night/", "/guide/safe-reservation/", "/reservation/visit-area/"]),
 },
 {
   "slug": "gyeonggi", "name": "경기", "full": "경기도",
@@ -471,7 +674,7 @@ REGIONS = [
 </div>
 </section>
 """,
-  "related": '<aside class="related"><h2>함께 보면 좋은 안내</h2><ul><li><a href="/reservation/visit-area/">출장 가능 지역</a></li><li><a href="/reservation/price/">가격 및 코스 안내</a></li><li><a href="/service/business-trip-massage/">출장마사지 안내</a></li></ul></aside>',
+  "related": _rel("/area/gyeonggi/", ["/reservation/visit-area/", "/reservation/price/", "/service/business-trip-massage/", "/area/seoul/"]),
 },
 {
   "slug": "incheon", "name": "인천", "full": "인천광역시",
@@ -518,7 +721,7 @@ REGIONS = [
 </div>
 </section>
 """,
-  "related": '<aside class="related"><h2>함께 보면 좋은 안내</h2><ul><li><a href="/service/hotel-massage/">호텔 방문 마사지</a></li><li><a href="/service/business-trip-massage/">출장마사지 안내</a></li><li><a href="/reservation/how-to-book/">예약 방법</a></li></ul></aside>',
+  "related": _rel("/area/incheon/", ["/service/hotel-massage/", "/service/business-trip-massage/", "/reservation/how-to-book/", "/area/seoul/"]),
 },
 {
   "slug": "busan", "name": "부산", "full": "부산광역시",
@@ -566,7 +769,7 @@ REGIONS = [
 </div>
 </section>
 """,
-  "related": '<aside class="related"><h2>함께 보면 좋은 안내</h2><ul><li><a href="/service/hotel-massage/">호텔 방문 마사지</a></li><li><a href="/reservation/late-night/">심야·새벽 예약 안내</a></li><li><a href="/reservation/price/">가격 및 코스 안내</a></li></ul></aside>',
+  "related": _rel("/area/busan/", ["/service/hotel-massage/", "/reservation/late-night/", "/reservation/price/", "/guide/safe-reservation/"]),
 },
 {
   "slug": "daegu", "name": "대구", "full": "대구광역시",
@@ -613,7 +816,7 @@ REGIONS = [
 </div>
 </section>
 """,
-  "related": '<aside class="related"><h2>함께 보면 좋은 안내</h2><ul><li><a href="/reservation/visit-area/">출장 가능 지역</a></li><li><a href="/service/swedish/">스웨디시 마사지</a></li><li><a href="/reservation/price/">가격 및 코스 안내</a></li></ul></aside>',
+  "related": _rel("/area/daegu/", ["/reservation/visit-area/", "/service/swedish/", "/reservation/price/", "/service/business-trip-massage/"]),
 },
 {
   "slug": "daejeon", "name": "대전", "full": "대전광역시",
@@ -661,7 +864,7 @@ REGIONS = [
 </div>
 </section>
 """,
-  "related": '<aside class="related"><h2>함께 보면 좋은 안내</h2><ul><li><a href="/service/business-trip-massage/">출장마사지 안내</a></li><li><a href="/service/hotel-massage/">호텔 방문 마사지</a></li><li><a href="/reservation/how-to-book/">예약 방법</a></li></ul></aside>',
+  "related": _rel("/area/daejeon/", ["/service/business-trip-massage/", "/service/hotel-massage/", "/reservation/how-to-book/", "/area/sejong/"]),
 },
 {
   "slug": "gwangju", "name": "광주", "full": "광주광역시",
@@ -708,7 +911,7 @@ REGIONS = [
 </div>
 </section>
 """,
-  "related": '<aside class="related"><h2>함께 보면 좋은 안내</h2><ul><li><a href="/reservation/how-to-book/">예약 방법</a></li><li><a href="/reservation/price/">가격 및 코스 안내</a></li><li><a href="/service/hometai/">홈타이</a></li></ul></aside>',
+  "related": _rel("/area/gwangju/", ["/reservation/how-to-book/", "/reservation/price/", "/service/hometai/", "/area/jeonnam/"]),
 },
 {
   "slug": "ulsan", "name": "울산", "full": "울산광역시",
@@ -755,7 +958,7 @@ REGIONS = [
 </div>
 </section>
 """,
-  "related": '<aside class="related"><h2>함께 보면 좋은 안내</h2><ul><li><a href="/service/business-trip-massage/">출장마사지 안내</a></li><li><a href="/service/sports-massage/">스포츠 마사지</a></li><li><a href="/reservation/late-night/">심야·새벽 예약 안내</a></li></ul></aside>',
+  "related": _rel("/area/ulsan/", ["/service/business-trip-massage/", "/service/sports-massage/", "/reservation/late-night/", "/area/busan/"]),
 },
 {
   "slug": "sejong", "name": "세종", "full": "세종특별자치시",
@@ -803,7 +1006,7 @@ REGIONS = [
 </div>
 </section>
 """,
-  "related": '<aside class="related"><h2>함께 보면 좋은 안내</h2><ul><li><a href="/area/daejeon/">대전 안내</a></li><li><a href="/area/chungbuk/">충북 안내</a></li><li><a href="/reservation/how-to-book/">예약 방법</a></li></ul></aside>',
+  "related": _rel("/area/sejong/", ["/area/daejeon/", "/area/chungbuk/", "/reservation/how-to-book/", "/service/business-trip-massage/"]),
 },
 {
   "slug": "gangwon", "name": "강원", "full": "강원특별자치도",
@@ -851,7 +1054,7 @@ REGIONS = [
 </div>
 </section>
 """,
-  "related": '<aside class="related"><h2>함께 보면 좋은 안내</h2><ul><li><a href="/service/sports-massage/">스포츠 마사지</a></li><li><a href="/service/hometai/">홈타이</a></li><li><a href="/reservation/late-night/">심야·새벽 예약 안내</a></li></ul></aside>',
+  "related": _rel("/area/gangwon/", ["/service/sports-massage/", "/service/hometai/", "/reservation/late-night/", "/reservation/visit-area/"]),
 },
 {
   "slug": "chungbuk", "name": "충북", "full": "충청북도",
@@ -898,7 +1101,7 @@ REGIONS = [
 </div>
 </section>
 """,
-  "related": '<aside class="related"><h2>함께 보면 좋은 안내</h2><ul><li><a href="/area/daejeon/">대전 안내</a></li><li><a href="/area/sejong/">세종 안내</a></li><li><a href="/service/business-trip-massage/">출장마사지 안내</a></li></ul></aside>',
+  "related": _rel("/area/chungbuk/", ["/area/daejeon/", "/area/sejong/", "/service/business-trip-massage/", "/reservation/visit-area/"]),
 },
 {
   "slug": "chungnam", "name": "충남", "full": "충청남도",
@@ -945,7 +1148,7 @@ REGIONS = [
 </div>
 </section>
 """,
-  "related": '<aside class="related"><h2>함께 보면 좋은 안내</h2><ul><li><a href="/service/business-trip-massage/">출장마사지 안내</a></li><li><a href="/service/hotel-massage/">호텔 방문 마사지</a></li><li><a href="/reservation/visit-area/">출장 가능 지역</a></li></ul></aside>',
+  "related": _rel("/area/chungnam/", ["/service/business-trip-massage/", "/service/hotel-massage/", "/reservation/visit-area/", "/area/daejeon/"]),
 },
 {
   "slug": "jeonbuk", "name": "전북", "full": "전북특별자치도",
@@ -992,7 +1195,7 @@ REGIONS = [
 </div>
 </section>
 """,
-  "related": '<aside class="related"><h2>함께 보면 좋은 안내</h2><ul><li><a href="/service/hotel-massage/">호텔 방문 마사지</a></li><li><a href="/reservation/how-to-book/">예약 방법</a></li><li><a href="/area/jeonnam/">전남 안내</a></li></ul></aside>',
+  "related": _rel("/area/jeonbuk/", ["/service/hotel-massage/", "/reservation/how-to-book/", "/area/jeonnam/", "/service/business-trip-massage/"]),
 },
 {
   "slug": "jeonnam", "name": "전남", "full": "전라남도",
@@ -1045,7 +1248,7 @@ REGIONS = [
 </div>
 </section>
 """,
-  "related": '<aside class="related"><h2>함께 보면 좋은 안내</h2><ul><li><a href="/service/hotel-massage/">호텔 방문 마사지</a></li><li><a href="/area/gwangju/">광주 안내</a></li><li><a href="/reservation/late-night/">심야·새벽 예약 안내</a></li></ul></aside>',
+  "related": _rel("/area/jeonnam/", ["/service/hotel-massage/", "/area/gwangju/", "/reservation/late-night/", "/area/jeonbuk/"]),
 },
 {
   "slug": "gyeongbuk", "name": "경북", "full": "경상북도",
@@ -1097,7 +1300,7 @@ REGIONS = [
 </div>
 </section>
 """,
-  "related": '<aside class="related"><h2>함께 보면 좋은 안내</h2><ul><li><a href="/area/daegu/">대구 안내</a></li><li><a href="/service/business-trip-massage/">출장마사지 안내</a></li><li><a href="/service/hotel-massage/">호텔 방문 마사지</a></li></ul></aside>',
+  "related": _rel("/area/gyeongbuk/", ["/area/daegu/", "/service/business-trip-massage/", "/service/hotel-massage/", "/reservation/visit-area/"]),
 },
 {
   "slug": "gyeongnam", "name": "경남", "full": "경상남도",
@@ -1150,7 +1353,7 @@ REGIONS = [
 </div>
 </section>
 """,
-  "related": '<aside class="related"><h2>함께 보면 좋은 안내</h2><ul><li><a href="/area/busan/">부산 안내</a></li><li><a href="/service/business-trip-massage/">출장마사지 안내</a></li><li><a href="/service/hotel-massage/">호텔 방문 마사지</a></li></ul></aside>',
+  "related": _rel("/area/gyeongnam/", ["/area/busan/", "/service/business-trip-massage/", "/service/hotel-massage/", "/area/ulsan/"]),
 },
 {
   "slug": "jeju", "name": "제주", "full": "제주특별자치도",
@@ -1198,7 +1401,7 @@ REGIONS = [
 </div>
 </section>
 """,
-  "related": '<aside class="related"><h2>함께 보면 좋은 안내</h2><ul><li><a href="/service/hotel-massage/">호텔 방문 마사지</a></li><li><a href="/service/aroma/">아로마 마사지</a></li><li><a href="/reservation/how-to-book/">예약 방법</a></li></ul></aside>',
+  "related": _rel("/area/jeju/", ["/service/hotel-massage/", "/service/aroma/", "/reservation/how-to-book/", "/reservation/late-night/"]),
 },
 ]
 
@@ -6480,7 +6683,17 @@ for slug, name, summary, features, audience in SERVICES:
 <p class="muted">방문 마사지는 의료 행위가 아니며, 치료 효과를 보장하지 않습니다.</p>
 </section>
 """,
-        related=f'<aside class="related"><h2>관련 안내</h2><ul><li><a href="/reservation/price/">가격 및 코스 안내</a></li><li><a href="/reservation/how-to-book/">예약 방법</a></li><li><a href="/guide/first-time-massage/">처음 이용 전 알아둘 점</a></li></ul></aside>',
+        related=_rel(
+            f"/service/{slug}/",
+            [
+                "/reservation/price/",
+                "/reservation/how-to-book/",
+                "/guide/first-time-massage/",
+                "/reservation/check-before-use/",
+                "/guide/massage-before-after/",
+            ],
+            title="관련 안내",
+        ),
     )
 
 # ---------- Reservation pages ----------
@@ -6727,7 +6940,7 @@ add(
 </ul>
 </section>
 """,
-  related='<aside class="related"><h2>관련 안내</h2><ul><li><a href="/review/first-time/">처음 이용 고객 후기</a></li><li><a href="/review/reservation-case/">예약 사례</a></li><li><a href="/review/area/">지역별 후기 모음</a></li></ul></aside>',
+  related=_rel("/review/", ["/review/first-time/", "/review/reservation-case/", "/review/area/", "/guide/first-time-massage/"], title="관련 안내"),
 )
 
 add(
@@ -7561,19 +7774,11 @@ add(
 
 for g in GUIDES_RICH:
     slug, name, desc, body = g["slug"], g["name"], g["desc"], g["body"]
-    # Related links exclude the current page
-    rel_items = "".join(
-        f'<li><a href="/guide/{o["slug"]}/">{o["name"]}</a></li>'
-        for o in GUIDES_RICH if o["slug"] != slug
-    )
-    related_html = (
-        '<aside class="related">'
-        '<h2>다른 마사지 정보</h2>'
-        f'<ul>{rel_items}'
-        '<li><a href="/reservation/price/">가격 안내</a></li>'
-        '<li><a href="/reservation/how-to-book/">예약 방법</a></li>'
-        '</ul></aside>'
-    )
+    source_url = f"/guide/{slug}/"
+    # 다른 가이드 + 예약 정보까지 long-tail 앵커로 (각 가이드마다 다른 앵커 자동 선택)
+    candidates = [f"/guide/{o['slug']}/" for o in GUIDES_RICH if o["slug"] != slug]
+    candidates += ["/reservation/price/", "/reservation/how-to-book/", "/reservation/check-before-use/"]
+    related_html = _rel(source_url, candidates, title="다른 마사지 정보")
     add(
         path=f"guide/{slug}/index.html",
         url=f"/guide/{slug}/",
