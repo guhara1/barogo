@@ -48,7 +48,6 @@ HEADER = """<a class="skip-link" href="#main">본문 바로가기</a>
     </button>
     <nav id="primary-nav" class="primary-nav" aria-label="주요 메뉴">
       <ul class="nav-list">
-        <li class="nav-item"><a href="/" class="nav-link">홈</a></li>
         <li class="nav-item has-mega">
           <button class="nav-link nav-trigger" aria-expanded="false" aria-haspopup="true">지역별 찾기<span class="chev"></span></button>
           <div class="mega-panel mega-panel-album mega-panel-wide">
@@ -107,7 +106,7 @@ HEADER = """<a class="skip-link" href="#main">본문 바로가기</a>
         </li>
         <li class="nav-item has-mega">
           <button class="nav-link nav-trigger" aria-expanded="false" aria-haspopup="true">후기·정보<span class="chev"></span></button>
-          <div class="mega-panel mega-panel-album mega-panel-xwide">
+          <div class="mega-panel mega-panel-album mega-panel-wide">
             <div class="mega-album-section">
               <h3 class="mega-album-title">실제 이용 후기</h3>
               <div class="mega-album-grid mega-album-grid--guide">
@@ -128,13 +127,6 @@ HEADER = """<a class="skip-link" href="#main">본문 바로가기</a>
                 <a class="mega-card" href="/guide/safe-reservation/"><span class="mega-card-title">안전한 예약</span><span class="mega-card-sub">확인 체크포인트</span></a>
               </div>
             </div>
-            <div class="mega-album-section">
-              <h3 class="mega-album-title">매거진 <span class="mega-badge">NEW</span></h3>
-              <div class="mega-album-grid mega-album-grid--mag">
-{MAGAZINE_CARDS}
-              </div>
-              <a class="mega-album-footer-link" href="/magazine/">매거진 전체 보기 →</a>
-            </div>
           </div>
         </li>
         <li class="nav-item has-mega">
@@ -148,6 +140,16 @@ HEADER = """<a class="skip-link" href="#main">본문 바로가기</a>
               <a class="mega-card" href="/support/partnership/"><span class="mega-card-title">제휴·광고 문의</span><span class="mega-card-sub">광고·입점 양식</span></a>
               <a class="mega-card" href="/support/report/"><span class="mega-card-title">불편 신고</span><span class="mega-card-sub">24시간 운영팀 직통</span></a>
             </div>
+          </div>
+        </li>
+        <li class="nav-item has-mega nav-item-magazine">
+          <button class="nav-link nav-trigger" aria-expanded="false" aria-haspopup="true">매거진<span class="mega-badge nav-badge">NEW</span><span class="chev"></span></button>
+          <div class="mega-panel mega-panel-album">
+            <h3 class="mega-album-title">바로GO 매거진 <span class="mega-badge">NEW</span></h3>
+            <div class="mega-album-grid mega-album-grid--mag">
+{MAGAZINE_CARDS}
+            </div>
+            <a class="mega-album-footer-link" href="/magazine/">매거진 전체 보기 →</a>
           </div>
         </li>
         <li class="nav-item has-mega">

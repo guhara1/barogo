@@ -4133,6 +4133,17 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 }
 .mega-album-footer-link:hover { color: var(--color-accent-strong) !important; }
 
+/* 매거진 nav 트리거에 NEW 배지 */
+.nav-badge {
+  display: inline-block;
+  margin-left: 4px;
+  padding: 1.5px 6px;
+  font-size: 9px !important;
+  vertical-align: middle;
+  transform: translateY(-2px);
+}
+.nav-item-magazine .nav-trigger { gap: 4px; }
+
 /* nav-cta 우측 끝 전화 버튼 */
 .nav-item.nav-cta { margin-left: 12px; }
 .nav-tel {
