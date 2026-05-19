@@ -4163,14 +4163,100 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 .nav-tel span { font-size: 10.5px; opacity: 0.85; letter-spacing: 0.04em; text-transform: uppercase; }
 .nav-tel strong { font-size: 14.5px; letter-spacing: -0.01em; font-weight: 800; }
 
+/* ============================================================
+   Mega menu — Magazine 전용 패널 (카테고리 + 최신/이전)
+   ============================================================ */
+.mega-panel-magazine {
+  padding: 22px 24px 18px;
+  min-width: 720px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.mega-mag-block { display: block; }
+.mega-mag-block-title {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 0 0 12px;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+}
+.mega-mag-block-eyebrow {
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--color-accent);
+  padding: 2px 8px;
+  border: 1px solid var(--color-accent-soft, #cfe3dc);
+  border-radius: 4px;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+/* 카테고리 칩 행 */
+.mega-mag-cat-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.mega-mag-cat-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 14px 8px 10px;
+  background: #fff;
+  border: 1px solid var(--color-line);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-ink) !important;
+  text-decoration: none !important;
+  letter-spacing: -0.01em;
+  transition: all 140ms var(--ease-out);
+  word-break: keep-all;
+}
+.mega-mag-cat-chip:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent) !important;
+  background: rgba(11, 90, 71, 0.04);
+  transform: translateY(-1px);
+}
+.mega-mag-cat-dot {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* 최신/이전 2열 */
+.mega-mag-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-line);
+}
+.mega-mag-cols .mega-mag-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
 /* 모바일 — 메가메뉴 단순화 */
 @media (max-width: 980px) {
-  .mega-panel-album, .mega-panel-wide, .mega-panel-xwide { min-width: auto; }
+  .mega-panel-album, .mega-panel-wide, .mega-panel-xwide,
+  .mega-panel-magazine { min-width: auto; }
   .mega-album-grid--regions { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .mega-album-grid--service { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .mega-album-grid--steps   { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .mega-album-grid--guide   { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .mega-album-grid--mag     { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .mega-mag-cols { grid-template-columns: 1fr; gap: 14px; }
+  .mega-mag-cols .mega-mag-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .nav-item.nav-cta { display: none; }
 }
 @media (max-width: 600px) {
@@ -4315,4 +4401,155 @@ html { scroll-behavior: smooth; scroll-padding-top: 80px; }
   .dos, .donts { padding: 16px 18px; }
   .steps > li { padding: 14px 14px; gap: 12px; }
   .steps > li::before { width: 30px; height: 30px; font-size: 13px; }
+}
+
+/* ============================================================
+   Magazine hub — 카테고리 섹션 (#cat-처음-이용 등)
+   ============================================================ */
+.mag-cat-section { scroll-margin-top: 90px; padding-top: 8px; }
+.mag-cat-section .mag-section-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.mag-section-count {
+  display: inline-flex;
+  padding: 3px 10px;
+  background: var(--color-bg-elev);
+  border: 1px solid var(--color-line);
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-ink-mute);
+  letter-spacing: 0;
+}
+
+/* mag-cat-nav 핀이 링크가 되도록 hover 강조 */
+.mag-cat-pill {
+  text-decoration: none;
+  transition: all 140ms var(--ease-out);
+  cursor: pointer;
+}
+a.mag-cat-pill:hover {
+  background: var(--color-accent);
+  color: #fff !important;
+  border-color: var(--color-accent);
+  transform: translateY(-1px);
+}
+
+/* ============================================================
+   Magazine article body — 강화된 타이포그래피
+   ============================================================ */
+.mag-article-body {
+  max-width: 760px;
+  margin: 0 auto;
+}
+.mag-article-body > section.block:first-of-type > h2:first-of-type + p::first-letter {
+  float: left;
+  font-size: 3.2em;
+  line-height: 0.92;
+  padding: 4px 10px 0 0;
+  font-weight: 800;
+  color: var(--color-accent);
+  letter-spacing: -0.02em;
+}
+.mag-article-body h2 {
+  font-size: clamp(20px, 2.2vw, 24px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
+  margin: 36px 0 14px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--color-accent);
+  display: inline-block;
+}
+.mag-article-body p {
+  font-size: 16px;
+  line-height: 1.85;
+  color: var(--color-ink-soft, #2d3a3a);
+  margin: 0 0 14px;
+}
+.mag-article-body blockquote,
+.mag-article-body .pull-quote {
+  margin: 28px 0;
+  padding: 18px 22px 18px 26px;
+  border-left: 4px solid var(--color-accent);
+  background: linear-gradient(90deg, rgba(11,90,71,0.04), transparent);
+  font-size: 17px;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--color-ink);
+  letter-spacing: -0.01em;
+  line-height: 1.6;
+}
+
+/* ============================================================
+   Magazine article — 이전/다음 글 네비게이션
+   ============================================================ */
+.mag-prev-next {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin: 40px auto 0;
+  max-width: 760px;
+}
+.mag-prev-next-card {
+  display: flex;
+  gap: 14px;
+  padding: 14px;
+  background: var(--color-bg-elev);
+  border: 1px solid var(--color-line);
+  border-radius: 14px;
+  text-decoration: none !important;
+  color: var(--color-ink) !important;
+  transition: all 180ms var(--ease-out);
+  align-items: stretch;
+  min-height: 92px;
+}
+.mag-prev-next-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 22px rgba(11,26,26,0.10);
+  border-color: var(--color-accent-soft, #cfe3dc);
+}
+.mag-prev-next-card--prev { flex-direction: row-reverse; text-align: right; }
+.mag-prev-next-cover {
+  flex: 0 0 72px;
+  border-radius: 10px;
+  align-self: stretch;
+}
+.mag-prev-next-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  min-width: 0;
+  flex: 1;
+}
+.mag-prev-next-label {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: var(--color-accent);
+  text-transform: uppercase;
+}
+.mag-prev-next-title {
+  font-size: 14.5px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1.4;
+  color: var(--color-ink);
+  word-break: keep-all;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.mag-prev-next-cat {
+  font-size: 11.5px;
+  color: var(--color-ink-mute);
+  font-weight: 600;
+}
+@media (max-width: 720px) {
+  .mag-prev-next { grid-template-columns: 1fr; }
+  .mag-prev-next-card--prev { flex-direction: row; text-align: left; }
 }
