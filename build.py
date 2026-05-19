@@ -2234,9 +2234,9 @@ def _build_seoul_districts():
             f'<p>{d["pattern"]}</p>'
             '</section>',
             _shared_program_price_section(d["name"]),
-            _shared_procedure_section(),
+            _shared_procedure_section(d["name"]),
             _shared_reviews_section(d["name"]),
-            _dong_verification_section(),
+            _dong_verification_section(d["name"]),
             _district_faqs_html(d["name"], d["faqs"]),
             _region_cta_html(d["name"]),
         ]
@@ -2920,20 +2920,65 @@ def _dong_operator_info_html():
 # (2차 자치구·시·군 페이지와 3차 동 페이지에서 모두 재사용)
 # ------------------------------------------------------------
 
+_PROG_INTRO_TPL = [
+    "{area} 일대에서 운영되는 출장마사지 프로그램과 코스별 기준 가격을 정리했습니다. 가격은 코스 시간·진행 장소·예약 시간대에 따라 일부 조정될 수 있으며, 정확한 최종 금액은 사전 전화 상담에서 일정·진행 장소가 확정된 직후 함께 안내됩니다. 사전 동의 없는 추가 비용은 부과되지 않습니다.",
+    "{area}에서 안내드리는 출장마사지 프로그램 종류와 시간 단위 기준 가격은 다음과 같습니다. 권역·시간대·진행 장소에 따라 일부 조정이 있을 수 있으며, 최종 금액은 사전 상담에서 명확히 안내됩니다.",
+    "{area} 권역에서 진행되는 출장마사지의 프로그램 종류와 기준 가격을 안내합니다. 코스 시간·진행 장소·시간대에 따라 일부 변동이 있을 수 있고, 최종 금액은 사전 상담 단계에서 확정 안내됩니다.",
+    "{area}에서 제공되는 출장마사지 프로그램 6종과 각 코스의 시간 단위 기준 가격을 아래에 정리했습니다. 정확한 금액은 일정·장소가 확정된 직후 함께 안내됩니다.",
+]
+_PROG_SWEDISH_TPL = [
+    "부드러운 압을 기본으로 한 전신 이완 코스. 출장마사지를 처음 받는 분께 가장 자주 권해지는 유형으로, 수면 보조·휴식·근육 이완에 적합합니다.",
+    "전신을 부드럽게 풀어 주는 이완 중심 코스. 첫 이용자에게 가장 많이 권장되며 수면 질 개선·전반적 컨디션 회복에 적합합니다.",
+    "압이 부드러운 전신 케어 코스로, 잠을 푹 못 잤거나 전반적 피로감이 누적되었을 때 가장 자주 선택됩니다.",
+]
+_PROG_AROMA_TPL = [
+    "에센셜 오일을 활용한 향기 케어 중심 코스. 스트레스·수면·자율 신경 안정 목적으로 자주 선택됩니다.",
+    "향기 오일을 활용한 케어 코스로, 정서적 안정·수면 보조·스트레스 완화를 목적으로 자주 선택됩니다.",
+    "에센셜 오일과 부드러운 압의 조합으로 자율 신경을 안정시키고 수면을 돕는 케어 코스입니다.",
+]
+_PROG_HOMETAI_TPL = [
+    "태국식 스트레칭과 압 기반의 코스로, 자세 교정·근육 가동 범위 회복에 초점을 둡니다.",
+    "태국 전통 스트레칭과 압을 결합한 코스로, 굳은 근육과 좁아진 가동 범위 회복에 효과적입니다.",
+    "스트레칭과 압 케어가 결합된 태국식 코스. 자세가 굳어 있거나 거북목·골반 회복이 필요할 때 권해집니다.",
+]
+_PROG_SPORTS_TPL = [
+    "운동 후 회복·뭉친 부위 집중 케어. 특정 부위 통증·피로 회복이 필요할 때 권해집니다.",
+    "특정 부위 집중 케어 코스로, 운동 후 근육 회복·국소 통증 완화 목적에 적합합니다.",
+    "운동 후 회복과 뭉친 부위 집중 케어를 목적으로 운영되는 코스. 부위별 맞춤 케어가 가능합니다.",
+]
+_PROG_COUPLE_TPL = [
+    "2인 동시 진행 코스. 가정·호텔·펜션 공간에서 함께 받는 형태입니다.",
+    "두 분이 같은 공간에서 동시에 받는 코스로, 가정·호텔·펜션 모두 진행 가능합니다.",
+    "커플·가족 단위 2인 동시 진행 코스. 가정·호텔·펜션 등 공간 유형 무관하게 운영됩니다.",
+]
+_PROG_HOTEL_TPL = [
+    "출장·관광 일정 호텔 객실에서 진행되는 유형. 체크인 시각·룸 호수 사전 확인이 필요합니다.",
+    "호텔 객실 방문 진행 유형으로, 체크인 시각·객실 정보 사전 공유가 필요합니다.",
+    "출장·여행 일정 호텔 객실에서 진행되는 유형. 객실 호수·체크인 시각 사전 안내가 필요합니다.",
+]
+
+
 def _shared_program_price_section(area_name):
-    """마사지 프로그램 설명 + 가격표 (모든 페이지 공통).
-    가격은 코스별 시간 단위 \"00,000원부터\" 기준이며, 정확한 금액은 상담 시 안내."""
+    """마사지 프로그램 설명 + 가격표 (지역별 변형 — 가격표만 동일)."""
+    p = _dong_pick
+    intro = _PROG_INTRO_TPL[p(area_name, "pi", len(_PROG_INTRO_TPL))].format(area=area_name)
+    sw = _PROG_SWEDISH_TPL[p(area_name, "pSw", len(_PROG_SWEDISH_TPL))]
+    ar = _PROG_AROMA_TPL[p(area_name, "pAr", len(_PROG_AROMA_TPL))]
+    ho = _PROG_HOMETAI_TPL[p(area_name, "pHo", len(_PROG_HOMETAI_TPL))]
+    sp = _PROG_SPORTS_TPL[p(area_name, "pSp", len(_PROG_SPORTS_TPL))]
+    co = _PROG_COUPLE_TPL[p(area_name, "pCo", len(_PROG_COUPLE_TPL))]
+    ht = _PROG_HOTEL_TPL[p(area_name, "pHt", len(_PROG_HOTEL_TPL))]
     return (
         '<section class="block">'
         f'<h2>{area_name} 마사지 프로그램 안내·가격표</h2>'
-        f'<p>{area_name} 일대에서 운영되는 출장마사지 프로그램과 코스별 기준 가격을 안내합니다. 가격은 코스 시간·진행 장소·예약 시간대에 따라 일부 조정될 수 있으며, 정확한 최종 금액은 사전 전화 상담에서 일정·진행 장소가 확정된 직후 함께 안내됩니다. 사전 동의 없는 추가 비용은 부과되지 않습니다.</p>'
+        f'<p>{intro}</p>'
         '<div class="program-grid">'
-        '<article class="program-card"><h3>스웨디시</h3><p>부드러운 압을 기본으로 한 전신 이완 코스. 출장마사지를 처음 받는 분께 가장 자주 권해지는 유형으로, 수면 보조·휴식·근육 이완에 적합합니다.</p></article>'
-        '<article class="program-card"><h3>아로마</h3><p>에센셜 오일을 활용한 향기 케어 중심 코스. 스트레스·수면·자율 신경 안정 목적으로 자주 선택됩니다.</p></article>'
-        '<article class="program-card"><h3>홈타이</h3><p>태국식 스트레칭과 압 기반의 코스로, 자세 교정·근육 가동 범위 회복에 초점을 둡니다.</p></article>'
-        '<article class="program-card"><h3>스포츠</h3><p>운동 후 회복·뭉친 부위 집중 케어. 특정 부위 통증·피로 회복이 필요할 때 권해집니다.</p></article>'
-        '<article class="program-card"><h3>커플</h3><p>2인 동시 진행 코스. 가정·호텔·펜션 공간에서 함께 받는 형태입니다.</p></article>'
-        '<article class="program-card"><h3>호텔 방문</h3><p>출장·관광 일정 호텔 객실에서 진행되는 유형. 체크인 시각·룸 호수 사전 확인이 필요합니다.</p></article>'
+        f'<article class="program-card"><h3>스웨디시</h3><p>{sw}</p></article>'
+        f'<article class="program-card"><h3>아로마</h3><p>{ar}</p></article>'
+        f'<article class="program-card"><h3>홈타이</h3><p>{ho}</p></article>'
+        f'<article class="program-card"><h3>스포츠</h3><p>{sp}</p></article>'
+        f'<article class="program-card"><h3>커플</h3><p>{co}</p></article>'
+        f'<article class="program-card"><h3>호텔 방문</h3><p>{ht}</p></article>'
         '</div>'
         '<table class="price-table" aria-label="코스별 시간 단위 기준 가격 (부터)">'
         '<thead><tr><th scope="col">코스</th><th scope="col">60분</th><th scope="col">90분</th><th scope="col">120분</th></tr></thead>'
@@ -2954,18 +2999,70 @@ def _shared_program_price_section(area_name):
     )
 
 
-def _shared_procedure_section():
-    """출장마사지 이용 절차 (5단계) — 모든 페이지 공통."""
+_PROC_INTRO_TPL = [
+    "{area}의 출장마사지는 아래 다섯 단계로 순서를 따라 진행됩니다. 각 단계는 사전 전화 상담에서 사용자 일정·진행 장소·코스에 맞춰 함께 확정됩니다.",
+    "{area} 권역에서 출장마사지를 받는 흐름은 다음과 같습니다. 사용자 일정 조건에 맞춰 사전 전화에서 단계별 세부 사항이 합의됩니다.",
+    "{area} 일대 출장마사지 진행은 전화 상담부터 결제까지 5단계로 운영되며, 단계별 사전 안내가 명확히 이루어집니다.",
+    "{area}에서 출장마사지를 이용하시는 표준 절차는 아래 5단계 흐름입니다. 일정·진행 장소·코스 옵션이 단계별로 함께 합의됩니다.",
+    "바로GO의 {area} 권역 출장마사지는 5단계 진행 흐름을 따릅니다. 단계별 사전 안내·합의 후에만 일정이 확정됩니다.",
+    "{area} 권역의 출장마사지 진행 절차는 다음과 같습니다. 시간·장소·코스·결제 정보가 단계별로 명확히 안내됩니다.",
+]
+_STEP1_TPL = [
+    "24시간 운영되는 0508-202-4719로 연락 주시면 {area} 권역 가능 시간·코스·진행 장소 유형을 안내해 드립니다.",
+    "0508-202-4719(24시간) 전화로 {area} 권역 가능 시간대와 코스 옵션을 먼저 확인하실 수 있습니다.",
+    "전화(0508-202-4719)로 연락하시면 {area} 일대의 동선·시간대·진행 장소 유형을 함께 확인해 드립니다.",
+    "{area} 권역 가능 여부는 24시간 운영되는 0508-202-4719 상담을 통해 가장 정확히 안내됩니다. 통화 한 번이면 권역 동선·시간대 확인이 끝납니다.",
+]
+_STEP2_TPL = [
+    "도착 가능 시간, 진행 장소(호텔·가정·오피스텔·펜션), 코스 길이(60·90·120분), 인원, 옵션을 함께 정합니다.",
+    "도착 시각·진행 장소 유형·코스 길이·인원·추가 옵션 등 일정 세부 사항을 합의하여 예약을 확정합니다.",
+    "예약 확정 시 사용자 일정에 맞는 시간대, 진행 장소(호텔/가정/오피스텔/펜션), 코스 종류·길이·인원이 함께 합의됩니다.",
+    "도착 가능 시각, 진행 장소 유형, 코스 길이와 인원, 추가 옵션을 함께 합의해 일정이 확정됩니다.",
+]
+_STEP3_TPL = [
+    "권역 동선을 고려해 가까운 위치의 관리사가 배정되며, 도착 가능 시각이 다시 한 번 안내됩니다.",
+    "{area} 권역 동선과 일정에 맞춰 관리사가 매칭되고, 출발 후 도착 예정 시각이 재안내됩니다.",
+    "권역 가까운 위치의 관리사가 일정에 맞춰 배정되며, 도착 직전 시각이 다시 한 번 공유됩니다.",
+    "일정과 권역 동선을 고려해 관리사가 배정되며, 출발 후 도착 예정 시각이 사전 안내됩니다.",
+]
+_STEP4_TPL = [
+    "약속 시간 직전 도착 안내 후 사용자 공간에서 코스가 진행됩니다. 별도 장비·환경 변경 없이 기존 공간 그대로 진행됩니다.",
+    "도착 직전 안내 메시지 후 사용자 공간에서 곧바로 코스가 시작됩니다. 추가 장비·환경 변경 없이 진행됩니다.",
+    "약속 시간이 가까워지면 도착 안내가 별도 전달되며, 사용자 공간 그대로의 컨디션에서 진행됩니다.",
+    "도착 직전 안내 후 사용자 공간 컨디션 그대로 코스가 진행되며, 별도 장비 설치는 필요하지 않습니다.",
+]
+_STEP5_TPL = [
+    "종료 후 현장 결제 또는 사전 안내된 방식으로 진행되며, 세금계산서·영수증이 필요한 경우 사전에 요청 가능합니다.",
+    "코스 종료 후 현장 결제·계좌 이체·카드 결제 등 사전 합의된 방식으로 결제가 이루어집니다. 영수증 요청 가능.",
+    "종료 후 결제는 사전 합의된 방식으로 진행되며, 세금계산서·영수증이 필요한 경우 미리 요청하시면 됩니다.",
+    "코스 종료 후 결제는 사전 안내된 수단으로 진행되며, 영수증·세금계산서가 필요한 경우 사전 요청 가능합니다.",
+]
+
+
+def _shared_procedure_section(area_name):
+    """출장마사지 이용 절차 (5단계) — 지역별 변형 (6 × 4^5 = 6,144 조합)."""
+    pi = _dong_pick(area_name, "proc_intro", len(_PROC_INTRO_TPL))
+    p1 = _dong_pick(area_name, "step1", len(_STEP1_TPL))
+    p2 = _dong_pick(area_name, "step2", len(_STEP2_TPL))
+    p3 = _dong_pick(area_name, "step3", len(_STEP3_TPL))
+    p4 = _dong_pick(area_name, "step4", len(_STEP4_TPL))
+    p5 = _dong_pick(area_name, "step5", len(_STEP5_TPL))
+    intro = _PROC_INTRO_TPL[pi].format(area=area_name)
+    step1 = _STEP1_TPL[p1].format(area=area_name)
+    step2 = _STEP2_TPL[p2].format(area=area_name)
+    step3 = _STEP3_TPL[p3].format(area=area_name)
+    step4 = _STEP4_TPL[p4].format(area=area_name)
+    step5 = _STEP5_TPL[p5].format(area=area_name)
     return (
         '<section class="block">'
         '<h2>출장마사지 이용 절차</h2>'
-        '<p>바로GO의 출장마사지는 다음 5단계 흐름으로 운영됩니다. 각 단계는 사전 전화 상담에서 사용자 일정·진행 장소·코스에 맞춰 함께 확정됩니다.</p>'
+        f'<p>{intro}</p>'
         '<ol class="procedure-list">'
-        '<li><span class="step-num">1</span><div><h3>전화 상담</h3><p>24시간 운영되는 0508-202-4719로 연락하시면 권역 가능 시간·코스·진행 장소 유형을 안내해 드립니다.</p></div></li>'
-        '<li><span class="step-num">2</span><div><h3>일정 확정</h3><p>도착 가능 시간, 진행 장소(호텔·가정·오피스텔·펜션), 코스 길이(60·90·120·150분), 인원, 옵션을 함께 정합니다.</p></div></li>'
-        '<li><span class="step-num">3</span><div><h3>관리사 배정</h3><p>권역 동선을 고려해 가까운 위치의 관리사가 배정되며, 도착 가능 시각이 다시 한 번 안내됩니다.</p></div></li>'
-        '<li><span class="step-num">4</span><div><h3>도착·진행</h3><p>약속 시간 직전 도착 안내 후 사용자 공간에서 코스가 진행됩니다. 별도 장비·환경 변경 없이 기존 공간 그대로 진행됩니다.</p></div></li>'
-        '<li><span class="step-num">5</span><div><h3>결제·종료</h3><p>종료 후 현장 결제 또는 사전 안내된 방식으로 진행되며, 세금계산서·영수증이 필요한 경우 사전에 요청 가능합니다.</p></div></li>'
+        f'<li><span class="step-num">1</span><div><h3>전화 상담</h3><p>{step1}</p></div></li>'
+        f'<li><span class="step-num">2</span><div><h3>일정 확정</h3><p>{step2}</p></div></li>'
+        f'<li><span class="step-num">3</span><div><h3>관리사 배정</h3><p>{step3}</p></div></li>'
+        f'<li><span class="step-num">4</span><div><h3>도착·진행</h3><p>{step4}</p></div></li>'
+        f'<li><span class="step-num">5</span><div><h3>결제·종료</h3><p>{step5}</p></div></li>'
         '</ol>'
         '</section>'
     )
@@ -3042,22 +3139,61 @@ def _shared_reviews_section(area_name):
     )
 
 
+_CHECK_TIME_TPL = [
+    "{parent} 권역은 평일 저녁(19~22시)이 가장 활발하며, 22시 이후 야간 시간대는 호텔·오피스텔 객실 방문 중심입니다. 심야(01시 이후)는 권역 일부에 한해 가능하며 사전 예약이 필수입니다.",
+    "{parent}의 일반적 가능 시간대는 평일 저녁이 가장 활발하고, 야간은 호텔·오피스텔 위주로 운영됩니다. 심야는 일부 권역만 가능합니다.",
+    "평일 저녁 시간대 비중이 큰 {parent} 권역에서는 야간 시간대도 객실 진행이 가능하며, 심야 가능 여부는 권역 동선에 따라 다릅니다.",
+]
+_CHECK_ENTRY_TPL = [
+    "공동현관 비밀번호, 엘리베이터 카드 키, 무인 출입 시스템(키오스크) 유무, 호텔의 경우 객실 호수와 체크인 컨디션을 사전에 알려 주시면 도착 시간이 일정대로 유지됩니다.",
+    "공동현관·엘리베이터 키·무인 출입 시스템 유무, 호텔의 경우 객실 호수·체크인 시각을 사전 공유해 주시면 도착 시간이 정확히 유지됩니다.",
+    "출입 방식(공동현관 비밀번호·카드키·키오스크)과 호텔 객실 호수·체크인 정보를 사전 안내해 주시면 도착 시간이 어긋나지 않습니다.",
+]
+_CHECK_PARK_TPL = [
+    "가정·오피스텔의 경우 방문자 주차 가능 여부, 호텔의 경우 발렛 운영 여부, 펜션·풀빌라의 경우 진입로 폭과 주차 공간을 사전 확인합니다.",
+    "주차 가능 여부는 진행 장소 유형에 따라 다릅니다 — 가정·오피스텔은 방문자 주차, 호텔은 발렛 운영, 펜션은 진입로·주차 공간을 사전 점검합니다.",
+    "방문자 주차(가정·오피스텔)·발렛 운영(호텔)·진입로 폭(펜션·풀빌라) 등 진행 장소별 주차 환경이 사전에 확인됩니다.",
+]
+_CHECK_COURSE_TPL = [
+    "코스는 60·90·120분 단위로 운영되며, 도착 안내·준비·정리 시간이 별도 약 10~15분 추가됩니다. 일정 사이 충분한 여유를 잡아 주시면 코스 진행이 차분히 마무리됩니다.",
+    "코스 길이는 60/90/120분이 일반적이며, 도착·준비·정리 시간이 각 10~15분 정도 추가됩니다. 후속 일정에 여유를 두시는 것을 권합니다.",
+    "60·90·120분 단위 코스로 운영되며, 양 끝 준비·정리에 약 10~15분이 추가됩니다. 다음 일정까지 충분한 여유를 두는 것이 좋습니다.",
+]
+_CHECK_OPT_TPL = [
+    "1인·2인(커플) 동시 진행 여부, 코스 종류(스웨디시·아로마·홈타이·스포츠), 추가 옵션(아로마 오일 변경·핫스톤·집중 부위 등)도 사전에 함께 정합니다.",
+    "인원(1인/2인 커플), 코스 종류(스웨디시·아로마·홈타이·스포츠·스페셜), 옵션(오일 변경·핫스톤·집중 부위)은 사전 상담에서 함께 합의합니다.",
+    "코스 종류·인원 수·추가 옵션(오일 종류·핫스톤·집중 케어 부위 등)이 사전 전화에서 함께 정해집니다.",
+]
+_CHECK_HEALTH_TPL = [
+    "임신, 골절·외상, 고열, 음주 직후 등은 진행 가능 여부가 달라질 수 있어 사전 상담 단계에서 함께 안내합니다.",
+    "임신·골절·고열·음주 직후 컨디션은 진행 가능 여부에 영향을 줄 수 있어 사전 전화에서 함께 확인됩니다.",
+    "건강 상태(임신·외상·고열·음주 직후)는 코스 진행에 영향을 줄 수 있으니 사전 상담 단계에서 알려 주시는 것을 권장합니다.",
+]
+
+
 def _dong_check_before_section(dong_name, parent_name):
-    """예약 전 확인할 부분 — 방문 가능 시간, 건물 출입, 주차, 코스 소요 시간을 통합."""
-    intro = _DONG_TIME_INTRO_TPL[
-        _dong_pick(dong_name, "check", len(_DONG_TIME_INTRO_TPL))
-    ].format(dong=dong_name, parent=parent_name)
+    """예약 전 확인할 부분 — 지역별 변형으로 페이지마다 고유 문구."""
+    p = _dong_pick
+    intro = _DONG_TIME_INTRO_TPL[p(dong_name, "check", len(_DONG_TIME_INTRO_TPL))].format(
+        dong=dong_name, parent=parent_name
+    )
+    time = _CHECK_TIME_TPL[p(dong_name, "ch_time", len(_CHECK_TIME_TPL))].format(parent=parent_name)
+    entry = _CHECK_ENTRY_TPL[p(dong_name, "ch_entry", len(_CHECK_ENTRY_TPL))]
+    park = _CHECK_PARK_TPL[p(dong_name, "ch_park", len(_CHECK_PARK_TPL))]
+    course = _CHECK_COURSE_TPL[p(dong_name, "ch_course", len(_CHECK_COURSE_TPL))]
+    opt = _CHECK_OPT_TPL[p(dong_name, "ch_opt", len(_CHECK_OPT_TPL))]
+    health = _CHECK_HEALTH_TPL[p(dong_name, "ch_health", len(_CHECK_HEALTH_TPL))]
     return (
         '<section class="block">'
         f'<h2>{dong_name}에서 예약 전 확인할 부분</h2>'
-        f'<p>{intro} 아래 항목은 사전 전화 상담에서 함께 확인되는 기본 정보이며, 이를 사전에 정리해 주시면 일정 확정과 이동 시간이 훨씬 매끄럽습니다.</p>'
+        f'<p>{intro} 아래 항목은 사전 전화 상담에서 함께 확인되는 기본 정보입니다.</p>'
         '<ul>'
-        f'<li><strong>방문 가능 시간</strong> — {parent_name} 권역은 평일 저녁(19~22시)이 가장 활발하며, 22시 이후 야간 시간대는 호텔·오피스텔 객실 방문 중심입니다. 심야(01시 이후)는 권역 일부에 한해 가능하며 사전 예약이 필수입니다.</li>'
-        '<li><strong>건물 출입 방식</strong> — 공동현관 비밀번호, 엘리베이터 카드 키, 무인 출입 시스템(키오스크) 유무, 호텔의 경우 객실 호수와 체크인 컨디션을 사전에 알려 주시면 도착 시간이 일정대로 유지됩니다.</li>'
-        '<li><strong>주차 가능 여부</strong> — 가정·오피스텔의 경우 방문자 주차 가능 여부, 호텔의 경우 발렛 운영 여부, 펜션·풀빌라의 경우 진입로 폭과 주차 공간을 사전 확인합니다.</li>'
-        '<li><strong>코스 소요 시간</strong> — 코스는 60·90·120·150분 단위로 운영되며, 도착 안내·준비·정리 시간이 별도 약 10~15분 추가됩니다. 일정 사이 충분한 여유를 잡아 주시면 코스 진행이 차분히 마무리됩니다.</li>'
-        '<li><strong>인원·옵션</strong> — 1인·2인(커플) 동시 진행 여부, 코스 종류(스웨디시·아로마·홈타이·스포츠), 추가 옵션(아로마 오일 변경·핫스톤·집중 부위 등)도 사전에 함께 정합니다.</li>'
-        '<li><strong>건강·컨디션</strong> — 임신, 골절·외상, 고열, 음주 직후 등은 진행 가능 여부가 달라질 수 있어 사전 상담 단계에서 함께 안내합니다.</li>'
+        f'<li><strong>방문 가능 시간</strong> — {time}</li>'
+        f'<li><strong>건물 출입 방식</strong> — {entry}</li>'
+        f'<li><strong>주차 가능 여부</strong> — {park}</li>'
+        f'<li><strong>코스 소요 시간</strong> — {course}</li>'
+        f'<li><strong>인원·옵션</strong> — {opt}</li>'
+        f'<li><strong>건강·컨디션</strong> — {health}</li>'
         '</ul>'
         '</section>'
     )
@@ -3106,19 +3242,65 @@ def _dong_nearby_section(dong_name, parent_name, parent_url, region_name, siblin
     )
 
 
-def _dong_verification_section():
-    """바로GO 검증 기준 — E-E-A-T 신뢰 신호. 모든 페이지 공통 운영 정보."""
+_VERIFY_INTRO_TPL = [
+    "본 페이지는 <strong>YH LAB(서비스명 바로GO)</strong>가 운영하며, {area} 권역 출장마사지 안내·예약·상담은 다음 기준에 따라 처리됩니다.",
+    "{area} 권역을 포함한 모든 출장마사지 안내·예약은 <strong>YH LAB(바로GO)</strong>의 다음 운영 기준을 따릅니다.",
+    "<strong>YH LAB(바로GO)</strong>가 운영하는 본 안내 페이지의 {area} 권역 운영 기준은 다음과 같습니다.",
+    "본 안내는 <strong>YH LAB(바로GO)</strong>가 운영하며, {area} 권역 상담·예약은 아래 기준에 따라 투명하게 처리됩니다.",
+]
+_V_OPERATOR_TPL = [
+    "YH LAB, 대표 김유환, 사업자등록번호 815-26-00585, 본사 경기도 파주시 청석로 268. 정식 사업자등록 정보가 모든 페이지에 공개되어 있습니다.",
+    "운영 법인은 YH LAB (대표 김유환·사업자번호 815-26-00585·본사 경기도 파주시 청석로 268)이며, 모든 페이지에서 동일한 운영 주체 정보가 노출됩니다.",
+    "법인명 YH LAB, 사업자등록번호 815-26-00585, 대표자 김유환. 본사는 경기도 파주시 청석로 268에 위치합니다.",
+]
+_V_CONSULT_TPL = [
+    "0508-202-4719 대표 번호로 24시간 전화 상담이 진행되며, 모든 상담은 일정·코스·진행 장소·금액을 사전에 명확히 합의한 후에만 예약이 확정됩니다.",
+    "24시간 운영되는 0508-202-4719 상담을 통해 일정·코스·진행 장소·금액을 사전에 합의한 뒤에야 예약이 확정됩니다.",
+    "대표 번호 0508-202-4719로 24시간 상담이 가능하며, 사전 합의된 일정·금액·코스 정보를 기준으로만 예약이 확정됩니다.",
+]
+_V_COURSE_TPL = [
+    "코스 길이·진행 방식·예상 비용을 사전에 명시하며, 사전 동의 없는 추가 비용·옵션 변경은 부과되지 않습니다. \"최저가\", \"100% 보장\" 등 과장 표현은 사용하지 않습니다.",
+    "코스 길이·진행 방식·예상 비용을 사전 안내하고, 사용자 동의 없이 추가 비용·옵션이 부과되지 않습니다. 과장된 단정 표현(\"최저가\"·\"100%\" 등)은 사용하지 않습니다.",
+    "예상 비용·코스 진행 방식을 사전에 투명하게 공유하며, 합의되지 않은 추가 비용·옵션은 청구되지 않습니다. 단정·과장 표현은 사용하지 않습니다.",
+]
+_V_AREA_TPL = [
+    "가능 시간·이동 가능 여부는 권역 단위로 운영되며, 동 단위 진입 환경(공동현관·주차·진입 도로)은 일정 확정 단계에서 함께 확인됩니다.",
+    "권역 단위로 가능 시간이 운영되며, 동·읍 단위 환경 변수(출입 방식·주차·도로 폭)는 예약 확정 단계에서 함께 점검됩니다.",
+    "가능 시간·이동 여부는 권역 기준으로 운영하고, 동·읍 단위 진입 환경은 일정 확정 시점에 함께 확인합니다.",
+]
+_V_CANCEL_TPL = [
+    "<a href=\"/reservation/cancel-refund/\">취소·환불 규정</a>과 <a href=\"/reservation/payment/\">결제 안내</a> 페이지에 시간대별 기준이 명시되어 있으며, 모든 예약은 해당 기준에 따라 처리됩니다.",
+    "예약 변경·취소·환불은 <a href=\"/reservation/cancel-refund/\">취소·환불 규정</a>에 따라 처리되며, 결제 방식은 <a href=\"/reservation/payment/\">결제 안내</a>에 명시되어 있습니다.",
+    "시간대별 취소·환불 기준은 <a href=\"/reservation/cancel-refund/\">취소·환불 규정</a>에, 결제 가능 수단은 <a href=\"/reservation/payment/\">결제 안내</a>에 정리되어 있습니다.",
+]
+_V_PREUSE_TPL = [
+    "<a href=\"/reservation/check-before-use/\">이용 전 확인사항</a> 페이지에서 건강 상태·공간 조건·시간 일정 점검 항목을 사전에 안내하고 있습니다.",
+    "이용 전 건강 상태·공간 조건·일정 점검 사항은 <a href=\"/reservation/check-before-use/\">이용 전 확인사항</a> 페이지에서 확인하실 수 있습니다.",
+    "예약 전 권장되는 건강·공간·일정 체크리스트는 <a href=\"/reservation/check-before-use/\">이용 전 확인사항</a> 페이지에 정리되어 있습니다.",
+]
+
+
+def _dong_verification_section(area_name="본 권역"):
+    """바로GO 검증 기준 — E-E-A-T 신뢰 신호. 지역별 변형."""
+    p = _dong_pick
+    intro = _VERIFY_INTRO_TPL[p(area_name, "v_intro", len(_VERIFY_INTRO_TPL))].format(area=area_name)
+    op = _V_OPERATOR_TPL[p(area_name, "v_op", len(_V_OPERATOR_TPL))]
+    co = _V_CONSULT_TPL[p(area_name, "v_co", len(_V_CONSULT_TPL))]
+    cr = _V_COURSE_TPL[p(area_name, "v_cr", len(_V_COURSE_TPL))]
+    ar = _V_AREA_TPL[p(area_name, "v_ar", len(_V_AREA_TPL))]
+    ca = _V_CANCEL_TPL[p(area_name, "v_ca", len(_V_CANCEL_TPL))]
+    pu = _V_PREUSE_TPL[p(area_name, "v_pu", len(_V_PREUSE_TPL))]
     return (
         '<section class="block">'
         '<h2>바로GO 검증 기준</h2>'
-        '<p>본 안내 페이지는 <strong>YH LAB(서비스명 바로GO)</strong>가 운영합니다. 출장마사지 안내·예약·상담은 다음 기준에 따라 운영됩니다.</p>'
+        f'<p>{intro}</p>'
         '<ul>'
-        '<li><strong>운영 주체</strong> — YH LAB, 대표 김유환, 사업자등록번호 815-26-00585, 본사 경기도 파주시 청석로 268. 정식 사업자등록 정보가 모든 페이지에 공개되어 있습니다.</li>'
-        '<li><strong>상담 응대</strong> — 0508-202-4719 대표 번호로 24시간 전화 상담이 진행되며, 모든 상담은 일정·코스·진행 장소·금액을 사전에 명확히 합의한 후에만 예약이 확정됩니다.</li>'
-        '<li><strong>코스 안내 기준</strong> — 코스 길이·진행 방식·예상 비용을 사전에 명시하며, 사전 동의 없는 추가 비용·옵션 변경은 부과되지 않습니다. "최저가", "100% 보장" 등 과장 표현은 사용하지 않습니다.</li>'
-        '<li><strong>운영 시간·권역 기준</strong> — 가능 시간·이동 가능 여부는 권역 단위로 운영되며, 동 단위 진입 환경(공동현관·주차·진입 도로)은 일정 확정 단계에서 함께 확인됩니다.</li>'
-        '<li><strong>취소·환불·결제</strong> — <a href="/reservation/cancel-refund/">취소·환불 규정</a>과 <a href="/reservation/payment/">결제 안내</a> 페이지에 시간대별 기준이 명시되어 있으며, 모든 예약은 해당 기준에 따라 처리됩니다.</li>'
-        '<li><strong>이용 전 안내</strong> — <a href="/reservation/check-before-use/">이용 전 확인사항</a> 페이지에서 건강 상태·공간 조건·시간 일정 점검 항목을 사전에 안내하고 있습니다.</li>'
+        f'<li><strong>운영 주체</strong> — {op}</li>'
+        f'<li><strong>상담 응대</strong> — {co}</li>'
+        f'<li><strong>코스 안내 기준</strong> — {cr}</li>'
+        f'<li><strong>운영 시간·권역 기준</strong> — {ar}</li>'
+        f'<li><strong>취소·환불·결제</strong> — {ca}</li>'
+        f'<li><strong>이용 전 안내</strong> — {pu}</li>'
         '</ul>'
         '</section>'
     )
@@ -3149,11 +3331,11 @@ def _build_dong_rich_body(*, dong_name, parent_name, region_name, parent_char,
     return (
         section1
         + _shared_program_price_section(dong_name)
-        + _shared_procedure_section()
+        + _shared_procedure_section(dong_name)
         + _dong_check_before_section(dong_name, parent_name)
         + _shared_reviews_section(dong_name)
         + _dong_nearby_section(dong_name, parent_name, parent_url, region_name, sibling_card_html)
-        + _dong_verification_section()
+        + _dong_verification_section(dong_name)
         + _dong_faq_section_html(dong_name, parent_name)
         + _region_cta_html(dong_name)
     )
@@ -3737,9 +3919,9 @@ def _build_gyeonggi_districts():
             f'<p>{d["pattern"]}</p>'
             '</section>',
             _shared_program_price_section(d["name"]),
-            _shared_procedure_section(),
+            _shared_procedure_section(d["name"]),
             _shared_reviews_section(d["name"]),
-            _dong_verification_section(),
+            _dong_verification_section(d["name"]),
             _district_faqs_html(d["name"], d["faqs"]),
             _region_cta_html(d["name"]),
         ]
@@ -3975,9 +4157,9 @@ def _build_gyeonggi_gu_pages():
                 f'<p>{gu["pattern"]}</p>'
                 '</section>',
                 _shared_program_price_section(gu_name),
-                _shared_procedure_section(),
+                _shared_procedure_section(gu_name),
                 _shared_reviews_section(gu_name),
-                _dong_verification_section(),
+                _dong_verification_section(gu_name),
                 _district_faqs_html(gu_name, gu["faqs"]),
                 _region_cta_html(gu_name),
             ]
@@ -4122,9 +4304,9 @@ def _build_metro_district(parent_slug, parent_name, d, all_in_parent):
         f'<p>{d["pattern"]}</p>'
         '</section>',
         _shared_program_price_section(d["name"]),
-        _shared_procedure_section(),
+        _shared_procedure_section(d["name"]),
         _shared_reviews_section(d["name"]),
-        _dong_verification_section(),
+        _dong_verification_section(d["name"]),
         _district_faqs_html(d["name"], d["faqs"]),
         _region_cta_html(d["name"]),
     ]
