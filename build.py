@@ -623,6 +623,38 @@ _LONG_TAIL = {
     "예약·가격·이용 전 자주 묻는 질문을 카테고리별로 정리",
     "처음 이용하시는 분이 가장 궁금해하는 질문에 대한 답변 모음",
   ],
+  "/support/partnership/": [
+    "광고·제휴·입점 문의 양식과 운영팀 직접 응대 안내",
+    "지역 독점·배너·관리사 협력 문의를 운영팀에 즉시 전달하는 양식",
+  ],
+  "/magazine/": [
+    "운영팀이 직접 집필하는 출장마사지 에디토리얼 매거진 모음",
+    "트렌드·라이프스타일·웰니스·코스 가이드를 주제별로 정리한 매거진",
+  ],
+  "/magazine/first-time-essentials/": [
+    "처음 출장마사지를 받기 전 알아둘 점을 운영팀이 정리한 가이드",
+    "첫 코스 선택·사전 준비·진행 흐름·사후 케어를 한 페이지에 정리",
+  ],
+  "/magazine/night-worker-recovery/": [
+    "야간 근무자가 활용할 수 있는 출장마사지 회복 5가지 패턴",
+    "병원·간호·IT 운영·보안 등 야간 직군에게 권장되는 회복 루틴",
+  ],
+  "/magazine/desk-worker-neck-shoulder/": [
+    "사무직 1-3년차의 어깨·목 누적 변화와 단계별 케어 흐름 정리",
+    "데스크워크가 만드는 4가지 신체 신호와 권장 케어 코스 안내",
+  ],
+  "/magazine/hotel-guest-guide/": [
+    "호텔 객실에서 받는 출장마사지의 흐름과 사전 안내해야 할 점 정리",
+    "호텔 등급별 진행 차이와 자주 선택되는 시간대·코스 안내",
+  ],
+  "/magazine/course-selection-by-purpose/": [
+    "스웨디시·아로마·홈타이·스포츠 중 무엇을 받을지 결정하는 기준",
+    "운영팀의 코스 매칭 의사결정 5단계와 첫 코스 권장 안내",
+  ],
+  "/magazine/regional-usage-tips/": [
+    "수도권·광역시·도(道) 권역·제주별 출장마사지 이용 패턴 정리",
+    "권역마다 자주 안내되는 시간대·코스·진행 장소 차이 안내",
+  ],
 }
 
 
@@ -9536,25 +9568,157 @@ add(
 
 add(
   path="support/partnership/index.html", url="/support/partnership/", slug="partnership",
-  title="제휴·입점 문의 | 관리사·업체 협력 | 바로GO",
-  description="바로GO 제휴 및 입점 문의 안내. 관리사·업체 파트너 모집 기준을 안내합니다.",
-  h1="제휴·입점 문의",
-  intro='<p class="lede">바로GO는 일정 기준을 충족하는 관리사 및 업체와 협력합니다.</p>',
-  breadcrumbs=[("홈","/"),("고객센터","/support/"),("제휴 문의","/support/partnership/")],
+  title="제휴·광고 문의 · 입점 안내 | 바로GO",
+  description="바로GO 제휴·광고·입점 문의 양식. 광고 유형, 광고 지역 등을 입력하시면 운영팀에 즉시 전달됩니다. 영업일 기준 3일 이내 회신.",
+  h1="제휴·광고 문의",
+  intro='<p class="lede">광고 진행·지역 독점·제휴 입점·관리사 협력 문의를 운영팀이 직접 응대합니다. 아래 양식을 작성해 주시면 운영팀 텔레그램으로 즉시 전달되며, 영업일 기준 3일 이내 회신드립니다.</p>',
+  breadcrumbs=[("홈","/"),("고객센터","/support/"),("제휴·광고 문의","/support/partnership/")],
   body="""
 <section class="block">
-<h2>제휴 기준</h2>
+<h2>제휴·광고 진행 기준</h2>
 <ul class="check-list">
 <li>합법적이고 신고된 사업자 또는 프리랜서</li>
-<li>출장 마사지 관련 경력과 검증 가능한 이력</li>
+<li>출장마사지 관련 경력 또는 광고 진행 이력</li>
 <li>안전 이용 정책 동의 및 가격·취소 기준 준수</li>
+<li>광고 진행은 권역·기간 단위로 안내됩니다</li>
 </ul>
 </section>
+
 <section class="block">
-<h2>문의 방법</h2>
-<p>제휴·입점 문의는 <a href="tel:0508-202-4719">0508-202-4719</a> 또는 별도 안내된 이메일을 통해 접수해 주세요. 접수된 문의는 영업일 기준 3일 이내 응답을 원칙으로 합니다.</p>
+<h2>문의 양식</h2>
+<p class="muted">아래 항목을 모두 입력하신 후 <strong>작성 완료</strong> 버튼을 눌러주세요. 입력하신 정보는 운영팀 텔레그램으로 즉시 전송되며, 저장·이용 정책은 <a href="/about/privacy/">개인정보처리방침</a>을 따릅니다.</p>
+
+<form id="partnership-form" class="pf-form" novalidate>
+  <div class="pf-field">
+    <label for="pf-type">광고문의 유형 <span class="pf-req" aria-hidden="true">*</span></label>
+    <select id="pf-type" name="inquiryType" required>
+      <option value="">선택해 주세요</option>
+      <option value="일반 광고">일반 광고</option>
+      <option value="지역 독점">지역 독점 광고</option>
+      <option value="배너 광고">배너 광고</option>
+      <option value="제휴·입점">제휴·입점</option>
+      <option value="관리사 협력">관리사 협력</option>
+      <option value="기타">기타</option>
+    </select>
+  </div>
+
+  <div class="pf-grid-2">
+    <div class="pf-field">
+      <label for="pf-name">성명 <span class="pf-req" aria-hidden="true">*</span></label>
+      <input id="pf-name" name="name" type="text" autocomplete="name" maxlength="50" required>
+    </div>
+    <div class="pf-field">
+      <label for="pf-phone">전화번호 <span class="pf-req" aria-hidden="true">*</span></label>
+      <input id="pf-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="010-0000-0000" maxlength="30" required>
+    </div>
+  </div>
+
+  <div class="pf-field">
+    <label for="pf-region">광고 지역 <span class="pf-req" aria-hidden="true">*</span></label>
+    <input id="pf-region" name="region" type="text" placeholder="예: 서울 강남, 부산 해운대, 전국 등" maxlength="100" required>
+  </div>
+
+  <div class="pf-field">
+    <label for="pf-message">문의사항 <span class="pf-req" aria-hidden="true">*</span></label>
+    <textarea id="pf-message" name="message" rows="6" maxlength="2000" placeholder="진행하고자 하는 광고·제휴 내용, 희망 시기 등을 자유롭게 작성해 주세요."required></textarea>
+    <small class="pf-counter"><span id="pf-count">0</span> / 2000</small>
+  </div>
+
+  <!-- 봇 차단 허니팟 (사람에게는 안 보임) -->
+  <div class="pf-hp" aria-hidden="true">
+    <label for="pf-hp">웹사이트 (입력 금지)</label>
+    <input id="pf-hp" name="hp" type="text" tabindex="-1" autocomplete="off">
+  </div>
+
+  <div class="pf-consent">
+    <label class="pf-checkbox">
+      <input type="checkbox" id="pf-agree" required>
+      <span>위 정보가 운영팀 텔레그램으로 전송되는 것에 동의합니다. (<a href="/about/privacy/">개인정보처리방침</a>)</span>
+    </label>
+  </div>
+
+  <button type="submit" class="pf-submit" id="pf-submit">작성 완료 · 운영팀에 전송</button>
+
+  <div class="pf-status" id="pf-status" role="status" aria-live="polite"></div>
+</form>
 </section>
+
+<section class="block">
+<h2>전화 문의</h2>
+<p>긴급한 사안이거나 양식 작성이 어려우신 경우 <a href="tel:0508-202-4719">0508-202-4719</a>로 직접 연락 주셔도 됩니다. 영업일 기준 3일 이내 회신을 원칙으로 합니다.</p>
+</section>
+
+<script>
+(function(){
+  var form = document.getElementById('partnership-form');
+  if (!form) return;
+  var status = document.getElementById('pf-status');
+  var submit = document.getElementById('pf-submit');
+  var msg = document.getElementById('pf-message');
+  var count = document.getElementById('pf-count');
+  var ts = Date.now();
+
+  msg.addEventListener('input', function(){
+    count.textContent = msg.value.length;
+  });
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if (!document.getElementById('pf-agree').checked) {
+      showStatus('개인정보 처리 동의가 필요합니다.', 'error');
+      return;
+    }
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+    var data = {
+      inquiryType: form.inquiryType.value,
+      name: form.name.value.trim(),
+      phone: form.phone.value.trim(),
+      region: form.region.value.trim(),
+      message: form.message.value.trim(),
+      hp: form.hp.value,
+      ts: ts
+    };
+    submit.disabled = true;
+    submit.textContent = '전송 중…';
+    showStatus('전송 중입니다…', 'pending');
+
+    fetch('/api/partnership', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    })
+    .then(function(r){ return r.json().then(function(j){ return { ok: r.ok, body: j }; }); })
+    .then(function(res){
+      if (res.ok && res.body && res.body.ok) {
+        showStatus('✓ 문의가 접수되었습니다. 영업일 기준 3일 이내 회신드립니다.', 'success');
+        form.reset();
+        count.textContent = '0';
+        submit.textContent = '전송 완료';
+      } else {
+        var err = (res.body && res.body.error) || '전송에 실패했습니다. 잠시 후 다시 시도해 주세요.';
+        showStatus('✗ ' + err, 'error');
+        submit.disabled = false;
+        submit.textContent = '작성 완료 · 운영팀에 전송';
+      }
+    })
+    .catch(function(){
+      showStatus('✗ 네트워크 오류가 발생했습니다. 다시 시도해 주세요.', 'error');
+      submit.disabled = false;
+      submit.textContent = '작성 완료 · 운영팀에 전송';
+    });
+  });
+
+  function showStatus(text, kind){
+    status.textContent = text;
+    status.className = 'pf-status pf-status-' + kind;
+  }
+})();
+</script>
 """,
+  related=_rel("/support/partnership/", ["/support/contact/", "/about/operation-policy/", "/about/therapist-policy/", "/about/brand/"], title="함께 살펴볼 문서"),
 )
 
 add(

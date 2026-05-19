@@ -3834,6 +3834,139 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   .mega-cols-3 { grid-template-columns: 1fr; }
 }
 
+/* ============================================================
+   Partnership form (/support/partnership/)
+   ============================================================ */
+.pf-form {
+  display: grid;
+  gap: 18px;
+  padding: 24px 26px 28px;
+  background: var(--color-bg-elev);
+  border: 1px solid var(--color-line);
+  border-radius: 16px;
+  margin-top: 12px;
+  box-shadow: var(--shadow-xs);
+}
+.pf-field { display: flex; flex-direction: column; gap: 6px; }
+.pf-field label {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--color-ink);
+  letter-spacing: -0.01em;
+}
+.pf-req { color: #d93838; font-weight: 800; margin-left: 2px; }
+.pf-field input,
+.pf-field select,
+.pf-field textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid var(--color-line);
+  border-radius: 10px;
+  font-size: 14.5px;
+  font-family: inherit;
+  background: #fff;
+  color: var(--color-ink);
+  transition: border-color 140ms ease, box-shadow 140ms ease;
+  box-sizing: border-box;
+}
+.pf-field textarea {
+  resize: vertical;
+  min-height: 130px;
+  line-height: 1.65;
+}
+.pf-field input:focus,
+.pf-field select:focus,
+.pf-field textarea:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(11, 90, 71, 0.12);
+}
+.pf-field input:invalid:not(:placeholder-shown),
+.pf-field select:invalid {
+  border-color: #e8b4b4;
+}
+.pf-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.pf-counter {
+  display: block;
+  text-align: right;
+  font-size: 11.5px;
+  color: var(--color-ink-mute);
+  margin-top: 4px;
+}
+.pf-consent {
+  padding: 12px 14px;
+  background: #fff;
+  border: 1px solid var(--color-line);
+  border-radius: 10px;
+}
+.pf-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--color-ink-soft);
+  cursor: pointer;
+}
+.pf-checkbox input { margin-top: 3px; accent-color: var(--color-accent); flex-shrink: 0; }
+.pf-hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.pf-submit {
+  appearance: none;
+  border: 0;
+  padding: 16px 22px;
+  background: linear-gradient(135deg, var(--color-accent), var(--color-accent-strong));
+  color: #fff;
+  font-size: 15.5px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 140ms var(--ease-out), box-shadow 140ms var(--ease-out), opacity 140ms;
+  box-shadow: 0 6px 18px rgba(11, 90, 71, 0.28);
+}
+.pf-submit:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(11, 90, 71, 0.34);
+}
+.pf-submit:disabled { opacity: 0.65; cursor: not-allowed; }
+.pf-status {
+  min-height: 1.4em;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 0 4px;
+}
+.pf-status:empty { display: none; }
+.pf-status-pending { color: var(--color-ink-mute); }
+.pf-status-success {
+  padding: 12px 16px;
+  background: #e7f5ee;
+  color: #0b5a47;
+  border: 1px solid #b9deca;
+  border-radius: 10px;
+}
+.pf-status-error {
+  padding: 12px 16px;
+  background: #fdecec;
+  color: #a13838;
+  border: 1px solid #e8b4b4;
+  border-radius: 10px;
+}
+@media (max-width: 600px) {
+  .pf-form { padding: 20px 18px 22px; }
+  .pf-grid-2 { grid-template-columns: 1fr; }
+  .pf-submit { padding: 15px 20px; font-size: 15px; }
+}
+
 /* Section anchors smooth scroll */
 html { scroll-behavior: smooth; scroll-padding-top: 80px; }
 
