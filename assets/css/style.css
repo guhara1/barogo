@@ -5195,3 +5195,131 @@ a.mag-cat-pill:hover {
   .mag-pagination-nums li a,
   .mag-pagination-nums li span { min-width: 32px; height: 32px; font-size: 12.5px; }
 }
+
+/* ============================================================
+   Team — 에디토리얼팀 허브·디렉터 페이지
+   ============================================================ */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 18px;
+  margin: 16px 0 24px;
+}
+.team-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 22px 22px 20px;
+  background: var(--color-bg-elev);
+  border: 1px solid var(--color-line);
+  border-radius: 14px;
+  text-decoration: none !important;
+  color: var(--color-ink) !important;
+  transition: all 160ms var(--ease-out);
+}
+.team-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(11,26,26,0.10);
+  border-color: var(--color-accent-soft, #cfe3dc);
+}
+.team-card-avatar {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--color-accent), var(--color-gold));
+  color: #fff;
+  font-weight: 900;
+  font-size: 22px;
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
+}
+.team-card-name {
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -0.015em;
+}
+.team-card-role {
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--color-accent);
+  text-transform: uppercase;
+}
+.team-card-specialty {
+  font-size: 13.5px;
+  color: var(--color-ink-mute);
+  line-height: 1.5;
+  word-break: keep-all;
+}
+
+/* 디렉터 프로필 카드 */
+.team-profile { padding: 0; }
+.team-profile-card {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: 22px;
+  align-items: start;
+  padding: 24px;
+  background: linear-gradient(135deg, rgba(13,27,44,0.97), rgba(30,51,88,0.97));
+  color: #fff;
+  border-radius: 16px;
+  margin-bottom: 24px;
+}
+.team-profile-avatar {
+  width: 96px; height: 96px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-accent), var(--color-gold));
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 40px;
+  letter-spacing: -0.02em;
+  box-shadow: 0 8px 20px rgba(11,90,71,0.45);
+}
+.team-profile-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.team-profile-row {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 12px;
+  font-size: 14.5px;
+  align-items: baseline;
+}
+.team-profile-row strong {
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: #ffb547;
+  text-transform: uppercase;
+}
+.team-h1-role {
+  font-size: 0.5em;
+  font-weight: 600;
+  color: var(--color-accent);
+  margin-left: 10px;
+  letter-spacing: 0.02em;
+}
+
+/* 매거진 바이라인 — 디렉터 이름·아바타에 hover 효과 */
+.mag-meta-author-link {
+  color: var(--color-ink) !important;
+  text-decoration: none !important;
+  border-bottom: 1px dotted var(--color-line);
+  transition: color 120ms;
+}
+.mag-meta-author-link:hover { color: var(--color-accent) !important; border-bottom-color: var(--color-accent); }
+a.mag-meta-avatar { text-decoration: none !important; }
+
+@media (max-width: 600px) {
+  .team-profile-card { grid-template-columns: 72px 1fr; gap: 16px; padding: 20px; }
+  .team-profile-avatar { width: 72px; height: 72px; font-size: 30px; }
+  .team-profile-row { grid-template-columns: 64px 1fr; gap: 8px; font-size: 13.5px; }
+}

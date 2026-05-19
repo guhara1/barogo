@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+<defs>
+<linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+<stop offset="0%" stop-color="#3a5a40"/>
+<stop offset="55%" stop-color="#6c8b6b"/>
+<stop offset="130%" stop-color="#d6c89a"/>
+</linearGradient>
+</defs>
+<rect width="1200" height="630" fill="url(#g)"/>
+<rect x="60" y="60" width="200" height="44" rx="22" fill="rgba(255,255,255,0.92)"/>
+<text x="160" y="89" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Apple SD Gothic Neo','Noto Sans KR',sans-serif" font-size="20" font-weight="800" fill="#0b1a1a" letter-spacing="0.04em">웰니스</text>
+<text x="60" y="380" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Apple SD Gothic Neo','Noto Sans KR',sans-serif" font-size="64" font-weight="900" fill="#ffffff" letter-spacing="-0.02em">사무직 어깨·목 — 데스크워크 누적이</text>
+<text x="60" y="466" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Apple SD Gothic Neo','Noto Sans KR',sans-serif" font-size="64" font-weight="900" fill="#ffffff" letter-spacing="-0.02em">만드는 변화와 케어 흐름</text>
+<text x="60" y="568" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Apple SD Gothic Neo','Noto Sans KR',sans-serif" font-size="22" font-weight="700" fill="rgba(255,255,255,0.78)" letter-spacing="0.16em">BAROGO MAGAZINE · YH LAB</text>
+</svg>

@@ -162,6 +162,8 @@ HEADER = """<a class="skip-link" href="#main">본문 바로가기</a>
             <h3 class="mega-album-title">회사 정보·정책</h3>
             <div class="mega-album-grid mega-album-grid--guide">
               <a class="mega-card" href="/about/brand/"><span class="mega-card-title">브랜드 소개</span><span class="mega-card-sub">운영 미션·약속</span></a>
+              <a class="mega-card" href="/about/team/"><span class="mega-card-title">에디토리얼팀</span><span class="mega-card-sub">디렉터 6인 소개</span></a>
+              <a class="mega-card" href="/about/editorial-policy/"><span class="mega-card-title">편집 정책</span><span class="mega-card-sub">집필·검수·정정</span></a>
               <a class="mega-card" href="/about/operation-policy/"><span class="mega-card-title">운영 원칙</span><span class="mega-card-sub">예약·가격·후기 정책</span></a>
               <a class="mega-card" href="/about/therapist-policy/"><span class="mega-card-title">관리사 기준</span><span class="mega-card-sub">협력·검증·평가</span></a>
               <a class="mega-card" href="/about/safety-policy/"><span class="mega-card-title">안전 이용 정책</span><span class="mega-card-sub">금지·신고·청소년 보호</span></a>
@@ -288,6 +290,8 @@ FOOTER = """<footer class="site-footer" role="contentinfo" itemscope itemtype="h
       <li><a href="/about/privacy/"><strong>개인정보처리방침</strong></a></li>
       <li><a href="/about/terms/">이용약관</a></li>
       <li><a href="/about/safety-policy/">안전 이용 정책</a></li>
+      <li><a href="/about/editorial-policy/">편집 정책</a></li>
+      <li><a href="/about/team/">에디토리얼팀</a></li>
     </ul>
   </div>
 </footer>"""
@@ -305,9 +309,10 @@ PAGE_TPL = """<!DOCTYPE html>
 <meta property="og:type" content="{og_type}">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{description}">
-<meta property="og:image" content="/assets/img/1.png">
+<meta property="og:image" content="{og_image}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta name="twitter:image" content="{og_image}">
 <meta property="og:site_name" content="바로GO">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:url" content="{url}">
@@ -371,34 +376,74 @@ def render(page):
     breadcrumbs = page.get("breadcrumbs", [])
     crumbs_html = breadcrumb_html(breadcrumbs)
     extra_jsonld = page.get("jsonld_extra", [])
+    page_image = page.get("image", "/assets/img/1.png")
+
+    page_schema = {
+        "@type": page.get("schema_type", "WebPage"),
+        "name": page["title"],
+        "url": url,
+        "description": page["description"],
+        "isPartOf": {"@type": "WebSite", "name": "바로GO", "url": "/"},
+        "primaryImageOfPage": page_image,
+        "image": page_image,
+        "dateModified": BUILD_DATE,
+        "publisher": {"@id": "/#org"},
+    }
+    if page.get("date_published"):
+        page_schema["datePublished"] = page["date_published"]
+
+    graph = [
+        {
+            "@type": "Organization",
+            "@id": "/#org",
+            "name": "바로GO",
+            "legalName": "YH LAB",
+            "telephone": SITE["phone"],
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": SITE["address_street"],
+                "addressLocality": SITE["address_locality"],
+                "addressRegion": SITE["address_region"],
+                "addressCountry": "KR",
+            },
+            "url": "/",
+            "logo": "/assets/img/barogo_logo_true_transparent.png",
+        },
+        page_schema,
+        breadcrumb_jsonld(breadcrumbs),
+    ]
+
+    # 매거진 글(og_type=article)이면 BlogPosting 스키마 추가
+    if page.get("og_type") == "article" and page.get("article_author"):
+        author = page["article_author"]
+        article_schema = {
+            "@type": "BlogPosting",
+            "@id": url + "#article",
+            "headline": page["h1"] if isinstance(page.get("h1"), str) else page["title"],
+            "description": page["description"],
+            "url": url,
+            "image": page_image,
+            "datePublished": page.get("date_published", BUILD_DATE),
+            "dateModified": BUILD_DATE,
+            "author": {
+                "@type": "Person",
+                "@id": f"/about/team/{author['slug']}/#person",
+                "name": author["name"],
+                "jobTitle": author["role"],
+                "url": f"/about/team/{author['slug']}/",
+            },
+            "publisher": {"@id": "/#org"},
+            "mainEntityOfPage": {"@id": url},
+            "articleSection": page.get("article_section", ""),
+            "inLanguage": "ko",
+        }
+        if page.get("article_keywords"):
+            article_schema["keywords"] = page["article_keywords"]
+        graph.append(article_schema)
+
     jsonld = {
         "@context": "https://schema.org",
-        "@graph": [
-            {
-                "@type": "Organization",
-                "@id": "/#org",
-                "name": "바로GO",
-                "legalName": "YH LAB",
-                "telephone": SITE["phone"],
-                "address": {
-                    "@type": "PostalAddress",
-                    "streetAddress": SITE["address_street"],
-                    "addressLocality": SITE["address_locality"],
-                    "addressRegion": SITE["address_region"],
-                    "addressCountry": "KR",
-                },
-            },
-            {
-                "@type": page.get("schema_type", "WebPage"),
-                "name": page["title"],
-                "url": url,
-                "description": page["description"],
-                "isPartOf": {"@type": "WebSite", "name": "바로GO", "url": "/"},
-                "primaryImageOfPage": "/assets/img/1.png",
-                "dateModified": BUILD_DATE,
-            },
-            breadcrumb_jsonld(breadcrumbs),
-        ] + extra_jsonld,
+        "@graph": graph + extra_jsonld,
     }
 
     html = PAGE_TPL.format(
@@ -406,6 +451,7 @@ def render(page):
         description=page["description"],
         url=url,
         og_type=page.get("og_type", "website"),
+        og_image=page_image,
         slug=page.get("slug", "page"),
         h1=page["h1"],
         intro=page.get("intro", ""),
@@ -9219,12 +9265,24 @@ for g in GUIDES_RICH:
 
 # 매거진 디렉터 풀 (6명) — 카테고리별 전문 분야 배정
 _MAG_AUTHORS = [
-    {"name": "이주민", "role": "콘텐츠 디렉터",  "specialty": "트렌드·라이프스타일 인사이트"},
-    {"name": "서영",   "role": "에디토리얼 디렉터", "specialty": "웰니스·회복 케어 분야"},
-    {"name": "이주미", "role": "리서치 디렉터",  "specialty": "운영 데이터·이용 패턴 분석"},
-    {"name": "이주희", "role": "필드 디렉터",    "specialty": "지역·권역 가이드 기획"},
-    {"name": "백민호", "role": "프로덕트 디렉터", "specialty": "코스·서비스 기획"},
-    {"name": "김범수", "role": "안전 디렉터",    "specialty": "안전·정책·이용 가이드"},
+    {"slug": "lee-jumin",  "name": "이주민", "role": "콘텐츠 디렉터",  "specialty": "트렌드·라이프스타일 인사이트",
+     "bio": "운영 상담에서 자주 관찰되는 라이프스타일 변화와 회복 케어 트렌드를 추적합니다. 결혼·이사·명절·해외 출장 등 일상 변동 시기의 케어 패턴을 운영 데이터로 정리하는 일을 담당합니다.",
+     "experience": "에디토리얼 콘텐츠 7년", "joined": "2024"},
+    {"slug": "seo-young",  "name": "서영",   "role": "에디토리얼 디렉터", "specialty": "웰니스·회복 케어 분야",
+     "bio": "수면·두통·운동 후 회복·여성 컨디션 사이클 등 웰니스 영역을 담당합니다. 본인 회복 케어 영역에서는 의료 행위와의 경계를 명확히 구분하고, 의료 상담이 우선되어야 하는 상황을 운영팀과 공유합니다.",
+     "experience": "웰니스·회복 케어 콘텐츠 6년", "joined": "2024"},
+    {"slug": "lee-jumi",   "name": "이주미", "role": "리서치 디렉터",  "specialty": "운영 데이터·이용 패턴 분석",
+     "bio": "운영 데이터·상담 기록을 정성적으로 분류하고, 시기·권역·직군별 이용 패턴 차이를 정리합니다. 매거진 글의 데이터 인용 부분 검수를 맡습니다.",
+     "experience": "데이터 분석·운영 리서치 8년", "joined": "2024"},
+    {"slug": "lee-juhee",  "name": "이주희", "role": "필드 디렉터",    "specialty": "지역·권역 가이드 기획",
+     "bio": "수도권·광역시·도(道) 권역·제주까지 권역별 이용 패턴을 현장 관찰 기반으로 정리합니다. 운영팀이 권역별 상담에서 자주 안내하는 흐름을 매거진으로 정리하는 일을 담당합니다.",
+     "experience": "권역 운영 기획 7년", "joined": "2024"},
+    {"slug": "baek-minho", "name": "백민호", "role": "프로덕트 디렉터", "specialty": "코스·서비스 기획",
+     "bio": "스웨디시·아로마·홈타이·스포츠 등 코스 구성·시간 배분의 기획을 담당합니다. 코스 매칭 의사결정 흐름과 첫 이용자 권장 안내를 매거진으로 정리합니다.",
+     "experience": "서비스 기획 9년", "joined": "2024"},
+    {"slug": "kim-beomsu", "name": "김범수", "role": "안전 디렉터",    "specialty": "안전·정책·이용 가이드",
+     "bio": "안전 이용 정책·금지 사항·청소년 보호 정책의 책임자입니다. 호텔·가정 방문 케어의 안전 가이드와 운영 정책의 일관성을 관리합니다.",
+     "experience": "운영 정책·컴플라이언스 10년", "joined": "2024"},
 ]
 
 # 카테고리 → 영문 오버라인 (히어로 상단 작은 라벨)
@@ -9283,15 +9341,16 @@ def _mag_read_min_for(slug):
 
 
 def _mag_byline(slug, published, read_min, category):
-    """디렉터 정보 기반 바이라인. 사업자등록번호 노출 안 함."""
+    """디렉터 정보 기반 바이라인. 디렉터 이름은 소개 페이지로 링크 (E-E-A-T)."""
     a = _mag_author_for(slug)
-    initial = a["name"][0]  # 한글 이니셜
+    initial = a["name"][0]
+    author_url = f"/about/team/{a['slug']}/"
     return (
         '<div class="mag-meta">'
         '<div class="mag-meta-author">'
-        f'<span class="mag-meta-avatar" aria-hidden="true">{initial}</span>'
+        f'<a class="mag-meta-avatar" href="{author_url}" aria-label="{a["name"]} 소개 페이지">{initial}</a>'
         '<div class="mag-meta-author-text">'
-        f'<strong>{a["name"]} {a["role"]}</strong>'
+        f'<strong><a class="mag-meta-author-link" href="{author_url}">{a["name"]}</a> {a["role"]}</strong>'
         f'<span>{a["specialty"]}</span>'
         '</div></div>'
         '<div class="mag-meta-info">'
@@ -10590,6 +10649,277 @@ def _render_mega_magazine_cards(start=0, count=3):
     return "\n".join(parts)
 
 
+# 매거진 미니카드 (카테고리·허브·디렉터 페이지 공통)
+def _mag_mini_card(a):
+    title = a["title"].split(" — ")[0] if " — " in a["title"] else a["title"]
+    if len(title) > 32:
+        title = title[:30] + "…"
+    return (
+        f'<a class="mega-mag-card hub-mag-card" href="/magazine/{a["slug"]}/">'
+        f'<span class="mega-mag-cover mag-cover-{a["cover"]}">'
+        f'<span class="mega-mag-cat">{a["category"]}</span>'
+        f'</span>'
+        f'<span class="mega-mag-title">{title}</span>'
+        f'</a>'
+    )
+
+
+# 매거진 커버 그라데이션 정의 (CSS와 동일)
+_MAG_COVER_GRAD = {
+    "forest": ("#0b5a47", "#178060", "#c8a268"),
+    "dusk":   ("#1e2a4a", "#4b3f7a", "#c47b7b"),
+    "sage":   ("#3a5a40", "#6c8b6b", "#d6c89a"),
+    "sunset": ("#b8553f", "#d98c5a", "#f4d28a"),
+    "earth":  ("#6b4a32", "#a8784f", "#e0b988"),
+}
+
+
+def _xml_escape(s):
+    return (s.replace("&", "&amp;")
+             .replace("<", "&lt;")
+             .replace(">", "&gt;")
+             .replace('"', "&quot;"))
+
+
+def _make_og_svg(title, category, cover_key):
+    """매거진 글별 1200×630 OG 이미지 SVG. cover 그라데이션 + 카테고리 + 타이틀."""
+    c1, c2, c3 = _MAG_COVER_GRAD.get(cover_key, _MAG_COVER_GRAD["forest"])
+    # 타이틀 줄바꿈 — 16자 단위
+    t = _xml_escape(title)
+    # 길면 두 줄로 — 공백 또는 길이 기준
+    if len(title) <= 22:
+        line1, line2 = t, ""
+    else:
+        # 공백 위치 가까운 분리점
+        mid = len(title) // 2
+        cut = title.rfind(" ", 0, mid + 6)
+        if cut < 8:
+            cut = mid
+        line1 = _xml_escape(title[:cut].rstrip())
+        line2 = _xml_escape(title[cut:].lstrip())
+        if len(line2) > 32:
+            line2 = _xml_escape(title[cut:cut + 30].lstrip() + "…")
+    cat = _xml_escape(category)
+    return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+<defs>
+<linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+<stop offset="0%" stop-color="{c1}"/>
+<stop offset="55%" stop-color="{c2}"/>
+<stop offset="130%" stop-color="{c3}"/>
+</linearGradient>
+</defs>
+<rect width="1200" height="630" fill="url(#g)"/>
+<rect x="60" y="60" width="200" height="44" rx="22" fill="rgba(255,255,255,0.92)"/>
+<text x="160" y="89" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Apple SD Gothic Neo','Noto Sans KR',sans-serif" font-size="20" font-weight="800" fill="#0b1a1a" letter-spacing="0.04em">{cat}</text>
+<text x="60" y="380" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Apple SD Gothic Neo','Noto Sans KR',sans-serif" font-size="64" font-weight="900" fill="#ffffff" letter-spacing="-0.02em">{line1}</text>
+<text x="60" y="466" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Apple SD Gothic Neo','Noto Sans KR',sans-serif" font-size="64" font-weight="900" fill="#ffffff" letter-spacing="-0.02em">{line2}</text>
+<text x="60" y="568" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Apple SD Gothic Neo','Noto Sans KR',sans-serif" font-size="22" font-weight="700" fill="rgba(255,255,255,0.78)" letter-spacing="0.16em">BAROGO MAGAZINE · YH LAB</text>
+</svg>'''
+
+
+def _write_og_images():
+    out_dir = ROOT / "assets" / "img" / "og"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    for a in MAGAZINE_ARTICLES:
+        svg = _make_og_svg(a["title"], a["category"], a["cover"])
+        (out_dir / f"magazine-{a['slug']}.svg").write_text(svg, encoding="utf-8")
+
+
+# ---------- Director(Author) profile pages — E-E-A-T 강화 ----------
+# 각 디렉터별 개별 소개 + 작성 글 목록 + /about/team/ 허브
+def _author_url(author_slug):
+    return f"/about/team/{author_slug}/"
+
+
+def _author_works(author_slug):
+    """해당 디렉터가 담당한 매거진 글 목록 (slug 해시로 매핑되는 글들)."""
+    return [a for a in MAGAZINE_ARTICLES if _mag_author_for(a["slug"])["slug"] == author_slug]
+
+
+# /about/team/ 허브
+_team_cards = ""
+for _a in _MAG_AUTHORS:
+    _initial = _a["name"][0]
+    _team_cards += (
+        f'<a class="team-card" href="{_author_url(_a["slug"])}">'
+        f'<span class="team-card-avatar" aria-hidden="true">{_initial}</span>'
+        f'<span class="team-card-name">{_a["name"]}</span>'
+        f'<span class="team-card-role">{_a["role"]}</span>'
+        f'<span class="team-card-specialty">{_a["specialty"]}</span>'
+        '</a>'
+    )
+
+add(
+    path="about/team/index.html",
+    url="/about/team/",
+    slug="about-team",
+    title="바로GO 에디토리얼팀 — 디렉터 6인 소개 | 바로GO",
+    description="바로GO 매거진·운영 가이드를 집필하는 디렉터 6인의 담당 분야·경력을 정리한 페이지입니다. 콘텐츠·웰니스·리서치·필드·프로덕트·안전 분야별 책임자를 소개합니다.",
+    h1="바로GO 에디토리얼팀",
+    intro='<p class="lede">바로GO 매거진과 운영 가이드는 디렉터 6인의 분야별 책임 집필을 거쳐 발행됩니다. 본 페이지는 각 디렉터의 담당 영역과 경력을 공개합니다.</p>',
+    breadcrumbs=[("홈", "/"), ("바로GO 소개", "/about/"), ("에디토리얼팀", "/about/team/")],
+    body=(
+        '<section class="block">'
+        '<div class="team-grid">' + _team_cards + '</div>'
+        '</section>'
+        '<section class="block">'
+        '<h2>책임 집필 원칙</h2>'
+        '<p>모든 디렉터는 본인 담당 분야의 매거진·가이드를 직접 집필하며, 의학적 영역과 운영 케어 영역의 경계를 명확히 구분합니다. 의료 상담이 우선되어야 하는 사안은 본문에 명시합니다. 운영 데이터·상담 기록을 인용할 때는 정성적 정리임을 본문에 표기합니다.</p>'
+        '<p>편집 정책 전문은 <a href="/about/editorial-policy/">편집 정책</a> 페이지를 확인해 주세요.</p>'
+        '</section>'
+    ),
+    related=_rel("/about/team/", ["/about/brand/", "/about/editorial-policy/", "/magazine/"], title="함께 살펴볼 문서"),
+)
+
+# 각 디렉터 개별 소개 페이지
+for _a in _MAG_AUTHORS:
+    _works = _author_works(_a["slug"])
+    _works_html = ""
+    if _works:
+        _works_html = (
+            '<section class="block">'
+            '<h2>이 디렉터가 집필한 매거진</h2>'
+            '<div class="mega-mag-grid hub-mag-grid-4">'
+            + "".join(_mag_mini_card(a) for a in _works)
+            + '</div></section>'
+        )
+
+    add(
+        path=f"about/team/{_a['slug']}/index.html",
+        url=_author_url(_a["slug"]),
+        slug=f"about-team-{_a['slug']}",
+        title=f"{_a['name']} {_a['role']} — 바로GO 에디토리얼팀",
+        description=f"{_a['name']} {_a['role']}의 담당 분야({_a['specialty']})와 경력, 집필한 매거진 글 목록을 정리한 작성자 소개 페이지입니다.",
+        h1=f"{_a['name']} <span class=\"team-h1-role\">{_a['role']}</span>",
+        intro=f'<p class="lede">담당 분야 · <strong>{_a["specialty"]}</strong></p>',
+        breadcrumbs=[("홈", "/"), ("바로GO 소개", "/about/"), ("에디토리얼팀", "/about/team/"), (_a["name"], _author_url(_a["slug"]))],
+        body=(
+            '<section class="block team-profile">'
+            f'<div class="team-profile-card">'
+            f'<span class="team-profile-avatar" aria-hidden="true">{_a["name"][0]}</span>'
+            '<div class="team-profile-meta">'
+            f'<span class="team-profile-row"><strong>역할</strong>{_a["role"]}</span>'
+            f'<span class="team-profile-row"><strong>담당 분야</strong>{_a["specialty"]}</span>'
+            f'<span class="team-profile-row"><strong>경력</strong>{_a["experience"]}</span>'
+            f'<span class="team-profile-row"><strong>합류</strong>{_a["joined"]}년</span>'
+            '</div></div></section>'
+            '<section class="block">'
+            '<h2>역할 소개</h2>'
+            f'<p>{_a["bio"]}</p>'
+            '</section>'
+            + _works_html +
+            '<section class="block">'
+            '<h2>집필·검수 책임</h2>'
+            '<p>본 디렉터가 집필한 매거진은 운영팀(YH LAB)의 검수 후 게시됩니다. 의료 행위·의학적 조언이 포함된 영역은 본문에 의료 상담이 우선되어야 함을 명시합니다. 외부 자료를 인용할 때는 출처를 함께 표기하며, 정정 요청은 <a href="/support/contact/">문의하기</a>로 접수합니다.</p>'
+            '<p>편집 원칙 전문은 <a href="/about/editorial-policy/">편집 정책</a> 페이지에서 확인해 주세요.</p>'
+            '</section>'
+        ),
+        jsonld_extra=[{
+            "@type": "Person",
+            "@id": _author_url(_a["slug"]) + "#person",
+            "name": _a["name"],
+            "jobTitle": _a["role"],
+            "knowsAbout": _a["specialty"],
+            "worksFor": {"@id": "/#org"},
+            "url": _author_url(_a["slug"]),
+        }],
+        related=_rel(_author_url(_a["slug"]), ["/about/team/", "/about/editorial-policy/", "/magazine/"], title="함께 살펴볼 문서"),
+    )
+
+
+# ---------- Editorial Policy — 구글 뉴스·E-E-A-T 신뢰 신호 ----------
+add(
+    path="about/editorial-policy/index.html",
+    url="/about/editorial-policy/",
+    slug="about-editorial-policy",
+    title="바로GO 편집 정책 — 집필·검수·정정·AI 사용 명시 | 바로GO",
+    description="바로GO 매거진·가이드의 집필 원칙, 검수 절차, 정정 정책, 외부 자료 인용 원칙, AI 보조 사용 명시 등 편집 정책 전문입니다. 구글 E-E-A-T 신뢰 신호를 위한 책임 저자·발행 흐름을 공개합니다.",
+    h1="바로GO 편집 정책",
+    intro='<p class="lede">바로GO 매거진과 운영 가이드가 어떻게 집필·검수·발행되는지의 정책 전문입니다. 운영팀이 책임지는 콘텐츠의 신뢰 신호를 공개합니다.</p>',
+    breadcrumbs=[("홈", "/"), ("바로GO 소개", "/about/"), ("편집 정책", "/about/editorial-policy/")],
+    body="""
+<section class="block">
+<h2>1. 책임 저자 — 디렉터 6인 체제</h2>
+<p>바로GO 매거진의 모든 글은 <a href="/about/team/">에디토리얼팀 디렉터 6인</a> 중 본인 담당 분야의 책임 저자가 집필합니다. 글 상단의 바이라인에 디렉터 이름·역할·담당 분야가 표시되며, 본인 분야 외 영역에 대한 집필은 별도 검수를 거칩니다.</p>
+<ul class="check-list">
+<li><strong>콘텐츠 디렉터 (이주민)</strong> — 트렌드·라이프스타일</li>
+<li><strong>에디토리얼 디렉터 (서영)</strong> — 웰니스·회복 케어</li>
+<li><strong>리서치 디렉터 (이주미)</strong> — 운영 데이터·이용 패턴</li>
+<li><strong>필드 디렉터 (이주희)</strong> — 지역·권역 가이드</li>
+<li><strong>프로덕트 디렉터 (백민호)</strong> — 코스·서비스 기획</li>
+<li><strong>안전 디렉터 (김범수)</strong> — 안전·정책·이용 가이드</li>
+</ul>
+</section>
+
+<section class="block">
+<h2>2. 운영 데이터 인용 원칙</h2>
+<p>매거진 본문에 등장하는 "운영팀이 자주 관찰한", "상담의 일정 비율" 등의 표현은 운영팀 상담 기록·이용 패턴을 정성적으로 정리한 것입니다. 통계적 유의성을 주장하는 수치가 아니며, 본문에 명시합니다. 정량적 외부 데이터 인용 시 출처를 함께 표기합니다.</p>
+</section>
+
+<section class="block">
+<h2>3. 의료 행위·의학적 조언과의 경계</h2>
+<p>본 사이트의 모든 매거진·가이드는 의료 행위·의학적 조언이 아닙니다. 마사지를 통한 회복 케어는 의료적 진단·치료를 대체하지 않으며, 본문에 면책 안내를 명시합니다. 다음 상황은 본문에서 의료 상담 우선을 명확히 안내합니다.</p>
+<ul class="check-list">
+<li>통증이 1주일 이상 지속되는 경우</li>
+<li>한쪽에만 강한 부종·통증이 있는 경우</li>
+<li>임신·산후 6주 이내 시기</li>
+<li>최근 수술·시술 후 회복 중인 시기</li>
+<li>지속적인 두통·어지럼·신경 증상이 동반된 경우</li>
+</ul>
+</section>
+
+<section class="block">
+<h2>4. 외부 자료·인용 원칙</h2>
+<p>외부 출처를 인용할 때는 다음을 원칙으로 합니다.</p>
+<ul class="check-list">
+<li>인용 시 본문에 출처를 함께 표기</li>
+<li>의학·과학적 데이터 인용은 공인 기관·학술 자료 출처를 우선</li>
+<li>광고성 콘텐츠·홍보 자료는 출처로 사용하지 않음</li>
+<li>저작권이 명시된 이미지·텍스트는 사전 허가 후 사용</li>
+</ul>
+</section>
+
+<section class="block">
+<h2>5. AI 보조 사용 명시</h2>
+<p>바로GO 매거진·가이드는 운영팀이 직접 집필합니다. 초안 작성·문장 다듬기·맞춤법 검토 등에 AI 도구를 보조적으로 활용할 수 있으나, <strong>모든 글의 최종 책임은 명시된 책임 저자(디렉터)에게 있으며, 운영 데이터·관찰 사실은 운영팀이 직접 확인한 내용</strong>만 포함합니다. 본문 내용·인용·면책 안내는 모두 디렉터의 검수를 거칩니다.</p>
+<p>구글 검색 가이드라인(2025년 12월)의 'Who, How, Why' 원칙에 따라, 콘텐츠 제작 방식보다 결과물의 가치·정확성·책임 저자 명시를 우선합니다.</p>
+</section>
+
+<section class="block">
+<h2>6. 정정·삭제 정책</h2>
+<p>본문에 사실 오류·오해 소지가 있는 표현이 있을 경우 다음 절차로 정정합니다.</p>
+<ul>
+<li><strong>접수</strong> — <a href="/support/contact/">문의하기</a> 또는 운영팀 직통(0508-202-4719)</li>
+<li><strong>검토</strong> — 책임 디렉터 + 운영팀 합동 검토</li>
+<li><strong>정정</strong> — 본문 수정 + 페이지 하단에 정정 사실 명시 (정정일자·내용)</li>
+<li><strong>심각한 오류</strong> — 글 비공개 처리 후 재검수</li>
+</ul>
+</section>
+
+<section class="block">
+<h2>7. 광고·제휴 콘텐츠 구분</h2>
+<p>바로GO 매거진은 운영팀의 자체 편집 콘텐츠로, 외부 광고주의 후원·제휴를 받지 않습니다. 본 사이트의 광고·제휴 영역은 <a href="/support/partnership/">제휴·광고 문의</a> 페이지에서 별도로 안내되며, 매거진 본문에는 일체 포함되지 않습니다.</p>
+</section>
+
+<section class="block">
+<h2>8. 발행 주기·갱신 원칙</h2>
+<p>바로GO 매거진은 매월 1-2편 발행을 원칙으로 합니다. 시기성이 강한 글(명절·연말·연초 등)은 매년 갱신되며, 갱신 일자가 본문 상단의 발행일 옆에 함께 표시됩니다.</p>
+</section>
+
+<section class="block">
+<h2>9. 연락처</h2>
+<p>편집·정정 요청, 제휴 문의, 일반 문의는 다음 채널로 접수해 주세요.</p>
+<ul>
+<li><strong>편집 정정</strong> — <a href="/support/contact/">문의하기</a></li>
+<li><strong>제휴·광고</strong> — <a href="/support/partnership/">제휴·광고 문의</a></li>
+<li><strong>전화</strong> — 0508-202-4719 (24시간)</li>
+</ul>
+</section>
+""",
+    related=_rel("/about/editorial-policy/", ["/about/team/", "/about/brand/", "/about/operation-policy/"], title="함께 살펴볼 문서"),
+)
+
+
 # ---------- Magazine hub ----------
 def _mag_hub_card(idx, art, featured=False):
     cls = "mag-card mag-card-featured" if featured else "mag-card"
@@ -10700,20 +11030,6 @@ _chip_row = (
     )
     + '</div></div>'
 )
-
-# 매거진 미니카드 (카테고리·허브 공통)
-def _mag_mini_card(a):
-    title = a["title"].split(" — ")[0] if " — " in a["title"] else a["title"]
-    if len(title) > 32:
-        title = title[:30] + "…"
-    return (
-        f'<a class="mega-mag-card hub-mag-card" href="/magazine/{a["slug"]}/">'
-        f'<span class="mega-mag-cover mag-cover-{a["cover"]}">'
-        f'<span class="mega-mag-cat">{a["category"]}</span>'
-        f'</span>'
-        f'<span class="mega-mag-title">{title}</span>'
-        f'</a>'
-    )
 
 # 허브 상단 — 최신 글 12편 (4×3)
 _HUB_LATEST_LIMIT = 12
@@ -11007,6 +11323,11 @@ for art in MAGAZINE_ARTICLES:
         og_type="article",
         body=body_html,
         related=rel_html,
+        date_published=art["published"],
+        article_author=_mag_author_for(art["slug"]),
+        article_section=art["category"],
+        article_keywords=f"출장마사지, {art['category']}, 바로GO 매거진",
+        image=f"/assets/img/og/magazine-{art['slug']}.svg",
     )
 
 
@@ -12201,6 +12522,7 @@ def write_robots():
 
 def main():
     global HEADER
+    _write_og_images()
     paths = []
     for p in PAGES:
         paths.append(render(p))
