@@ -4240,10 +4240,12 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   padding-top: 16px;
   border-top: 1px solid var(--color-line);
 }
-.mega-mag-cols .mega-mag-grid {
+.mega-mag-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 10px;
+}
+.mega-mag-cols .mega-mag-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 /* 모바일 — 메가메뉴 단순화 */
@@ -4577,6 +4579,7 @@ a.mag-cat-pill:hover {
 }
 /* 가로 4열 그리드 — 한 줄에 4장, 줄 수는 글 수에 따라 자동 증가 */
 .hub-mag-grid-4 {
+  display: grid !important;
   grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
   gap: 18px;
 }
