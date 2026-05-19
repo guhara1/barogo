@@ -142,36 +142,7 @@ HEADER = """<a class="skip-link" href="#main">본문 바로가기</a>
             </div>
           </div>
         </li>
-        <li class="nav-item has-mega nav-item-magazine">
-          <button class="nav-link nav-trigger" aria-expanded="false" aria-haspopup="true">매거진<span class="mega-badge nav-badge">NEW</span><span class="chev"></span></button>
-          <div class="mega-panel mega-panel-magazine">
-            <div class="mega-mag-block mega-mag-block--cats">
-              <h3 class="mega-mag-block-title"><span class="mega-mag-block-eyebrow">CATEGORY</span>주제별 매거진</h3>
-              <div class="mega-mag-cat-row">
-                <a class="mega-mag-cat-chip" href="/magazine/#cat-처음-이용"><span class="mega-mag-cat-dot mag-cover-forest"></span>처음 이용</a>
-                <a class="mega-mag-cat-chip" href="/magazine/#cat-웰니스"><span class="mega-mag-cat-dot mag-cover-sage"></span>웰니스</a>
-                <a class="mega-mag-cat-chip" href="/magazine/#cat-라이프스타일"><span class="mega-mag-cat-dot mag-cover-dusk"></span>라이프스타일</a>
-                <a class="mega-mag-cat-chip" href="/magazine/#cat-코스-가이드"><span class="mega-mag-cat-dot mag-cover-earth"></span>코스 가이드</a>
-                <a class="mega-mag-cat-chip" href="/magazine/#cat-지역-가이드"><span class="mega-mag-cat-dot mag-cover-sage"></span>지역 가이드</a>
-              </div>
-            </div>
-            <div class="mega-mag-cols">
-              <div class="mega-mag-block">
-                <h3 class="mega-mag-block-title"><span class="mega-mag-block-eyebrow">LATEST</span>최신 글</h3>
-                <div class="mega-mag-grid">
-{MAGAZINE_LATEST_CARDS}
-                </div>
-              </div>
-              <div class="mega-mag-block">
-                <h3 class="mega-mag-block-title"><span class="mega-mag-block-eyebrow">ARCHIVE</span>이전 글</h3>
-                <div class="mega-mag-grid">
-{MAGAZINE_PREV_CARDS}
-                </div>
-              </div>
-            </div>
-            <a class="mega-album-footer-link" href="/magazine/">매거진 전체 보기 →</a>
-          </div>
-        </li>
+        <li class="nav-item nav-item-magazine"><a href="/magazine/" class="nav-link">매거진<span class="mega-badge nav-badge">NEW</span></a></li>
         <li class="nav-item has-mega">
           <button class="nav-link nav-trigger" aria-expanded="false" aria-haspopup="true">바로GO 소개<span class="chev"></span></button>
           <div class="mega-panel mega-panel-album">
@@ -9924,27 +9895,70 @@ _mag_sorted = sorted(MAGAZINE_ARTICLES, key=lambda a: a.get("published", ""), re
 _featured = _mag_sorted[0]
 _others = _mag_sorted[1:]
 
-# 카테고리별 그룹핑 (각 카테고리는 메가메뉴 칩과 동일한 앵커로 점프)
+# 카테고리 → 도트 컬러 매핑 (스크린샷의 컬러 도트와 동일)
+_CAT_DOT = {
+    "처음 이용":   "mag-cover-forest",
+    "웰니스":      "mag-cover-sage",
+    "라이프스타일": "mag-cover-dusk",
+    "코스 가이드": "mag-cover-earth",
+    "지역 가이드": "mag-cover-sage",
+    "호텔 이용":   "mag-cover-sunset",
+}
+
+# 카테고리별 그룹핑
 _cat_order = ["처음 이용", "웰니스", "라이프스타일", "코스 가이드", "지역 가이드", "호텔 이용"]
 _cat_groups = {}
 for a in _mag_sorted:
     _cat_groups.setdefault(a["category"], []).append(a)
-# 누락된 카테고리 (게시글 없는 것) 제외
 _active_cats = [c for c in _cat_order if c in _cat_groups]
-# _cat_order에 없는 신규 카테고리도 뒤에 추가
 for c in _cat_groups:
     if c not in _active_cats:
         _active_cats.append(c)
 
-_cat_nav = '<nav class="mag-cat-nav" aria-label="매거진 카테고리">' + \
-    '<span class="mag-cat-label">카테고리</span>' + \
-    "".join(
-        f'<a class="mag-cat-pill" href="#cat-{c.replace(" ", "-")}">#{c}</a>'
+# 매거진 hub 상단 — 카테고리 도트 칩 행 (메가메뉴와 동일한 디자인)
+_chip_row = (
+    '<div class="mega-mag-block mega-mag-block--cats hub-cat-block">'
+    '<h2 class="mega-mag-block-title"><span class="mega-mag-block-eyebrow">CATEGORY</span>주제별 매거진</h2>'
+    '<div class="mega-mag-cat-row">'
+    + "".join(
+        f'<a class="mega-mag-cat-chip" href="#cat-{c.replace(" ", "-")}">'
+        f'<span class="mega-mag-cat-dot {_CAT_DOT.get(c, "mag-cover-forest")}"></span>{c}</a>'
         for c in _active_cats
-    ) + \
-    '</nav>'
+    )
+    + '</div></div>'
+)
 
-# 카테고리별 섹션 HTML
+# 매거진 hub 상단 — 최신/이전 2열 앨범 (메가메뉴 미니카드와 동일 디자인, 더 큼)
+def _mag_mini_card(a):
+    title = a["title"].split(" — ")[0] if " — " in a["title"] else a["title"]
+    if len(title) > 32:
+        title = title[:30] + "…"
+    return (
+        f'<a class="mega-mag-card hub-mag-card" href="/magazine/{a["slug"]}/">'
+        f'<span class="mega-mag-cover mag-cover-{a["cover"]}">'
+        f'<span class="mega-mag-cat">{a["category"]}</span>'
+        f'</span>'
+        f'<span class="mega-mag-title">{title}</span>'
+        f'</a>'
+    )
+
+_latest_three = _mag_sorted[:3]
+_archive_three = _mag_sorted[3:6]
+_albums = (
+    '<div class="mega-mag-cols hub-mag-cols">'
+    '<div class="mega-mag-block">'
+    '<h2 class="mega-mag-block-title"><span class="mega-mag-block-eyebrow">LATEST</span>최신 글</h2>'
+    '<div class="mega-mag-grid">'
+    + "".join(_mag_mini_card(a) for a in _latest_three)
+    + '</div></div>'
+    '<div class="mega-mag-block">'
+    '<h2 class="mega-mag-block-title"><span class="mega-mag-block-eyebrow">ARCHIVE</span>이전 글</h2>'
+    '<div class="mega-mag-grid">'
+    + "".join(_mag_mini_card(a) for a in _archive_three)
+    + '</div></div></div>'
+)
+
+# 카테고리별 상세 섹션 (하단)
 _cat_sections = ""
 for c in _active_cats:
     arts = _cat_groups[c]
@@ -9968,16 +9982,13 @@ add(
     breadcrumbs=[("홈", "/"), ("매거진", "/magazine/")],
     og_type="website",
     body=(
-        _cat_nav +
+        '<div class="mag-hub-top">' +
+        _chip_row +
+        _albums +
+        '</div>' +
         '<section class="block mag-featured-wrap">' +
         '<h2 class="mag-section-title">이번 호 추천</h2>' +
         _mag_hub_card(1, _featured, featured=True) +
-        '</section>' +
-        '<section class="block">' +
-        '<h2 class="mag-section-title">최신 기사</h2>' +
-        '<div class="mag-grid">' +
-        "".join(_mag_hub_card(i + 2, a) for i, a in enumerate(_others)) +
-        '</div>' +
         '</section>' +
         _cat_sections +
         '<section class="block mag-about">' +
@@ -11258,8 +11269,6 @@ def write_robots():
 
 def main():
     global HEADER
-    HEADER = HEADER.replace("{MAGAZINE_LATEST_CARDS}", _render_mega_magazine_cards(start=0, count=3))
-    HEADER = HEADER.replace("{MAGAZINE_PREV_CARDS}", _render_mega_magazine_cards(start=3, count=3))
     paths = []
     for p in PAGES:
         paths.append(render(p))
