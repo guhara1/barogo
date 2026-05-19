@@ -95,8 +95,8 @@ HEADER = """<a class="skip-link" href="#main">본문 바로가기</a>
         </li>
         <li class="nav-item has-mega">
           <button class="nav-link nav-trigger" aria-expanded="false" aria-haspopup="true">후기·정보<span class="chev"></span></button>
-          <div class="mega-panel">
-            <div class="mega-cols">
+          <div class="mega-panel mega-panel-wide">
+            <div class="mega-cols mega-cols-3">
               <div>
                 <h3 class="mega-heading">이용 경험</h3>
                 <ul class="mega-list">
@@ -115,6 +115,17 @@ HEADER = """<a class="skip-link" href="#main">본문 바로가기</a>
                   <li><a href="/guide/first-time-massage/">처음 이용 전 알아둘 점</a></li>
                   <li><a href="/guide/massage-price-standard/">가격이 달라지는 이유</a></li>
                   <li><a href="/guide/safe-reservation/">안전한 예약 확인 방법</a></li>
+                </ul>
+              </div>
+              <div>
+                <h3 class="mega-heading">매거진 <span class="mega-badge">NEW</span></h3>
+                <ul class="mega-list">
+                  <li><a href="/magazine/"><strong>매거진 전체 보기</strong></a></li>
+                  <li><a href="/magazine/hotel-room-care-trend-2026/">호텔 객실 케어 트렌드 2026</a></li>
+                  <li><a href="/magazine/night-worker-recovery/">야간 근무자 회복 가이드</a></li>
+                  <li><a href="/magazine/desk-worker-neck-shoulder/">사무직 어깨·목 케어</a></li>
+                  <li><a href="/magazine/travel-hotel-massage-guide/">여행지 호텔 케어</a></li>
+                  <li><a href="/magazine/course-selection-by-purpose/">목적별 코스 고르는 법</a></li>
                 </ul>
               </div>
             </div>
@@ -168,7 +179,7 @@ FOOTER = """<footer class="site-footer" role="contentinfo" itemscope itemtype="h
       <p class="footer-tagline">전국 출장마사지 예약 안내 플랫폼</p>
       <p class="footer-desc">합법적이고 건전한 출장마사지 예약을 안내합니다. 의료 행위가 아니며, 치료 효과를 보장하지 않습니다.</p>
       <ul class="footer-trust">
-        <li><span class="footer-trust-label">운영 시작</span><span class="footer-trust-value">2019년</span></li>
+        <li><span class="footer-trust-label">운영 형태</span><span class="footer-trust-value">출장마사지 예약 안내 플랫폼</span></li>
         <li><span class="footer-trust-label">운영 시간</span><span class="footer-trust-value">연중무휴 09:00–익일 04:00</span></li>
         <li><span class="footer-trust-label">신고 응대</span><span class="footer-trust-value">접수 후 24시간 이내</span></li>
       </ul>
@@ -263,7 +274,7 @@ FOOTER = """<footer class="site-footer" role="contentinfo" itemscope itemtype="h
   </div>
 
   <div class="container footer-bar">
-    <p class="footer-copy">© 2019–2026 바로GO · YH LAB. All rights reserved.</p>
+    <p class="footer-copy">© 바로GO · YH LAB. All rights reserved.</p>
     <ul class="footer-bar-links">
       <li><a href="/about/privacy/"><strong>개인정보처리방침</strong></a></li>
       <li><a href="/about/terms/">이용약관</a></li>
@@ -7179,7 +7190,7 @@ _GUIDE_BYLINE = (
     '<span class="guide-meta-avatar" aria-hidden="true">YH</span>'
     '<div class="guide-meta-author-text">'
     '<strong>바로GO 운영팀 (YH LAB)</strong>'
-    '<span>출장마사지 운영·예약 상담 7년차 · 사업자등록번호 815-26-00585</span>'
+    '<span>출장마사지 예약 상담 운영팀 · 사업자등록번호 815-26-00585</span>'
     '</div></div>'
     '<div class="guide-meta-info">'
     '<span class="guide-meta-tag">최종 업데이트 · 2026-05</span>'
@@ -7868,7 +7879,7 @@ _GUIDE6_BODY = _GUIDE_BYLINE.format(min=5) + _guide_toc([
 
 GUIDES_RICH = [
     {"slug": "what-is-business-trip-massage", "name": "출장마사지란?",
-     "desc": "출장마사지의 정의, 매장형과의 차이, 코스 종류 6가지, 이용 흐름, 적합한 상황과 자주 오해하는 점을 7년차 운영팀이 정리했습니다.",
+     "desc": "출장마사지의 정의, 매장형과의 차이, 코스 종류 6가지, 이용 흐름, 적합한 상황과 자주 오해하는 점을 운영팀이 정리한 입문 가이드.",
      "body": _GUIDE1_BODY},
     {"slug": "massage-before-after", "name": "마사지 전후 주의사항",
      "desc": "24시간 전부터 24시간 후까지 시간순 권장·금기 사항, 이상 반응 대처, 건강 상태별(임신·고혈압·당뇨) 주의 사항 정리.",
@@ -7891,7 +7902,7 @@ GUIDES_RICH = [
 add(
   path="guide/index.html", url="/guide/", slug="guide-hub",
   title="마사지 정보 | 출장마사지 가이드·비교·주의사항 | 바로GO",
-  description="출장마사지의 정의, 코스 종류, 전후 주의사항, 가격 결정 변수, 안전한 예약 확인 방법까지. 7년차 운영팀이 정리한 6편의 가이드.",
+  description="출장마사지의 정의, 코스 종류, 전후 주의사항, 가격 결정 변수, 안전한 예약 확인 방법까지. 운영팀이 직접 정리한 6편의 가이드.",
   h1="마사지 정보",
   intro='<p class="lede">출장마사지를 처음 이용하시거나 좀 더 안전하게 이용하고 싶은 분들을 위한 가이드 모음입니다. 정의·비교·전후 주의사항·가격 변수·업체 검증 기준까지 6편으로 정리되어 있습니다.</p>',
   breadcrumbs=[("홈","/"),("마사지 정보","/guide/")],
@@ -7959,6 +7970,570 @@ for g in GUIDES_RICH:
         body=body,
         related=related_html,
     )
+
+# ============================================================
+# Magazine — 에디토리얼 매거진 콘텐츠
+# ============================================================
+# /guide/ 는 how-to 정보, /review/ 는 UGC 후기.
+# /magazine/ 은 운영팀이 직접 집필하는 에디토리얼 (트렌드·라이프스타일·웰니스·여행·코스 가이드).
+# E-E-A-T: 운영팀 책임 저자 명시 + 발행일·읽는 시간 + 분야 태그 + 면책
+
+_MAG_BYLINE_TPL = (
+    '<div class="mag-meta">'
+    '<div class="mag-meta-author">'
+    '<span class="mag-meta-avatar" aria-hidden="true">YH</span>'
+    '<div class="mag-meta-author-text">'
+    '<strong>바로GO 운영팀 (YH LAB)</strong>'
+    '<span>출장마사지 예약 상담 운영팀 · 사업자등록번호 815-26-00585</span>'
+    '</div></div>'
+    '<div class="mag-meta-info">'
+    '<span class="mag-meta-tag">발행 · {published}</span>'
+    '<span class="mag-meta-tag">읽는 시간 · 약 {min}분</span>'
+    '<span class="mag-meta-tag">카테고리 · {category}</span>'
+    '</div></div>'
+)
+
+
+def _mag_hero(category, cover, title, lede):
+    """매거진 기사 페이지 상단 hero (cover gradient + 카테고리 + 타이틀 + 리드)."""
+    return (
+        f'<header class="mag-hero mag-cover-{cover}">'
+        f'<span class="mag-category-chip">{category}</span>'
+        f'<h1 class="mag-hero-title">{title}</h1>'
+        f'<p class="mag-hero-lede">{lede}</p>'
+        '</header>'
+    )
+
+
+def _mag_toc(items):
+    li = "".join(f'<li><a href="#{anchor}">{label}</a></li>' for label, anchor in items)
+    return f'<nav class="mag-toc" aria-label="이 기사에서 다루는 내용"><strong>이 기사에서 다루는 내용</strong><ol>{li}</ol></nav>'
+
+
+_MAG_DISCLAIMER = (
+    '<section class="block mag-disclaimer">'
+    '<div class="callout note">'
+    '<strong>매거진 안내</strong>'
+    '<p>본 매거진의 모든 글은 바로GO 운영팀(YH LAB)이 직접 집필·검수합니다. 본문에 인용된 운영 데이터는 회사 자체 예약 상담 기록 기준이며, '
+    '의료 행위·치료 효과를 보장하지 않습니다. 건강 상태에 관한 결정은 의료 전문가와 상담하시기 바랍니다.</p>'
+    '</div>'
+    '</section>'
+)
+
+
+# ===== Magazine 1 — 호텔 객실 케어 트렌드 2026 =====
+_MAG1_BODY = _MAG_BYLINE_TPL.format(published="2026-05-12", min=6, category="트렌드") + _mag_toc([
+    ("호텔 객실 케어가 늘어난 이유", "rise"),
+    ("호텔별 진행 흐름의 차이", "by-hotel"),
+    ("객실 예약 시 확인해야 하는 5가지", "checklist"),
+    ("운영팀이 본 시간대별 예약 패턴", "time"),
+    ("호텔 진행 시 자주 묻는 질문", "qna"),
+    ("앞으로의 전망 — 출장·여행 결합 케어", "outlook"),
+]) + """
+<section class="block" id="rise">
+<h2>호텔 객실 케어가 늘어난 이유</h2>
+<p>운영팀이 최근 진행한 상담을 살펴보면, 호텔 객실에서 진행되는 출장마사지 문의 비중이 분명히 늘고 있는 흐름이 보입니다. 가정 방문이 여전히 가장 많지만, 호텔 객실 진행을 먼저 문의하는 이용자가 매월 꾸준히 늘어나는 추세입니다.</p>
+<p>이러한 변화의 배경에는 세 가지 요인이 있습니다. 첫째, 출장·여행 일정 중 짧은 회복 시간을 활용하려는 수요가 늘었습니다. 둘째, 호텔이 객실 내 외부 서비스 진입에 대해 더 유연해졌습니다. 셋째, 가정에서의 공간·시간 제약(가족·이웃 등)으로부터 자유로운 환경을 선호하는 이용자가 증가했습니다.</p>
+<p class="muted">※ 본 매거진은 운영팀의 상담 경험에 기반한 정성적 관찰이며, 수치는 별도 공개하지 않습니다. 통계 기반 분석이 아닌 운영자 관점의 흐름 요약입니다.</p>
+</section>
+
+<section class="block" id="by-hotel">
+<h2>호텔별 진행 흐름의 차이</h2>
+<p>같은 "호텔 객실 케어"라 해도 5성급, 비즈니스 호텔, 부티크 호텔, 레지던스, 풀빌라 등 숙소 유형에 따라 진행 흐름은 분명히 다릅니다.</p>
+<div class="callout tip">
+<strong>5성급·비즈니스 호텔 (강남·여의도·도심)</strong>
+<p>대부분 공동현관·엘리베이터 출입에 별도 절차가 필요합니다. 체크인 후 객실 번호와 함께 도착 예정 시간을 사전 공유하시면 진입이 매끄럽습니다. 객실 정리·세팅에 약 5분, 코스 진행, 마무리에 5분 정도 여유 시간을 두시는 것이 좋습니다.</p>
+</div>
+<div class="callout tip">
+<strong>레지던스·서비스 아파트 (장기 체류)</strong>
+<p>주방·세탁 공간이 함께 있는 구조라 진행 공간 확보가 비교적 쉽습니다. 단, 일부 레지던스는 보안 등록 절차가 있어 사전 게스트 등록이 필요할 수 있습니다.</p>
+</div>
+<div class="callout tip">
+<strong>풀빌라·독채 (제주·강원·경기 외곽)</strong>
+<p>가장 자유로운 공간이지만, 동선 확보·물품 준비(샤워가운·수건)·이동 거리 변수가 가장 큽니다. 사전 상담에서 함께 안내됩니다.</p>
+</div>
+</section>
+
+<section class="block" id="checklist">
+<h2>객실 예약 시 확인해야 하는 5가지</h2>
+<ul class="check-list">
+<li><strong>객실 호수와 층 정보</strong> — 공동현관·엘리베이터 출입 안내 시 필수</li>
+<li><strong>체크인 시간</strong> — 진행 시작 시각이 체크인 직후일 경우 시간 여유를 함께 계산</li>
+<li><strong>객실 크기</strong> — 더블·트윈·스위트에 따라 진행 공간이 달라짐</li>
+<li><strong>동행 여부</strong> — 동행자가 있는 경우 진행 동선 별도 안내</li>
+<li><strong>체크아웃 일정</strong> — 진행 종료 후 휴식 시간 확보 권장</li>
+</ul>
+<p>예약 상담 시점에 위 정보를 함께 알려주시면 진행 흐름이 매끄럽고, 추가 비용 없는 진행이 가능합니다.</p>
+</section>
+
+<section class="block" id="time">
+<h2>운영팀이 본 시간대별 예약 패턴</h2>
+<table class="compare-table">
+<thead><tr><th scope="col">시간대</th><th scope="col">호텔 진행 경향</th><th scope="col">자주 안내되는 코스</th></tr></thead>
+<tbody>
+<tr><th scope="row">평일 저녁 18-22시</th><td>꾸준한 수요</td><td>스웨디시 90분·홈타이 90분</td></tr>
+<tr><th scope="row">평일 야간 22-01시</th><td>호텔 비중이 높음</td><td>스웨디시 60분·아로마 90분</td></tr>
+<tr><th scope="row">주말 오후</th><td>커플 코스 문의 증가</td><td>커플 90분·스웨디시 120분</td></tr>
+<tr><th scope="row">심야 01시 이후</th><td>호텔 위주로 안내</td><td>스웨디시 60분·홈타이 60분</td></tr>
+</tbody>
+</table>
+<p class="muted">위 표는 운영팀 상담 경험에 기반한 정성적 경향 요약입니다. 정량 데이터·통계 수치는 별도 공개하지 않습니다.</p>
+</section>
+
+<section class="block" id="qna">
+<h2>호텔 진행 시 자주 묻는 질문</h2>
+<div class="faq">
+<details><summary>객실로 들어올 때 직원 안내가 필요한가요?</summary><p>대부분의 호텔은 공동현관·엘리베이터 출입에 등록 절차가 있어, 진행 직전 객실 호수를 다시 한 번 확인합니다. 일부 5성급 호텔은 별도 게스트 등록을 권장하기도 합니다.</p></details>
+<details><summary>객실에서 진행이 어려운 경우도 있나요?</summary><p>객실 공간이 매우 협소하거나 가구 배치상 진행이 어려운 경우, 사전 상담에서 코스 길이·진행 방식을 조정해 드립니다.</p></details>
+<details><summary>호텔 측에 사전 통보가 필요한가요?</summary><p>일반적으로 별도 사전 통보는 필요하지 않습니다. 다만 일부 보안이 엄격한 호텔의 경우 사전 게스트 등록이 권장됩니다.</p></details>
+</div>
+</section>
+
+<section class="block" id="outlook">
+<h2>앞으로의 전망 — 출장·여행 결합 케어</h2>
+<p>호텔 객실 케어의 비중은 2026년 하반기에도 계속 늘어날 것으로 봅니다. 특히 단기 출장·해외 출장 직후 회복 케어, 그리고 휴가 기간 중 호텔 머무름 시간을 활용한 케어 수요가 두드러질 것으로 예상됩니다.</p>
+<p>운영팀은 이러한 흐름에 맞춰 호텔 객실 진행에 특화된 안내 페이지(<a href="/service/hotel-massage/">호텔 방문 마사지</a>)와 권역별 진행 가능 호텔 정보를 분기마다 갱신하고 있습니다. 이용자가 사전에 알아야 할 정보를 더 정확하게 정리하는 것이 매거진의 목표입니다.</p>
+</section>
+""" + _MAG_DISCLAIMER
+
+
+# ===== Magazine 2 — 야간 근무자 회복 가이드 =====
+_MAG2_BODY = _MAG_BYLINE_TPL.format(published="2026-05-08", min=5, category="라이프스타일") + _mag_toc([
+    ("야간 근무자가 더 빨리 지치는 이유", "why"),
+    ("회복기를 활용하는 5가지 패턴", "patterns"),
+    ("코스 선택 시 참고할 점", "course"),
+    ("마사지 외 함께 권장되는 회복법", "complement"),
+    ("야간 근무자가 자주 묻는 질문", "qna"),
+]) + """
+<section class="block" id="why">
+<h2>야간 근무자가 더 빨리 지치는 이유</h2>
+<p>야간 근무자는 일반 주간 근무자와 비교했을 때 같은 노동 시간에도 회복 속도가 더 느린 경향이 있습니다. 이는 생체 리듬(circadian rhythm)이 야간 활동에 맞춰 자연스럽게 작동하지 않기 때문이며, 특히 어깨·목·허리의 근육 긴장이 누적되는 속도가 빠릅니다.</p>
+<p>운영팀이 야간 근무자 이용자(병원·간호 직군, IT 운영, 보안·시설, 응급 대응, 새벽 물류 등)와 진행한 상담에서 가장 자주 언급된 키워드는 "수면이 부족한 느낌", "근육이 안 풀린다", "긴장이 빠지지 않는다"였습니다. 회복은 단순한 휴식보다 능동적인 케어가 필요한 영역입니다.</p>
+</section>
+
+<section class="block" id="patterns">
+<h2>회복기를 활용하는 5가지 패턴</h2>
+<ol class="steps">
+<li><strong>퇴근 직후 60분 코스</strong><p>야간 근무 종료 후 곧바로 짧은 코스를 진행해 긴장을 풀고 수면으로 진입하는 패턴. 가장 자주 안내되는 흐름입니다.</p></li>
+<li><strong>오프데이 점심 90분 코스</strong><p>오프데이 점심 시간을 활용해 깊은 회복을 진행. 90-120분 코스로 어깨·등·허리 누적 피로를 모두 풀어주는 흐름입니다.</p></li>
+<li><strong>주 1회 정기 케어</strong><p>같은 요일·같은 시간대 정기 진행으로 회복 리듬을 만드는 패턴. 운영팀에서 가장 권장하는 흐름입니다.</p></li>
+<li><strong>야근 후 새벽 호텔 케어</strong><p>야근 후 자택 복귀가 어려운 경우 인근 호텔 객실에서 진행. 강남·여의도·종로 야근자에게 자주 안내됩니다.</p></li>
+<li><strong>회복 + 수면 직행 60분</strong><p>코스 후 곧바로 수면에 들어가는 흐름. 자극이 적은 스웨디시·아로마가 권장됩니다.</p></li>
+</ol>
+</section>
+
+<section class="block" id="course">
+<h2>코스 선택 시 참고할 점</h2>
+<p>야간 근무자에게 가장 자주 권장되는 코스는 다음과 같습니다.</p>
+<div class="dos-donts">
+<div class="dos">
+<strong>권장 코스</strong>
+<ul>
+<li>스웨디시 — 부드러운 압력·오일 케어로 수면 진입에 유리</li>
+<li>아로마 — 향과 함께 신경 안정 효과를 노릴 때</li>
+<li>홈타이 — 근육 뭉침이 깊을 때 회복 효과가 분명</li>
+</ul>
+</div>
+<div class="donts">
+<strong>주의해야 할 코스</strong>
+<ul>
+<li>스포츠 마사지 — 압력이 강해 야간 직후엔 부담</li>
+<li>커플 동시 진행 — 회복 목적이면 단독 진행 권장</li>
+<li>장시간 코스(150분+) — 수면 패턴이 더 무너질 수 있음</li>
+</ul>
+</div>
+</div>
+</section>
+
+<section class="block" id="complement">
+<h2>마사지 외 함께 권장되는 회복법</h2>
+<p>마사지만으로 모든 회복이 해결되지는 않습니다. 운영팀이 야간 근무자에게 함께 권장하는 회복 보조 습관은 다음과 같습니다.</p>
+<ul class="check-list">
+<li><strong>수분 보충</strong> — 코스 전후 미지근한 물 500ml 이상</li>
+<li><strong>식사 간격</strong> — 코스 시작 1-2시간 전 가벼운 식사</li>
+<li><strong>수면 환경</strong> — 암막 커튼·소음 차단으로 주간 수면 품질 확보</li>
+<li><strong>가벼운 스트레칭</strong> — 코스 다음 날 아침 5분</li>
+<li><strong>주 1회 휴식 보장</strong> — 회복 케어 + 자연 수면 조합</li>
+</ul>
+</section>
+
+<section class="block" id="qna">
+<h2>야간 근무자가 자주 묻는 질문</h2>
+<div class="faq">
+<details><summary>매일 받아도 괜찮나요?</summary><p>매일 진행은 신체에 부담이 될 수 있어 권장되지 않습니다. 주 1-2회 정기 케어가 가장 균형 있는 흐름입니다.</p></details>
+<details><summary>오프데이 낮에 받는 것이 더 좋은가요?</summary><p>오프데이 낮은 깊은 회복이 가능한 시간이지만, 수면 패턴이 야간 중심이라면 늦은 오후가 더 적합한 경우가 많습니다. 본인 수면 리듬에 맞춰 조정하시는 것을 권장합니다.</p></details>
+<details><summary>병원 야간 근무자도 같은 코스가 권장되나요?</summary><p>병원·간호 직군은 발·다리 피로 누적이 큰 편이라 스웨디시에 발 케어 옵션을 함께 안내드리는 경우가 많습니다.</p></details>
+</div>
+</section>
+""" + _MAG_DISCLAIMER
+
+
+# ===== Magazine 3 — 사무직 어깨·목 케어 =====
+_MAG3_BODY = _MAG_BYLINE_TPL.format(published="2026-05-04", min=5, category="웰니스") + _mag_toc([
+    ("데스크워크가 누적되면 일어나는 변화", "what"),
+    ("자주 나타나는 4가지 신체 신호", "signal"),
+    ("초기 케어가 중요한 이유", "early"),
+    ("운영팀이 사무직에 권장하는 코스 구성", "course"),
+    ("일상에서 함께 권장되는 자세 가이드", "posture"),
+]) + """
+<section class="block" id="what">
+<h2>데스크워크가 누적되면 일어나는 변화</h2>
+<p>하루 8-10시간 책상 앞에서 일하는 사무직은 본인이 자각하지 못하는 사이에 어깨·목·등·허리에 긴장이 누적됩니다. 이는 한두 번의 휴식으로 회복되지 않으며, 일정 임계점을 넘으면 일상생활에도 영향을 미치기 시작합니다.</p>
+<p>운영팀이 1-3년차 사무직 이용자와 진행한 상담에서 가장 많이 언급된 표현은 "어깨가 무겁다", "목이 잘 안 돌아간다", "퇴근하고도 긴장이 안 풀린다"였습니다. 이런 상태가 한 달 이상 지속되면 단순 휴식이 아니라 회복 케어가 필요한 시점입니다.</p>
+</section>
+
+<section class="block" id="signal">
+<h2>자주 나타나는 4가지 신체 신호</h2>
+<ol class="steps">
+<li><strong>어깨 결림이 풀리지 않는다</strong><p>아침에 일어났을 때부터 어깨가 무거운 상태가 1주 이상 지속됩니다.</p></li>
+<li><strong>목 회전 시 통증</strong><p>책상에서 좌우를 볼 때 목이 부드럽게 돌아가지 않습니다.</p></li>
+<li><strong>두통·집중력 저하</strong><p>긴장이 머리까지 올라와 오후 시간에 두통이 잦아집니다.</p></li>
+<li><strong>수면 후에도 피로감</strong><p>충분히 잔 것 같아도 어깨·목 부담이 그대로 남아 있습니다.</p></li>
+</ol>
+</section>
+
+<section class="block" id="early">
+<h2>초기 케어가 중요한 이유</h2>
+<p>위 신호가 1-2주 정도 짧게 나타날 때는 단기 회복 케어로도 빠르게 정상화됩니다. 하지만 3개월 이상 누적되면 회복에 필요한 시간이 배 이상 늘어납니다. 초기 신호를 인지한 시점에서 2-3회 케어를 진행하는 것이 가장 효율적인 회복 흐름입니다.</p>
+<div class="callout warn">
+<strong>주의 — 의료 신호와 회복 신호의 구분</strong>
+<p>특정 부위에 찌릿한 통증, 저림, 운동 범위 제한이 분명하다면 회복 케어가 아닌 의료 진단이 우선입니다. 마사지는 의료 행위가 아니며, 이런 신호가 분명한 경우 정형외과·신경과 진료를 먼저 받으시기를 권장합니다.</p>
+</div>
+</section>
+
+<section class="block" id="course">
+<h2>운영팀이 사무직에 권장하는 코스 구성</h2>
+<p>1-3년차 사무직 이용자에게 가장 자주 권장되는 코스 흐름은 다음과 같습니다.</p>
+<table class="compare-table">
+<thead><tr><th scope="col">단계</th><th scope="col">권장 코스</th><th scope="col">길이·시기</th></tr></thead>
+<tbody>
+<tr><th scope="row">초기 누적 1-2주</th><td>스웨디시</td><td>60분, 1회</td></tr>
+<tr><th scope="row">어깨·목 누적 1개월</th><td>스웨디시 + 어깨 집중</td><td>90분, 1-2회</td></tr>
+<tr><th scope="row">전신 누적 3개월+</th><td>홈타이 또는 스포츠</td><td>120분, 2-3회 분할</td></tr>
+<tr><th scope="row">유지 회복</th><td>스웨디시·아로마</td><td>주 1회 90분</td></tr>
+</tbody>
+</table>
+</section>
+
+<section class="block" id="posture">
+<h2>일상에서 함께 권장되는 자세 가이드</h2>
+<ul class="check-list">
+<li><strong>모니터 높이</strong> — 시선이 화면 상단 1/3 지점에 오도록 조정</li>
+<li><strong>의자 각도</strong> — 무릎이 엉덩이보다 살짝 낮게, 발은 바닥 평면에 닿게</li>
+<li><strong>1시간 1회 일어서기</strong> — 어깨 회전 + 목 좌우 스트레칭 30초</li>
+<li><strong>마우스·키보드 위치</strong> — 팔꿈치가 직각에 가까운 각도로 유지</li>
+<li><strong>저녁 휴대폰 사용 자세</strong> — 누운 자세로 장시간 사용은 거북목 누적의 주요 원인</li>
+</ul>
+<p>위 자세는 마사지 회복 효과를 더 오래 유지하는 데에도 도움이 됩니다. 자세히는 <a href="/guide/massage-before-after/">마사지 전후 주의사항</a> 가이드에 정리되어 있습니다.</p>
+</section>
+""" + _MAG_DISCLAIMER
+
+
+# ===== Magazine 4 — 여행지 호텔 케어 가이드 =====
+_MAG4_BODY = _MAG_BYLINE_TPL.format(published="2026-04-28", min=5, category="여행") + _mag_toc([
+    ("여행 중 호텔 객실 케어의 흐름", "flow"),
+    ("국내 출장·여행지별 권장 코스", "by-region"),
+    ("여행 일정 안에서 코스 시간 잡는 법", "schedule"),
+    ("여행지 호텔에서 자주 묻는 질문", "qna"),
+    ("여행 회복 케어 후 권장되는 마무리", "after"),
+]) + """
+<section class="block" id="flow">
+<h2>여행 중 호텔 객실 케어의 흐름</h2>
+<p>여행지에서 받는 출장마사지는 일상에서 받는 케어와 흐름이 조금 다릅니다. 이동 피로·시차·일정 변동 등 변수가 더 많기 때문에, 사전 상담에서 일정과 컨디션을 정확히 안내해 주시는 것이 진행에 큰 도움이 됩니다.</p>
+<p>운영팀이 진행한 여행지 호텔 진행 사례를 보면, 가장 매끄러운 흐름은 다음과 같습니다.</p>
+<ol class="steps">
+<li><strong>체크인 + 30분 휴식</strong><p>도착 직후 짐 정리·샤워를 마치고 짧은 휴식.</p></li>
+<li><strong>코스 진행 60-90분</strong><p>여행 누적 피로 정도에 따라 코스 길이 결정.</p></li>
+<li><strong>식사 + 수면</strong><p>코스 후 가벼운 식사와 충분한 수면으로 회복 완성.</p></li>
+</ol>
+</section>
+
+<section class="block" id="by-region">
+<h2>국내 출장·여행지별 권장 코스</h2>
+<div class="dos-donts">
+<div class="dos">
+<strong>해운대·광안 (부산)</strong>
+<ul>
+<li>관광 일정 후 저녁 케어</li>
+<li>스웨디시 90분 가장 자주 안내</li>
+<li>해풍·습도 누적엔 아로마도 권장</li>
+</ul>
+</div>
+<div class="dos">
+<strong>제주 (호텔·풀빌라)</strong>
+<ul>
+<li>렌터카 운전 후 어깨·등 회복용 홈타이</li>
+<li>오름 등산 후엔 스포츠 케어</li>
+<li>풀빌라 독채는 커플 코스 가능</li>
+</ul>
+</div>
+<div class="dos">
+<strong>강릉·속초 (강원)</strong>
+<ul>
+<li>장거리 이동 직후 스웨디시 60분</li>
+<li>스키·보드 후엔 스포츠 90분</li>
+<li>심야 시간대 마감이 비교적 이른 편</li>
+</ul>
+</div>
+</div>
+</section>
+
+<section class="block" id="schedule">
+<h2>여행 일정 안에서 코스 시간 잡는 법</h2>
+<p>여행지에서는 일정이 자주 변동되기 때문에, 코스 시간을 잡을 때 다음 3가지를 함께 고려하시면 좋습니다.</p>
+<ul class="check-list">
+<li><strong>이동 직후 vs 저녁</strong> — 이동 피로가 큰 날은 도착 당일 저녁이 가장 효과적</li>
+<li><strong>식사 시간과 분리</strong> — 코스 시작 1-2시간 전 가벼운 식사가 권장</li>
+<li><strong>다음 날 일정과의 간격</strong> — 다음 날 이른 일정이 있으면 90분 이내 코스</li>
+</ul>
+</section>
+
+<section class="block" id="qna">
+<h2>여행지 호텔에서 자주 묻는 질문</h2>
+<div class="faq">
+<details><summary>리조트·풀빌라에서도 가능한가요?</summary><p>가능합니다. 다만 일부 풀빌라는 외부 서비스 진입을 사전 등록해야 하므로 예약 시점에 함께 확인해 주세요.</p></details>
+<details><summary>일행이 있는데 한 명만 받아도 되나요?</summary><p>가능합니다. 진행 시간 동안 일행이 객실에 함께 있어도 무방하며, 동시 진행을 원하시는 경우 커플 코스로 안내됩니다.</p></details>
+<details><summary>장거리 이동 직후가 좋을까요, 다음 날이 좋을까요?</summary><p>이동 직후 피로가 분명한 경우 당일 저녁 60-90분 코스가 가장 효과적입니다. 컨디션이 괜찮다면 다음 날 오후에 받는 흐름도 좋습니다.</p></details>
+</div>
+</section>
+
+<section class="block" id="after">
+<h2>여행 회복 케어 후 권장되는 마무리</h2>
+<p>코스 후에는 다음 3가지를 함께 챙기시면 회복 효과가 더 오래 유지됩니다.</p>
+<ul class="check-list">
+<li>코스 후 30분 이내 물 500ml</li>
+<li>당일 음주·과도한 식사 자제</li>
+<li>다음 날 가벼운 스트레칭 5분</li>
+</ul>
+<p>여행지 호텔 진행의 상세 안내는 <a href="/service/hotel-massage/">호텔 방문 마사지</a> 페이지에서 함께 확인하실 수 있습니다.</p>
+</section>
+""" + _MAG_DISCLAIMER
+
+
+# ===== Magazine 5 — 목적별 코스 고르는 법 =====
+_MAG5_BODY = _MAG_BYLINE_TPL.format(published="2026-04-22", min=6, category="코스 가이드") + _mag_toc([
+    ("코스 선택이 어렵게 느껴지는 이유", "why-hard"),
+    ("4가지 목적별 추천 코스", "by-purpose"),
+    ("코스 길이를 정하는 기준", "by-length"),
+    ("운영팀의 코스 매칭 의사결정 흐름", "decision"),
+    ("처음 받는다면 어떤 코스가 가장 무난한가", "first-time"),
+]) + """
+<section class="block" id="why-hard">
+<h2>코스 선택이 어렵게 느껴지는 이유</h2>
+<p>출장마사지를 처음 알아보시는 분이 가장 먼저 마주치는 어려움은 "어떤 코스를 받아야 하나"입니다. 스웨디시·아로마·홈타이·스포츠·커플… 종류는 많은데 차이가 명확하게 안내된 곳이 많지 않습니다.</p>
+<p>운영팀이 상담 과정에서 가장 자주 받는 질문도 "처음인데 뭐가 좋을까요"입니다. 이 매거진은 그 질문에 답하기 위한 가이드로, 운영팀이 실제로 어떤 기준으로 코스를 권장하는지 그대로 공개합니다.</p>
+</section>
+
+<section class="block" id="by-purpose">
+<h2>4가지 목적별 추천 코스</h2>
+<table class="compare-table">
+<thead><tr><th scope="col">목적</th><th scope="col">권장 1순위</th><th scope="col">대체 코스</th></tr></thead>
+<tbody>
+<tr><th scope="row">긴장 완화·수면 보조</th><td>스웨디시</td><td>아로마</td></tr>
+<tr><th scope="row">근육 뭉침 해소</th><td>홈타이</td><td>스포츠</td></tr>
+<tr><th scope="row">운동 후 회복</th><td>스포츠</td><td>홈타이</td></tr>
+<tr><th scope="row">여행·여가 회복</th><td>아로마</td><td>스웨디시</td></tr>
+</tbody>
+</table>
+<p>목적이 분명할수록 코스 선택이 쉽습니다. 두 가지 이상 목적이 섞여 있다면 코스 길이를 늘려 절반씩 진행하는 흐름도 가능합니다.</p>
+</section>
+
+<section class="block" id="by-length">
+<h2>코스 길이를 정하는 기준</h2>
+<div class="dos-donts">
+<div class="dos">
+<strong>60분이 적합한 경우</strong>
+<ul>
+<li>처음 받으시는 분</li>
+<li>가볍게 컨디션 점검</li>
+<li>심야 시간 짧은 회복</li>
+<li>다음 날 이른 일정이 있을 때</li>
+</ul>
+</div>
+<div class="dos">
+<strong>90-120분이 적합한 경우</strong>
+<ul>
+<li>본격적인 회복이 목적</li>
+<li>전신 근육 뭉침 해소</li>
+<li>주말 여유 일정</li>
+<li>두 가지 코스 조합 진행</li>
+</ul>
+</div>
+</div>
+</section>
+
+<section class="block" id="decision">
+<h2>운영팀의 코스 매칭 의사결정 흐름</h2>
+<p>운영팀이 상담에서 실제로 따르는 코스 매칭 흐름은 다음과 같습니다. 이용자에게 직접 묻는 질문 순서이기도 합니다.</p>
+<ol class="steps">
+<li><strong>이번 케어의 핵심 목적</strong><p>긴장 완화? 근육 회복? 운동 후 회복? 여행 회복?</p></li>
+<li><strong>받는 시간대</strong><p>저녁·심야면 부드러운 스웨디시·아로마, 주말 낮이면 좀 더 깊은 홈타이·스포츠.</p></li>
+<li><strong>다음 날 일정</strong><p>다음 날 이른 일정이 있으면 짧은 코스, 여유가 있으면 긴 코스 권장.</p></li>
+<li><strong>최근 컨디션</strong><p>특정 부위 통증이 분명하면 의료 진단 권장. 일반적인 누적 피로라면 코스 진행 권장.</p></li>
+<li><strong>예산 범위</strong><p>코스·시간 길이가 정해지면 <a href="/reservation/price/">가격 안내</a>에서 시작 금액을 확인.</p></li>
+</ol>
+</section>
+
+<section class="block" id="first-time">
+<h2>처음 받는다면 어떤 코스가 가장 무난한가</h2>
+<p>운영팀이 가장 자주 권장하는 첫 코스 조합은 <strong>스웨디시 60분</strong>입니다. 압력이 부드럽고, 오일 케어로 전신 컨디션을 가볍게 점검할 수 있으며, 다음 날 일정에도 부담이 적습니다.</p>
+<p>첫 진행 후 본인 컨디션·선호도에 맞춰 다음 진행 시 코스를 조정하시는 흐름이 가장 안전합니다. 자세한 첫 이용 가이드는 <a href="/guide/first-time-massage/">처음 이용 전 알아둘 점</a>에서 확인하실 수 있습니다.</p>
+</section>
+""" + _MAG_DISCLAIMER
+
+
+MAGAZINE_ARTICLES = [
+    {
+        "slug": "hotel-room-care-trend-2026",
+        "title": "호텔 객실 케어 트렌드 — 운영팀이 본 흐름의 변화",
+        "desc": "호텔 객실에서 진행되는 출장마사지 문의 흐름의 변화, 호텔 유형별 진행 차이, 객실 예약 시 확인해야 할 점을 운영팀 상담 경험을 토대로 정리한 매거진입니다.",
+        "category": "트렌드", "cover": "forest", "published": "2026-05-12",
+        "lede": "호텔 객실에서 진행되는 출장마사지 문의가 꾸준히 늘고 있습니다. 변화의 배경과 호텔 유형별 진행 흐름을 운영팀 관점에서 정리합니다.",
+        "body": _MAG1_BODY,
+    },
+    {
+        "slug": "night-worker-recovery",
+        "title": "야간 근무자 회복 가이드 — 출장마사지를 활용한 5가지 패턴",
+        "desc": "병원·간호·IT 운영·보안 등 야간 근무자가 더 빨리 지치는 이유와, 운영팀이 권장하는 회복 케어 5가지 패턴, 함께 권장되는 회복 보조 습관까지 정리한 매거진입니다.",
+        "category": "라이프스타일", "cover": "dusk", "published": "2026-05-08",
+        "lede": "야간 근무자가 자주 마주치는 회복 문제와, 출장마사지를 활용해 회복 리듬을 만드는 5가지 패턴을 정리합니다.",
+        "body": _MAG2_BODY,
+    },
+    {
+        "slug": "desk-worker-neck-shoulder",
+        "title": "사무직 어깨·목 — 데스크워크 누적이 만드는 변화와 케어 흐름",
+        "desc": "1-3년차 사무직 이용자가 가장 자주 호소하는 어깨·목 누적 신호 4가지와 단계별 권장 코스, 함께 권장되는 자세 가이드를 정리한 웰니스 매거진입니다.",
+        "category": "웰니스", "cover": "sage", "published": "2026-05-04",
+        "lede": "어깨가 무겁고 목이 잘 안 돌아간다면 — 데스크워크 1년 누적이 만드는 4가지 신호와 단계별 케어 흐름을 정리합니다.",
+        "body": _MAG3_BODY,
+    },
+    {
+        "slug": "travel-hotel-massage-guide",
+        "title": "여행지 호텔에서의 회복 케어 — 국내 여행 지역별 가이드",
+        "desc": "부산·제주·강원 등 국내 여행지 호텔에서 받는 출장마사지의 흐름과 권장 코스, 여행 일정 안에서 코스 시간을 잡는 방법을 정리한 여행 매거진입니다.",
+        "category": "여행", "cover": "sunset", "published": "2026-04-28",
+        "lede": "여행지에서 받는 케어는 흐름이 다릅니다. 지역별 권장 코스와 여행 일정에서 코스 시간 잡는 법을 정리합니다.",
+        "body": _MAG4_BODY,
+    },
+    {
+        "slug": "course-selection-by-purpose",
+        "title": "목적별 코스 고르는 법 — 운영팀의 매칭 의사결정 흐름 공개",
+        "desc": "스웨디시·아로마·홈타이·스포츠 중 무엇을 받을지 고민될 때, 운영팀이 상담에서 실제로 따르는 코스 매칭 의사결정 5단계와 첫 이용자를 위한 무난한 첫 코스를 공개합니다.",
+        "category": "코스 가이드", "cover": "earth", "published": "2026-04-22",
+        "lede": "스웨디시·아로마·홈타이·스포츠 — 어떤 코스가 나에게 맞을까요? 운영팀의 매칭 의사결정 흐름을 그대로 공개합니다.",
+        "body": _MAG5_BODY,
+    },
+]
+
+
+# ---------- Magazine hub ----------
+def _mag_hub_card(idx, art, featured=False):
+    cls = "mag-card mag-card-featured" if featured else "mag-card"
+    return (
+        f'<a class="{cls}" href="/magazine/{art["slug"]}/">'
+        f'<div class="mag-card-cover mag-cover-{art["cover"]}">'
+        f'<span class="mag-card-num">{idx:02d}</span>'
+        f'<span class="mag-category-chip">{art["category"]}</span>'
+        '</div>'
+        '<div class="mag-card-body">'
+        f'<h3 class="mag-card-title">{art["title"]}</h3>'
+        f'<p class="mag-card-desc">{art["lede"]}</p>'
+        '<div class="mag-card-foot">'
+        f'<span class="mag-card-date">{art["published"]}</span>'
+        '<span class="mag-card-arrow" aria-hidden="true">→</span>'
+        '</div></div></a>'
+    )
+
+
+_featured = MAGAZINE_ARTICLES[0]
+_others = MAGAZINE_ARTICLES[1:]
+_category_chips = "".join(
+    f'<button class="mag-cat-chip" data-cat="{a["category"]}">{a["category"]}</button>'
+    for a in MAGAZINE_ARTICLES
+)
+_category_chip_set = sorted({a["category"] for a in MAGAZINE_ARTICLES})
+_cat_nav = '<nav class="mag-cat-nav" aria-label="매거진 카테고리">' + \
+    '<span class="mag-cat-label">카테고리</span>' + \
+    "".join(f'<span class="mag-cat-pill">#{c}</span>' for c in _category_chip_set) + \
+    '</nav>'
+
+add(
+    path="magazine/index.html",
+    url="/magazine/",
+    slug="magazine-hub",
+    title="바로GO 매거진 | 출장마사지 트렌드·웰니스·라이프스타일",
+    description="바로GO 운영팀이 직접 집필하는 에디토리얼 매거진입니다. 트렌드·라이프스타일·웰니스·여행·코스 가이드 등 출장마사지 관련 주제를 다룹니다.",
+    h1="바로GO 매거진",
+    intro='<p class="lede">바로GO 운영팀이 직접 집필하는 에디토리얼 매거진입니다. 운영 데이터·상담 기록·운영팀 관찰을 바탕으로, 출장마사지를 둘러싼 트렌드·웰니스·라이프스타일·여행 주제를 다룹니다.</p>',
+    breadcrumbs=[("홈", "/"), ("매거진", "/magazine/")],
+    og_type="website",
+    body=(
+        _cat_nav +
+        '<section class="block mag-featured-wrap">' +
+        '<h2 class="mag-section-title">이번 호 추천</h2>' +
+        _mag_hub_card(1, _featured, featured=True) +
+        '</section>' +
+        '<section class="block">' +
+        '<h2 class="mag-section-title">최신 기사</h2>' +
+        '<div class="mag-grid">' +
+        "".join(_mag_hub_card(i + 2, a) for i, a in enumerate(_others)) +
+        '</div>' +
+        '</section>' +
+        '<section class="block mag-about">' +
+        '<h2>매거진은 어떻게 만들어지나요?</h2>' +
+        '<p>바로GO 매거진의 모든 기사는 운영팀(YH LAB)이 직접 집필·검수합니다. 운영 데이터·상담 기록을 인용하는 경우 본문에 명시하며, 외부 자료를 인용할 때는 출처를 함께 표기합니다. ' +
+        '주제 선정 기준은 다음과 같습니다.</p>' +
+        '<ul class="check-list">' +
+        '<li>운영 데이터로 변화 추이를 설명할 수 있는 트렌드</li>' +
+        '<li>특정 직군·상황에 도움이 되는 실용 정보</li>' +
+        '<li>이용자가 의사결정에 사용할 수 있는 비교·가이드</li>' +
+        '<li>여행·라이프스타일 등 출장마사지를 둘러싼 맥락 정보</li>' +
+        '</ul>' +
+        '<p>매거진은 매월 1-2회 발행되며, 발행 시 본 페이지 상단의 최신 기사 목록이 갱신됩니다. ' +
+        '편집·정정 요청은 <a href="/support/contact/">문의하기</a>로 접수해 주세요.</p>' +
+        '</section>'
+    ),
+    related=_rel(
+        "/magazine/",
+        ["/guide/", "/review/", "/service/business-trip-massage/", "/reservation/price/"],
+        title="이어서 살펴볼 페이지",
+    ),
+)
+
+
+# ---------- Magazine article pages ----------
+for art in MAGAZINE_ARTICLES:
+    source_url = f"/magazine/{art['slug']}/"
+    # 같은 매거진 다른 글 4편 + 관련 페이지 1-2
+    other_slugs = [a["slug"] for a in MAGAZINE_ARTICLES if a["slug"] != art["slug"]]
+    rel_html = (
+        '<aside class="related">'
+        '<h2>이어서 읽어볼 매거진</h2>'
+        '<ul>'
+        + "".join(
+            f'<li><a href="/magazine/{s}/">'
+            + next(a["title"] for a in MAGAZINE_ARTICLES if a["slug"] == s)
+            + '</a></li>'
+            for s in other_slugs[:3]
+        )
+        + '<li><a href="/magazine/">매거진 전체 보기</a></li>'
+        + '</ul>'
+        '</aside>'
+    )
+    add(
+        path=f"magazine/{art['slug']}/index.html",
+        url=source_url,
+        slug=f"magazine-{art['slug']}",
+        title=f"{art['title']} | 바로GO 매거진",
+        description=art["desc"],
+        h1=art["title"],
+        intro=f'<p class="lede">{art["lede"]}</p>',
+        breadcrumbs=[("홈", "/"), ("매거진", "/magazine/"), (art["title"], source_url)],
+        og_type="article",
+        body=art["body"],
+        related=rel_html,
+    )
+
 
 # ---------- Support pages ----------
 add(
@@ -8204,7 +8779,7 @@ add(
   ]) + """
 <section class="block" id="why">
 <h2>바로GO를 시작한 이유</h2>
-<p>출장마사지 시장은 오랫동안 정보가 불투명한 영역이었습니다. 검색 결과 상단에는 광고가 가득하고, 가격은 페이지마다 다르며, 취소·환불 기준은 예약 후에야 안내되는 경우가 잦았습니다. 운영사 <strong>YH LAB</strong>은 7년간 출장마사지 예약 상담을 직접 운영하며 이러한 문제를 누적해서 경험했고, 이용자가 사전에 알아야 할 정보를 한곳에 정리할 필요가 있다고 판단했습니다. 그 결과물이 바로GO입니다.</p>
+<p>출장마사지 시장은 오랫동안 정보가 불투명한 영역이었습니다. 검색 결과 상단에는 광고가 가득하고, 가격은 페이지마다 다르며, 취소·환불 기준은 예약 후에야 안내되는 경우가 잦았습니다. 운영사 <strong>YH LAB</strong>은 출장마사지 예약 상담을 직접 운영하며 이러한 문제를 누적해서 경험했고, 이용자가 사전에 알아야 할 정보를 한곳에 정리할 필요가 있다고 판단했습니다. 그 결과물이 바로GO입니다.</p>
 <p>바로GO는 "광고가 아닌 정보"를 우선합니다. 페이지 상단에 자극적 카피로 클릭을 유도하는 대신, 코스별 기준 가격·시간대별 가능 여부·진행 장소별 권장 사항을 정리해 의사결정에 필요한 데이터를 먼저 보여드립니다.</p>
 </section>
 
@@ -8264,7 +8839,6 @@ add(
 <li>사업자등록번호 : 815-26-00585 (국세청 조회 가능)</li>
 <li>본사 주소 : 경기도 파주시 청석로 268</li>
 <li>대표 전화 : <a href="tel:0508-202-4719">0508-202-4719</a></li>
-<li>운영 시작 : 2019년 (출장마사지 예약 상담 기준)</li>
 </ul>
 </section>
 
