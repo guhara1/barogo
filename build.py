@@ -2556,10 +2556,11 @@ for _ps, _dongs in SEOUL_DONGS.items():
 
 
 def _build_seoul_dong_pages():
-    """3차 행정동 페이지 생성. 페이지마다 고유 character paragraph,
-    sibling 동 칩, 부모 자치구 backlink을 포함."""
+    """3차 행정동 페이지 생성. 페이지마다 고유 character paragraph + 공통 본문(2,000자+)."""
+    parent_char_by_slug = {d["slug"]: d["character"] for d in SEOUL_DISTRICTS}
     for parent_slug, dongs in SEOUL_DONGS.items():
         parent_name = _SEOUL_DIST_NAME_BY_SLUG[parent_slug]
+        parent_char = parent_char_by_slug.get(parent_slug, "")
         slug_by_name = {n: s for n, s, _ in dongs}
         names = sorted([n for n, _, _ in dongs])
         for dong_name, dong_slug, char in dongs:
@@ -2584,31 +2585,26 @@ def _build_seoul_dong_pages():
                 '<div class="region-districts-group">'
                 f'<ul class="region-districts-grid">{sib_chips}</ul>'
                 '</div></div></section>'
-            )
-            char_section = (
-                '<section class="block">'
-                f'<h2>{dong_name} 권역 특성</h2>'
-                f'<p>{char}</p>'
-                '</section>'
-            )
-            backlink_section = (
-                '<section class="block">'
-                f'<h2>{dong_name} 방문 마사지 예약 안내</h2>'
-                f'<p>{dong_name} 일대의 정확한 가능 시간·코스·이동 가능 여부는 전화 상담에서 안내됩니다. '
-                f'서울 {parent_name} 권역 전체 안내는 '
-                f'<a href="/area/seoul/{parent_slug}/">{parent_name} 안내 페이지</a>를 참고하세요.</p>'
-                '</section>'
+            ) if siblings else ''
+            body_html = _build_dong_rich_body(
+                dong_name=dong_name,
+                parent_name=parent_name,
+                region_name="서울",
+                parent_char=parent_char,
+                parent_url=f"/area/seoul/{parent_slug}/",
+                sibling_card_html=sib_card,
+                extra_intro_paragraph=char,  # SEOUL_DONGS 고유 character
             )
             desc = char if len(char) <= 160 else char[:160].rsplit('.', 1)[0] + '.'
+            intro_lede = f'{dong_name}은 서울 {parent_name}의 행정동입니다. {char}'
             add(
                 path=f"area/seoul/{parent_slug}/{dong_slug}/index.html",
                 url=f"/area/seoul/{parent_slug}/{dong_slug}/",
                 slug=f"area-seoul-{parent_slug}-{dong_slug}",
-                title=f"{dong_name} 방문 마사지 안내 · {parent_name} | 서울 | 바로GO",
+                title=f"{dong_name} 출장마사지 안내 · {parent_name} | 서울 | 바로GO",
                 description=desc,
-                h1=f"{dong_name} 방문 마사지 이용 안내",
-                intro=(f'<p class="lede">{dong_name}은 서울 {parent_name}의 행정동입니다. {char}</p>'
-                       + _district_hero_cta_html(dong_name)),
+                h1=f"{dong_name} 출장마사지 이용 안내",
+                intro=f'<p class="lede">{intro_lede}</p>' + _district_hero_cta_html(dong_name),
                 breadcrumbs=[
                     ("홈", "/"),
                     ("지역별 찾기", "/area/"),
@@ -2616,7 +2612,7 @@ def _build_seoul_dong_pages():
                     (parent_name, f"/area/seoul/{parent_slug}/"),
                     (dong_name, f"/area/seoul/{parent_slug}/{dong_slug}/"),
                 ],
-                body=char_section + sib_card + backlink_section + _region_cta_html(dong_name),
+                body=body_html,
                 related=(
                     '<aside class="related">'
                     '<h2>관련 안내</h2>'
@@ -2625,6 +2621,8 @@ def _build_seoul_dong_pages():
                     '<li><a href="/area/seoul/">서울 전체 안내</a></li>'
                     '<li><a href="/reservation/how-to-book/">예약 방법</a></li>'
                     '<li><a href="/reservation/price/">가격 및 코스 안내</a></li>'
+                    '<li><a href="/reservation/check-before-use/">이용 전 확인사항</a></li>'
+                    '<li><a href="/reservation/cancel-refund/">취소·환불 규정</a></li>'
                     '</ul>'
                     '</aside>'
                 ),
@@ -2632,7 +2630,7 @@ def _build_seoul_dong_pages():
 
 
 _build_seoul_districts()
-_build_seoul_dong_pages()
+# _build_seoul_dong_pages()  ← _build_dong_rich_body 정의 이후로 이동
 
 
 # ============================================================
@@ -2693,16 +2691,16 @@ _DONG_INTRO_TPL = [
     "{dong}은 {parent} 권역의 한 동입니다. {p_short} 인근 동과 시간대 가능 여부가 공유됩니다.",
 ]
 
-# 8개의 디스크립션 변형 (160자 이내) — 동 이름·부모 이름·지역명을 모두 포함하여 검색 결과 차별화
+# 8개의 디스크립션 변형 (160자 이내) — 출장마사지 키워드 + 동·부모·지역명 결합
 _DONG_DESC_TPL = [
-    "{dong}({parent}) 방문 마사지 가능 시간·진행 장소·코스 안내. {region} 권역 동 단위 정보를 전화 상담에서 바로 확인하실 수 있습니다.",
-    "{region} {parent} {dong} 방문 마사지 안내 — 호텔·가정·오피스텔 진행 장소와 권역 가능 시간을 정리한 정보 페이지입니다.",
-    "{dong} 방문 마사지 권역 안내. {region} {parent} 인접 동과 동일한 권역 흐름이 적용되며, 정확한 시간은 전화 상담에서 안내됩니다.",
-    "{parent} {dong} 권역 방문 마사지 페이지 — 가능 시간·이동·코스를 {region} 권역 기준으로 정리해 두었습니다.",
-    "{dong} 방문 마사지 가능 시간 안내({region} {parent}). 권역 일대 진행 장소·이동 가능 여부 전화 확인.",
-    "{region} {parent} 행정 단위 {dong} 방문 마사지 안내. 권역 가능 시간·코스 정보를 페이지·전화로 확인 가능합니다.",
-    "{dong} 권역 방문 마사지 가능 안내. {region} {parent} 일대 동선·진행 장소 정보를 전화 상담으로 바로 안내드립니다.",
-    "{dong} 방문 마사지 안내 — {region} {parent} 권역의 진행 장소·시간대·코스를 정리한 정보 페이지.",
+    "{dong}({parent}) 출장마사지 가능 시간·진행 장소·코스 안내. {region} 권역 동 단위 정보를 24시간 전화 상담으로 바로 확인.",
+    "{region} {parent} {dong} 출장마사지 안내 — 호텔·가정·오피스텔 진행 장소와 권역 가능 시간, 코스 종류를 정리한 정보 페이지.",
+    "{dong} 출장마사지 권역 안내. {region} {parent} 인접 동과 동일한 권역 흐름이 적용되며, 정확한 시간은 전화 확인이 가장 빠릅니다.",
+    "{parent} {dong} 권역 출장마사지 — 가능 시간·이동·코스를 {region} 권역 기준으로 정리. YH LAB(바로GO) 운영.",
+    "{dong} 출장마사지 가능 시간 안내({region} {parent}). 권역 일대 진행 장소·이동 가능 여부 24시간 전화 확인.",
+    "{region} {parent} 행정 단위 {dong} 출장마사지 안내. 권역 가능 시간·코스·결제 정보를 페이지·전화로 확인 가능합니다.",
+    "{dong} 권역 출장마사지 가능 안내. {region} {parent} 일대 동선·진행 장소 정보를 24시간 전화 상담으로 안내드립니다.",
+    "{dong} 출장마사지 안내 — {region} {parent} 권역의 진행 장소·시간대·코스·결제·취소 규정을 정리한 정보 페이지.",
 ]
 
 # 추가 보조 단락 (권역 운영 패턴 묘사) — 부모 character + dong-localized 변형
@@ -2714,6 +2712,318 @@ _DONG_PATTERN_TPL = [
     "{dong}은 {parent} 권역 안에서 운영되는 단위로, 가능 시간·이동 가능 여부는 권역 기준으로 안내됩니다.",
     "{dong} 권역의 시간대 가능 여부는 동 단위가 아닌 {parent} 권역 단위로 운영되며, 사전 전화 확인이 권장됩니다.",
 ]
+
+
+# ------------------------------------------------------------
+# 동 단위 페이지 본문(2,000자 이상)을 만드는 통합 빌더
+# ------------------------------------------------------------
+# 권역 특성(긴 형식) — 8가지 변형, 각 ~200~260자
+_DONG_LONG_INTRO_TPL = [
+    "{dong}은 {parent} 권역에 속한 행정 단위로, {p_short} {dong} 일대는 {parent} 권역 안에서 동선·시간대 측면의 공통 특성을 공유하지만, 동 단위의 진입 도로·주거 형태·상업 지구 비중에 따라 출장마사지 진행 방식이 조금씩 달라집니다. 정확한 가능 여부와 가능 시간대는 동 단위가 아닌 권역 단위로 운영되므로, 사전 전화 상담에서 일정·코스·진행 장소 유형을 함께 안내드리는 방식으로 운영됩니다.",
+    "{dong}은 행정상 {parent}에 포함된 권역으로, {p_short} {parent} 권역의 동선·시간대 기준이 {dong}에도 그대로 적용됩니다. 다만 {dong} 일대 주거 형태(아파트·오피스텔·단독·빌라)나 인근 호텔·숙소의 유형, 진입 도로의 폭과 주차 가능 여부에 따라 출장마사지 진행 일정의 유연성이 달라질 수 있어, 정확한 가능 시간은 전화 상담에서 권역 동선과 함께 함께 안내됩니다.",
+    "{dong}은 {parent}의 일부 권역으로 운영되며, {p_short} {dong} 자체는 {parent} 권역 안의 한 행정 단위이므로 출장마사지 가능 시간·이동 가능 여부는 동 단위가 아닌 {parent} 권역 단위로 통합 관리됩니다. 단, 동 단위 진입 환경·주변 시설의 운영 시간이 일정 가능 여부에 영향을 줄 수 있어, 사전 전화 상담을 통해 일정·진행 장소·코스를 함께 정합니다.",
+    "{dong} 권역은 {parent}의 행정 단위로 자리합니다. {p_short} {dong} 일대는 {parent} 권역의 동선·시간대 흐름을 공유하면서도, 동 단위의 주거 밀집도·상업 시설 분포·교통 접근성에 따라 출장마사지 운영 방식의 세부 사항이 달라집니다. 자세한 가능 시간·진행 장소·코스 종류는 전화 상담에서 권역 정보와 함께 안내드립니다.",
+    "{dong}은 {parent} 권역에 속하며, {p_short} {dong}을 포함한 {parent} 권역에서는 출장마사지 운영이 권역 단위로 통합 관리됩니다. 동 단위로 가능 시간이 따로 나뉘지는 않지만, 진입 도로·주차·공동현관 출입 방식과 같은 동 단위 환경 변수는 사전 전화 상담에서 함께 확인됩니다. 권역 동선·일정 가능 여부는 24시간 상담으로 안내드립니다.",
+    "{dong}은 {parent} 행정 구역 안에 위치한 단위입니다. {p_short} {dong} 일대의 출장마사지 가능 시간·코스·진행 장소 유형은 모두 {parent} 권역의 기준에 따르며, 동 단위 진입 환경이 일정 운영의 유연성에 영향을 줄 수 있어 사전 전화 상담에서 함께 확인됩니다. 권역 운영 시간과 코스 종류는 전화로 가장 정확히 안내드립니다.",
+    "{dong}은 {parent} 권역의 한 행정 단위로, {p_short} {parent} 권역의 동선·시간대 운영 기준이 {dong}에도 동일하게 적용됩니다. 출장마사지 운영은 동 단위가 아닌 권역 단위로 진행되며, 동 단위 환경(주거 형태·진입 도로·주차 가능 여부)은 일정 확정 단계에서 사전 전화로 함께 확인되어 안전하고 매끄러운 진행이 가능합니다.",
+    "{dong}은 {parent} 권역 안에서 운영되는 행정 단위입니다. {p_short} {dong} 일대는 {parent} 권역의 가능 시간·이동 동선·코스 운영 기준을 공유하지만, 동 단위 주거 형태·상업 시설·진입 도로 등 세부 환경 변수가 일정 운영에 영향을 줍니다. 출장마사지 가능 시간·진행 장소·코스 정보는 사전 전화 상담에서 함께 안내됩니다.",
+]
+
+
+def _dong_long_intro(dong_name, parent_name, parent_char):
+    idx = _dong_pick(dong_name, "longintro", len(_DONG_LONG_INTRO_TPL))
+    return _DONG_LONG_INTRO_TPL[idx].format(
+        dong=dong_name,
+        parent=parent_name,
+        p_short=_dong_short_parent(parent_char or parent_name, max_len=80),
+    )
+
+
+# 진행 방식 섹션 도입 문장 — 5가지 변형
+_DONG_FLOW_INTRO_TPL = [
+    "{dong} 일대에서 진행되는 출장마사지는 다음 다섯 단계 흐름으로 운영됩니다. 각 단계는 사전 전화 상담에서 사용자 일정에 맞게 확정됩니다.",
+    "{dong} 권역의 출장마사지 진행은 아래 흐름을 기본 골격으로 합니다. 일정·코스·진행 장소는 사용자 상황에 맞춰 사전 전화에서 함께 조정됩니다.",
+    "{parent} {dong} 권역에서 진행되는 출장마사지의 표준 흐름은 다음과 같습니다. 단계별 세부 사항은 사전 전화 상담에서 함께 안내드립니다.",
+    "출장마사지는 사용자 공간에서 진행되는 서비스로, {dong}을 포함한 {parent} 권역에서도 동일하게 아래 단계로 운영됩니다.",
+    "{dong} 일대의 출장마사지 진행은 전화 상담 → 일정 확정 → 관리사 배정 → 도착·진행 → 결제·종료 순으로 운영되며, 각 단계가 사전에 명확히 합의됩니다.",
+]
+
+# 시간대 패턴 도입 — 4가지 변형
+_DONG_TIME_INTRO_TPL = [
+    "{dong} 권역의 일반적 가능 시간대는 다음과 같습니다. 같은 시간대라도 권역 동선·관리사 일정에 따라 가능 여부가 달라질 수 있어 사전 전화 확인이 가장 정확합니다.",
+    "{dong}을 포함한 {parent} 권역에서는 시간대별로 진행 빈도와 가능 유형이 달라집니다. 아래는 권역 평균에 기반한 시간대 흐름입니다.",
+    "{parent} {dong} 일대의 시간대별 출장마사지 가능 패턴은 아래와 같습니다. 사용자 일정에 맞춰 사전 전화에서 가장 가까운 가능 시간대를 안내드립니다.",
+    "출장마사지는 사용자 일정에 맞춰 시간대를 정하는 서비스로, {dong} 권역에서는 다음과 같은 시간대 흐름을 기준으로 안내됩니다.",
+]
+
+# 진행 장소 유형 도입 — 4가지 변형
+_DONG_PLACE_INTRO_TPL = [
+    "{dong}을 포함한 {parent} 권역에서는 사용자의 일정과 상황에 따라 다음 네 가지 유형의 진행 장소가 가장 많이 안내됩니다. 사전 전화 상담에서 유형별 사전 확인 사항을 함께 안내드립니다.",
+    "{dong} 권역의 출장마사지는 호텔·가정·오피스텔·펜션 네 가지 진행 장소 유형으로 안내됩니다. 유형별로 진입 방식과 사전 확인 사항이 조금씩 다릅니다.",
+    "{parent} {dong} 일대에서 자주 안내되는 진행 장소 유형은 다음과 같습니다. 사용자 일정 상황·인원 수에 따라 적합한 유형이 사전 전화에서 함께 권해집니다.",
+    "사용자 공간이 곧 진행 장소가 되는 출장마사지는, {dong} 권역에서 아래 네 유형의 공간에서 가장 자주 진행됩니다.",
+]
+
+
+def _dong_course_section_html():
+    return (
+        '<section class="block">'
+        '<h2>출장마사지 추천 코스 안내</h2>'
+        '<p>본 권역에서 자주 안내되는 출장마사지 코스 유형은 다음과 같습니다. 본인의 컨디션·일정·인원 수에 맞게 코스를 선택하실 수 있도록 각 코스 상세 페이지를 함께 안내드립니다.</p>'
+        '<ul>'
+        '<li><a href="/service/business-trip-massage/"><strong>출장마사지 종합 안내</strong></a> — 사용자 공간에서 60·90·120·150분 단위 진행. 컨디션·체형 종합 케어가 필요한 분께 권해드립니다.</li>'
+        '<li><a href="/service/hometai/"><strong>홈타이</strong></a> — 태국식 스트레칭과 압 기반 코스로, 근육 이완·자세 교정에 초점이 맞춰져 있습니다.</li>'
+        '<li><a href="/service/swedish/"><strong>스웨디시 마사지</strong></a> — 부드러운 압의 전신 이완 코스로, 출장마사지 첫 이용자에게 가장 자주 권해집니다.</li>'
+        '<li><a href="/service/aroma/"><strong>아로마 마사지</strong></a> — 에센셜 오일을 활용한 향기 케어. 수면 보조·스트레스 완화에 적합합니다.</li>'
+        '<li><a href="/service/sports-massage/"><strong>스포츠 마사지</strong></a> — 운동 후 회복·뭉친 부위 집중 케어가 필요한 분께 권해집니다.</li>'
+        '<li><a href="/service/couple-massage/"><strong>커플 마사지</strong></a> — 2인 동시 진행 코스로, 호텔·가정·펜션 공간 모두 가능합니다.</li>'
+        '<li><a href="/service/hotel-massage/"><strong>호텔 방문 마사지</strong></a> — 출장·관광 일정 호텔 객실에서 진행되는 출장마사지 유형입니다.</li>'
+        '<li><a href="/service/office-massage/"><strong>기업·사무실 출장</strong></a> — 사무실 공간 컨디션에 맞춰 진행되는 기업 단위 케어입니다.</li>'
+        '</ul>'
+        '</section>'
+    )
+
+
+def _dong_flow_section_html(dong_name, parent_name):
+    intro = _DONG_FLOW_INTRO_TPL[
+        _dong_pick(dong_name, "flow", len(_DONG_FLOW_INTRO_TPL))
+    ].format(dong=dong_name, parent=parent_name)
+    return (
+        '<section class="block">'
+        f'<h2>{dong_name} 출장마사지 진행 방식</h2>'
+        f'<p>{intro}</p>'
+        '<ol>'
+        '<li><strong>전화 상담</strong> — 24시간 운영되는 0508-202-4719 번호로 연락하시면, '
+        f'{parent_name} {dong_name} 권역의 가능 시간대·코스·진행 장소 유형을 확인해 드립니다. 권역 동선 가능 여부도 이 단계에서 안내됩니다.</li>'
+        '<li><strong>일정 확정</strong> — 도착 가능 시간, 진행 장소(호텔·가정·오피스텔·펜션), 코스 길이(60·90·120·150분), 인원(1인·2인), 추가 옵션(아로마·핫스톤 등)을 함께 정합니다. 시간대 가능 여부는 권역 단위로 운영됩니다.</li>'
+        '<li><strong>관리사 배정</strong> — 권역 동선을 고려해 가까운 위치의 관리사가 배정됩니다. 관리사 도착 가능 시각이 다시 한 번 안내됩니다.</li>'
+        '<li><strong>도착·진행</strong> — 약속 시간 직전 도착 안내 후 사용자 공간에서 코스가 진행됩니다. 별도 장비 설치·환경 변경 없이 기존 공간 그대로 진행되며, 진행 중에는 통화·외부 출입을 자제하는 것이 권장됩니다.</li>'
+        '<li><strong>결제·종료</strong> — 종료 후 현장 결제 또는 사전 안내된 방식으로 진행. 영수증·세금계산서가 필요한 경우 사전에 요청해 주시면 안내됩니다.</li>'
+        '</ol>'
+        '</section>'
+    )
+
+
+def _dong_time_section_html(dong_name, parent_name):
+    intro = _DONG_TIME_INTRO_TPL[
+        _dong_pick(dong_name, "time", len(_DONG_TIME_INTRO_TPL))
+    ].format(dong=dong_name, parent=parent_name)
+    return (
+        '<section class="block">'
+        f'<h2>{dong_name} 이용 가능 시간대</h2>'
+        f'<p>{intro}</p>'
+        '<ul>'
+        '<li><strong>오전·이른 오후(10시~16시)</strong> — 가정 방문 위주의 시간대입니다. 평일 비중이 크며, 휴식·컨디션 회복 목적의 코스가 자주 안내됩니다.</li>'
+        f'<li><strong>저녁(19시~22시)</strong> — {parent_name} 권역에서 가장 활발한 시간대입니다. 가정·호텔·오피스텔 모두 진행 빈도가 높습니다.</li>'
+        '<li><strong>야간(22시~01시)</strong> — 호텔·오피스텔 객실 방문 중심 시간대입니다. 권역에 따라 일부 가능하며 사전 예약이 권장됩니다.</li>'
+        f'<li><strong>심야(01시 이후)</strong> — {parent_name} 일부 권역에 한해 가능합니다. 사전 예약이 필수이며, 권역 동선·관리사 일정에 따라 가능 여부가 달라집니다.</li>'
+        '<li><strong>주말·공휴일</strong> — 호텔 객실 방문 비중이 가정 방문보다 더 커지는 경향이 있습니다. 휴양 일정과 결합된 진행이 자주 안내됩니다.</li>'
+        '</ul>'
+        '</section>'
+    )
+
+
+def _dong_place_section_html(dong_name, parent_name):
+    intro = _DONG_PLACE_INTRO_TPL[
+        _dong_pick(dong_name, "place", len(_DONG_PLACE_INTRO_TPL))
+    ].format(dong=dong_name, parent=parent_name)
+    return (
+        '<section class="block">'
+        f'<h2>{dong_name} 진행 장소 유형</h2>'
+        f'<p>{intro}</p>'
+        '<ul>'
+        '<li><strong>호텔 객실</strong> — 출장·비즈니스·관광 일정과 함께 자주 진행됩니다. 체크인 시각·룸 컨디션·층 정보를 사전 확인 후 도착 시각을 정합니다. <a href="/service/hotel-massage/">호텔 방문 마사지</a> 페이지 참고.</li>'
+        f'<li><strong>가정</strong> — {parent_name} 주거 단지에서 평일 저녁 비중이 가장 큰 유형입니다. 공동현관 비밀번호·층 안내·반려동물 유무를 사전 확인합니다.</li>'
+        '<li><strong>오피스텔</strong> — 1인 가구·주거형 오피스텔에서 진행되며, 무인 출입 시스템·키오스크·엘리베이터 카드 키 등 출입 방식 사전 안내가 필요합니다.</li>'
+        '<li><strong>펜션·풀빌라</strong> — 휴양 일정과 결합되는 유형으로, 진입로 폭·주차 가능 여부·도착 안내(외부 조명·도어 잠금 방식) 등을 사전에 함께 확인합니다.</li>'
+        '<li><strong>기업·사무실</strong> — 사내 휴게 공간 컨디션에 맞춰 진행됩니다. 단체 일정의 경우 사전 일정 조율이 필요합니다. <a href="/service/office-massage/">기업 출장</a> 페이지 참고.</li>'
+        '</ul>'
+        '</section>'
+    )
+
+
+def _dong_check_section_html(dong_name):
+    return (
+        '<section class="block">'
+        f'<h2>{dong_name} 이용 전 확인 사항</h2>'
+        f'<p>{dong_name} 일대에서 출장마사지를 이용하기 전, 다음 사항을 사전 전화 상담에서 함께 안내드립니다. 이는 안전한 진행 환경과 신뢰 가능한 일정 운영을 위한 기본 확인 절차입니다.</p>'
+        '<ul>'
+        '<li><strong>운영 주체</strong> — YH LAB(대표 김유환), 사업자등록번호 815-26-00585, 본사 경기도 파주시 청석로 268, 대표 전화 0508-202-4719</li>'
+        '<li><strong>가능 시간 범위</strong> — 전화 상담은 24시간 가능하나, 진행 시간은 권역별로 일부 제한이 있을 수 있습니다.</li>'
+        '<li><strong>코스·가격</strong> — <a href="/reservation/price/">가격 및 코스 안내</a> 페이지에서 코스별 가격·길이·옵션 사전 확인이 가능합니다.</li>'
+        '<li><strong>이용 전 권장</strong> — <a href="/reservation/check-before-use/">이용 전 확인사항</a> 페이지에서 음주·식사·복장·공간 정리 등 사전 권장 사항을 확인해 주세요.</li>'
+        '<li><strong>취소·환불</strong> — <a href="/reservation/cancel-refund/">취소·환불 규정</a> 페이지에 시간대별 환불 기준이 명시되어 있습니다.</li>'
+        '<li><strong>결제 방식</strong> — <a href="/reservation/payment/">결제 안내</a> 페이지에서 가능한 결제 수단을 확인하실 수 있습니다.</li>'
+        '</ul>'
+        '</section>'
+    )
+
+
+# FAQ 풀(8개) — 동/부모 이름 주입으로 변형
+_DONG_FAQ_POOL = [
+    ("{dong} 권역 야간 시간대도 이용 가능한가요?",
+     "{dong}을 포함한 {parent} 권역의 야간 시간대 가능 여부는 권역 동선과 관리사 일정에 따라 달라집니다. 22시 이후 호텔·오피스텔 객실 방문은 권역에 따라 가능하며, 심야 시간대는 사전 예약이 필수입니다. 가장 정확한 가능 여부는 24시간 상담 전화(0508-202-4719)에서 확인됩니다."),
+    ("{dong}에서 호텔 객실 진행도 가능한가요?",
+     "{parent} 권역의 호텔 객실 진행은 가능합니다. 다만 호텔별 룸서비스 정책·체크인 컨디션·층 출입 제한 등이 있을 수 있어, 호텔명·체크인 시각·룸 번호를 사전 전화에서 함께 안내해 주시면 권역 동선과 함께 안내드립니다."),
+    ("{dong} 출장마사지 코스 길이는 어떻게 정하나요?",
+     "코스는 60·90·120·150분 단위로 운영되며, 처음 이용 시 90분 또는 120분이 가장 자주 권해집니다. 사용자 컨디션·일정 여유·인원 수에 따라 사전 전화에서 함께 조정됩니다. 코스별 가격은 <a href=\"/reservation/price/\">가격 및 코스 안내</a> 페이지에서 확인하실 수 있습니다."),
+    ("{dong}에서 커플 마사지(2인 동시)도 가능한가요?",
+     "가능합니다. 2인 동시 진행은 가정·호텔·펜션 모두 진행 가능하며, 공간의 폭과 침구 배치에 따라 일부 사전 확인이 필요할 수 있습니다. 자세한 안내는 <a href=\"/service/couple-massage/\">커플 마사지</a> 페이지를 참고하시거나 전화 상담으로 확인 가능합니다."),
+    ("{dong} 권역 결제는 어떻게 하나요?",
+     "현장 결제·계좌 이체·카드 결제 등 다양한 수단이 지원됩니다. 세금계산서·영수증이 필요한 경우 사전에 요청해 주시면 함께 준비됩니다. 결제 수단별 상세 안내는 <a href=\"/reservation/payment/\">결제 안내</a> 페이지에서 확인하실 수 있습니다."),
+    ("{dong}에서 예약 시 어떤 정보를 알려드려야 하나요?",
+     "도착 희망 시각, 진행 장소 유형(호텔·가정·오피스텔·펜션)과 정확한 위치·층, 인원 수, 코스 길이·종류, 그리고 공동현관·엘리베이터 출입 방식 등이 사전 전화에서 함께 확인됩니다. 자세한 절차는 <a href=\"/reservation/how-to-book/\">예약 방법</a> 페이지에 정리되어 있습니다."),
+    ("{dong} 일정을 갑작스럽게 변경할 수 있나요?",
+     "사전 전화로 시간·장소 변경은 가능합니다. 다만 시간대에 따라 제약이 있을 수 있으며, 변경 가능 시점·환불 기준은 <a href=\"/reservation/cancel-refund/\">취소·환불 규정</a> 페이지에 명시되어 있습니다. 가능한 한 사전에 연락해 주시면 일정 조율이 매끄럽습니다."),
+    ("{dong} 첫 이용입니다. 어떤 코스를 권하시나요?",
+     "출장마사지를 처음 이용하시는 경우, 부드러운 압의 전신 이완 코스인 <a href=\"/service/swedish/\">스웨디시</a> 90분이 가장 자주 권해집니다. 컨디션·목적(휴식·회복·자세 교정·수면 보조)에 맞춰 사전 전화에서 함께 권해드립니다."),
+]
+
+
+def _dong_faq_section_html(dong_name, parent_name):
+    # 8개 중 해시로 4개 선택 (순환)
+    base = _dong_pick(dong_name, "faq", len(_DONG_FAQ_POOL))
+    chosen = [_DONG_FAQ_POOL[(base + i) % len(_DONG_FAQ_POOL)] for i in range(4)]
+    rows = "".join(
+        f"<details><summary>{q.format(dong=dong_name, parent=parent_name)}</summary>"
+        f"<p>{a.format(dong=dong_name, parent=parent_name)}</p></details>"
+        for q, a in chosen
+    )
+    return (
+        '<section class="block">'
+        f'<h2>{dong_name} 자주 묻는 질문</h2>'
+        f'<div class="faq">{rows}</div>'
+        '</section>'
+    )
+
+
+def _dong_operator_info_html():
+    return (
+        '<section class="block">'
+        '<h2>운영 정보 (E-E-A-T)</h2>'
+        '<p>본 안내 페이지는 <strong>YH LAB(서비스명 바로GO)</strong>가 운영합니다. 본사는 경기도 파주시 청석로 268에 위치하며, 사업자등록번호는 <strong>815-26-00585</strong>, 대표자는 <strong>김유환</strong>입니다. 대표 전화 <strong>0508-202-4719</strong>로 24시간 예약·상담이 가능합니다.</p>'
+        '<p>YH LAB은 출장마사지·홈타이·스웨디시·아로마·스포츠·커플·호텔·기업 출장 등 사용자의 공간에서 진행되는 서비스만을 안내하며, 본 페이지의 정보는 실제 운영 기준에 따라 작성·관리됩니다. 권역별 가능 시간·코스·진행 장소 유형은 운영 상황에 따라 조정될 수 있어, 가장 정확한 정보는 전화 상담에서 안내드립니다.</p>'
+        '</section>'
+    )
+
+
+def _dong_check_before_section(dong_name, parent_name):
+    """예약 전 확인할 부분 — 방문 가능 시간, 건물 출입, 주차, 코스 소요 시간을 통합."""
+    intro = _DONG_TIME_INTRO_TPL[
+        _dong_pick(dong_name, "check", len(_DONG_TIME_INTRO_TPL))
+    ].format(dong=dong_name, parent=parent_name)
+    return (
+        '<section class="block">'
+        f'<h2>{dong_name}에서 예약 전 확인할 부분</h2>'
+        f'<p>{intro} 아래 항목은 사전 전화 상담에서 함께 확인되는 기본 정보이며, 이를 사전에 정리해 주시면 일정 확정과 이동 시간이 훨씬 매끄럽습니다.</p>'
+        '<ul>'
+        f'<li><strong>방문 가능 시간</strong> — {parent_name} 권역은 평일 저녁(19~22시)이 가장 활발하며, 22시 이후 야간 시간대는 호텔·오피스텔 객실 방문 중심입니다. 심야(01시 이후)는 권역 일부에 한해 가능하며 사전 예약이 필수입니다.</li>'
+        '<li><strong>건물 출입 방식</strong> — 공동현관 비밀번호, 엘리베이터 카드 키, 무인 출입 시스템(키오스크) 유무, 호텔의 경우 객실 호수와 체크인 컨디션을 사전에 알려 주시면 도착 시간이 일정대로 유지됩니다.</li>'
+        '<li><strong>주차 가능 여부</strong> — 가정·오피스텔의 경우 방문자 주차 가능 여부, 호텔의 경우 발렛 운영 여부, 펜션·풀빌라의 경우 진입로 폭과 주차 공간을 사전 확인합니다.</li>'
+        '<li><strong>코스 소요 시간</strong> — 코스는 60·90·120·150분 단위로 운영되며, 도착 안내·준비·정리 시간이 별도 약 10~15분 추가됩니다. 일정 사이 충분한 여유를 잡아 주시면 코스 진행이 차분히 마무리됩니다.</li>'
+        '<li><strong>인원·옵션</strong> — 1인·2인(커플) 동시 진행 여부, 코스 종류(스웨디시·아로마·홈타이·스포츠), 추가 옵션(아로마 오일 변경·핫스톤·집중 부위 등)도 사전에 함께 정합니다.</li>'
+        '<li><strong>건강·컨디션</strong> — 임신, 골절·외상, 고열, 음주 직후 등은 진행 가능 여부가 달라질 수 있어 사전 상담 단계에서 함께 안내합니다.</li>'
+        '</ul>'
+        '</section>'
+    )
+
+
+def _dong_course_summary_section(dong_name):
+    """출장마사지 코스 안내 — 동 페이지용 짧고 명확한 코스 종류 정리."""
+    return (
+        '<section class="block">'
+        f'<h2>{dong_name} 출장마사지 코스 안내</h2>'
+        f'<p>{dong_name} 일대에서 운영되는 출장마사지 코스는 다음 유형으로 안내됩니다. 본인의 컨디션·목적·인원 수에 맞춰 사전 전화 상담에서 함께 권해드리며, 각 코스 상세는 별도 페이지에서 확인하실 수 있습니다.</p>'
+        '<ul>'
+        '<li><a href="/service/swedish/"><strong>스웨디시 마사지</strong></a> — 부드러운 압의 전신 이완 코스. 출장마사지 첫 이용에 가장 자주 권해집니다.</li>'
+        '<li><a href="/service/aroma/"><strong>아로마 마사지</strong></a> — 에센셜 오일을 활용한 향기 케어. 수면 보조·스트레스 완화에 적합합니다.</li>'
+        '<li><a href="/service/hometai/"><strong>홈타이</strong></a> — 태국식 스트레칭과 압 기반. 근육 이완·자세 교정에 초점이 맞춰진 코스입니다.</li>'
+        '<li><a href="/service/sports-massage/"><strong>스포츠 마사지</strong></a> — 운동 후 회복·뭉친 부위 집중 케어가 필요한 분께 권해집니다.</li>'
+        '<li><a href="/service/couple-massage/"><strong>커플 마사지</strong></a> — 2인 동시 진행 코스. 호텔·가정·펜션 모두 가능합니다.</li>'
+        '<li><a href="/service/hotel-massage/"><strong>호텔 방문 마사지</strong></a> — 출장·관광 일정 호텔 객실에서 진행되는 유형입니다.</li>'
+        '<li><a href="/service/business-trip-massage/"><strong>출장마사지 종합</strong></a> — 코스 선택을 함께 상의하고 싶으신 경우의 종합 안내 페이지입니다.</li>'
+        '</ul>'
+        '</section>'
+    )
+
+
+def _dong_price_summary_section(dong_name, parent_name):
+    """가격 안내 요약 — 동 페이지에는 표를 반복하지 않고 짧은 요약 + /price/ 링크."""
+    return (
+        '<section class="block">'
+        f'<h2>{dong_name} 출장마사지 가격 안내</h2>'
+        f'<p>{dong_name}({parent_name}) 일대의 출장마사지 가격은 <strong>코스 시간(60·90·120·150분)</strong>, <strong>진행 장소 유형(호텔·가정·오피스텔·펜션)</strong>, <strong>예약 시간대(주간·저녁·야간·심야)</strong>에 따라 달라질 수 있습니다. 일반적으로 60·90·120분 코스가 가장 자주 안내되며, 시간·코스별 기준 가격은 <a href="/reservation/price/"><strong>가격 안내 페이지</strong></a>에서 확인하실 수 있습니다.</p>'
+        f'<p>정확한 최종 금액은 사전 전화 상담에서 일정·진행 장소·코스가 확정된 직후 함께 안내됩니다. 사전 동의 없는 추가 비용은 부과되지 않으며, 결제 방식은 <a href="/reservation/payment/">결제 안내</a> 페이지에서 확인하실 수 있습니다.</p>'
+        '</section>'
+    )
+
+
+def _dong_nearby_section(dong_name, parent_name, parent_url, region_name, sibling_card_html):
+    """주변 함께 찾는 지역 — sibling chips + 부모/지역 백링크 종합."""
+    return (
+        '<section class="block">'
+        f'<h2>{dong_name} 주변 함께 찾는 지역</h2>'
+        f'<p>{dong_name}을 검색하시는 분들은 같은 {parent_name} 권역의 다른 행정 단위 안내도 함께 찾아보십니다. '
+        f'권역 전체 안내가 필요하실 경우 <a href="{parent_url}"><strong>{parent_name} 전체 안내</strong></a>를, '
+        f'{region_name} 전체 지역 목록은 <a href="/area/"><strong>지역별 찾기</strong></a> 페이지에서 이동하실 수 있습니다.</p>'
+        + (sibling_card_html or '')
+        + '</section>'
+    )
+
+
+def _dong_verification_section():
+    """바로GO 검증 기준 — E-E-A-T 신뢰 신호. 모든 페이지 공통 운영 정보."""
+    return (
+        '<section class="block">'
+        '<h2>바로GO 검증 기준</h2>'
+        '<p>본 안내 페이지는 <strong>YH LAB(서비스명 바로GO)</strong>가 운영합니다. 출장마사지 안내·예약·상담은 다음 기준에 따라 운영됩니다.</p>'
+        '<ul>'
+        '<li><strong>운영 주체</strong> — YH LAB, 대표 김유환, 사업자등록번호 815-26-00585, 본사 경기도 파주시 청석로 268. 정식 사업자등록 정보가 모든 페이지에 공개되어 있습니다.</li>'
+        '<li><strong>상담 응대</strong> — 0508-202-4719 대표 번호로 24시간 전화 상담이 진행되며, 모든 상담은 일정·코스·진행 장소·금액을 사전에 명확히 합의한 후에만 예약이 확정됩니다.</li>'
+        '<li><strong>코스 안내 기준</strong> — 코스 길이·진행 방식·예상 비용을 사전에 명시하며, 사전 동의 없는 추가 비용·옵션 변경은 부과되지 않습니다. "최저가", "100% 보장" 등 과장 표현은 사용하지 않습니다.</li>'
+        '<li><strong>운영 시간·권역 기준</strong> — 가능 시간·이동 가능 여부는 권역 단위로 운영되며, 동 단위 진입 환경(공동현관·주차·진입 도로)은 일정 확정 단계에서 함께 확인됩니다.</li>'
+        '<li><strong>취소·환불·결제</strong> — <a href="/reservation/cancel-refund/">취소·환불 규정</a>과 <a href="/reservation/payment/">결제 안내</a> 페이지에 시간대별 기준이 명시되어 있으며, 모든 예약은 해당 기준에 따라 처리됩니다.</li>'
+        '<li><strong>이용 전 안내</strong> — <a href="/reservation/check-before-use/">이용 전 확인사항</a> 페이지에서 건강 상태·공간 조건·시간 일정 점검 항목을 사전에 안내하고 있습니다.</li>'
+        '</ul>'
+        '</section>'
+    )
+
+
+def _build_dong_rich_body(*, dong_name, parent_name, region_name, parent_char,
+                          parent_url, sibling_card_html, extra_intro_paragraph=None):
+    """동 페이지 공통 본문(약 2,000~2,500자) — 7섹션 흐름.
+    1) 출장마사지 이용 안내  2) 예약 전 확인할 부분  3) 코스 안내
+    4) 가격 안내(짧은 요약)  5) 주변 함께 찾는 지역  6) 바로GO 검증 기준  7) FAQ
+    """
+    intro_long = _dong_long_intro(dong_name, parent_name, parent_char or region_name)
+    s1_parts = [
+        '<section class="block">',
+        f'<h2>{dong_name} 출장마사지 이용 안내</h2>',
+        f'<p>{intro_long}</p>',
+    ]
+    if extra_intro_paragraph:
+        s1_parts.append(f'<p>{extra_intro_paragraph}</p>')
+    if parent_char and parent_char != extra_intro_paragraph:
+        s1_parts.append(
+            f'<p><strong>{parent_name} 권역 전반 특성</strong>: {parent_char}</p>'
+        )
+    s1_parts.append('</section>')
+    section1 = ''.join(s1_parts)
+
+    return (
+        section1
+        + _dong_check_before_section(dong_name, parent_name)
+        + _dong_course_summary_section(dong_name)
+        + _dong_price_summary_section(dong_name, parent_name)
+        + _dong_nearby_section(dong_name, parent_name, parent_url, region_name, sibling_card_html)
+        + _dong_verification_section()
+        + _dong_faq_section_html(dong_name, parent_name)
+        + _region_cta_html(dong_name)
+    )
+
+
+# Seoul 동 페이지 빌드 (helpers 정의 완료 후 실행)
+_build_seoul_dong_pages()
 
 
 def _build_subordinate_dong_pages(region_slug, region_name, district):
@@ -2732,14 +3042,11 @@ def _build_subordinate_dong_pages(region_slug, region_name, district):
     sorted_dongs = sorted(consolidated)
     for dong_name in consolidated:
         dong_slug = slug_map.get(dong_name) or _romanize_dong(dong_name)
-        ti = _dong_pick(dong_name, "intro", len(_DONG_INTRO_TPL))
         di = _dong_pick(dong_name, "desc", len(_DONG_DESC_TPL))
-        pi = _dong_pick(dong_name, "pat", len(_DONG_PATTERN_TPL))
-        intro_text = _DONG_INTRO_TPL[ti].format(dong=dong_name, parent=parent_name, p_short=p_short)
         desc_text = _DONG_DESC_TPL[di].format(dong=dong_name, parent=parent_name, region=region_name)
-        pattern_text = _DONG_PATTERN_TPL[pi].format(dong=dong_name, parent=parent_name)
         if len(desc_text) > 160:
             desc_text = desc_text[:160].rsplit(' ', 1)[0]
+        intro_lede = _dong_long_intro(dong_name, parent_name, parent_char)
         siblings = [n for n in sorted_dongs if n != dong_name]
         sib_chips = "".join(
             f'<li class="has-link"><a href="/area/{region_slug}/{parent_slug}/{slug_map.get(s, _romanize_dong(s))}/">{s}'
@@ -2762,35 +3069,22 @@ def _build_subordinate_dong_pages(region_slug, region_name, district):
             f'<ul class="region-districts-grid">{sib_chips}</ul>'
             '</div></div></section>'
         ) if siblings else ''
-        char_section = (
-            '<section class="block">'
-            f'<h2>{dong_name} 권역 특성</h2>'
-            f'<p>{intro_text}</p>'
-            + (f'<p>참고 — {parent_name} 권역 전반: {parent_char}</p>' if parent_char else '')
-            + '</section>'
-        )
-        pattern_section = (
-            '<section class="block">'
-            f'<h2>{dong_name} 이용 패턴</h2>'
-            f'<p>{pattern_text}</p>'
-            '</section>'
-        )
-        backlink_section = (
-            '<section class="block">'
-            f'<h2>{dong_name} 방문 마사지 예약 안내</h2>'
-            f'<p>{dong_name} 일대 정확한 가능 시간·코스·이동 가능 여부는 전화 상담에서 안내됩니다. '
-            f'{region_name} {parent_name} 권역 전체 안내는 '
-            f'<a href="/area/{region_slug}/{parent_slug}/">{parent_name} 안내 페이지</a>를 참고하세요.</p>'
-            '</section>'
+        body_html = _build_dong_rich_body(
+            dong_name=dong_name,
+            parent_name=parent_name,
+            region_name=region_name,
+            parent_char=parent_char,
+            parent_url=f"/area/{region_slug}/{parent_slug}/",
+            sibling_card_html=sib_card,
         )
         add(
             path=f"area/{region_slug}/{parent_slug}/{dong_slug}/index.html",
             url=f"/area/{region_slug}/{parent_slug}/{dong_slug}/",
             slug=f"area-{region_slug}-{parent_slug}-{dong_slug}",
-            title=f"{dong_name} 방문 마사지 안내 · {parent_name} | {region_name} | 바로GO",
+            title=f"{dong_name} 출장마사지 안내 · {parent_name} | {region_name} | 바로GO",
             description=desc_text,
-            h1=f"{dong_name} 방문 마사지 이용 안내",
-            intro=f'<p class="lede">{intro_text}</p>' + _district_hero_cta_html(dong_name),
+            h1=f"{dong_name} 출장마사지 이용 안내",
+            intro=f'<p class="lede">{intro_lede}</p>' + _district_hero_cta_html(dong_name),
             breadcrumbs=[
                 ("홈", "/"),
                 ("지역별 찾기", "/area/"),
@@ -2798,7 +3092,7 @@ def _build_subordinate_dong_pages(region_slug, region_name, district):
                 (parent_name, f"/area/{region_slug}/{parent_slug}/"),
                 (dong_name, f"/area/{region_slug}/{parent_slug}/{dong_slug}/"),
             ],
-            body=char_section + pattern_section + sib_card + backlink_section + _region_cta_html(dong_name),
+            body=body_html,
             related=(
                 '<aside class="related">'
                 '<h2>관련 안내</h2>'
@@ -2807,6 +3101,8 @@ def _build_subordinate_dong_pages(region_slug, region_name, district):
                 f'<li><a href="/area/{region_slug}/">{region_name} 전체 안내</a></li>'
                 '<li><a href="/reservation/how-to-book/">예약 방법</a></li>'
                 '<li><a href="/reservation/price/">가격 및 코스 안내</a></li>'
+                '<li><a href="/reservation/check-before-use/">이용 전 확인사항</a></li>'
+                '<li><a href="/reservation/cancel-refund/">취소·환불 규정</a></li>'
                 '</ul>'
                 '</aside>'
             ),
@@ -3527,20 +3823,16 @@ def _build_gyeonggi_gu_pages():
                 body="".join(body_parts),
                 related=related_html,
             )
-            # 동 페이지들 (3차)
+            # 동 페이지들 (3차) — 통합 본문 빌더 사용
             consolidated = list(gu["_dong_slug_map"].keys())
             sorted_dongs = sorted(consolidated)
-            p_short = _dong_short_parent(gu["character"] or gu["lede"] or gu_name)
             for dong_name in consolidated:
                 dong_slug = gu["_dong_slug_map"][dong_name]
-                ti = _dong_pick(dong_name, "intro", len(_DONG_INTRO_TPL))
                 di = _dong_pick(dong_name, "desc", len(_DONG_DESC_TPL))
-                pi = _dong_pick(dong_name, "pat", len(_DONG_PATTERN_TPL))
-                intro_text = _DONG_INTRO_TPL[ti].format(dong=dong_name, parent=gu_name, p_short=p_short)
                 desc_text = _DONG_DESC_TPL[di].format(dong=dong_name, parent=gu_name, region=f"경기 {si_name}")
                 if len(desc_text) > 160:
                     desc_text = desc_text[:160].rsplit(' ', 1)[0]
-                pattern_text = _DONG_PATTERN_TPL[pi].format(dong=dong_name, parent=gu_name)
+                intro_lede = _dong_long_intro(dong_name, gu_name, gu["character"])
                 siblings = [n for n in sorted_dongs if n != dong_name]
                 sib_chips = "".join(
                     f'<li class="has-link"><a href="/area/gyeonggi/{si_slug}/{gu_slug}/{gu["_dong_slug_map"][s]}/">{s}'
@@ -3563,35 +3855,22 @@ def _build_gyeonggi_gu_pages():
                     f'<ul class="region-districts-grid">{sib_chips}</ul>'
                     '</div></div></section>'
                 ) if siblings else ''
-                char_section = (
-                    '<section class="block">'
-                    f'<h2>{dong_name} 권역 특성</h2>'
-                    f'<p>{intro_text}</p>'
-                    f'<p>참고 — {gu_name} 권역 전반: {gu["character"]}</p>'
-                    '</section>'
-                )
-                pattern_section = (
-                    '<section class="block">'
-                    f'<h2>{dong_name} 이용 패턴</h2>'
-                    f'<p>{pattern_text}</p>'
-                    '</section>'
-                )
-                backlink_section = (
-                    '<section class="block">'
-                    f'<h2>{dong_name} 방문 마사지 예약 안내</h2>'
-                    f'<p>{dong_name} 일대 정확한 가능 시간·코스·이동 가능 여부는 전화 상담에서 안내됩니다. '
-                    f'경기 {si_name} {gu_name} 권역 전체 안내는 '
-                    f'<a href="/area/gyeonggi/{si_slug}/{gu_slug}/">{gu_name} 안내 페이지</a>를 참고하세요.</p>'
-                    '</section>'
+                body_html = _build_dong_rich_body(
+                    dong_name=dong_name,
+                    parent_name=gu_name,
+                    region_name=f"경기 {si_name}",
+                    parent_char=gu["character"],
+                    parent_url=f"/area/gyeonggi/{si_slug}/{gu_slug}/",
+                    sibling_card_html=sib_card,
                 )
                 add(
                     path=f"area/gyeonggi/{si_slug}/{gu_slug}/{dong_slug}/index.html",
                     url=f"/area/gyeonggi/{si_slug}/{gu_slug}/{dong_slug}/",
                     slug=f"area-gyeonggi-{si_slug}-{gu_slug}-{dong_slug}",
-                    title=f"{dong_name} 방문 마사지 안내 · {gu_name} | {si_name} | 경기 | 바로GO",
+                    title=f"{dong_name} 출장마사지 안내 · {gu_name} | {si_name} | 경기 | 바로GO",
                     description=desc_text,
-                    h1=f"{dong_name} 방문 마사지 이용 안내",
-                    intro=f'<p class="lede">{intro_text}</p>' + _district_hero_cta_html(dong_name),
+                    h1=f"{dong_name} 출장마사지 이용 안내",
+                    intro=f'<p class="lede">{intro_lede}</p>' + _district_hero_cta_html(dong_name),
                     breadcrumbs=[
                         ("홈", "/"),
                         ("지역별 찾기", "/area/"),
@@ -3600,7 +3879,7 @@ def _build_gyeonggi_gu_pages():
                         (gu_name, f"/area/gyeonggi/{si_slug}/{gu_slug}/"),
                         (dong_name, f"/area/gyeonggi/{si_slug}/{gu_slug}/{dong_slug}/"),
                     ],
-                    body=char_section + pattern_section + sib_card + backlink_section + _region_cta_html(dong_name),
+                    body=body_html,
                     related=(
                         '<aside class="related">'
                         '<h2>관련 안내</h2>'
@@ -3609,6 +3888,8 @@ def _build_gyeonggi_gu_pages():
                         f'<li><a href="/area/gyeonggi/{si_slug}/">{si_name} 전체 안내</a></li>'
                         '<li><a href="/area/gyeonggi/">경기 전체 안내</a></li>'
                         '<li><a href="/reservation/how-to-book/">예약 방법</a></li>'
+                        '<li><a href="/reservation/price/">가격 및 코스 안내</a></li>'
+                        '<li><a href="/reservation/check-before-use/">이용 전 확인사항</a></li>'
                         '</ul>'
                         '</aside>'
                     ),
@@ -5927,32 +6208,80 @@ add(
 
 add(
   path="reservation/price/index.html", url="/reservation/price/", slug="price",
-  title="가격 및 코스 안내 | 코스·시간·이동 기준 | 바로GO",
-  description="출장마사지 가격이 달라지는 기준(코스 길이·서비스 유형·시간대·이동 거리)을 정리했습니다. 정확한 비용은 예약 단계에서 안내됩니다.",
-  h1="가격 및 코스 안내",
-  intro='<p class="lede">바로GO는 전국 단일가가 아닌, 코스·시간·이동 기반의 안내를 사용합니다. 정확한 금액은 상담 단계에서 미리 안내되므로 예약 후 추가로 결정되는 비용은 없습니다.</p>',
-  breadcrumbs=[("홈","/"),("예약 안내","/reservation/"),("가격 및 코스","/reservation/price/")],
+  title="출장마사지 가격 안내 | 코스·시간대별 기준 | 바로GO",
+  description="출장마사지 코스별(스웨디시·아로마·홈타이·스포츠·커플) 시간 기준 가격 안내. 60·90·120·150분 단위 기준 금액과 시간대·진행 장소별 변동 기준을 정리했습니다.",
+  h1="출장마사지 가격 안내",
+  intro='<p class="lede">바로GO는 코스·시간·진행 장소·예약 시간대 기반으로 가격이 안내됩니다. 본 페이지에는 코스별 기준 금액을 정리해 두었으며, 정확한 최종 금액은 사전 전화 상담에서 일정·진행 장소가 확정된 직후 함께 안내됩니다. 사전 동의 없는 추가 비용은 부과되지 않습니다.</p>',
+  breadcrumbs=[("홈","/"),("예약 안내","/reservation/"),("가격 안내","/reservation/price/")],
   body="""
+<section class="block">
+<h2>코스별 기준 가격 (시간 단위 · "부터" 기준)</h2>
+<p>아래 가격은 코스별 일반 권역 기준 시작 금액입니다. 진행 장소·예약 시간대·이동 거리에 따라 일부 조정될 수 있으며, 최종 금액은 예약 상담 시 안내됩니다.</p>
+
+<h3>스웨디시 코스</h3>
+<ul class="check-list">
+<li>60분 — 00,000원부터</li>
+<li>90분 — 00,000원부터</li>
+<li>120분 — 00,000원부터</li>
+<li>150분 — 00,000원부터</li>
+</ul>
+
+<h3>아로마 코스</h3>
+<ul class="check-list">
+<li>60분 — 00,000원부터</li>
+<li>90분 — 00,000원부터</li>
+<li>120분 — 00,000원부터</li>
+</ul>
+
+<h3>홈타이 코스</h3>
+<ul class="check-list">
+<li>60분 — 00,000원부터</li>
+<li>90분 — 00,000원부터</li>
+<li>120분 — 00,000원부터</li>
+</ul>
+
+<h3>스포츠 마사지 코스</h3>
+<ul class="check-list">
+<li>60분 — 00,000원부터</li>
+<li>90분 — 00,000원부터</li>
+</ul>
+
+<h3>커플(2인 동시) 코스</h3>
+<ul class="check-list">
+<li>60분 — 00,000원부터 (2인 합산)</li>
+<li>90분 — 00,000원부터 (2인 합산)</li>
+<li>120분 — 00,000원부터 (2인 합산)</li>
+</ul>
+</section>
+
 <section class="block">
 <h2>가격이 달라지는 4가지 기준</h2>
 <ol class="steps">
-<li><strong>코스 길이</strong><p>60 / 90 / 120분 기준으로 비용이 구분됩니다.</p></li>
-<li><strong>서비스 유형</strong><p>스웨디시·아로마·홈타이·스포츠 등 유형에 따라 기준이 다릅니다.</p></li>
-<li><strong>시간대</strong><p>심야 시간대는 추가 비용이 발생할 수 있습니다.</p></li>
-<li><strong>이동 거리</strong><p>광역 이동·외곽 지역은 이동료가 추가될 수 있습니다.</p></li>
+<li><strong>코스 길이</strong><p>60 / 90 / 120 / 150분 단위로 기준 금액이 구분됩니다. 첫 이용 시 90분 또는 120분이 가장 자주 권해집니다.</p></li>
+<li><strong>코스 종류</strong><p>스웨디시·아로마·홈타이·스포츠·커플 등 유형에 따라 기준 금액이 다릅니다.</p></li>
+<li><strong>예약 시간대</strong><p>심야(01시 이후) 시간대는 일부 추가 비용이 발생할 수 있습니다.</p></li>
+<li><strong>이동 거리·진행 장소</strong><p>광역 이동·외곽 지역·펜션 등 진입 거리·장소 유형에 따라 일부 이동료가 추가될 수 있습니다.</p></li>
 </ol>
 </section>
+
 <section class="block">
 <h2>가격 안내 원칙</h2>
 <ul class="check-list">
-<li>예약 확정 전 모든 비용을 미리 안내합니다.</li>
-<li>예약 이후 사전 동의 없는 추가 비용은 발생하지 않습니다.</li>
-<li>"무조건 1위", "최저가 보장"과 같은 표현은 사용하지 않습니다.</li>
+<li>예약 확정 전 모든 비용을 사전에 안내합니다.</li>
+<li>예약 이후 사전 동의 없는 추가 비용은 부과되지 않습니다.</li>
+<li>"무조건 1위", "최저가 보장", "100% 만족" 등 과장 표현은 사용하지 않습니다.</li>
+<li>실제와 다른 미끼 가격은 표기하지 않습니다. 기준 가격은 일반 권역 기준이며, 진행 장소·시간대에 따라 조정됩니다.</li>
 </ul>
 </section>
+
 <section class="block">
-<h2>참고 안내</h2>
-<p>정확한 비용은 지역·시간·코스 조합에 따라 달라지므로 본 페이지에는 고정 금액을 표기하지 않습니다. 상담 시 안내되는 금액 기준으로 결제하시면 됩니다. 결제 방법은 <a href="/reservation/payment/">결제 안내</a> 페이지를 참고하세요.</p>
+<h2>참고 사항</h2>
+<ul class="check-list">
+<li>※ 지역, 시간대, 코스, 진행 장소에 따라 금액은 달라질 수 있습니다.</li>
+<li>※ 정확한 가격은 예약 상담 시 최종 안내됩니다.</li>
+<li>※ 결제 수단·세금계산서 등은 <a href="/reservation/payment/">결제 안내</a> 페이지를 참고해 주세요.</li>
+<li>※ 본 가격 안내 최종 업데이트: 2026년 5월 기준</li>
+</ul>
 </section>
 """,
 )
