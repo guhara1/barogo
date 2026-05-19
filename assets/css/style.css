@@ -4322,15 +4322,17 @@ body[data-page^="magazine-"] main > .container > article > .breadcrumbs {
   max-width: 880px;
   word-break: keep-all;
 }
+.mag-hero-banner .mag-hero-quote,
 .mag-hero-quote {
-  margin: 0;
-  font-size: clamp(15px, 1.5vw, 17px);
-  line-height: 1.7;
-  color: #ffb547;
-  font-style: normal;
-  font-weight: 600;
+  margin: 0 !important;
+  font-size: clamp(15px, 1.5vw, 17px) !important;
+  line-height: 1.7 !important;
+  color: #ffb547 !important;
+  font-style: normal !important;
+  font-weight: 600 !important;
   max-width: 720px;
   letter-spacing: -0.005em;
+  opacity: 1 !important;
 }
 
 /* ============================================================
