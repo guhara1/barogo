@@ -40,7 +40,7 @@ Allow: /
 
 # 사이트맵 (절대 URL)
 Sitemap: https://barogo.vip/sitemap.xml
-Sitemap: https://barogo.vip/feed.xml
+Sitemap: https://barogo.vip/rss.xml
 
 # Host 힌트 (네이버·얀덱스 권장)
 Host: barogo.vip

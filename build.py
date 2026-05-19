@@ -319,7 +319,7 @@ PAGE_TPL = """<!DOCTYPE html>
 <meta name="googlebot" content="index,follow,max-image-preview:large,max-snippet:-1">
 <meta name="yeti" content="index,follow">
 <link rel="canonical" href="{url}">
-<link rel="alternate" type="application/rss+xml" title="바로GO 매거진 RSS" href="/feed.xml">
+<link rel="alternate" type="application/rss+xml" title="바로GO 매거진 RSS" href="/rss.xml">
 {verification}
 <meta property="og:type" content="{og_type}">
 <meta property="og:title" content="{title}">
@@ -13247,7 +13247,7 @@ def write_rss():
         '<channel>',
         '<title>바로GO 매거진 — 출장마사지 운영팀 안내</title>',
         f'<link>{SITE_ORIGIN}/magazine/</link>',
-        f'<atom:link href="{SITE_ORIGIN}/feed.xml" rel="self" type="application/rss+xml" />',
+        f'<atom:link href="{SITE_ORIGIN}/rss.xml" rel="self" type="application/rss+xml" />',
         '<description>출장마사지 운영팀이 직접 안내하는 코스·예약·라이프스타일·웰니스 매거진</description>',
         '<language>ko-KR</language>',
         f'<lastBuildDate>{rfc822(BUILD_DATE)}</lastBuildDate>',
@@ -13271,7 +13271,10 @@ def write_rss():
             '</item>',
         ]
     lines += ['</channel>', '</rss>']
-    (ROOT / "feed.xml").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    content = "\n".join(lines) + "\n"
+    # /rss.xml 을 주(主) 경로로 사용 (네이버·다음 관례) + /feed.xml 호환 별칭
+    (ROOT / "rss.xml").write_text(content, encoding="utf-8")
+    (ROOT / "feed.xml").write_text(content, encoding="utf-8")
 
 
 def write_robots():
@@ -13320,7 +13323,7 @@ def write_robots():
         "",
         "# 사이트맵 (절대 URL)",
         f"Sitemap: {SITE_ORIGIN}/sitemap.xml",
-        f"Sitemap: {SITE_ORIGIN}/feed.xml",
+        f"Sitemap: {SITE_ORIGIN}/rss.xml",
         "",
         "# Host 힌트 (네이버·얀덱스 권장)",
         f"Host: {SITE_ORIGIN.replace('https://','').replace('http://','')}",
