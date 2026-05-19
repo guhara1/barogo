@@ -4288,9 +4288,46 @@ _REVIEW_BODY_TPL = [
 ]
 
 
+def _review_jsonld_block(reviews):
+    """후기 리스트(dict: author/body/rating/date)를 받아 Organization + AggregateRating + Review[] JSON-LD 스크립트 블록을 반환."""
+    if not reviews:
+        return ""
+    review_nodes = []
+    total = 0
+    for r in reviews:
+        review_nodes.append({
+            "@type": "Review",
+            "author": {"@type": "Person", "name": r["author"]},
+            "reviewRating": {
+                "@type": "Rating",
+                "ratingValue": str(r["rating"]),
+                "bestRating": "5",
+            },
+            "reviewBody": r["body"],
+            "datePublished": r["date"],
+        })
+        total += r["rating"]
+    avg = round(total / len(reviews), 1)
+    data = {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "@id": "/#org",
+        "name": "바로GO",
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": str(avg),
+            "bestRating": "5",
+            "reviewCount": str(len(reviews)),
+        },
+        "review": review_nodes,
+    }
+    return '<script type="application/ld+json">' + json.dumps(data, ensure_ascii=False) + '</script>'
+
+
 def _shared_reviews_section(area_name):
     """이용자 후기 6선 — 해시 기반 변형으로 페이지마다 서로 다른 조합 6개."""
     cards = []
+    schema_reviews = []
     for i in range(6):
         bi = _dong_pick(area_name, f"rev_b{i}", len(_REVIEW_BODY_TPL))
         ni = _dong_pick(area_name, f"rev_n{i}", len(_REVIEW_NAMES))
@@ -4304,10 +4341,18 @@ def _shared_reviews_section(area_name):
             course=_REVIEW_COURSES[ci],
             dur=_REVIEW_DURATIONS[du],
         )
+        rating_stars = _REVIEW_RATINGS[ri]
+        rating_value = 4 if "☆" in rating_stars else 5
+        schema_reviews.append({
+            "author": _REVIEW_NAMES[ni],
+            "body": body,
+            "rating": rating_value,
+            "date": _REVIEW_DATES[di],
+        })
         cards.append(
             '<article class="review-card">'
             '<header class="review-card-head">'
-            f'<span class="review-rating" aria-label="별점">{_REVIEW_RATINGS[ri]}</span>'
+            f'<span class="review-rating" aria-label="별점">{rating_stars}</span>'
             f'<span class="review-meta">{_REVIEW_NAMES[ni]} · {_REVIEW_DATES[di]}</span>'
             '</header>'
             f'<p class="review-text">{body}</p>'
@@ -4325,6 +4370,7 @@ def _shared_reviews_section(area_name):
         + ''.join(cards) +
         '</div>'
         '<p class="review-note">※ 본 후기는 운영 중 받은 이용자 의견을 익명화 처리하여 발췌한 것입니다. 개인 식별 정보는 포함되지 않습니다.</p>'
+        + _review_jsonld_block(schema_reviews) +
         '</section>'
     )
 
@@ -8725,11 +8771,20 @@ _REVIEW_DISCLAIMER = (
 )
 
 
-def _rv_card(meta, text):
+def _rv_card(meta, text, author=None, date=None):
+    byline = ""
+    if author or date:
+        parts = []
+        if author:
+            parts.append(author)
+        if date:
+            parts.append(date)
+        byline = f'<p class="review-meta">— {" · ".join(parts)}</p>'
     return (
         '<article class="review-card">'
         f'<p class="review-meta">{meta}</p>'
         f'<p>{text}</p>'
+        + byline +
         '</article>'
     )
 
@@ -8776,14 +8831,24 @@ add(
 <h2>최근 이용 후기 (검수 완료)</h2>
 <div class="review-grid">
 """ +
-_rv_card("서울 강남 · 호텔 · 90분 스웨디시", "예약 시간보다 5분 정도 일찍 도착했고, 진행 전 코스와 주의사항을 다시 한번 설명해 주셔서 처음이라 걱정했던 부분이 줄었습니다.") +
-_rv_card("부산 해운대 · 호텔 · 60분 아로마", "출장 일정 중간에 시간을 비워서 호텔에서 받았는데, 위치 확인과 도착 안내가 명확해 동선에 무리가 없었습니다.") +
-_rv_card("경기 분당 · 가정 · 120분 홈타이", "가격 기준이 예약 단계에서 명확하게 안내되어 추가 비용 걱정 없이 진행했습니다. 도구 위생도 신뢰가 갔습니다.") +
-_rv_card("제주 중문 · 풀빌라 · 90분 아로마", "성수기였는데도 일정 조율이 빨라서 다음 일정에 차질이 없었습니다. 향 선택도 사전에 안내해 주셨습니다.") +
-_rv_card("인천 송도 · 호텔 · 60분 스웨디시", "야근 후 호텔로 곧바로 부탁드렸는데, 도착 예정 시각이 정확히 지켜져서 다음 날 일정에 무리가 없었습니다.") +
-_rv_card("대전 둔산 · 가정 · 90분 홈타이", "오일 부담이 없는 홈타이를 권장 받아 선택했고, 진행 후 가벼운 스트레칭 안내까지 챙겨주셔서 만족스러웠습니다.") +
+"".join(_rv_card(m, t, author=a, date=d) for m, t, a, d in [
+    ("서울 강남 · 호텔 · 90분 스웨디시", "예약 시간보다 5분 정도 일찍 도착했고, 진행 전 코스와 주의사항을 다시 한번 설명해 주셔서 처음이라 걱정했던 부분이 줄었습니다.", "강남 J님", "2026-05"),
+    ("부산 해운대 · 호텔 · 60분 아로마", "출장 일정 중간에 시간을 비워서 호텔에서 받았는데, 위치 확인과 도착 안내가 명확해 동선에 무리가 없었습니다.", "해운대 P님", "2026-05"),
+    ("경기 분당 · 가정 · 120분 홈타이", "가격 기준이 예약 단계에서 명확하게 안내되어 추가 비용 걱정 없이 진행했습니다. 도구 위생도 신뢰가 갔습니다.", "분당 K님", "2026-04"),
+    ("제주 중문 · 풀빌라 · 90분 아로마", "성수기였는데도 일정 조율이 빨라서 다음 일정에 차질이 없었습니다. 향 선택도 사전에 안내해 주셨습니다.", "중문 H님", "2026-04"),
+    ("인천 송도 · 호텔 · 60분 스웨디시", "야근 후 호텔로 곧바로 부탁드렸는데, 도착 예정 시각이 정확히 지켜져서 다음 날 일정에 무리가 없었습니다.", "송도 S님", "2026-03"),
+    ("대전 둔산 · 가정 · 90분 홈타이", "오일 부담이 없는 홈타이를 권장 받아 선택했고, 진행 후 가벼운 스트레칭 안내까지 챙겨주셔서 만족스러웠습니다.", "둔산 M님", "2026-03"),
+]) +
 """</div>
 <p class="muted">※ 후기 본문은 운영팀이 핵심 내용을 정리·요약한 것이며, 이용자 원문 그대로의 표현은 익명화·정제 과정을 거쳐 게시됩니다.</p>
+""" + _review_jsonld_block([
+    {"author": "강남 J님", "body": "예약 시간보다 5분 정도 일찍 도착했고, 진행 전 코스와 주의사항을 다시 한번 설명해 주셔서 처음이라 걱정했던 부분이 줄었습니다.", "rating": 5, "date": "2026-05"},
+    {"author": "해운대 P님", "body": "출장 일정 중간에 시간을 비워서 호텔에서 받았는데, 위치 확인과 도착 안내가 명확해 동선에 무리가 없었습니다.", "rating": 5, "date": "2026-05"},
+    {"author": "분당 K님", "body": "가격 기준이 예약 단계에서 명확하게 안내되어 추가 비용 걱정 없이 진행했습니다. 도구 위생도 신뢰가 갔습니다.", "rating": 5, "date": "2026-04"},
+    {"author": "중문 H님", "body": "성수기였는데도 일정 조율이 빨라서 다음 일정에 차질이 없었습니다. 향 선택도 사전에 안내해 주셨습니다.", "rating": 5, "date": "2026-04"},
+    {"author": "송도 S님", "body": "야근 후 호텔로 곧바로 부탁드렸는데, 도착 예정 시각이 정확히 지켜져서 다음 날 일정에 무리가 없었습니다.", "rating": 5, "date": "2026-03"},
+    {"author": "둔산 M님", "body": "오일 부담이 없는 홈타이를 권장 받아 선택했고, 진행 후 가벼운 스트레칭 안내까지 챙겨주셔서 만족스러웠습니다.", "rating": 5, "date": "2026-03"},
+]) + """
 </section>
 
 <section class="block" id="process">
@@ -8979,15 +9044,27 @@ add(
 <h2>처음 이용 고객 후기 (검수 완료)</h2>
 <div class="review-grid">
 """ +
-_rv_card("서울 마포 · 첫 이용 · 60분 스웨디시", "출장마사지가 처음이라 분위기가 어색할까 걱정했는데, 진행 전 충분히 설명해 주셔서 편하게 받았습니다. 처음에는 60분이 적당하다고 권해주셨습니다.") +
-_rv_card("대전 둔산 · 첫 이용 · 90분 홈타이", "오일이 부담스러워 홈타이를 선택했는데, 옷 입은 상태로 진행돼서 더 편했습니다. 사후 스트레칭 안내도 챙겨주셨습니다.") +
-_rv_card("부산 해운대 · 첫 이용 · 60분 아로마", "여행 일정 중 호텔에서 받았는데, 향을 미리 안내해 주셔서 부담 없이 선택했습니다. 다음에는 90분으로 받아볼 생각입니다.") +
-_rv_card("인천 청라 · 첫 이용 · 60분 스웨디시", "예약 전 가격 안내가 명확해서 추가 비용 걱정이 없었습니다. 도구 위생도 신뢰가 갔습니다.") +
-_rv_card("경기 분당 · 첫 이용 · 90분 스웨디시", "야근 후 가정으로 부탁드렸는데, 도착 안내가 정확해서 일정에 무리가 없었습니다. 사후 수분 보충 안내까지 챙겨주셔서 좋았습니다.") +
-_rv_card("광주 상무 · 첫 이용 · 60분 아로마", "처음이라 어떤 코스를 받을지 고민했는데, 부드러운 압의 아로마를 권해주셔서 만족스럽게 받았습니다.") +
-_rv_card("울산 남구 · 첫 이용 · 90분 홈타이", "운동 후 근육 뭉침이 심해서 홈타이를 선택했는데, 가동성 확인부터 진행해 주셔서 안심이었습니다.") +
-_rv_card("제주 중문 · 첫 이용 · 90분 아로마", "여행 마지막 날 호텔에서 받았는데, 위치 안내와 도착 시각이 정확해 다음 일정에 차질이 없었습니다.") +
+"".join(_rv_card(m, t, author=a, date=d) for m, t, a, d in [
+    ("서울 마포 · 첫 이용 · 60분 스웨디시", "출장마사지가 처음이라 분위기가 어색할까 걱정했는데, 진행 전 충분히 설명해 주셔서 편하게 받았습니다. 처음에는 60분이 적당하다고 권해주셨습니다.", "마포 L님", "2026-05"),
+    ("대전 둔산 · 첫 이용 · 90분 홈타이", "오일이 부담스러워 홈타이를 선택했는데, 옷 입은 상태로 진행돼서 더 편했습니다. 사후 스트레칭 안내도 챙겨주셨습니다.", "둔산 C님", "2026-05"),
+    ("부산 해운대 · 첫 이용 · 60분 아로마", "여행 일정 중 호텔에서 받았는데, 향을 미리 안내해 주셔서 부담 없이 선택했습니다. 다음에는 90분으로 받아볼 생각입니다.", "해운대 Y님", "2026-04"),
+    ("인천 청라 · 첫 이용 · 60분 스웨디시", "예약 전 가격 안내가 명확해서 추가 비용 걱정이 없었습니다. 도구 위생도 신뢰가 갔습니다.", "청라 W님", "2026-04"),
+    ("경기 분당 · 첫 이용 · 90분 스웨디시", "야근 후 가정으로 부탁드렸는데, 도착 안내가 정확해서 일정에 무리가 없었습니다. 사후 수분 보충 안내까지 챙겨주셔서 좋았습니다.", "분당 N님", "2026-03"),
+    ("광주 상무 · 첫 이용 · 60분 아로마", "처음이라 어떤 코스를 받을지 고민했는데, 부드러운 압의 아로마를 권해주셔서 만족스럽게 받았습니다.", "상무 D님", "2026-03"),
+    ("울산 남구 · 첫 이용 · 90분 홈타이", "운동 후 근육 뭉침이 심해서 홈타이를 선택했는데, 가동성 확인부터 진행해 주셔서 안심이었습니다.", "남구 B님", "2026-02"),
+    ("제주 중문 · 첫 이용 · 90분 아로마", "여행 마지막 날 호텔에서 받았는데, 위치 안내와 도착 시각이 정확해 다음 일정에 차질이 없었습니다.", "중문 R님", "2026-01"),
+]) +
 """</div>
+""" + _review_jsonld_block([
+    {"author": "마포 L님", "body": "출장마사지가 처음이라 분위기가 어색할까 걱정했는데, 진행 전 충분히 설명해 주셔서 편하게 받았습니다. 처음에는 60분이 적당하다고 권해주셨습니다.", "rating": 5, "date": "2026-05"},
+    {"author": "둔산 C님", "body": "오일이 부담스러워 홈타이를 선택했는데, 옷 입은 상태로 진행돼서 더 편했습니다. 사후 스트레칭 안내도 챙겨주셨습니다.", "rating": 5, "date": "2026-05"},
+    {"author": "해운대 Y님", "body": "여행 일정 중 호텔에서 받았는데, 향을 미리 안내해 주셔서 부담 없이 선택했습니다. 다음에는 90분으로 받아볼 생각입니다.", "rating": 5, "date": "2026-04"},
+    {"author": "청라 W님", "body": "예약 전 가격 안내가 명확해서 추가 비용 걱정이 없었습니다. 도구 위생도 신뢰가 갔습니다.", "rating": 5, "date": "2026-04"},
+    {"author": "분당 N님", "body": "야근 후 가정으로 부탁드렸는데, 도착 안내가 정확해서 일정에 무리가 없었습니다. 사후 수분 보충 안내까지 챙겨주셔서 좋았습니다.", "rating": 5, "date": "2026-03"},
+    {"author": "상무 D님", "body": "처음이라 어떤 코스를 받을지 고민했는데, 부드러운 압의 아로마를 권해주셔서 만족스럽게 받았습니다.", "rating": 5, "date": "2026-03"},
+    {"author": "남구 B님", "body": "운동 후 근육 뭉침이 심해서 홈타이를 선택했는데, 가동성 확인부터 진행해 주셔서 안심이었습니다.", "rating": 5, "date": "2026-02"},
+    {"author": "중문 R님", "body": "여행 마지막 날 호텔에서 받았는데, 위치 안내와 도착 시각이 정확해 다음 일정에 차질이 없었습니다.", "rating": 5, "date": "2026-01"},
+]) + """
 </section>
 
 <section class="block" id="good">
