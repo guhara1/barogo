@@ -5829,11 +5829,12 @@ a.mag-meta-avatar { text-decoration: none !important; }
 /* 인접 자치구 — 칩 형태 (보조) */
 .rel-chip-list {
   list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex !important;
+  grid-template-columns: none !important;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 8px !important;
 }
 .rel-chip {
   display: inline-flex;
@@ -5862,6 +5863,88 @@ a.mag-meta-avatar { text-decoration: none !important; }
 .rel-chip-primary:hover {
   background: var(--color-accent-strong, #094238);
   color: #fff !important;
+}
+
+/* ── area 페이지 우선순위 덮어쓰기 ──
+   body[data-page^="area-"] .related li a (0,3,3) 가
+   .rel-chip / .rel-chip-primary (0,1,0) 을 덮어써서
+   "OO 전체" 칩 배경/글자가 흐릿하게 보이는 버그 픽스. */
+body[data-page^="area-"] .related-rich .rel-chip-list li a.rel-chip,
+.related-rich .rel-chip-list li a.rel-chip {
+  display: inline-flex !important;
+  align-items: center !important;
+  padding: 8px 16px !important;
+  background: #ffffff !important;
+  border: 1px solid var(--color-line) !important;
+  border-radius: 999px !important;
+  font-size: 13.5px !important;
+  font-weight: 700 !important;
+  color: var(--color-ink) !important;
+  text-decoration: none !important;
+  transform: none !important;
+  box-shadow: none !important;
+  letter-spacing: -0.005em;
+  transition: all 140ms var(--ease-out);
+}
+body[data-page^="area-"] .related-rich .rel-chip-list li a.rel-chip:hover,
+.related-rich .rel-chip-list li a.rel-chip:hover {
+  background: #ffffff !important;
+  border-color: var(--color-accent) !important;
+  color: var(--color-accent) !important;
+  transform: translateY(-1px) !important;
+  box-shadow:
+    0 0 0 3px rgba(11, 90, 71, 0.14),
+    0 4px 10px rgba(11, 90, 71, 0.08) !important;
+}
+body[data-page^="area-"] .related-rich .rel-chip-list li a.rel-chip-primary,
+.related-rich .rel-chip-list li a.rel-chip-primary {
+  background: var(--color-accent) !important;
+  border-color: var(--color-accent) !important;
+  color: #ffffff !important;
+  font-weight: 800 !important;
+  box-shadow: 0 2px 6px rgba(11, 90, 71, 0.18) !important;
+}
+body[data-page^="area-"] .related-rich .rel-chip-list li a.rel-chip-primary:hover,
+.related-rich .rel-chip-list li a.rel-chip-primary:hover {
+  background: var(--color-accent-strong, #073e30) !important;
+  border-color: var(--color-accent-strong, #073e30) !important;
+  color: #ffffff !important;
+  transform: translateY(-1px) !important;
+  box-shadow:
+    0 0 0 3px rgba(11, 90, 71, 0.18),
+    0 6px 14px rgba(11, 90, 71, 0.22) !important;
+}
+
+/* 롱테일 토픽 링크 — area 페이지에서도 흰 배경 + 어두운 글자 강제 */
+body[data-page^="area-"] .related-rich .rel-topic-list li a.rel-topic-link,
+.related-rich .rel-topic-list li a.rel-topic-link {
+  display: flex !important;
+  background: #ffffff !important;
+  border: 1px solid var(--color-line) !important;
+  border-radius: 12px !important;
+  padding: 14px 18px !important;
+  color: var(--color-ink) !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+  transform: none !important;
+}
+body[data-page^="area-"] .related-rich .rel-topic-list li a.rel-topic-link:hover,
+.related-rich .rel-topic-list li a.rel-topic-link:hover {
+  background: #ffffff !important;
+  border-color: var(--color-accent) !important;
+  color: var(--color-ink) !important;
+  transform: translateX(3px) !important;
+  box-shadow:
+    0 0 0 3px rgba(11, 90, 71, 0.14),
+    0 6px 14px rgba(11, 90, 71, 0.08) !important;
+}
+.related-rich .rel-topic-list {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)) !important;
+  gap: 10px !important;
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
 }
 
 @media (max-width: 600px) {
