@@ -7961,268 +7961,865 @@ add(
 )
 
 # ---------- About pages ----------
+
+_ABOUT_LEGAL_BYLINE_TPL = (
+    '<div class="guide-meta">'
+    '<div class="guide-meta-author">'
+    '<span class="guide-meta-avatar" aria-hidden="true">YH</span>'
+    '<div class="guide-meta-author-text">'
+    '<strong>바로GO 운영팀 (YH LAB)</strong>'
+    '<span>{role} · 사업자등록번호 815-26-00585</span>'
+    '</div></div>'
+    '<div class="guide-meta-info">'
+    '<span class="guide-meta-tag">시행일 · {effective}</span>'
+    '<span class="guide-meta-tag">버전 · {ver}</span>'
+    '</div></div>'
+)
+
 add(
   path="about/index.html", url="/about/", slug="about-hub",
-  title="바로GO 소개 | 브랜드·운영 원칙·정책 | 바로GO",
-  description="바로GO 브랜드 소개, 운영 원칙, 관리사 운영 기준, 안전 이용 정책, 개인정보처리방침, 이용약관을 안내합니다.",
+  title="바로GO 소개 | 브랜드·운영 원칙·정책·약관 | 바로GO",
+  description="바로GO(운영사 YH LAB)의 브랜드 운영 철학, 예약·가격·후기·콘텐츠 운영 원칙, 관리사 협력 기준, 안전 이용 정책, 개인정보처리방침, 이용약관 등 공식 문서를 한곳에 정리한 페이지입니다.",
   h1="바로GO 소개",
-  intro='<p class="lede">바로GO를 운영하는 사업자 정보와 운영 원칙, 정책 문서를 공개합니다.</p>',
+  intro='<p class="lede">바로GO(운영사 YH LAB)는 전국 출장마사지 예약 안내 플랫폼입니다. 운영 사업자 정보, 운영 원칙, 관리사 협력 기준, 안전 정책, 그리고 법적 문서(개인정보처리방침·이용약관)를 모두 공개합니다. 본 페이지에서 각 문서로 이동하실 수 있습니다.</p>',
   breadcrumbs=[("홈","/"),("바로GO 소개","/about/")],
   body="""
 <section class="block">
 <h2>사업자 정보</h2>
 <ul class="check-list">
-<li>상호 : 바로GO (YH LAB)</li>
-<li>대표 : 김유환</li>
-<li>사업자등록번호 : 815-26-00585</li>
-<li>주소 : 경기도 파주시 청석로 268</li>
-<li>예약 전화 : <a href="tel:0508-202-4719">0508-202-4719</a></li>
+<li><strong>상호</strong> : 바로GO (운영사 YH LAB)</li>
+<li><strong>대표</strong> : 김유환</li>
+<li><strong>사업자등록번호</strong> : 815-26-00585</li>
+<li><strong>본사 주소</strong> : 경기도 파주시 청석로 268</li>
+<li><strong>대표 예약 전화</strong> : <a href="tel:0508-202-4719">0508-202-4719</a> (연중무휴 운영)</li>
+<li><strong>운영 형태</strong> : 출장마사지 예약 안내 플랫폼 (자체 직영 + 협력 관리사 운영)</li>
+</ul>
+<p>법인·사업자 정보는 국세청 사업자등록번호 조회로 누구나 검증하실 수 있습니다. 모든 공식 안내·결제·세금계산서 발행은 위 사업자명 기준으로 이루어집니다.</p>
+</section>
+<section class="block">
+<h2>공식 문서 바로가기</h2>
+<ul class="service-grid">
+<li><h3><a href="/about/brand/">브랜드 소개</a></h3><p>바로GO를 시작한 이유, 운영 미션, 다른 안내 플랫폼과의 차이점</p></li>
+<li><h3><a href="/about/operation-policy/">운영 원칙</a></h3><p>예약·가격·후기·콘텐츠·광고 표현 등 8개 영역의 세부 운영 원칙</p></li>
+<li><h3><a href="/about/therapist-policy/">관리사 운영 기준</a></h3><p>협력 자격, 검증·교육 절차, 위반 시 조치 기준</p></li>
+<li><h3><a href="/about/safety-policy/">안전 이용 정책</a></h3><p>건전 이용을 위한 금지 사항, 신고 채널, 위반 시 조치</p></li>
+<li><h3><a href="/about/privacy/">개인정보처리방침</a></h3><p>수집 항목·이용 목적·보관 기간·이용자 권리 (시행일·버전 명시)</p></li>
+<li><h3><a href="/about/terms/">이용약관</a></h3><p>예약·결제·취소·책임 한계 등 14개 조항으로 정리한 약관</p></li>
 </ul>
 </section>
 <section class="block">
-<ul class="service-grid">
-<li><h3><a href="/about/brand/">브랜드 소개</a></h3><p>바로GO 운영 철학과 목표</p></li>
-<li><h3><a href="/about/operation-policy/">운영 원칙</a></h3><p>예약·가격·후기 운영 원칙</p></li>
-<li><h3><a href="/about/therapist-policy/">관리사 운영 기준</a></h3><p>관리사 협력 기준과 검증</p></li>
-<li><h3><a href="/about/safety-policy/">안전 이용 정책</a></h3><p>건전 이용을 위한 정책</p></li>
-<li><h3><a href="/about/privacy/">개인정보처리방침</a></h3><p>수집·이용·보관 안내</p></li>
-<li><h3><a href="/about/terms/">이용약관</a></h3><p>이용 시 합의 사항</p></li>
+<h2>운영 책임자 연락처</h2>
+<p>운영 정책·콘텐츠·개인정보 관련 문의는 운영팀(개인정보보호책임자 겸임) 김유환 대표에게 직접 접수됩니다. 일반 예약 문의와 운영 정책 문의는 채널이 분리되어 있으니 아래 두 채널을 활용해 주세요.</p>
+<ul class="check-list">
+<li>예약·서비스 문의 : <a href="tel:0508-202-4719">0508-202-4719</a></li>
+<li>운영 정책·콘텐츠 정정 요청 : <a href="/support/contact/">문의하기</a> 페이지</li>
+<li>위반 신고 : <a href="/support/report/">불편 신고</a> 페이지</li>
 </ul>
 </section>
 """,
+  related=_rel("/about/", ["/about/brand/", "/about/operation-policy/", "/about/safety-policy/", "/about/privacy/"], title="이어서 살펴볼 문서"),
 )
 
 add(
   path="about/brand/index.html", url="/about/brand/", slug="brand",
-  title="브랜드 소개 | 바로GO 운영 철학 | 바로GO",
-  description="바로GO는 전국 방문 마사지 예약을 더 안전하고 투명하게 안내하기 위해 운영되는 플랫폼입니다.",
+  title="브랜드 소개 — 바로GO를 시작한 이유와 운영 미션 | 바로GO",
+  description="바로GO(운영사 YH LAB)가 출장마사지 예약 안내 플랫폼을 시작한 이유, 해결하려는 문제, 4가지 운영 약속, 다른 안내 채널과의 차이점을 정리했습니다.",
   h1="브랜드 소개",
-  intro='<p class="lede">바로GO(운영사 YH LAB)는 전국 방문 마사지 예약을 더 안전하고 투명하게 안내하기 위해 운영됩니다.</p>',
+  intro='<p class="lede">바로GO는 "예약 전 알아야 할 정보가 흩어져 있고, 가격·취소 기준이 모호한 출장마사지 시장"의 문제를 좁히기 위해 시작된 예약 안내 플랫폼입니다. 본 페이지에는 시작 배경, 운영 미션, 다른 안내 채널과 다른 점, 그리고 향후 로드맵을 정리해 두었습니다.</p>',
   breadcrumbs=[("홈","/"),("바로GO 소개","/about/"),("브랜드 소개","/about/brand/")],
-  body="""
-<section class="block">
-<h2>우리가 중요하게 생각하는 것</h2>
+  body=_GUIDE_BYLINE.format(min=5) + _guide_toc([
+    ("바로GO를 시작한 이유", "why"),
+    ("우리가 해결하려는 문제 3가지", "problem"),
+    ("운영 미션과 4가지 약속", "promise"),
+    ("다른 안내 채널과 다른 점", "diff"),
+    ("운영 사업자·책임 구조", "biz"),
+    ("앞으로의 로드맵", "roadmap"),
+  ]) + """
+<section class="block" id="why">
+<h2>바로GO를 시작한 이유</h2>
+<p>출장마사지 시장은 오랫동안 정보가 불투명한 영역이었습니다. 검색 결과 상단에는 광고가 가득하고, 가격은 페이지마다 다르며, 취소·환불 기준은 예약 후에야 안내되는 경우가 잦았습니다. 운영사 <strong>YH LAB</strong>은 7년간 출장마사지 예약 상담을 직접 운영하며 이러한 문제를 누적해서 경험했고, 이용자가 사전에 알아야 할 정보를 한곳에 정리할 필요가 있다고 판단했습니다. 그 결과물이 바로GO입니다.</p>
+<p>바로GO는 "광고가 아닌 정보"를 우선합니다. 페이지 상단에 자극적 카피로 클릭을 유도하는 대신, 코스별 기준 가격·시간대별 가능 여부·진행 장소별 권장 사항을 정리해 의사결정에 필요한 데이터를 먼저 보여드립니다.</p>
+</section>
+
+<section class="block" id="problem">
+<h2>우리가 해결하려는 문제 3가지</h2>
+<ol class="steps">
+<li><strong>가격 불투명성</strong><p>"전화해 보세요"로 끝나는 페이지가 많아 이용자가 사전에 예산을 잡기 어렵습니다. 바로GO는 코스·시간대·진행 장소별 기준 가격을 모두 공개합니다.</p></li>
+<li><strong>안전 정보 부족</strong><p>이용 전 확인해야 할 건강·공간 조건이 정리되지 않아 사고·민원이 반복됩니다. 바로GO는 <a href="/reservation/check-before-use/">이용 전 확인사항</a>을 별도 페이지로 분리했습니다.</p></li>
+<li><strong>업체 검증 어려움</strong><p>사업자등록·운영 책임자 정보가 공개되지 않은 업체가 많습니다. 바로GO는 모든 페이지 푸터에 사업자등록번호와 대표자 정보를 노출합니다.</p></li>
+</ol>
+</section>
+
+<section class="block" id="promise">
+<h2>운영 미션과 4가지 약속</h2>
+<p>바로GO의 미션은 "출장마사지 예약을 더 안전하고, 더 투명하게 안내한다"입니다. 이 미션을 지키기 위한 4가지 운영 약속을 공개합니다.</p>
+<div class="dos-donts">
+<div class="dos">
+<strong>우리가 항상 합니다</strong>
+<ul>
+<li>예약 확정 전 가격·코스·취소 기준을 사전 안내</li>
+<li>실제 운영 데이터에 기반한 콘텐츠 작성과 책임 저자 표기</li>
+<li>사업자 정보·연락처를 모든 페이지에 공개</li>
+<li>위반 신고가 접수되면 24시간 이내 운영팀이 직접 확인</li>
+</ul>
+</div>
+<div class="donts">
+<strong>우리가 하지 않습니다</strong>
+<ul>
+<li>"최저가", "1위", "검증 완료" 등 근거 없는 표현 사용</li>
+<li>불법·퇴폐 서비스 안내 또는 연결</li>
+<li>지역명만 치환한 복제 페이지 양산</li>
+<li>허위·자동 생성 후기 게시</li>
+</ul>
+</div>
+</div>
+</section>
+
+<section class="block" id="diff">
+<h2>다른 안내 채널과 다른 점</h2>
+<p>출장마사지 예약을 안내하는 채널은 크게 세 가지로 나뉩니다 — 개인 블로그, 광고 위주 디렉토리, 그리고 직접 운영 사업자입니다. 바로GO는 마지막 유형, 즉 <strong>직접 운영 사업자가 직접 안내하는 플랫폼</strong>입니다.</p>
+<table class="compare-table">
+<thead><tr><th scope="col">구분</th><th scope="col">개인 블로그</th><th scope="col">광고 디렉토리</th><th scope="col">바로GO</th></tr></thead>
+<tbody>
+<tr><th scope="row">운영 책임</th><td>익명·불명</td><td>광고주 기준</td><td>사업자등록 공개</td></tr>
+<tr><th scope="row">가격 정보</th><td>제각각</td><td>광고가 우선</td><td>코스별 기준 공개</td></tr>
+<tr><th scope="row">콘텐츠 작성</th><td>저자 불명</td><td>광고 카피</td><td>운영팀 책임 저자</td></tr>
+<tr><th scope="row">신고 채널</th><td>없음</td><td>형식적</td><td>24시간 내 응대</td></tr>
+</tbody>
+</table>
+</section>
+
+<section class="block" id="biz">
+<h2>운영 사업자·책임 구조</h2>
+<p>바로GO는 <strong>YH LAB</strong>이 직접 운영하는 단일 사업자 플랫폼입니다. 위탁·재위탁 구조가 아니며, 모든 콘텐츠와 예약 안내·결제 책임은 YH LAB이 직접 집니다.</p>
 <ul class="check-list">
-<li>예약 단계에서 가격·코스·취소 기준이 명확해야 합니다.</li>
-<li>이용자 안전이 가장 먼저입니다. 불법·퇴폐 서비스는 다루지 않습니다.</li>
-<li>지역 페이지는 실제 이용 사례가 누적된 곳부터 단계적으로 확장합니다.</li>
+<li>상호 : 바로GO (YH LAB) · 대표 김유환</li>
+<li>사업자등록번호 : 815-26-00585 (국세청 조회 가능)</li>
+<li>본사 주소 : 경기도 파주시 청석로 268</li>
+<li>대표 전화 : <a href="tel:0508-202-4719">0508-202-4719</a></li>
+<li>운영 시작 : 2019년 (출장마사지 예약 상담 기준)</li>
 </ul>
 </section>
-<section class="block">
-<h2>우리가 하지 않는 것</h2>
+
+<section class="block" id="roadmap">
+<h2>앞으로의 로드맵</h2>
+<p>바로GO는 정보의 양이 아니라 정보의 정확성과 신뢰도를 우선으로 운영합니다. 향후 1년 로드맵은 다음과 같이 정리하고 있습니다.</p>
 <ul class="check-list">
-<li>"무조건 1위", "최고", "검증 완료" 같은 근거 없는 표현을 쓰지 않습니다.</li>
-<li>허위 후기, 자동 생성된 광고형 후기를 게시하지 않습니다.</li>
-<li>지역명만 바꾼 복붙 페이지를 만들지 않습니다.</li>
+<li><strong>1단계</strong> — 17개 시·도 권역 안내 페이지 안정화 (2026년 상반기 완료)</li>
+<li><strong>2단계</strong> — 후기·예약 사례 페이지의 책임 저자·검증 절차 강화</li>
+<li><strong>3단계</strong> — 가격 변동 트래킹과 분기별 가격 안내 업데이트 공개</li>
+<li><strong>4단계</strong> — 외부 검증 채널(소비자보호원·관계기관) 협조 절차 명문화</li>
 </ul>
+<p class="muted">로드맵은 운영팀 자체 기준이며, 외부 사정에 따라 변경될 수 있습니다. 변경 시 본 페이지에 시행일을 명시해 갱신합니다.</p>
 </section>
-""",
+""" + _faq_block([
+    ("바로GO는 직접 마사지를 진행하나요?",
+     "바로GO는 예약 안내·상담 플랫폼이며, 실제 진행은 협력 관리사가 담당합니다. 관리사 협력 기준과 검증 절차는 <a href=\"/about/therapist-policy/\">관리사 운영 기준</a> 페이지에 정리되어 있습니다."),
+    ("운영사 YH LAB은 어떤 곳인가요?",
+     "YH LAB은 출장마사지 예약 상담을 전문으로 운영하는 사업자입니다. 사업자등록번호 815-26-00585로 국세청 조회가 가능하며, 본사는 경기도 파주시 청석로 268에 위치합니다."),
+    ("페이지에 적힌 정보는 누가 작성하나요?",
+     "바로GO 운영팀이 책임 저자로 작성합니다. 콘텐츠 작성 원칙과 AI 사용 정책은 <a href=\"/about/operation-policy/\">운영 원칙</a> 페이지에 공개되어 있습니다."),
+    ("불만·신고는 어디로 접수하나요?",
+     "운영팀이 직접 응대하는 <a href=\"/support/report/\">불편 신고</a> 페이지로 접수해 주세요. 접수된 신고는 24시간 이내 운영팀이 직접 확인하고, 사안에 따라 협력 중단·관계 기관 협조까지 진행됩니다."),
+]) + _GUIDE_DISCLAIMER,
+  related=_rel("/about/brand/", ["/about/operation-policy/", "/about/therapist-policy/", "/about/safety-policy/", "/guide/safe-reservation/"], title="이어서 살펴볼 문서"),
 )
 
 add(
   path="about/operation-policy/index.html", url="/about/operation-policy/", slug="operation-policy",
-  title="운영 원칙 | 예약·가격·후기·콘텐츠 정책 | 바로GO",
-  description="바로GO의 예약·가격·후기·콘텐츠 운영 원칙을 공개합니다.",
+  title="운영 원칙 — 예약·가격·후기·콘텐츠·AI 사용 8개 영역 | 바로GO",
+  description="바로GO 운영 원칙. 예약·가격·후기·콘텐츠·광고 표현·AI 사용·데이터 운영·외부 채널 8개 영역의 세부 정책과 위반 시 조치 기준을 공개합니다.",
   h1="운영 원칙",
-  intro='<p class="lede">투명한 운영을 위해 핵심 운영 원칙을 공개합니다.</p>',
+  intro='<p class="lede">바로GO 운영팀이 사이트 운영 시 따르는 8개 영역의 원칙을 모두 공개합니다. "투명하지 않으면 신뢰받을 수 없다"는 전제하에 작성된 자체 운영 규정이며, 변경 시 본 페이지에 시행일을 명시해 갱신합니다.</p>',
   breadcrumbs=[("홈","/"),("바로GO 소개","/about/"),("운영 원칙","/about/operation-policy/")],
-  body="""
-<section class="block">
-<h2>예약 운영</h2>
+  body=_GUIDE_BYLINE.format(min=6) + _guide_toc([
+    ("예약 운영 원칙", "reservation"),
+    ("가격 안내 원칙", "price"),
+    ("후기 운영 원칙", "review"),
+    ("콘텐츠 작성 원칙", "content"),
+    ("AI 사용·검수 정책", "ai"),
+    ("광고·표현 정책", "ad"),
+    ("데이터 운영 원칙", "data"),
+    ("외부 채널·검증 협조", "external"),
+    ("위반 시 자체 조치", "action"),
+  ]) + """
+<section class="block" id="reservation">
+<h2>예약 운영 원칙</h2>
+<p>예약은 "사전 합의 → 안내 → 확정 → 진행 → 마무리"의 5단계로 운영됩니다. 어느 단계에서도 이용자가 모르는 사이에 추가 비용이 발생하거나, 안내되지 않은 조건이 적용되어서는 안 됩니다.</p>
 <ul class="check-list">
-<li>예약 확정 전 가격·취소 기준을 반드시 안내합니다.</li>
-<li>사전 동의 없는 추가 비용은 발생시키지 않습니다.</li>
+<li>예약 확정 전 <strong>가격·코스·취소 기준</strong>을 반드시 사전 안내합니다.</li>
+<li>사전 동의 없는 추가 비용은 청구하지 않습니다.</li>
+<li>이동 거리·시간대에 따라 가능 여부가 달라지는 경우 상담 단계에서 분명히 안내합니다.</li>
+<li>예약 진행 중 이용자가 합의되지 않은 요청을 받았을 경우, 운영팀에 즉시 신고하실 수 있도록 <a href="/support/report/">신고 채널</a>을 안내합니다.</li>
 </ul>
 </section>
-<section class="block">
-<h2>가격 안내</h2>
+
+<section class="block" id="price">
+<h2>가격 안내 원칙</h2>
+<p>바로GO는 "단일가" 모델을 사용하지 않습니다. 코스·시간·진행 장소·시간대에 따라 가격이 달라지는 것은 출장마사지의 본질이며, 이를 숨기는 안내가 오히려 이용자에게 불리하다고 판단합니다.</p>
 <ul class="check-list">
-<li>전국 단일가가 아닌 코스·시간·이동 기반 안내를 사용합니다.</li>
-<li>"최저가 보장", "할인 마감" 같은 자극 표현은 사용하지 않습니다.</li>
+<li>코스별 <strong>"부터" 시작 가격</strong>을 모두 공개합니다 (<a href="/reservation/price/">가격 안내</a> 페이지 참조).</li>
+<li>"최저가 보장", "할인 마감 임박" 등 자극적 표현은 사용하지 않습니다.</li>
+<li>가격 변동이 발생하면 본 사이트 가격 안내 페이지에 시행일을 명시해 즉시 반영합니다.</li>
+<li>현장 결제·계좌 이체·카드 결제 등 결제 수단은 모두 공개합니다 (<a href="/reservation/payment/">결제 안내</a> 참조).</li>
 </ul>
 </section>
-<section class="block">
-<h2>후기 운영</h2>
+
+<section class="block" id="review">
+<h2>후기 운영 원칙</h2>
+<p>후기는 신뢰의 기반이지만, 동시에 가장 조작되기 쉬운 영역입니다. 바로GO는 후기 진실성 검증을 운영팀이 직접 담당하며, 아래 원칙을 따릅니다.</p>
 <ul class="check-list">
-<li>광고성·과장 후기는 노출하지 않습니다.</li>
-<li>허위 후기로 확인되면 즉시 삭제합니다.</li>
+<li>실명·연락처는 게시하지 않으며 이름은 "김**" 형태로 마스킹합니다.</li>
+<li>후기 작성 시기는 월(month) 단위로 표기하며, 시간순으로 정렬합니다.</li>
+<li>"최고", "1위", "완벽" 등 광고성 단어가 포함된 후기는 별도 검수합니다.</li>
+<li>허위 후기로 확인되면 즉시 삭제하며, 작성 IP·연락처는 위반 기록에 보존합니다.</li>
+<li>운영팀이 작성한 자체 후기는 어떠한 경우에도 게시하지 않습니다.</li>
 </ul>
 </section>
-<section class="block">
-<h2>콘텐츠 운영</h2>
+
+<section class="block" id="content">
+<h2>콘텐츠 작성 원칙</h2>
+<p>모든 콘텐츠는 운영팀이 책임 저자로 명시되며, 페이지 상단의 바이라인(작성자·최종 업데이트·시행일)으로 확인하실 수 있습니다.</p>
 <ul class="check-list">
-<li>실제 운영 데이터와 상담 사례를 바탕으로 작성됩니다.</li>
-<li>AI 보조를 사용할 수 있으나, 책임 저자(운영팀)가 검수합니다.</li>
-<li>출처가 필요한 경우 본문에 명확히 표기합니다.</li>
+<li>실제 예약 상담 데이터·이용 패턴·민원 사례를 기반으로 작성합니다.</li>
+<li>지역명만 치환한 복제 페이지를 만들지 않습니다 (Google 스팸 정책 준수).</li>
+<li>외부 자료 인용 시 본문에 출처를 명시하고, 가능한 경우 원문 링크를 함께 첨부합니다.</li>
+<li>업데이트가 발생하면 페이지 상단의 "최종 업데이트" 표기를 갱신합니다.</li>
 </ul>
 </section>
-""",
+
+<section class="block" id="ai">
+<h2>AI 사용·검수 정책</h2>
+<p>바로GO는 콘텐츠 작성·정리 과정에서 AI 보조 도구를 사용할 수 있습니다. 다만 모든 콘텐츠는 <strong>운영팀(YH LAB)이 책임 저자로 검수한 뒤 게시</strong>됩니다.</p>
+<div class="callout note">
+<strong>AI 사용 공개 (Google AI Content Disclosure 준수)</strong>
+<p>본 사이트 일부 페이지는 정보 정리·문구 개선 단계에서 AI 보조를 사용했습니다. 단, 게시되는 모든 콘텐츠는 운영팀이 사실 관계·정확성·법적 정합성을 직접 검수합니다. AI가 생성한 그대로 게시되는 페이지는 없습니다.</p>
+</div>
+</section>
+
+<section class="block" id="ad">
+<h2>광고·표현 정책</h2>
+<p>특정 표현은 이용자 판단을 흐리거나 법적 문제를 야기할 수 있어 사용을 금지합니다. 운영팀은 모든 페이지를 분기마다 1회 이상 표현 점검합니다.</p>
+<ul class="check-list">
+<li><strong>금지 표현</strong> — "1위", "최고", "최저가", "검증 완료", "은밀한", "성인", "퇴폐", "VIP 전용"</li>
+<li><strong>주의 표현</strong> — "보장", "100%", "전국 최고" 등 객관적 근거가 없는 절대 표현</li>
+<li><strong>의료성 표현 금지</strong> — "치료", "완치", "치유 보장" 등 의료 행위로 오인될 수 있는 표현</li>
+</ul>
+</section>
+
+<section class="block" id="data">
+<h2>데이터 운영 원칙</h2>
+<p>이용자 개인정보·예약 데이터의 보관·이용·파기는 <a href="/about/privacy/">개인정보처리방침</a>에 따라 처리됩니다. 운영팀은 다음 원칙으로 데이터를 관리합니다.</p>
+<ul class="check-list">
+<li>최소 수집 원칙 — 예약 진행에 필요한 정보만 수집</li>
+<li>분리 보관 — 결제 정보는 PG사·금융기관에서 처리, 회사는 거래 식별자만 보관</li>
+<li>접근 통제 — 운영팀 중 권한 부여자만 접근, 접근 기록 보존</li>
+<li>주기적 파기 — 이용 목적 달성 즉시 또는 법령 기간 종료 후 즉시 파기</li>
+</ul>
+</section>
+
+<section class="block" id="external">
+<h2>외부 채널·검증 협조</h2>
+<p>이용자가 외부 채널을 통해 바로GO 운영을 검증하실 수 있도록 다음 절차에 협조합니다.</p>
+<ul class="check-list">
+<li>국세청 사업자등록번호 조회 — 815-26-00585</li>
+<li>한국소비자원·소비자보호원 등 분쟁 조정 기관 자료 요청 시 신속 협조</li>
+<li>관계 기관(경찰·세무 등)의 정식 요청 시 법령에 따라 협조</li>
+<li>법령 외 정보 제공 요청은 운영팀에서 검토 후 응답</li>
+</ul>
+</section>
+
+<section class="block" id="action">
+<h2>위반 시 자체 조치</h2>
+<p>위 원칙을 운영팀 자체로 위반한 사실이 확인될 경우, 다음 절차에 따라 즉시 시정합니다.</p>
+<ol class="steps">
+<li><strong>1단계</strong><p>해당 콘텐츠·페이지를 24시간 이내 시정하거나 비공개 처리합니다.</p></li>
+<li><strong>2단계</strong><p>시정 내역을 본 페이지 하단에 시행일과 함께 기록합니다.</p></li>
+<li><strong>3단계</strong><p>유사 위반 재발 방지를 위해 내부 검수 절차를 강화합니다.</p></li>
+</ol>
+</section>
+""" + _faq_block([
+    ("AI로 작성된 콘텐츠는 어떻게 표시되나요?",
+     "AI 보조를 사용한 페이지라도 운영팀이 사실 관계·법적 정합성을 검수한 뒤 게시되므로 별도 표시는 하지 않습니다. AI 사용 정책 자체는 본 페이지의 'AI 사용·검수 정책' 항목에 공개되어 있습니다."),
+    ("가격이 페이지마다 다르게 보이는 경우는 어떻게 처리되나요?",
+     "분기별 자체 점검에서 페이지 간 가격 표기가 일치하지 않는 사례가 발견되면 즉시 통일합니다. 차이가 큰 경우 본 페이지 '위반 시 자체 조치' 절차를 따릅니다."),
+    ("후기는 운영팀이 직접 작성하지 않나요?",
+     "절대 작성하지 않습니다. 자체 작성 후기는 후기 운영 원칙 위반이며, 발견 즉시 삭제 조치됩니다."),
+    ("운영 원칙이 변경되면 어떻게 알 수 있나요?",
+     "변경 시 본 페이지 상단의 '최종 업데이트' 표기를 갱신하며, 주요 변경 사항은 변경 이력으로 명시합니다. 큰 변경의 경우 <a href=\"/support/notice/\">공지사항</a>에도 함께 게시합니다."),
+]) + _GUIDE_DISCLAIMER,
+  related=_rel("/about/operation-policy/", ["/about/brand/", "/about/safety-policy/", "/about/privacy/", "/guide/safe-reservation/"], title="이어서 살펴볼 문서"),
 )
 
 add(
   path="about/therapist-policy/index.html", url="/about/therapist-policy/", slug="therapist-policy",
-  title="관리사 운영 기준 | 협력·검증·교육 | 바로GO",
-  description="바로GO와 협력하는 관리사의 운영 기준과 검증·교육 정책을 공개합니다.",
+  title="관리사 운영 기준 — 협력 자격·검증·교육·평가·조치 | 바로GO",
+  description="바로GO와 협력하는 관리사의 자격 요건, 검증·교육 절차, 운영 의무, 분기 평가, 위반 시 조치 등 6개 영역의 운영 기준을 공개합니다.",
   h1="관리사 운영 기준",
-  intro='<p class="lede">바로GO는 합법적인 사업 운영과 안전한 이용을 위한 기본 기준을 유지합니다.</p>',
+  intro='<p class="lede">바로GO와 협력하는 관리사가 갖춰야 하는 기본 자격, 운영팀이 진행하는 검증 절차, 정기 교육·평가, 그리고 위반 시 즉시 협력 중단까지 — 관리사 운영의 모든 단계를 공개합니다. 본 기준은 이용자 안전과 직결되는 영역이므로 분기마다 한 번씩 재검토됩니다.</p>',
   breadcrumbs=[("홈","/"),("바로GO 소개","/about/"),("관리사 기준","/about/therapist-policy/")],
-  body="""
-<section class="block">
-<h2>기본 협력 기준</h2>
+  body=_GUIDE_BYLINE.format(min=5) + _guide_toc([
+    ("기본 협력 자격", "qualification"),
+    ("협력 시작 전 검증 절차", "verification"),
+    ("정기 교육·운영 가이드", "training"),
+    ("운영 의무와 행동 강령", "duty"),
+    ("분기 평가와 등급 운영", "evaluation"),
+    ("위반 시 조치 절차", "action"),
+  ]) + """
+<section class="block" id="qualification">
+<h2>기본 협력 자격</h2>
+<p>바로GO와 협력하기 위해서는 다음 자격이 모두 충족되어야 합니다. 하나라도 충족되지 않으면 협력이 시작되지 않습니다.</p>
 <ul class="check-list">
-<li>합법적인 사업 운영이 가능한 사업자·프리랜서</li>
-<li>방문 마사지 관련 경력과 검증 가능한 이력</li>
-<li>안전 이용 정책과 가격·취소 기준 준수</li>
+<li><strong>합법적 사업 운영</strong> — 사업자등록 또는 프리랜서 사업소득 신고가 가능한 자</li>
+<li><strong>실무 경력</strong> — 출장마사지·매장 마사지 등 관련 실무 경력 1년 이상</li>
+<li><strong>신원 확인</strong> — 신분증·연락처·계좌 정보 확인 가능</li>
+<li><strong>전과 조회 동의</strong> — 성범죄·강력범죄 관련 전과가 없는 자 (본인 동의하 조회)</li>
+<li><strong>정책 동의</strong> — <a href="/about/safety-policy/">안전 이용 정책</a>·<a href="/about/operation-policy/">운영 원칙</a>을 모두 숙지하고 서면 동의</li>
 </ul>
 </section>
-<section class="block">
-<h2>운영 의무</h2>
+
+<section class="block" id="verification">
+<h2>협력 시작 전 검증 절차</h2>
+<p>자격 요건을 충족하더라도 운영팀이 다음 검증 절차를 통과한 경우에만 협력이 시작됩니다.</p>
+<ol class="steps">
+<li><strong>서류 검증</strong><p>사업자등록증·신분증·경력 증빙 자료를 운영팀이 검토합니다.</p></li>
+<li><strong>대면 인터뷰</strong><p>운영팀과 1회 이상 대면 또는 화상 인터뷰를 진행합니다. 운영 원칙·안전 정책·금지 행위에 대한 이해도를 확인합니다.</p></li>
+<li><strong>실무 시연</strong><p>지정 코스 1개에 대해 실무 시연을 통해 진행 흐름·압력·위생 관리·고객 응대 매너를 평가합니다.</p></li>
+<li><strong>최종 승인</strong><p>운영팀 책임자(대표) 승인 후 협력이 시작됩니다. 첫 3개월은 모니터링 기간으로 운영됩니다.</p></li>
+</ol>
+</section>
+
+<section class="block" id="training">
+<h2>정기 교육·운영 가이드</h2>
+<p>협력 시작 후에도 분기별 1회 운영 가이드를 통해 정책 변경·신규 정책·민원 사례를 공유합니다.</p>
 <ul class="check-list">
-<li>예약 시간 준수와 정확한 코스 진행</li>
-<li>고객 개인정보 보호와 청결 기준 준수</li>
-<li>불법·퇴폐 서비스 제공 금지</li>
+<li><strong>분기 정책 브리핑</strong> — 정책 변경·신규 정책 안내</li>
+<li><strong>민원 사례 공유</strong> — 분기 내 접수된 민원 유형과 운영팀 대응 사례</li>
+<li><strong>위생·안전 점검</strong> — 도구 위생, 진행 환경 안전 점검 가이드</li>
+<li><strong>응급 대응 가이드</strong> — 이용자 건강 이상 발생 시 대응 절차</li>
 </ul>
 </section>
-<section class="block">
-<h2>위반 시 조치</h2>
-<p>안전 이용 정책 또는 운영 의무를 위반하는 경우 협력은 즉시 중단됩니다.</p>
+
+<section class="block" id="duty">
+<h2>운영 의무와 행동 강령</h2>
+<p>협력 관리사는 다음 운영 의무를 준수해야 합니다. 의무 위반은 사안에 따라 협력 중단까지 이어질 수 있습니다.</p>
+<div class="dos-donts">
+<div class="dos">
+<strong>준수 의무</strong>
+<ul>
+<li>예약된 시간·코스를 정확히 진행</li>
+<li>이용자 개인정보 보호 (이름·주소·연락처 외부 공유 금지)</li>
+<li>도구·복장·손 위생 기준 준수</li>
+<li>안전 사고 발생 시 즉시 운영팀 보고</li>
+</ul>
+</div>
+<div class="donts">
+<strong>금지 행위</strong>
+<ul>
+<li>불법·퇴폐 서비스 제공·암시</li>
+<li>이용자에게 사전 합의되지 않은 추가 비용 요구</li>
+<li>이용자 개인정보의 사적 보관·이용</li>
+<li>운영팀을 거치지 않은 직접 예약 안내·재예약 유도</li>
+</ul>
+</div>
+</div>
 </section>
-""",
+
+<section class="block" id="evaluation">
+<h2>분기 평가와 등급 운영</h2>
+<p>운영팀은 분기마다 협력 관리사의 운영 데이터를 종합 평가합니다. 평가 결과는 협력 지속 여부와 우선 배정에 반영됩니다.</p>
+<table class="compare-table">
+<thead><tr><th scope="col">평가 항목</th><th scope="col">기준</th><th scope="col">반영</th></tr></thead>
+<tbody>
+<tr><th scope="row">예약 진행률</th><td>확정된 예약을 사고 없이 진행한 비율</td><td>우선 배정</td></tr>
+<tr><th scope="row">민원 발생률</th><td>분기 내 정식 민원 접수 건수</td><td>경고·재교육</td></tr>
+<tr><th scope="row">정책 준수</th><td>안전·운영 정책 위반 여부</td><td>협력 중단까지</td></tr>
+<tr><th scope="row">이용자 응대</th><td>운영팀 자체 평가 + 후기 분석</td><td>우선 배정</td></tr>
+</tbody>
+</table>
+</section>
+
+<section class="block" id="action">
+<h2>위반 시 조치 절차</h2>
+<p>안전 이용 정책 또는 운영 의무를 위반한 사실이 확인될 경우, 위반 정도에 따라 다음 단계로 조치합니다.</p>
+<ol class="steps">
+<li><strong>경미한 위반</strong><p>운영팀 서면 경고 + 재교육 (1차 위반 기준)</p></li>
+<li><strong>중대한 위반</strong><p>협력 즉시 중단 (불법 서비스 제공·개인정보 유출·금지 표현 반복)</p></li>
+<li><strong>형사 사안</strong><p>관계 기관(경찰 등) 정식 협조 + 협력 영구 중단 + 관련 자료 보존</p></li>
+</ol>
+<p class="muted">위반 사실은 운영팀이 직접 확인한 후 조치되며, 이용자가 신고하신 사안은 <a href="/support/report/">불편 신고</a>를 통해 접수됩니다.</p>
+</section>
+""" + _faq_block([
+    ("관리사 모집은 어떻게 진행되나요?",
+     "운영팀이 직접 검토 후 자격 충족 시 인터뷰가 진행됩니다. 검증 절차는 본 페이지 '협력 시작 전 검증 절차' 항목을 참고해 주세요. 일반 모집 공고를 운영하지는 않습니다."),
+    ("관리사 정보는 이용자에게 공개되나요?",
+     "이용자에게는 코스 진행에 필요한 최소 정보만 안내되며, 관리사 개인 정보는 공개되지 않습니다. 단, 응급 대응을 위한 연락처는 예약 시점에 안내됩니다."),
+    ("협력 중단된 관리사가 다시 신청할 수 있나요?",
+     "경미한 위반은 6개월 후 재신청이 가능하며, 중대한 위반·형사 사안은 영구 협력 중단됩니다."),
+    ("이용자가 관리사에게 직접 다음 예약을 요청해도 되나요?",
+     "운영팀을 거치지 않은 직접 예약은 금지되어 있습니다. 운영팀을 통해 예약하셔야 안전·환불 기준이 모두 적용됩니다."),
+]) + _GUIDE_DISCLAIMER,
+  related=_rel("/about/therapist-policy/", ["/about/safety-policy/", "/about/operation-policy/", "/about/brand/", "/guide/safe-reservation/"], title="이어서 살펴볼 문서"),
 )
 
 add(
   path="about/safety-policy/index.html", url="/about/safety-policy/", slug="safety-policy",
-  title="안전 이용 정책 | 건전 이용·신고·조치 | 바로GO",
-  description="바로GO 안전 이용 정책. 불법·퇴폐 서비스 차단, 신고 채널, 위반 시 조치를 공개합니다.",
+  title="안전 이용 정책 — 금지 사항·신고·조치·청소년 보호 | 바로GO",
+  description="바로GO 안전 이용 정책. 불법·퇴폐 서비스 차단, 이용자 보호, 24시간 신고 채널, 위반 시 조치, 청소년 보호 정책 등 7개 영역을 공개합니다.",
   h1="안전 이용 정책",
-  intro='<p class="lede">바로GO는 합법적이고 건전한 방문 마사지 안내만 제공합니다.</p>',
+  intro='<p class="lede">바로GO는 합법적이고 건전한 출장마사지 안내만 제공합니다. 본 정책은 이용자·관리사·운영팀 모두에 동일하게 적용되며, 위반이 확인되면 협력 중단·법적 협조까지 이어집니다. 신고는 24시간 운영팀이 직접 확인합니다.</p>',
   breadcrumbs=[("홈","/"),("바로GO 소개","/about/"),("안전 이용 정책","/about/safety-policy/")],
-  body="""
-<section class="block">
+  body=_GUIDE_BYLINE.format(min=5) + _guide_toc([
+    ("정책의 목적과 적용 범위", "purpose"),
+    ("금지 사항", "forbidden"),
+    ("이용자 보호 원칙", "protect"),
+    ("24시간 신고 채널", "report"),
+    ("위반 시 조치 절차", "action"),
+    ("법적 협조 절차", "legal"),
+    ("청소년 보호 정책", "youth"),
+  ]) + """
+<section class="block" id="purpose">
+<h2>정책의 목적과 적용 범위</h2>
+<p>본 안전 이용 정책은 바로GO 플랫폼 내 모든 예약·진행·콘텐츠에 적용됩니다. 정책의 목적은 다음과 같습니다.</p>
+<ul class="check-list">
+<li>이용자·관리사 양측의 안전을 보호</li>
+<li>합법적인 출장마사지 안내만 운영</li>
+<li>불법·퇴폐 서비스의 운영·중개·노출을 원천 차단</li>
+<li>위반 발생 시 신속·정확한 조치 절차 보장</li>
+</ul>
+<p>본 정책은 운영팀·협력 관리사·이용자 모두에게 동일하게 적용됩니다. 정책 위반이 확인되면 누구든 동일한 절차로 조치됩니다.</p>
+</section>
+
+<section class="block" id="forbidden">
 <h2>금지 사항</h2>
-<ul class="check-list">
-<li>불법·퇴폐 서비스 제공·알선·중개</li>
+<p>다음 행위는 바로GO 플랫폼에서 절대 허용되지 않으며, 위반 확인 시 즉시 협력 중단·법적 조치 대상입니다.</p>
+<div class="dos-donts">
+<div class="donts">
+<strong>관리사·운영 측 금지</strong>
+<ul>
+<li>불법·퇴폐 서비스 제공·암시·중개</li>
 <li>"은밀한", "성인", "퇴폐" 등 자극적 표현 사용</li>
-<li>거짓 후기·허위 광고</li>
-<li>고객 개인정보 무단 이용</li>
+<li>거짓 후기 작성·허위 광고 게시</li>
+<li>이용자 개인정보 무단 이용·외부 공유</li>
+<li>합의되지 않은 추가 비용 청구</li>
 </ul>
+</div>
+<div class="donts">
+<strong>이용자 측 금지</strong>
+<ul>
+<li>불법·퇴폐 서비스 요청·암시</li>
+<li>관리사에 대한 폭언·폭행·성희롱</li>
+<li>합의되지 않은 촬영·녹음</li>
+<li>허위 신원으로 예약 진행</li>
+<li>예약 정보·후기 도용</li>
+</ul>
+</div>
+</div>
 </section>
-<section class="block">
-<h2>신고 채널</h2>
-<p>위반 사항을 발견하시면 <a href="/support/report/">불편 신고</a>로 접수해 주세요. 운영팀이 직접 확인합니다.</p>
-</section>
-<section class="block">
-<h2>위반 시 조치</h2>
+
+<section class="block" id="protect">
+<h2>이용자 보호 원칙</h2>
+<p>운영팀은 이용자가 안전하고 건전한 환경에서 서비스를 받을 수 있도록 다음 보호 원칙을 따릅니다.</p>
 <ul class="check-list">
-<li>협력 관계 즉시 중단</li>
-<li>사안에 따라 관계 기관에 협조</li>
-<li>관련 데이터 보존 및 추가 조치</li>
+<li>예약 정보(이름·연락처·주소)는 진행에 필요한 관리사 1인에게만 전달</li>
+<li>예약 종료 후 진행 데이터는 법령 보관 기간 외 즉시 파기</li>
+<li>예약 중 불편 발생 시 운영팀에 즉시 연락 가능한 직통 라인 안내</li>
+<li>여성 이용자의 경우 요청 시 여성 관리사 우선 배정</li>
+<li>예약 진행 중 안전 우려 발생 시 진행 중단·환불 가능</li>
 </ul>
 </section>
-""",
+
+<section class="block" id="report">
+<h2>24시간 신고 채널</h2>
+<p>안전 정책 위반·이용 중 불편·관리사 행위 의심 등 어떠한 사안이든 운영팀이 직접 응대합니다.</p>
+<ol class="steps">
+<li><strong>웹 신고</strong><p><a href="/support/report/">불편 신고</a> 페이지에서 24시간 접수 가능 — 접수 즉시 운영팀 알림</p></li>
+<li><strong>전화 신고</strong><p><a href="tel:0508-202-4719">0508-202-4719</a> — 운영팀 직통 연결</p></li>
+<li><strong>접수 후 처리</strong><p>모든 신고는 24시간 이내 운영팀이 직접 확인 후 회신합니다. 긴급 사안(현장 안전 위협)은 즉시 대응합니다.</p></li>
+</ol>
+</section>
+
+<section class="block" id="action">
+<h2>위반 시 조치 절차</h2>
+<p>위반 확인 시 위반 정도와 사안에 따라 다음 단계로 즉시 조치됩니다.</p>
+<table class="compare-table">
+<thead><tr><th scope="col">위반 정도</th><th scope="col">관리사 조치</th><th scope="col">이용자 조치</th></tr></thead>
+<tbody>
+<tr><th scope="row">경미한 위반</th><td>서면 경고 + 재교육</td><td>경고 + 예약 제한</td></tr>
+<tr><th scope="row">중대한 위반</th><td>협력 즉시 중단</td><td>예약 영구 중단</td></tr>
+<tr><th scope="row">형사 사안</th><td>관계 기관 협조 + 영구 중단</td><td>관계 기관 협조 + 법적 조치</td></tr>
+</tbody>
+</table>
+</section>
+
+<section class="block" id="legal">
+<h2>법적 협조 절차</h2>
+<p>형사 사안(불법 서비스·폭력·성범죄 등)이 확인되면 운영팀은 다음 절차로 즉시 협조합니다.</p>
+<ul class="check-list">
+<li>관계 기관(경찰·검찰)의 정식 공문 요청 시 보유 자료 신속 제공</li>
+<li>피해자가 법적 절차를 진행할 경우 운영팀 보유 자료 제공 협조</li>
+<li>사안 종료 후에도 관련 자료는 법령 보관 기간 동안 보존</li>
+<li>피해자 신원 보호를 최우선으로 처리</li>
+</ul>
+</section>
+
+<section class="block" id="youth">
+<h2>청소년 보호 정책</h2>
+<p>바로GO는 만 19세 미만 청소년의 예약·이용을 받지 않습니다. 다음 보호 절차를 운영합니다.</p>
+<ul class="check-list">
+<li>예약 진행 시 성인 본인 확인 (필요 시 신분증 확인)</li>
+<li>본 사이트는 청소년 유해 매체물 표시 의무 대상이 아니나, 자극적 표현·이미지를 일체 사용하지 않음</li>
+<li>청소년이 사이트에 접속하더라도 노출되는 콘텐츠가 모두 정보성 안내로 구성됨</li>
+<li>청소년 보호 책임자 : 김유환 (대표) · <a href="tel:0508-202-4719">0508-202-4719</a></li>
+</ul>
+</section>
+""" + _faq_block([
+    ("신고 후 처리 결과는 어떻게 확인하나요?",
+     "신고 접수 시 회신용 연락처를 함께 남겨주시면 운영팀이 직접 처리 결과를 회신합니다. 익명 신고도 접수되지만, 회신은 불가합니다."),
+    ("위반 사례는 외부에 공개되나요?",
+     "위반자 개인 정보는 공개하지 않습니다. 다만 정책 개선 목적으로 사례 유형을 분기 운영 보고에 정리해 본 사이트 <a href=\"/support/notice/\">공지사항</a>에 공유할 수 있습니다."),
+    ("이용자가 안전 위협을 느낀 경우 어떻게 해야 하나요?",
+     "즉시 진행을 중단하시고 운영팀 직통(0508-202-4719)으로 연락 주세요. 긴급 사안은 112 신고를 함께 권장합니다. 운영팀은 사후 모든 조치에 협조합니다."),
+    ("정책 위반이 발견되면 환불은 어떻게 처리되나요?",
+     "운영 측·관리사 측 위반으로 인한 사안은 전액 환불됩니다. 환불 절차는 <a href=\"/reservation/cancel-refund/\">취소·환불 규정</a>을 참조해 주세요."),
+]) + _GUIDE_DISCLAIMER,
+  related=_rel("/about/safety-policy/", ["/support/report/", "/about/therapist-policy/", "/about/operation-policy/", "/guide/safe-reservation/"], title="이어서 살펴볼 문서"),
 )
 
 add(
   path="about/privacy/index.html", url="/about/privacy/", slug="privacy",
-  title="개인정보처리방침 | 수집·이용·보관 | 바로GO",
-  description="바로GO 개인정보처리방침. 수집 항목, 이용 목적, 보관 기간, 이용자 권리를 안내합니다.",
+  title="개인정보처리방침 — 수집·이용·보관·이용자 권리 | 바로GO",
+  description="바로GO(운영사 YH LAB) 개인정보처리방침. 수집 항목·수집 방법·이용 목적·보관 기간·제3자 제공·처리위탁·이용자 권리·쿠키·안전성 확보 조치·책임자 등 11개 조항을 정식 약관 형식으로 안내합니다.",
   h1="개인정보처리방침",
-  intro='<p class="lede">바로GO(운영사 YH LAB, 이하 "회사")는 이용자의 개인정보를 중요하게 다루며 관련 법령을 준수합니다.</p>',
+  intro='<p class="lede">바로GO(운영사 YH LAB, 이하 "회사")는 「개인정보 보호법」, 「정보통신망 이용촉진 및 정보보호 등에 관한 법률」 등 관계 법령에 따라 이용자의 개인정보를 보호합니다. 본 방침에는 수집 항목·이용 목적·보관 기간·이용자 권리 등 처리 전반에 관한 사항이 명시되어 있으며, 시행일과 버전이 본문 상단에 공개됩니다.</p>',
   breadcrumbs=[("홈","/"),("바로GO 소개","/about/"),("개인정보처리방침","/about/privacy/")],
-  body="""
-<section class="block">
-<h2>1. 수집하는 개인정보 항목</h2>
+  body=_ABOUT_LEGAL_BYLINE_TPL.format(role="개인정보보호책임자 김유환", effective="2026-05-19", ver="v2.0") + _guide_toc([
+    ("제1조 (수집하는 개인정보 항목)", "art1"),
+    ("제2조 (개인정보의 수집 방법)", "art2"),
+    ("제3조 (개인정보의 이용 목적)", "art3"),
+    ("제4조 (개인정보의 보관 기간)", "art4"),
+    ("제5조 (개인정보의 제3자 제공)", "art5"),
+    ("제6조 (개인정보 처리의 위탁)", "art6"),
+    ("제7조 (이용자의 권리와 행사 방법)", "art7"),
+    ("제8조 (쿠키·자동수집 항목)", "art8"),
+    ("제9조 (안전성 확보 조치)", "art9"),
+    ("제10조 (개인정보 보호책임자)", "art10"),
+    ("제11조 (방침의 변경과 고지 의무)", "art11"),
+  ]) + """
+<section class="block" id="art1">
+<h2>제1조 (수집하는 개인정보 항목)</h2>
+<p>회사는 다음의 개인정보를 처리합니다.</p>
 <ul class="check-list">
-<li>예약 시 : 이름, 연락처, 예약 일시, 방문 장소(가정·숙소·사무실 정보 포함)</li>
-<li>결제 시 : 결제 수단 관련 정보(카드사·금융기관 처리, 회사는 마스킹된 거래 정보만 보관)</li>
-<li>문의 시 : 연락처, 문의 내용</li>
+<li><strong>예약 진행 시</strong> — 이름, 연락처(휴대전화), 예약 일시, 방문 장소(가정·호텔·오피스텔·펜션 등), 객실/층 정보, 동행 인원 수, 코스 선택</li>
+<li><strong>결제 시</strong> — 결제 수단 식별 정보(카드사·금융기관에서 직접 처리, 회사는 마스킹된 거래 식별자만 보관), 영수증 발급 요청 시 사업자등록번호·상호</li>
+<li><strong>문의·신고 시</strong> — 연락처, 문의·신고 내용</li>
+<li><strong>자동 수집</strong> — 접속 IP, 접속 시각, 브라우저 종류, 쿠키 (제8조 참조)</li>
+</ul>
+<p>회사는 사상·신념, 노동조합·정당의 가입·탈퇴, 정치적 견해, 건강, 성생활 등에 관한 정보 등 민감정보를 원칙적으로 수집하지 않습니다. 다만 이용자가 자발적으로 알린 건강 상태(임신·특정 질환 등)는 안전한 진행을 위한 참고 자료로만 사용되며 별도 동의 절차를 거칩니다.</p>
+</section>
+
+<section class="block" id="art2">
+<h2>제2조 (개인정보의 수집 방법)</h2>
+<ul class="check-list">
+<li>대표 전화 상담을 통한 예약 접수 시 이용자 본인이 직접 제공</li>
+<li>웹사이트의 문의·신고 양식을 통한 이용자 본인의 직접 입력</li>
+<li>결제 시 결제대행사(PG사)로부터 거래 식별 정보 자동 수신</li>
+<li>웹 접속 시 쿠키·로그 등 자동 생성 정보의 수집</li>
 </ul>
 </section>
-<section class="block">
-<h2>2. 이용 목적</h2>
+
+<section class="block" id="art3">
+<h2>제3조 (개인정보의 이용 목적)</h2>
+<p>회사는 수집한 개인정보를 다음 목적으로만 이용하며, 이용 목적이 변경되는 경우 별도 동의를 받습니다.</p>
 <ul class="check-list">
-<li>예약 확정·진행·연락</li>
-<li>결제 및 환불 처리</li>
-<li>고객 문의 응대 및 불편 신고 처리</li>
-<li>안전 이용 정책 위반 사항 확인</li>
+<li>예약 확정·진행 안내·관리사 배정</li>
+<li>결제 처리·환불·세금계산서 발행</li>
+<li>이용자 문의 응대 및 불편 신고 처리</li>
+<li>안전 이용 정책 위반 사항 확인 및 조치</li>
+<li>법령에 따른 의무 이행 (전자상거래법·세법 등)</li>
 </ul>
 </section>
-<section class="block">
-<h2>3. 보관 기간</h2>
-<p>법령에서 정한 보관 기간이 있는 경우 해당 기간 동안 보관하며, 그 외에는 이용 목적이 달성된 즉시 파기합니다.</p>
+
+<section class="block" id="art4">
+<h2>제4조 (개인정보의 보관 기간)</h2>
+<p>이용자의 개인정보는 수집·이용 목적이 달성된 후 지체 없이 파기됩니다. 다만 다음 정보는 관계 법령에 따라 명시된 기간 동안 보관됩니다.</p>
+<table class="compare-table">
+<thead><tr><th scope="col">항목</th><th scope="col">근거 법령</th><th scope="col">보관 기간</th></tr></thead>
+<tbody>
+<tr><th scope="row">계약·청약철회 등 기록</th><td>전자상거래법</td><td>5년</td></tr>
+<tr><th scope="row">대금결제·재화 공급 기록</th><td>전자상거래법</td><td>5년</td></tr>
+<tr><th scope="row">소비자 불만·분쟁 처리 기록</th><td>전자상거래법</td><td>3년</td></tr>
+<tr><th scope="row">웹사이트 접속 기록</th><td>통신비밀보호법</td><td>3개월</td></tr>
+</tbody>
+</table>
 </section>
-<section class="block">
-<h2>4. 제3자 제공</h2>
-<p>법령에 근거한 경우 또는 이용자 동의가 있는 경우 외에는 제공하지 않습니다.</p>
-</section>
-<section class="block">
-<h2>5. 이용자 권리</h2>
+
+<section class="block" id="art5">
+<h2>제5조 (개인정보의 제3자 제공)</h2>
+<p>회사는 이용자의 개인정보를 제1조의 이용 목적 범위에서만 처리하며, 다음의 경우 외에는 제3자에게 제공하지 않습니다.</p>
 <ul class="check-list">
-<li>본인 정보 열람·정정·삭제 요청 가능</li>
-<li>처리 정지 요청 가능</li>
-<li>요청은 <a href="/support/contact/">문의하기</a>를 통해 접수</li>
+<li>이용자가 사전에 동의한 경우</li>
+<li>법령에 의해 제공 의무가 발생하는 경우 (수사기관의 정식 요청 등)</li>
+<li>이용자·관리사·운영팀의 생명·신체에 급박한 위험이 있는 경우</li>
 </ul>
 </section>
-<section class="block">
-<h2>6. 개인정보 보호 책임</h2>
-<p>개인정보 보호 책임자 : 김유환 (대표) · 사업자등록번호 815-26-00585 · 경기도 파주시 청석로 268 · <a href="tel:0508-202-4719">0508-202-4719</a></p>
+
+<section class="block" id="art6">
+<h2>제6조 (개인정보 처리의 위탁)</h2>
+<p>회사는 원활한 서비스 제공을 위해 다음 업무를 외부에 위탁할 수 있으며, 위탁 시 위탁받는 자의 명칭과 위탁 업무를 사전 공지합니다.</p>
+<ul class="check-list">
+<li><strong>결제 처리</strong> — PG사 (카드 결제·계좌 이체 처리, 회사는 거래 식별자만 수신)</li>
+<li><strong>예약 진행</strong> — 협력 관리사 (해당 예약 진행에 필요한 최소 정보만 전달)</li>
+<li><strong>전화 안내</strong> — 통신사 (대표 전화 회선 운영)</li>
+</ul>
+<p>수탁자에게는 위탁 계약 등에 따라 안전 관리 조치, 재위탁 제한, 위탁 종료 시 정보 반환·파기 의무를 명시합니다.</p>
 </section>
-""",
+
+<section class="block" id="art7">
+<h2>제7조 (이용자의 권리와 행사 방법)</h2>
+<p>이용자는 다음 권리를 행사하실 수 있으며, 회사는 지체 없이 응답합니다.</p>
+<ul class="check-list">
+<li><strong>열람 요청</strong> — 본인의 개인정보 처리 내역 확인</li>
+<li><strong>정정·삭제 요청</strong> — 잘못된 정보의 수정 또는 삭제</li>
+<li><strong>처리 정지 요청</strong> — 동의 철회 및 처리 중단</li>
+<li><strong>개인정보 이동권</strong> — 본인 정보의 사본 요청 (관련 법령 허용 범위)</li>
+</ul>
+<p>위 권리는 <a href="/support/contact/">문의하기</a> 또는 개인정보보호책임자에게 서면·전화·이메일로 요청하시면 됩니다. 회사는 본인 확인 후 10일 이내 처리합니다.</p>
+</section>
+
+<section class="block" id="art8">
+<h2>제8조 (쿠키·자동수집 항목)</h2>
+<p>회사는 이용자 편의를 위해 쿠키(cookie)를 사용할 수 있습니다. 이용자는 브라우저 설정에서 쿠키 저장을 거부할 수 있으며, 쿠키 거부 시 일부 기능이 제한될 수 있습니다.</p>
+<ul class="check-list">
+<li>사용 목적 — 접속 빈도·방문 시간 분석, 보안 점검</li>
+<li>저장 항목 — 세션 식별자, 페이지 선호 설정 (개인 식별 정보 미포함)</li>
+<li>거부 방법 — 브라우저 설정 → 개인정보 → 쿠키 관리</li>
+</ul>
+</section>
+
+<section class="block" id="art9">
+<h2>제9조 (안전성 확보 조치)</h2>
+<p>회사는 개인정보의 안전한 처리를 위해 다음 조치를 시행합니다.</p>
+<ul class="check-list">
+<li><strong>접근 통제</strong> — 운영팀 중 권한 부여자만 접근, 접근 기록 보존</li>
+<li><strong>전송 보안</strong> — 웹사이트 전 페이지 HTTPS 적용</li>
+<li><strong>저장 보안</strong> — 민감 정보 암호화 저장</li>
+<li><strong>주기적 점검</strong> — 분기 1회 자체 점검, 연 1회 외부 점검</li>
+<li><strong>물리적 보안</strong> — 자료실 출입 통제, 문서 파쇄 절차 운영</li>
+</ul>
+</section>
+
+<section class="block" id="art10">
+<h2>제10조 (개인정보 보호책임자)</h2>
+<div class="callout note">
+<strong>개인정보 보호책임자</strong>
+<p>성명 : 김유환 (대표)<br>
+소속 : 바로GO 운영팀 (YH LAB)<br>
+연락처 : <a href="tel:0508-202-4719">0508-202-4719</a><br>
+주소 : 경기도 파주시 청석로 268<br>
+사업자등록번호 : 815-26-00585</p>
+</div>
+<p>개인정보 처리와 관련된 문의·불만·피해구제 등을 책임자에게 직접 접수하실 수 있습니다. 회사가 충분히 응답하지 못한 경우 개인정보보호위원회·개인정보 침해신고센터(privacy.go.kr) 등 외부 기관에도 신고가 가능합니다.</p>
+</section>
+
+<section class="block" id="art11">
+<h2>제11조 (방침의 변경과 고지 의무)</h2>
+<p>본 방침이 변경되는 경우 시행일 7일 전 본 페이지에 사전 공지합니다. 중대한 변경(이용자 권리 변동·수집 항목 추가 등)의 경우 시행일 30일 전 공지합니다.</p>
+<ul class="check-list">
+<li>현재 시행일 : 2026-05-19 · 버전 v2.0</li>
+<li>이전 버전 보관 : 운영팀이 별도 보관, 요청 시 제공</li>
+<li>주요 변경 시 <a href="/support/notice/">공지사항</a>에도 함께 게시</li>
+</ul>
+</section>
+""" + _faq_block([
+    ("회원 가입을 하지 않는데 왜 개인정보가 수집되나요?",
+     "회사는 회원 가입 절차를 운영하지 않습니다. 다만 예약 진행을 위해서는 이름·연락처·방문 장소 등이 필요하므로, 예약 상담 시점에 본인이 직접 제공하시는 정보만 처리합니다."),
+    ("결제 카드 정보는 어디에 저장되나요?",
+     "회사는 카드 번호·CVC 등 결제 카드 원본 정보를 저장하지 않습니다. 결제는 PG사·카드사에서 직접 처리되며, 회사는 거래 식별자(마스킹된 번호 등)만 영수증·환불 처리 목적으로 보관합니다."),
+    ("개인정보 열람·삭제는 어떻게 신청하나요?",
+     "<a href=\"/support/contact/\">문의하기</a> 페이지로 본인 확인이 가능한 정보(이름·연락처)와 함께 요청을 접수해 주세요. 운영팀이 본인 확인 후 10일 이내 처리합니다."),
+    ("쿠키를 거부해도 사이트를 이용할 수 있나요?",
+     "정보 안내 페이지는 모두 정상적으로 열람 가능합니다. 다만 일부 편의 기능(접속 빈도 기반 추천 등)이 제한될 수 있습니다."),
+]) + _GUIDE_DISCLAIMER,
+  related=_rel("/about/privacy/", ["/about/terms/", "/about/safety-policy/", "/about/operation-policy/", "/support/contact/"], title="이어서 살펴볼 문서"),
 )
 
 add(
   path="about/terms/index.html", url="/about/terms/", slug="terms",
-  title="이용약관 | 바로GO",
-  description="바로GO 이용약관. 서비스 이용 시 동의되는 일반 조건을 안내합니다.",
+  title="이용약관 — 예약·결제·취소·책임 한계 14개 조항 | 바로GO",
+  description="바로GO(운영사 YH LAB) 이용약관. 목적·정의·예약·결제·취소환불·서비스 변경·책임 제한·면책·분쟁 관할·약관 개정 등 14개 조항을 정식 약관 형식으로 안내합니다.",
   h1="이용약관",
-  intro='<p class="lede">본 약관은 바로GO(운영사 YH LAB, 이하 "회사")가 제공하는 방문 마사지 안내 서비스의 이용 조건을 정합니다.</p>',
+  intro='<p class="lede">본 약관은 바로GO(운영사 YH LAB, 이하 "회사")가 제공하는 출장마사지 안내·예약 서비스의 이용 조건, 회사와 이용자의 권리·의무 및 책임 사항을 정합니다. 시행일과 버전이 본문 상단에 명시되어 있으며, 변경 시 사전 공지 후 적용됩니다.</p>',
   breadcrumbs=[("홈","/"),("바로GO 소개","/about/"),("이용약관","/about/terms/")],
-  body="""
-<section class="block">
+  body=_ABOUT_LEGAL_BYLINE_TPL.format(role="대표 김유환", effective="2026-05-19", ver="v2.0") + _guide_toc([
+    ("제1조 (목적)", "art1"),
+    ("제2조 (정의)", "art2"),
+    ("제3조 (약관의 명시·게시·개정)", "art3"),
+    ("제4조 (회사의 의무)", "art4"),
+    ("제5조 (이용자의 의무)", "art5"),
+    ("제6조 (예약 절차)", "art6"),
+    ("제7조 (결제·세금계산서)", "art7"),
+    ("제8조 (취소·환불)", "art8"),
+    ("제9조 (서비스 제공 범위)", "art9"),
+    ("제10조 (서비스 변경·중단)", "art10"),
+    ("제11조 (책임 제한)", "art11"),
+    ("제12조 (면책 조항)", "art12"),
+    ("제13조 (개인정보 보호)", "art13"),
+    ("제14조 (분쟁 해결과 관할)", "art14"),
+  ]) + """
+<section class="block" id="art1">
 <h2>제1조 (목적)</h2>
-<p>본 약관은 회사가 제공하는 방문 마사지 안내·예약 서비스의 이용 절차와 권리·의무를 정함을 목적으로 합니다.</p>
+<p>본 약관은 회사가 제공하는 출장마사지 안내·예약 서비스의 이용 절차, 회사와 이용자의 권리·의무·책임을 정함을 목적으로 합니다.</p>
 </section>
-<section class="block">
+
+<section class="block" id="art2">
 <h2>제2조 (정의)</h2>
+<p>본 약관에서 사용하는 용어의 정의는 다음과 같습니다.</p>
 <ul class="check-list">
-<li>"서비스"란 회사가 운영하는 방문 마사지 안내·예약 플랫폼을 말합니다.</li>
-<li>"이용자"란 본 약관에 따라 서비스를 이용하는 자를 말합니다.</li>
-<li>"관리사"란 회사와 협력해 방문 케어를 진행하는 자를 말합니다.</li>
+<li><strong>"회사"</strong>란 바로GO를 운영하는 사업자 YH LAB (사업자등록번호 815-26-00585)을 말합니다.</li>
+<li><strong>"서비스"</strong>란 회사가 운영하는 출장마사지 안내·예약 플랫폼 및 부수 서비스 일체를 말합니다.</li>
+<li><strong>"이용자"</strong>란 본 약관에 따라 서비스를 이용하는 자를 말합니다.</li>
+<li><strong>"관리사"</strong>란 회사와 협력 계약을 체결하고 방문 케어를 진행하는 자를 말합니다.</li>
+<li><strong>"예약"</strong>이란 이용자가 일정·장소·코스를 합의한 후 회사가 확정 안내한 상태를 말합니다.</li>
 </ul>
 </section>
-<section class="block">
-<h2>제3조 (예약과 결제)</h2>
-<p>예약은 회사가 안내한 절차에 따라 진행되며, 확정 전 가격·코스·취소 기준을 안내합니다.</p>
+
+<section class="block" id="art3">
+<h2>제3조 (약관의 명시·게시·개정)</h2>
+<ol class="steps">
+<li><strong>명시·게시</strong><p>회사는 본 약관을 본 페이지에 상시 게시합니다.</p></li>
+<li><strong>개정</strong><p>회사는 관련 법령을 위배하지 않는 범위에서 본 약관을 개정할 수 있습니다.</p></li>
+<li><strong>사전 고지</strong><p>약관 개정 시 시행일 7일 전 본 페이지에 사전 공지합니다. 이용자에게 불리한 변경은 시행일 30일 전 공지합니다.</p></li>
+<li><strong>동의 간주</strong><p>이용자가 시행일 이후 서비스를 이용하면 변경된 약관에 동의한 것으로 간주됩니다.</p></li>
+</ol>
 </section>
-<section class="block">
-<h2>제4조 (취소·환불)</h2>
-<p><a href="/reservation/cancel-refund/">취소·환불 규정</a>에 따라 처리됩니다.</p>
+
+<section class="block" id="art4">
+<h2>제4조 (회사의 의무)</h2>
+<ul class="check-list">
+<li>안전하고 합법적인 이용 환경을 제공할 의무</li>
+<li>이용자 개인정보를 <a href="/about/privacy/">개인정보처리방침</a>에 따라 보호할 의무</li>
+<li>예약 확정 전 가격·코스·취소 기준을 정확히 안내할 의무</li>
+<li>이용자 불편 신고를 신속·정확하게 처리할 의무</li>
+<li>안전 이용 정책 위반이 확인된 협력 관리사를 즉시 중단시킬 의무</li>
+</ul>
 </section>
-<section class="block">
+
+<section class="block" id="art5">
 <h2>제5조 (이용자의 의무)</h2>
 <ul class="check-list">
-<li>정확한 예약 정보 제공</li>
-<li>불법·퇴폐 서비스 요청 금지</li>
-<li>관리사에 대한 부당한 요구 금지</li>
+<li>예약 진행에 필요한 정확한 정보(이름·연락처·방문 장소·인원)를 제공할 의무</li>
+<li>불법·퇴폐 서비스를 요청하지 아니할 의무</li>
+<li>관리사에 대한 폭언·폭행·성희롱·합의되지 않은 촬영을 하지 아니할 의무</li>
+<li>합의된 진행 시간·코스 외 부당한 요구를 하지 아니할 의무</li>
+<li>본 약관 및 <a href="/about/safety-policy/">안전 이용 정책</a>을 준수할 의무</li>
 </ul>
 </section>
-<section class="block">
-<h2>제6조 (회사의 의무)</h2>
+
+<section class="block" id="art6">
+<h2>제6조 (예약 절차)</h2>
+<p>예약은 회사가 안내한 절차에 따라 진행되며, 확정 시점은 다음과 같습니다.</p>
+<ol class="steps">
+<li><strong>상담</strong><p>이용자가 회사 대표 전화 또는 안내 채널로 상담을 요청합니다.</p></li>
+<li><strong>안내</strong><p>회사는 일정·코스·가격·취소 기준·진행 장소 권장 사항을 안내합니다.</p></li>
+<li><strong>확정</strong><p>이용자가 안내된 조건에 동의하고 회사가 관리사 배정을 완료한 시점에 예약이 확정됩니다.</p></li>
+<li><strong>진행</strong><p>확정 후 안내된 시간·장소에서 코스가 진행됩니다.</p></li>
+</ol>
+</section>
+
+<section class="block" id="art7">
+<h2>제7조 (결제·세금계산서)</h2>
 <ul class="check-list">
-<li>안전한 이용 환경 제공</li>
-<li>개인정보 보호 및 정확한 가격 안내</li>
-<li>불편 신고 접수 및 처리</li>
+<li>결제 수단은 현장 결제·계좌 이체·카드 결제 중 사전 합의된 방식으로 진행됩니다.</li>
+<li>사전 동의 없는 추가 비용은 청구되지 않습니다.</li>
+<li>세금계산서·현금영수증이 필요한 경우 예약 시점에 요청해 주시면 발행됩니다.</li>
+<li>결제 처리는 PG사·금융기관을 통해 직접 이루어지며, 회사는 거래 식별자만 보관합니다 (<a href="/about/privacy/">개인정보처리방침</a> 참조).</li>
 </ul>
 </section>
-<section class="block">
-<h2>제7조 (책임 제한)</h2>
-<p>방문 마사지는 의료 행위가 아니며, 회사는 치료 효과를 보장하지 않습니다. 이용자의 건강 상태에 따른 결과에 대해 회사는 책임을 지지 않습니다.</p>
+
+<section class="block" id="art8">
+<h2>제8조 (취소·환불)</h2>
+<p>예약 취소·환불은 시간대별 기준에 따라 처리됩니다. 자세한 기준은 <a href="/reservation/cancel-refund/">취소·환불 규정</a>에 명시되어 있으며, 본 약관과 동일한 효력을 갖습니다.</p>
+<ul class="check-list">
+<li>회사 또는 관리사 측 귀책 사유로 진행이 불가한 경우 전액 환불</li>
+<li>이용자 측 사유로 인한 취소는 시점에 따라 비율 환불</li>
+<li>안전 사유로 인한 진행 중단은 진행 시간 비례 환불</li>
+</ul>
 </section>
-<section class="block">
-<h2>제8조 (관할)</h2>
-<p>본 약관과 관련된 분쟁은 회사 소재지 관할 법원을 합의 관할로 합니다.</p>
+
+<section class="block" id="art9">
+<h2>제9조 (서비스 제공 범위)</h2>
+<p>회사가 제공하는 서비스는 다음과 같습니다.</p>
+<ul class="check-list">
+<li>출장마사지 예약 안내 및 일정 조율</li>
+<li>코스·가격 안내 및 결제 처리</li>
+<li>관리사 배정 및 진행 일정 안내</li>
+<li>이용 후 불편 신고 접수 및 처리</li>
+<li>안전 이용 정책 운영 및 위반 사항 처리</li>
+</ul>
+<p>회사는 의료 행위·치료 행위를 제공하지 않으며, 본 서비스를 통한 효과·치유를 보장하지 않습니다.</p>
 </section>
-""",
+
+<section class="block" id="art10">
+<h2>제10조 (서비스 변경·중단)</h2>
+<p>회사는 영업 일정·기술적 사정·법령 변경 등의 사유로 서비스의 일부 또는 전부를 변경하거나 중단할 수 있습니다. 이 경우 다음과 같이 처리됩니다.</p>
+<ul class="check-list">
+<li>정기 변경 — 시행일 7일 전 본 페이지·<a href="/support/notice/">공지사항</a> 게시</li>
+<li>긴급 중단 — 사정 발생 즉시 공지, 사후 사유 명시</li>
+<li>변경·중단으로 인한 이용자 피해는 본 약관 책임 제한 범위에서 보전</li>
+</ul>
+</section>
+
+<section class="block" id="art11">
+<h2>제11조 (책임 제한)</h2>
+<p>회사는 본 약관 및 관련 법령에 따라 서비스를 제공하며, 다음 경우에는 책임이 제한됩니다.</p>
+<ul class="check-list">
+<li>이용자의 건강 상태에 따른 결과 — 출장마사지는 의료 행위가 아니며 회사는 치료 효과를 보장하지 않습니다.</li>
+<li>천재지변·전쟁·관계 기관 명령 등 회사의 통제를 벗어난 사정으로 인한 미진행</li>
+<li>이용자가 정보를 정확히 제공하지 않아 발생한 진행 차질</li>
+<li>이용자가 본 약관 및 안전 정책을 위반하여 발생한 손해</li>
+</ul>
+</section>
+
+<section class="block" id="art12">
+<h2>제12조 (면책 조항)</h2>
+<p>다음의 경우 회사는 책임을 지지 않습니다.</p>
+<ul class="check-list">
+<li>이용자가 알린 건강 상태가 사실과 다를 때 발생한 결과</li>
+<li>관리사·이용자 간 사적으로 합의된 추가 행위에서 발생한 사고</li>
+<li>이용자가 약관·정책을 위반하여 발생한 모든 손해</li>
+<li>제3자의 불법 행위로 인한 손해 (회사가 직접 가담하지 않은 경우)</li>
+</ul>
+</section>
+
+<section class="block" id="art13">
+<h2>제13조 (개인정보 보호)</h2>
+<p>회사는 이용자의 개인정보를 <a href="/about/privacy/">개인정보처리방침</a>에 따라 처리·보호합니다. 처리방침은 본 약관과 함께 효력을 가지며, 변경 시 본 약관과 동일한 절차로 사전 공지됩니다.</p>
+</section>
+
+<section class="block" id="art14">
+<h2>제14조 (분쟁 해결과 관할)</h2>
+<ol class="steps">
+<li><strong>1차 해결</strong><p>이용자는 분쟁 발생 시 회사에 먼저 시정을 요청합니다. 회사는 14일 이내 회신합니다.</p></li>
+<li><strong>외부 조정</strong><p>회사 회신 후에도 분쟁이 해소되지 않는 경우 한국소비자원·소비자분쟁조정위원회 등의 조정을 신청할 수 있습니다.</p></li>
+<li><strong>관할 법원</strong><p>본 약관과 관련된 소송의 합의 관할은 회사 본사 소재지를 관할하는 법원으로 합니다.</p></li>
+</ol>
+<div class="callout note">
+<strong>부칙</strong>
+<p>본 약관(v2.0)은 2026년 5월 19일부터 시행됩니다. 이전 버전(v1.0, 2025년 시행)은 운영팀이 별도 보관하며, 요청 시 제공됩니다.</p>
+</div>
+</section>
+""" + _faq_block([
+    ("회원 가입 없이도 이용약관에 동의해야 하나요?",
+     "회사는 별도 회원 가입 절차를 운영하지 않습니다. 다만 예약을 진행하시는 시점에 본 약관에 동의하신 것으로 간주됩니다."),
+    ("취소·환불 규정과 약관 중 어느 것이 우선되나요?",
+     "<a href=\"/reservation/cancel-refund/\">취소·환불 규정</a>은 본 약관 제8조의 세부 기준이며, 본 약관의 일부로 동일한 효력을 갖습니다. 두 문서 간 충돌 발생 시 이용자에게 더 유리한 해석이 적용됩니다."),
+    ("약관 변경 시 이용자가 거부할 수 있나요?",
+     "변경된 약관에 동의하지 않으시면 서비스 이용을 중단하실 수 있습니다. 단, 시행일 이후 서비스를 계속 이용하시면 변경 약관에 동의하신 것으로 간주됩니다."),
+    ("분쟁이 발생하면 어디서 조정받을 수 있나요?",
+     "1차로 회사에 시정을 요청하시고, 해소되지 않는 경우 한국소비자원·소비자분쟁조정위원회에 분쟁 조정을 신청하실 수 있습니다. 최종적으로는 본 약관 제14조의 관할 법원에서 해결됩니다."),
+]) + _GUIDE_DISCLAIMER,
+  related=_rel("/about/terms/", ["/about/privacy/", "/reservation/cancel-refund/", "/about/safety-policy/", "/support/contact/"], title="이어서 살펴볼 문서"),
 )
 
 
