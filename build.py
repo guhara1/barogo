@@ -9266,6 +9266,10 @@ _MAG_READ_MIN = {
     "hotel-guest-guide": 6,
     "course-selection-by-purpose": 6,
     "regional-usage-tips": 6,
+    "sleep-quality-recovery": 6,
+    "chronic-headache-care": 5,
+    "post-workout-recovery": 5,
+    "womens-cycle-care": 6,
 }
 
 
@@ -9821,6 +9825,326 @@ _MAG6_BODY = _mag_toc([
 """ + _MAG_DISCLAIMER
 
 
+# ===== Magazine 7 — 수면 질 회복 (웰니스) =====
+_MAG7_BODY = _mag_toc([
+    ("잠 못 드는 사람에게 자주 보이는 4가지 패턴", "patterns"),
+    ("수면 질이 무너지는 누적 원인", "causes"),
+    ("운영팀이 권장하는 저녁 회복 흐름", "evening-flow"),
+    ("수면 회복에 권장되는 코스 선택", "course"),
+    ("함께 권장되는 수면 환경 점검 5가지", "environment"),
+    ("수면 회복 케어를 진행할 때 자주 묻는 질문", "qna"),
+]) + """
+<section class="block" id="patterns">
+<h2>잠 못 드는 사람에게 자주 보이는 4가지 패턴</h2>
+<p>운영팀이 "잠을 깊이 못 잔다"고 호소한 이용자들과 진행한 상담에서 가장 자주 관찰된 신호는 다음 네 가지였습니다. 본인의 패턴을 먼저 분류해 두면 회복 케어의 방향이 분명해집니다.</p>
+<ol class="steps">
+<li><strong>입면 지연형</strong><p>침대에 누워서 30분-1시간 잠이 들지 않습니다. 어깨·목 긴장이 풀리지 않은 채 누워 있는 경우가 많습니다.</p></li>
+<li><strong>중간 각성형</strong><p>잠은 들지만 새벽 2-4시 사이 깨고 다시 잠들기까지 시간이 걸립니다.</p></li>
+<li><strong>얕은 수면형</strong><p>총 수면 시간은 채우지만 아침에 일어났을 때 잔 것 같지 않은 느낌이 지속됩니다.</p></li>
+<li><strong>이른 각성형</strong><p>새벽 4-5시쯤 자연스럽게 깨고 다시 잠들지 못합니다.</p></li>
+</ol>
+</section>
+
+<section class="block" id="causes">
+<h2>수면 질이 무너지는 누적 원인</h2>
+<p>수면 질 저하는 한두 가지 원인이 아니라 여러 누적이 쌓인 결과입니다. 운영팀이 상담에서 가장 자주 확인한 누적 요인은 다음과 같습니다.</p>
+<ul class="check-list">
+<li><strong>어깨·목 긴장 누적</strong> — 누워도 근육이 풀리지 않아 입면이 지연됩니다.</li>
+<li><strong>저녁 시간 자극원</strong> — 늦은 카페인, 강한 조명, 휴대폰 장시간 사용</li>
+<li><strong>저녁 식사 시간·양</strong> — 취침 2시간 이내 과식·고지방 섭취는 얕은 수면의 주요 원인</li>
+<li><strong>주간 누적 스트레스</strong> — 일과가 끝나도 긴장이 해제되지 않는 상태</li>
+<li><strong>운동 시점</strong> — 취침 직전 고강도 운동은 입면을 방해할 수 있음</li>
+</ul>
+<div class="callout warn">
+<strong>주의 — 만성 불면이 4주 이상 지속되면</strong>
+<p>일상에 영향을 미칠 정도의 불면이 4주 이상 이어진다면 단순 회복 케어가 아니라 수면 의학·정신건강의학 진료가 우선입니다. 마사지는 의료 행위가 아니며, 이런 경우 진료를 먼저 받으시기를 권장합니다.</p>
+</div>
+</section>
+
+<section class="block" id="evening-flow">
+<h2>운영팀이 권장하는 저녁 회복 흐름</h2>
+<p>저녁 시간을 어떻게 보내느냐가 그날 수면의 질을 크게 좌우합니다. 회복 케어를 받는 날에는 다음 흐름을 권장합니다.</p>
+<ol class="steps">
+<li><strong>저녁 식사 — 취침 3시간 전 마무리</strong><p>고지방·과식 피하고 가벼운 식단으로 정리합니다.</p></li>
+<li><strong>케어 진행 — 취침 2-3시간 전 시작</strong><p>60-90분 코스가 일반적이며, 저녁 8-10시 진행이 가장 자주 선택됩니다.</p></li>
+<li><strong>케어 직후 — 따뜻한 물 한 잔</strong><p>수분 보충과 함께 천천히 호흡을 정리합니다.</p></li>
+<li><strong>샤워 — 미지근한 물 짧게</strong><p>뜨거운 물 장시간 샤워는 오히려 각성을 유발할 수 있습니다.</p></li>
+<li><strong>침실 — 조명 낮추고 휴대폰 멀리</strong><p>케어 효과를 가장 오래 유지하는 마무리입니다.</p></li>
+</ol>
+</section>
+
+<section class="block" id="course">
+<h2>수면 회복에 권장되는 코스 선택</h2>
+<p>패턴별로 자주 권장되는 코스는 다음과 같습니다. 본인 패턴에 가까운 항목을 참고해 주세요.</p>
+<table class="compare-table">
+<thead><tr><th scope="col">수면 패턴</th><th scope="col">권장 코스</th><th scope="col">길이·시기</th></tr></thead>
+<tbody>
+<tr><th scope="row">입면 지연형</th><td>아로마 또는 스웨디시</td><td>90분, 취침 2-3시간 전</td></tr>
+<tr><th scope="row">중간 각성형</th><td>스웨디시 + 어깨 집중</td><td>90분, 주 1-2회</td></tr>
+<tr><th scope="row">얕은 수면형</th><td>홈타이 또는 아로마</td><td>120분, 격주 1회</td></tr>
+<tr><th scope="row">전반 회복</th><td>아로마</td><td>60-90분, 유지 회복</td></tr>
+</tbody>
+</table>
+<p>코스별 차이는 <a href="/service/">서비스 안내</a> 카테고리에 정리되어 있으며, 가격 기준은 <a href="/reservation/price/">가격 안내</a>에서 확인하실 수 있습니다.</p>
+</section>
+
+<section class="block" id="environment">
+<h2>함께 권장되는 수면 환경 점검 5가지</h2>
+<ul class="check-list">
+<li><strong>실내 온도</strong> — 18-20도가 입면에 가장 적합한 범위로 알려져 있습니다.</li>
+<li><strong>침실 조명</strong> — 취침 1시간 전부터 색온도 낮춤(주황빛)</li>
+<li><strong>매트리스·베개</strong> — 어깨·목 긴장 누적이 있다면 베개 높이 점검</li>
+<li><strong>소음</strong> — 일정한 백색소음이 간헐적 소음보다 수면에 유리</li>
+<li><strong>침구 정리</strong> — 같은 시간 잠자리 정리만으로도 입면 시간이 줄어듭니다.</li>
+</ul>
+</section>
+
+<section class="block" id="qna">
+<h2>수면 회복 케어를 진행할 때 자주 묻는 질문</h2>
+<p><strong>코스 진행 후 바로 잠들어도 되나요?</strong> — 권장됩니다. 운영팀이 가장 자주 안내하는 흐름이며, 코스 직후의 이완 상태를 가장 잘 활용하는 방법입니다.</p>
+<p><strong>매일 받아도 되나요?</strong> — 매일은 권장되지 않습니다. 회복 케어는 신체가 회복할 시간이 필요하므로 주 1-2회 정도가 일반적인 권장 빈도입니다.</p>
+<p><strong>처음 받아도 수면 회복에 도움이 되나요?</strong> — 한 번에 모든 패턴이 바뀌지는 않습니다. 다만 첫 회 진행 후 "입면이 빨라졌다"는 후기가 가장 많은 패턴은 입면 지연형입니다.</p>
+</section>
+""" + _MAG_DISCLAIMER
+
+
+# ===== Magazine 8 — 만성 두통·편두통 회복 케어 (웰니스) =====
+_MAG8_BODY = _mag_toc([
+    ("두통이 누적되는 사람에게 보이는 신호", "signal"),
+    ("긴장형 두통과 편두통의 일반적 차이", "tension-vs-migraine"),
+    ("의료 진료가 우선인 신호", "medical"),
+    ("운영팀이 두통 누적 이용자에게 권장하는 코스", "course"),
+    ("케어 전후 자주 안내되는 생활 점검", "lifestyle"),
+    ("자주 묻는 질문", "qna"),
+]) + """
+<section class="block" id="signal">
+<h2>두통이 누적되는 사람에게 보이는 신호</h2>
+<p>운영팀이 "두통이 자주 온다"고 상담한 이용자들에게서 공통적으로 관찰된 사전 신호는 다음과 같습니다. 두통이 발생한 직후가 아닌 누적 단계에서 케어를 시작하는 것이 회복 효율이 가장 높습니다.</p>
+<ul class="check-list">
+<li>오후 3-5시 사이 머리 뒤쪽·관자놀이 부근의 둔한 압박감</li>
+<li>어깨·목 긴장이 풀리지 않은 채 두통으로 이어지는 흐름</li>
+<li>모니터 작업 후 눈 주위 피로와 함께 시작되는 두통</li>
+<li>수면 질 저하 다음 날 잦은 두통</li>
+<li>주간 카페인 과다 후 오후 두통</li>
+</ul>
+</section>
+
+<section class="block" id="tension-vs-migraine">
+<h2>긴장형 두통과 편두통의 일반적 차이</h2>
+<p>두통은 양상에 따라 케어 방향이 다릅니다. 본인 두통이 어느 쪽에 가까운지 확인해 두면 운영팀과의 상담이 더 매끄럽습니다.</p>
+<table class="compare-table">
+<thead><tr><th scope="col">구분</th><th scope="col">긴장형 두통</th><th scope="col">편두통</th></tr></thead>
+<tbody>
+<tr><th scope="row">위치</th><td>머리 양쪽, 띠를 두른 듯한 압박</td><td>주로 한쪽, 박동성</td></tr>
+<tr><th scope="row">유발 시점</th><td>장시간 작업·자세 누적 후</td><td>수면·스트레스·식이 변화 후</td></tr>
+<tr><th scope="row">동반 증상</th><td>어깨·목 긴장 동반</td><td>빛·소리 민감, 메스꺼움</td></tr>
+<tr><th scope="row">회복 케어 적합성</th><td>마사지 회복이 자주 권장됨</td><td>의료 진단·관리 우선, 케어는 보조</td></tr>
+</tbody>
+</table>
+</section>
+
+<section class="block" id="medical">
+<h2>의료 진료가 우선인 신호</h2>
+<p>다음 신호가 있다면 회복 케어가 아니라 의료 진료가 먼저입니다. 마사지는 의료 행위가 아니며, 진단되지 않은 두통에 케어를 적용하는 것은 권장되지 않습니다.</p>
+<div class="callout warn">
+<strong>다음 중 하나라도 해당되면 신경과·내과 진료가 우선</strong>
+<p>① 평소와 다른 갑작스러운 강한 두통 ② 두통과 함께 시야 이상·구토·발열 ③ 운동·기침 시 두통이 심해지는 양상 ④ 3주 이상 매일 지속되는 두통 ⑤ 50세 이후 새로 시작된 두통</p>
+</div>
+</section>
+
+<section class="block" id="course">
+<h2>운영팀이 두통 누적 이용자에게 권장하는 코스</h2>
+<p>긴장형 두통이 누적된 이용자에게 자주 권장되는 코스 흐름은 다음과 같습니다.</p>
+<table class="compare-table">
+<thead><tr><th scope="col">단계</th><th scope="col">권장 코스</th><th scope="col">길이·시기</th></tr></thead>
+<tbody>
+<tr><th scope="row">초기 누적 1-2주</th><td>스웨디시 + 두피·어깨 집중</td><td>90분, 1회</td></tr>
+<tr><th scope="row">어깨·목 누적 1개월+</th><td>스웨디시 또는 홈타이</td><td>90-120분, 2주 간격</td></tr>
+<tr><th scope="row">유지 회복</th><td>아로마</td><td>월 1-2회 60-90분</td></tr>
+</tbody>
+</table>
+<p>두피·어깨 집중 진행은 사전 상담에서 미리 요청해 주시면 진행이 매끄럽습니다.</p>
+</section>
+
+<section class="block" id="lifestyle">
+<h2>케어 전후 자주 안내되는 생활 점검</h2>
+<ul class="check-list">
+<li><strong>수분 섭취</strong> — 케어 전후 충분한 수분 보충 (탈수도 두통 유발 요인)</li>
+<li><strong>카페인 시점</strong> — 오후 2시 이후 카페인은 수면을 통해 두통으로 연결될 수 있습니다.</li>
+<li><strong>모니터 휴식</strong> — 1시간 1회 멀리 보기, 안구·관자놀이 가벼운 휴식</li>
+<li><strong>식사 간격</strong> — 공복 시간이 길어지면 일부 이용자에게 두통이 유발됩니다.</li>
+<li><strong>수면 시각 일정성</strong> — 주말 늦잠 차이가 큰 경우 월요일 두통이 잦음</li>
+</ul>
+</section>
+
+<section class="block" id="qna">
+<h2>자주 묻는 질문</h2>
+<p><strong>두통이 있을 때 받아도 되나요?</strong> — 진행 중인 강한 두통, 메스꺼움 동반 두통은 케어를 권장하지 않습니다. 가라앉은 후 또는 누적 단계에서 진행이 권장됩니다.</p>
+<p><strong>한 번으로 좋아지나요?</strong> — 한 번에 모든 누적이 풀리지는 않습니다. 운영팀이 가장 자주 안내하는 흐름은 2주 간격 2-3회 후 유지 회복으로 전환하는 패턴입니다.</p>
+<p><strong>어떤 코스를 고르는 게 좋을까요?</strong> — 처음이라면 스웨디시 90분이 가장 무난하며, 사전 상담에서 "두통 누적"을 알려 주시면 두피·어깨 집중으로 조정됩니다. <a href="/magazine/course-selection-by-purpose/">목적별 코스 고르는 법</a> 매거진에 더 자세한 기준이 정리되어 있습니다.</p>
+</section>
+""" + _MAG_DISCLAIMER
+
+
+# ===== Magazine 9 — 운동 후 회복 케어 (웰니스) =====
+_MAG9_BODY = _mag_toc([
+    ("운동 후 회복이 부족할 때 보이는 신호", "signal"),
+    ("운동 강도·종목별 회복 차이", "by-sport"),
+    ("운영팀이 권장하는 회복 케어 시점", "timing"),
+    ("종목별 권장 코스 구성", "course"),
+    ("회복기 함께 권장되는 케어 습관", "habits"),
+    ("자주 묻는 질문", "qna"),
+]) + """
+<section class="block" id="signal">
+<h2>운동 후 회복이 부족할 때 보이는 신호</h2>
+<p>주 3-5회 운동을 지속하는 이용자에게 자주 관찰되는 회복 부족 신호는 다음과 같습니다. 한두 가지가 1-2주 지속되면 회복 케어 시점입니다.</p>
+<ul class="check-list">
+<li>다음 운동까지 24-48시간 안에 통증이 가라앉지 않음</li>
+<li>특정 부위(허벅지·종아리·등·어깨)의 지속적 뻐근함</li>
+<li>훈련 강도를 유지했는데 기록·자세가 떨어지는 흐름</li>
+<li>수면 후에도 운동 부위 피로가 남음</li>
+<li>훈련 전 신체 컨디션이 평소보다 무거움</li>
+</ul>
+</section>
+
+<section class="block" id="by-sport">
+<h2>운동 강도·종목별 회복 차이</h2>
+<p>같은 시간 운동해도 종목에 따라 회복 케어의 방향이 다릅니다. 운영팀이 자주 권장하는 케어 방향을 정리합니다.</p>
+<table class="compare-table">
+<thead><tr><th scope="col">종목·강도</th><th scope="col">자주 누적되는 부위</th><th scope="col">권장 케어 방향</th></tr></thead>
+<tbody>
+<tr><th scope="row">웨이트 — 주 4-5회</th><td>등·어깨·둔근·허벅지</td><td>스포츠 또는 스웨디시 90분</td></tr>
+<tr><th scope="row">러닝 — 주 3-5회</th><td>종아리·발목·허벅지 뒤쪽</td><td>스포츠 90-120분</td></tr>
+<tr><th scope="row">필라테스·요가</th><td>등·골반·어깨</td><td>스웨디시 60-90분</td></tr>
+<tr><th scope="row">사이클 — 장거리</th><td>둔근·허벅지·허리</td><td>스포츠 또는 홈타이 90분</td></tr>
+<tr><th scope="row">크로스핏·복합</th><td>전신</td><td>홈타이 120분 또는 분할 90분 × 2</td></tr>
+</tbody>
+</table>
+</section>
+
+<section class="block" id="timing">
+<h2>운영팀이 권장하는 회복 케어 시점</h2>
+<p>운동과 케어의 시점 간격은 회복 효율에 직접 영향을 줍니다. 자주 안내되는 흐름을 정리합니다.</p>
+<ol class="steps">
+<li><strong>고강도 훈련 후 24-48시간 이내</strong><p>가벼운 스웨디시 60분이 가장 자주 권장됩니다. 회복기 진입을 돕는 흐름입니다.</p></li>
+<li><strong>주간 누적 후 휴식일</strong><p>스포츠 90분 또는 홈타이 120분이 자주 권장됩니다.</p></li>
+<li><strong>경기·테스트 3-5일 전</strong><p>강한 압력보다 가벼운 스웨디시·아로마 60-90분이 권장됩니다.</p></li>
+<li><strong>경기·테스트 직후</strong><p>당일은 가벼운 케어, 다음날 또는 이틀 후 본격 회복 케어가 일반적입니다.</p></li>
+</ol>
+<div class="callout note">
+<strong>참고</strong>
+<p>부상이 의심되거나 통증이 평소와 다르다면 케어가 아니라 정형외과·재활의학 진료가 우선입니다. 회복 케어는 의료 행위가 아니며, 진단되지 않은 부상에 적용하는 것은 권장되지 않습니다.</p>
+</div>
+</section>
+
+<section class="block" id="course">
+<h2>종목별 권장 코스 구성</h2>
+<p>위 표 기준을 좀 더 자세히 정리하면 다음과 같습니다.</p>
+<ul class="check-list">
+<li><strong>웨이트 이용자</strong> — 스포츠 90분 또는 스웨디시 + 등·어깨 집중 90분</li>
+<li><strong>러닝 이용자</strong> — 스포츠 90-120분 (하체 집중 사전 요청 권장)</li>
+<li><strong>필라테스·요가 이용자</strong> — 스웨디시 60-90분 (광범위한 이완 권장)</li>
+<li><strong>사이클·장시간 유산소</strong> — 스포츠 또는 홈타이 90-120분</li>
+<li><strong>복합·고강도 종목</strong> — 홈타이 120분 또는 분할 진행</li>
+</ul>
+<p>코스별 차이는 <a href="/service/">서비스 안내</a>에 정리되어 있으며, 종목 정보를 사전 상담에서 알려 주시면 더 정확한 매칭이 가능합니다.</p>
+</section>
+
+<section class="block" id="habits">
+<h2>회복기 함께 권장되는 케어 습관</h2>
+<ul class="check-list">
+<li><strong>운동 직후 수분·전해질 보충</strong> — 케어 전에도 충분한 수분 보충 권장</li>
+<li><strong>단백질·탄수화물 적절한 섭취</strong> — 회복은 영양·수면·케어의 합</li>
+<li><strong>수면 시간 확보</strong> — 강도 높은 훈련일수록 7-8시간 수면 권장</li>
+<li><strong>경량 활동(걷기·자전거)</strong> — 휴식일에도 가벼운 움직임은 회복에 유리</li>
+<li><strong>스트레칭·폼롤러</strong> — 케어와 함께 일상 회복 도구로 활용</li>
+</ul>
+</section>
+
+<section class="block" id="qna">
+<h2>자주 묻는 질문</h2>
+<p><strong>운동 직후에 바로 받아도 되나요?</strong> — 가능합니다만 1-2시간 정도 간격을 두는 것이 자주 권장됩니다. 운동 직후는 신체가 흥분 상태에 있어 케어 효과를 느끼기 어렵습니다.</p>
+<p><strong>강한 압력이 더 효과적인가요?</strong> — 종목·누적 정도에 따라 다릅니다. 강한 압력이 항상 더 좋은 것은 아니며, 사전 상담에서 본인 컨디션을 알려 주시면 압력 강도가 조정됩니다.</p>
+<p><strong>매일 받아도 되나요?</strong> — 권장되지 않습니다. 신체가 회복할 시간이 필요하므로 주 1-2회가 일반적인 권장 빈도입니다.</p>
+</section>
+""" + _MAG_DISCLAIMER
+
+
+# ===== Magazine 10 — 여성 컨디션 사이클별 케어 (웰니스) =====
+_MAG10_BODY = _mag_toc([
+    ("운영팀이 관찰한 컨디션 사이클별 케어 수요", "demand"),
+    ("주기별 자주 호소되는 신체 신호", "by-phase"),
+    ("케어를 피하는 것이 권장되는 시기", "avoid"),
+    ("주기별 권장 코스 흐름", "course"),
+    ("케어 외 함께 권장되는 회복 습관", "habits"),
+    ("자주 묻는 질문", "qna"),
+]) + """
+<section class="block" id="demand">
+<h2>운영팀이 관찰한 컨디션 사이클별 케어 수요</h2>
+<p>여성 이용자의 상담에서 가장 자주 언급되는 주제는 "컨디션이 시기마다 다르다"는 점입니다. 운영팀이 상담을 통해 관찰한 시기별 케어 수요 패턴을 정리합니다. 본 글은 의학 정보가 아니라 운영 관찰 기반의 안내입니다.</p>
+<ul class="check-list">
+<li>생리 시작 7-10일 전: 어깨·허리·복부 긴장 호소가 가장 많은 시기</li>
+<li>생리 중: 케어 진행 자체가 권장되지 않는 경우가 많음</li>
+<li>생리 후 1주: 회복기, 케어 수요가 가장 자연스러운 시기</li>
+<li>배란기 전후: 컨디션이 비교적 안정적인 시기</li>
+</ul>
+</section>
+
+<section class="block" id="by-phase">
+<h2>주기별 자주 호소되는 신체 신호</h2>
+<p>주기별로 운영팀 상담에서 가장 자주 등장한 호소 부위와 양상을 정리하면 다음과 같습니다.</p>
+<table class="compare-table">
+<thead><tr><th scope="col">시기</th><th scope="col">자주 호소되는 부위·양상</th><th scope="col">자주 권장되는 케어 방향</th></tr></thead>
+<tbody>
+<tr><th scope="row">생리 7-10일 전</th><td>어깨·허리·복부 긴장, 부종감, 수면 질 저하</td><td>스웨디시·아로마 60-90분, 부드러운 압력</td></tr>
+<tr><th scope="row">생리 중</th><td>복부·허리 통증, 컨디션 저하</td><td>휴식 권장, 케어 일정 조정</td></tr>
+<tr><th scope="row">생리 종료 후 1주</th><td>전반적 회복기, 컨디션 상승</td><td>스웨디시·홈타이 90분, 일반 강도</td></tr>
+<tr><th scope="row">배란기 전후</th><td>일부 어깨·허리 둔통</td><td>스웨디시 60-90분</td></tr>
+</tbody>
+</table>
+</section>
+
+<section class="block" id="avoid">
+<h2>케어를 피하는 것이 권장되는 시기</h2>
+<p>다음 시기에는 케어 진행이 권장되지 않거나 일정 조정이 권장됩니다. 사전 상담에서 본인 컨디션을 알려 주시면 운영팀이 일정을 함께 조정합니다.</p>
+<div class="callout warn">
+<strong>케어 진행이 권장되지 않는 신호</strong>
+<p>① 생리 중 강한 복통이 진행 중인 경우 ② 강한 부종이 있는 경우 ③ 임신 중 (임신기 케어는 별도 전문 영역) ④ 부인과 진료 중인 급성기 ⑤ 발열·감기 등 전반적 컨디션 저하 시기. 이런 상태에서는 회복보다 휴식·진료가 우선입니다.</p>
+</div>
+</section>
+
+<section class="block" id="course">
+<h2>주기별 권장 코스 흐름</h2>
+<p>주기별로 가장 자주 권장되는 코스·압력 강도를 정리합니다. 본인 컨디션에 따라 사전 상담에서 조정됩니다.</p>
+<ol class="steps">
+<li><strong>생리 1주 전</strong><p>아로마 또는 스웨디시 60-90분, 부드러운 압력. 어깨·허리 집중 자주 권장됩니다.</p></li>
+<li><strong>생리 종료 후 1주 (회복기)</strong><p>스웨디시 또는 홈타이 90분, 일반 강도. 누적된 긴장 해소에 가장 적합한 시점입니다.</p></li>
+<li><strong>배란기 전후 (안정기)</strong><p>일반 코스 자유 선택. 스웨디시·아로마·홈타이 모두 가능합니다.</p></li>
+<li><strong>유지 회복</strong><p>월 2회 정도 정기 케어가 컨디션 사이클 관리에 자주 도움이 됩니다.</p></li>
+</ol>
+<p>코스별 차이는 <a href="/service/">서비스 안내</a>에서, 가격 기준은 <a href="/reservation/price/">가격 안내</a>에서 확인하실 수 있습니다.</p>
+</section>
+
+<section class="block" id="habits">
+<h2>케어 외 함께 권장되는 회복 습관</h2>
+<ul class="check-list">
+<li><strong>수분·온수 섭취</strong> — 컨디션 저하 시기 충분한 수분 보충</li>
+<li><strong>가벼운 운동</strong> — 걷기·요가 등 저강도 활동은 컨디션 회복에 유리</li>
+<li><strong>철분·수면 관리</strong> — 회복기 영양·수면 보충이 케어 효과 유지에 도움</li>
+<li><strong>온열 케어</strong> — 케어 사이 기간 따뜻한 찜질·반신욕도 자주 권장됨</li>
+<li><strong>스트레스 관리</strong> — 스트레스는 사이클에 직접 영향을 미치는 요인</li>
+</ul>
+</section>
+
+<section class="block" id="qna">
+<h2>자주 묻는 질문</h2>
+<p><strong>생리 중에도 받을 수 있나요?</strong> — 권장되지 않는 경우가 많습니다. 다만 컨디션이 비교적 안정적이라면 부드러운 압력의 짧은 코스(60분)로 진행하는 경우도 있습니다. 사전 상담에서 본인 상태를 알려 주세요.</p>
+<p><strong>임신 중에도 받을 수 있나요?</strong> — 일반 출장마사지에서는 임신 중 케어를 권장하지 않습니다. 임신기 케어는 별도 전문 영역이며, 의료기관·전문 산전 케어를 우선 권장합니다.</p>
+<p><strong>매달 정기적으로 받아도 되나요?</strong> — 권장됩니다. 컨디션 사이클이 일정한 분들에게는 월 2회 정도 정기 케어가 자주 안내되는 패턴입니다.</p>
+</section>
+""" + _MAG_DISCLAIMER
+
+
 MAGAZINE_ARTICLES = [
     {
         "slug": "first-time-essentials",
@@ -9869,6 +10193,38 @@ MAGAZINE_ARTICLES = [
         "category": "지역 가이드", "cover": "sage", "published": "2026-05-10",
         "lede": "같은 코스라도 권역별 이용 패턴은 분명히 다릅니다. 수도권·광역시·도·제주 권역별로 자주 안내되는 흐름을 정리합니다.",
         "body": _MAG6_BODY,
+    },
+    {
+        "slug": "sleep-quality-recovery",
+        "title": "수면 질 회복 — 잠 못 드는 사람을 위한 케어 흐름",
+        "desc": "입면 지연·중간 각성·얕은 수면 등 운영팀이 상담에서 자주 관찰한 4가지 수면 패턴과, 패턴별 권장 코스·저녁 회복 흐름·수면 환경 점검을 정리한 웰니스 매거진입니다.",
+        "category": "웰니스", "cover": "dusk", "published": "2026-05-12",
+        "lede": "잠을 깊이 못 자는 분에게 운영팀이 가장 자주 안내하는 4가지 패턴 분류와 패턴별 회복 케어 흐름을 정리합니다.",
+        "body": _MAG7_BODY,
+    },
+    {
+        "slug": "chronic-headache-care",
+        "title": "만성 두통·편두통 — 어떤 회복 케어가 권장되는가",
+        "desc": "긴장형 두통이 누적되는 사람에게 보이는 사전 신호, 긴장형과 편두통의 일반적 차이, 의료 진료가 우선인 신호, 운영팀이 권장하는 코스 흐름까지 정리한 웰니스 매거진입니다.",
+        "category": "웰니스", "cover": "sage", "published": "2026-04-28",
+        "lede": "긴장형 두통과 편두통의 차이부터 의료 진료가 우선인 신호, 회복 케어가 권장되는 단계까지 운영팀이 정리합니다.",
+        "body": _MAG8_BODY,
+    },
+    {
+        "slug": "post-workout-recovery",
+        "title": "운동 후 회복 케어 — 웨이트·러닝·필라테스 이용자를 위한",
+        "desc": "주 3-5회 운동하는 이용자에게 자주 보이는 회복 부족 신호와, 종목·강도별 누적 부위 차이, 운영팀이 권장하는 케어 시점과 코스 구성을 정리한 운동인 전용 웰니스 매거진입니다.",
+        "category": "웰니스", "cover": "earth", "published": "2026-04-15",
+        "lede": "주 3-5회 운동을 지속하시는 분에게 운영팀이 가장 자주 권장하는 종목별 회복 케어 시점·코스 구성을 정리합니다.",
+        "body": _MAG9_BODY,
+    },
+    {
+        "slug": "womens-cycle-care",
+        "title": "여성 컨디션 사이클별 회복 케어",
+        "desc": "여성 이용자의 상담에서 자주 관찰된 시기별 케어 수요와, 주기별 권장 코스·강도, 케어를 피하는 것이 권장되는 시기, 함께 권장되는 회복 습관까지 운영팀이 정리한 웰니스 매거진입니다.",
+        "category": "웰니스", "cover": "sunset", "published": "2026-04-08",
+        "lede": "여성 이용자의 컨디션 사이클별로 운영팀이 자주 안내하는 케어 시점·코스 강도를 정리합니다. 의학 정보가 아닌 운영 관찰 기반 안내입니다.",
+        "body": _MAG10_BODY,
     },
 ]
 
