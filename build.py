@@ -315,6 +315,13 @@ PAGE_TPL = """<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{title}</title>
 <meta name="description" content="{description}">
+<meta name="theme-color" content="#0b5a47">
+<meta name="msapplication-TileColor" content="#0b5a47">
+<meta name="application-name" content="바로GO">
+<meta name="apple-mobile-web-app-title" content="바로GO">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="format-detection" content="telephone=yes">
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
 <meta name="googlebot" content="index,follow,max-image-preview:large,max-snippet:-1">
 <meta name="yeti" content="index,follow">
@@ -327,12 +334,18 @@ PAGE_TPL = """<!DOCTYPE html>
 <meta property="og:image" content="{og_image}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{title}">
 <meta name="twitter:image" content="{og_image}">
+<meta name="twitter:image:alt" content="{title}">
+<meta name="twitter:title" content="{title}">
+<meta name="twitter:description" content="{description}">
 <meta property="og:site_name" content="바로GO">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:url" content="{url}">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/img/favicon.svg">
+<link rel="mask-icon" href="/assets/img/favicon.svg" color="#0b5a47">
 <link rel="stylesheet" href="/assets/css/style.css?v={asset_v}">
 <script type="application/ld+json">{jsonld}</script>
 </head>
