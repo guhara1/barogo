@@ -4991,3 +4991,177 @@ a.mag-cat-pill:hover {
   }
   .mag-author-bio-name { font-size: 17px; }
 }
+
+/* ============================================================
+   Magazine — 카테고리 칩 카운트 뱃지 (chip 안의 N편 표시)
+   ============================================================ */
+.mega-mag-cat-count {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 6px;
+  padding: 2px 8px;
+  background: var(--color-accent);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 999px;
+  letter-spacing: 0;
+  line-height: 1.4;
+  font-feature-settings: "tnum";
+}
+
+/* ============================================================
+   Magazine — 허브 카테고리 미리보기 섹션 헤더
+   ============================================================ */
+.mag-cat-preview { padding: 28px 0; }
+.mag-cat-preview-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.mag-cat-preview-head .mag-section-title { margin: 0; }
+.mag-cat-preview-link {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--color-accent) !important;
+  text-decoration: none !important;
+  white-space: nowrap;
+  padding: 6px 14px;
+  border: 1px solid var(--color-accent-soft, #cfe3dc);
+  border-radius: 999px;
+  transition: all 140ms var(--ease-out);
+}
+.mag-cat-preview-link:hover {
+  background: var(--color-accent);
+  color: #fff !important;
+}
+
+/* ============================================================
+   Magazine — 카테고리 페이지 헤더 (간단한 메타)
+   ============================================================ */
+.mag-cat-head {
+  margin: 8px 0 28px;
+  padding: 22px 24px;
+  background: var(--color-bg-elev);
+  border: 1px solid var(--color-line);
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.mag-cat-eyebrow {
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  color: var(--color-accent);
+  text-transform: uppercase;
+}
+.mag-cat-summary {
+  margin: 0;
+  font-size: 15.5px;
+  line-height: 1.7;
+  color: var(--color-ink);
+  word-break: keep-all;
+}
+.mag-cat-meta {
+  display: flex;
+  gap: 14px;
+  font-size: 12.5px;
+  color: var(--color-ink-mute);
+  font-weight: 600;
+  font-feature-settings: "tnum";
+  margin-top: 4px;
+}
+
+/* ============================================================
+   Magazine — 페이지네이션
+   ============================================================ */
+.mag-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin: 36px 0 8px;
+  flex-wrap: wrap;
+}
+.mag-pagination-prev,
+.mag-pagination-next {
+  display: inline-flex;
+  align-items: center;
+  padding: 9px 16px;
+  background: #fff;
+  border: 1px solid var(--color-line);
+  border-radius: 10px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--color-ink) !important;
+  text-decoration: none !important;
+  transition: all 140ms var(--ease-out);
+}
+.mag-pagination-prev:hover,
+.mag-pagination-next:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent) !important;
+  transform: translateY(-1px);
+}
+.mag-pagination-prev.is-disabled,
+.mag-pagination-next.is-disabled {
+  color: var(--color-ink-mute) !important;
+  background: var(--color-bg-elev);
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+.mag-pagination-nums {
+  display: inline-flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 4px;
+}
+.mag-pagination-nums li a,
+.mag-pagination-nums li span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 38px;
+  height: 38px;
+  padding: 0 10px;
+  border-radius: 10px;
+  font-size: 13.5px;
+  font-weight: 700;
+  text-decoration: none !important;
+  color: var(--color-ink) !important;
+  background: transparent;
+  border: 1px solid transparent;
+  font-feature-settings: "tnum";
+}
+.mag-pagination-nums li a:hover {
+  background: var(--color-bg-elev);
+  border-color: var(--color-line);
+}
+.mag-pagination-nums li.is-current span {
+  background: var(--color-accent);
+  color: #fff !important;
+  border-color: var(--color-accent);
+}
+
+/* ============================================================
+   Magazine — 카테고리 페이지 하단 "다른 카테고리"
+   ============================================================ */
+.mag-other-cats {
+  margin-top: 32px;
+  padding: 24px;
+  background: var(--color-bg-elev);
+  border: 1px solid var(--color-line);
+  border-radius: 14px;
+}
+.mag-other-cats .mag-section-title { margin-bottom: 14px; }
+
+@media (max-width: 600px) {
+  .mag-cat-preview-head { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .mag-pagination { gap: 8px; }
+  .mag-pagination-nums li a,
+  .mag-pagination-nums li span { min-width: 32px; height: 32px; font-size: 12.5px; }
+}

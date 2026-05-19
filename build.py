@@ -10288,6 +10288,53 @@ _CAT_DOT = {
     "호텔 이용":   "mag-cover-sunset",
 }
 
+# 카테고리 → URL slug (영문)
+_CAT_SLUG = {
+    "처음 이용":   "first-use",
+    "웰니스":      "wellness",
+    "라이프스타일": "lifestyle",
+    "코스 가이드": "course-guide",
+    "지역 가이드": "region-guide",
+    "호텔 이용":   "hotel-use",
+}
+
+# 카테고리별 메타 (페이지 SEO·인트로)
+_CAT_META = {
+    "처음 이용":   {
+        "title": "출장마사지 처음 이용 가이드 매거진 — 첫 코스·사전 준비·진행 흐름 | 바로GO",
+        "desc": "출장마사지를 처음 받으시는 분을 위한 첫 코스 선택, 사전 준비, 진행 흐름, 자주 놓치는 점을 운영팀이 정리한 입문 매거진 모음입니다.",
+        "lede": "처음 받으시는 분이 가장 궁금해하는 질문을 운영팀이 직접 정리한 입문 매거진 모음입니다.",
+    },
+    "웰니스":      {
+        "title": "출장마사지 웰니스 매거진 — 회복·수면·두통·운동·여성 컨디션 | 바로GO",
+        "desc": "사무직 어깨·목, 수면 질, 만성 두통, 운동 후 회복, 여성 컨디션 사이클까지 — 회복 케어 관점에서 운영팀이 정리한 웰니스 매거진 모음입니다.",
+        "lede": "회복 케어 관점에서 운영팀이 정리한 웰니스 매거진. 사무직·수면·두통·운동·여성 컨디션 사이클까지 다룹니다.",
+    },
+    "라이프스타일": {
+        "title": "출장마사지 라이프스타일 매거진 — 야간 근무·교대·여행·이용 패턴 | 바로GO",
+        "desc": "야간 근무자 회복 루틴, 출장·여행 일정에서의 케어 활용, 일상 회복 흐름까지 — 운영팀이 정리한 출장마사지 라이프스타일 매거진 모음입니다.",
+        "lede": "출장마사지를 둘러싼 라이프스타일 — 야간 근무·여행·일상 회복 루틴을 운영팀이 정리한 매거진 모음입니다.",
+    },
+    "코스 가이드": {
+        "title": "출장마사지 코스 가이드 매거진 — 스웨디시·아로마·홈타이·스포츠 비교 | 바로GO",
+        "desc": "스웨디시·아로마·홈타이·스포츠 중 어떤 코스가 맞는지, 운영팀의 매칭 의사결정 흐름과 목적별 권장 코스를 정리한 코스 가이드 매거진 모음입니다.",
+        "lede": "어떤 코스가 나에게 맞을까요. 운영팀의 매칭 의사결정 흐름을 정리한 코스 가이드 매거진 모음입니다.",
+    },
+    "지역 가이드": {
+        "title": "출장마사지 지역 가이드 매거진 — 수도권·광역시·도·제주 권역별 | 바로GO",
+        "desc": "수도권·광역시·도(道) 권역·제주까지 권역별 이용 패턴, 시간대, 진행 장소 차이를 운영팀이 정리한 지역 가이드 매거진 모음입니다.",
+        "lede": "권역별로 이용 패턴이 분명히 다릅니다. 수도권·광역시·도·제주 권역별 흐름을 운영팀이 정리한 지역 가이드 매거진 모음입니다.",
+    },
+    "호텔 이용":   {
+        "title": "출장마사지 호텔 이용 매거진 — 객실 진행·등급별 차이·체크인 안내 | 바로GO",
+        "desc": "호텔 객실에서 받는 출장마사지의 진행 흐름, 호텔 등급별 차이, 객실 예약 시 사전 안내해야 할 점을 운영팀이 정리한 호텔 이용 매거진 모음입니다.",
+        "lede": "호텔 객실에서 받는 출장마사지 — 등급별 진행 차이와 사전 안내 요점을 운영팀이 정리한 매거진 모음입니다.",
+    },
+}
+
+# 카테고리 페이지 페이지네이션 — 페이지당 글 수
+_MAG_PER_PAGE = 20
+
 # 카테고리별 그룹핑
 _cat_order = ["처음 이용", "웰니스", "라이프스타일", "코스 가이드", "지역 가이드", "호텔 이용"]
 _cat_groups = {}
@@ -10298,20 +10345,27 @@ for c in _cat_groups:
     if c not in _active_cats:
         _active_cats.append(c)
 
-# 매거진 hub 상단 — 카테고리 도트 칩 행 (메가메뉴와 동일한 디자인)
+# 매거진 hub 상단 — 카테고리 칩 행 (각 카테고리 페이지로 점프)
+def _cat_url(cat_name, page=1):
+    slug = _CAT_SLUG.get(cat_name, "etc")
+    if page <= 1:
+        return f"/magazine/category/{slug}/"
+    return f"/magazine/category/{slug}/page/{page}/"
+
 _chip_row = (
     '<div class="mega-mag-block mega-mag-block--cats hub-cat-block">'
     '<h2 class="mega-mag-block-title"><span class="mega-mag-block-eyebrow">CATEGORY</span>주제별 매거진</h2>'
     '<div class="mega-mag-cat-row">'
     + "".join(
-        f'<a class="mega-mag-cat-chip" href="#cat-{c.replace(" ", "-")}">'
-        f'<span class="mega-mag-cat-dot {_CAT_DOT.get(c, "mag-cover-forest")}"></span>{c}</a>'
+        f'<a class="mega-mag-cat-chip" href="{_cat_url(c)}">'
+        f'<span class="mega-mag-cat-dot {_CAT_DOT.get(c, "mag-cover-forest")}"></span>{c}'
+        f'<span class="mega-mag-cat-count">{len(_cat_groups[c])}</span></a>'
         for c in _active_cats
     )
     + '</div></div>'
 )
 
-# 매거진 hub 상단 — 최신/이전 2열 앨범 (메가메뉴 미니카드와 동일 디자인, 더 큼)
+# 매거진 미니카드 (카테고리·허브 공통)
 def _mag_mini_card(a):
     title = a["title"].split(" — ")[0] if " — " in a["title"] else a["title"]
     if len(title) > 32:
@@ -10325,24 +10379,31 @@ def _mag_mini_card(a):
         f'</a>'
     )
 
+# 허브 상단 — 최신 글 12편 (4×3)
+_HUB_LATEST_LIMIT = 12
+_hub_latest = _mag_sorted[:_HUB_LATEST_LIMIT]
 _albums = (
     '<div class="mega-mag-block">'
-    '<h2 class="mega-mag-block-title"><span class="mega-mag-block-eyebrow">FEATURED</span>발행 매거진</h2>'
+    '<h2 class="mega-mag-block-title"><span class="mega-mag-block-eyebrow">LATEST</span>최신 매거진</h2>'
     '<div class="mega-mag-grid hub-mag-grid-4">'
-    + "".join(_mag_mini_card(a) for a in _mag_sorted)
+    + "".join(_mag_mini_card(a) for a in _hub_latest)
     + '</div></div>'
 )
 
-# 카테고리별 상세 섹션 (하단)
-_cat_sections = ""
+# 허브 하단 — 카테고리별 미리보기 (각 3편 + "전체 보기")
+_cat_previews = ""
 for c in _active_cats:
-    arts = _cat_groups[c]
-    cat_id = "cat-" + c.replace(" ", "-")
-    _cat_sections += (
-        f'<section class="block mag-cat-section" id="{cat_id}">'
-        f'<h2 class="mag-section-title">{c}<span class="mag-section-count">{len(arts)}편</span></h2>'
-        '<div class="mag-grid">'
-        + "".join(_mag_hub_card(i + 1, a) for i, a in enumerate(arts))
+    arts = _cat_groups[c][:3]
+    total = len(_cat_groups[c])
+    _cat_previews += (
+        '<section class="block mag-cat-preview">'
+        '<div class="mag-cat-preview-head">'
+        f'<h2 class="mag-section-title">{c}'
+        f'<span class="mag-section-count">{total}편</span></h2>'
+        f'<a class="mag-cat-preview-link" href="{_cat_url(c)}">전체 보기 →</a>'
+        '</div>'
+        '<div class="mega-mag-grid hub-mag-grid-4">'
+        + "".join(_mag_mini_card(a) for a in arts)
         + '</div></section>'
     )
 
@@ -10365,7 +10426,7 @@ add(
         '<h2 class="mag-section-title">이번 호 추천</h2>' +
         _mag_hub_card(1, _featured, featured=True) +
         '</section>' +
-        _cat_sections +
+        _cat_previews +
         '<section class="block mag-about">' +
         '<h2>매거진은 어떻게 만들어지나요?</h2>' +
         '<p>바로GO 매거진의 모든 기사는 운영팀(YH LAB)이 직접 집필·검수합니다. 운영 데이터·상담 기록을 인용하는 경우 본문에 명시하며, 외부 자료를 인용할 때는 출처를 함께 표기합니다. ' +
@@ -10386,6 +10447,122 @@ add(
         title="이어서 살펴볼 페이지",
     ),
 )
+
+
+# ---------- Magazine category pages (페이지네이션 지원) ----------
+def _mag_pagination_nav(cat_name, page, total_pages):
+    """카테고리 페이지 하단의 페이지네이션 (1·2·3·… · 이전·다음)."""
+    if total_pages <= 1:
+        return ""
+    parts = ['<nav class="mag-pagination" aria-label="페이지 이동">']
+    # 이전
+    if page > 1:
+        parts.append(f'<a class="mag-pagination-prev" href="{_cat_url(cat_name, page - 1)}">← 이전</a>')
+    else:
+        parts.append('<span class="mag-pagination-prev is-disabled">← 이전</span>')
+    # 번호
+    parts.append('<ol class="mag-pagination-nums">')
+    for p in range(1, total_pages + 1):
+        if p == page:
+            parts.append(f'<li class="is-current"><span aria-current="page">{p}</span></li>')
+        else:
+            parts.append(f'<li><a href="{_cat_url(cat_name, p)}">{p}</a></li>')
+    parts.append('</ol>')
+    # 다음
+    if page < total_pages:
+        parts.append(f'<a class="mag-pagination-next" href="{_cat_url(cat_name, page + 1)}">다음 →</a>')
+    else:
+        parts.append('<span class="mag-pagination-next is-disabled">다음 →</span>')
+    parts.append('</nav>')
+    return "".join(parts)
+
+
+for _cat_name in _active_cats:
+    _cat_arts = _cat_groups[_cat_name]
+    _cat_slug = _CAT_SLUG.get(_cat_name, "etc")
+    _cat_meta = _CAT_META.get(_cat_name, {})
+    _cat_total_pages = max(1, (len(_cat_arts) + _MAG_PER_PAGE - 1) // _MAG_PER_PAGE)
+
+    for _page_num in range(1, _cat_total_pages + 1):
+        _start = (_page_num - 1) * _MAG_PER_PAGE
+        _page_arts = _cat_arts[_start:_start + _MAG_PER_PAGE]
+        _is_first = (_page_num == 1)
+
+        # 경로·URL
+        if _is_first:
+            _path = f"magazine/category/{_cat_slug}/index.html"
+            _url = f"/magazine/category/{_cat_slug}/"
+        else:
+            _path = f"magazine/category/{_cat_slug}/page/{_page_num}/index.html"
+            _url = f"/magazine/category/{_cat_slug}/page/{_page_num}/"
+
+        # 메타
+        _base_title = _cat_meta.get("title", f"출장마사지 {_cat_name} 매거진 | 바로GO")
+        _base_desc = _cat_meta.get("desc", f"{_cat_name} 카테고리의 바로GO 매거진 모음입니다.")
+        if _is_first:
+            _title = _base_title
+            _desc = _base_desc
+        else:
+            _title = f"{_cat_name} 매거진 ({_page_num}페이지) | 바로GO"
+            _desc = f"{_cat_name} 카테고리 매거진 {_page_num}페이지 — {_base_desc}"
+
+        # 빵부스러기·인트로
+        _crumbs = [
+            ("홈", "/"),
+            ("매거진", "/magazine/"),
+            (_cat_name, f"/magazine/category/{_cat_slug}/"),
+        ]
+        if not _is_first:
+            _crumbs.append((f"{_page_num}페이지", _url))
+
+        _intro_text = _cat_meta.get("lede", f"{_cat_name} 카테고리의 매거진 모음입니다.")
+
+        # 본문
+        _other_cats_html = (
+            '<section class="block mag-other-cats">'
+            '<h2 class="mag-section-title">다른 카테고리</h2>'
+            '<div class="mega-mag-cat-row">'
+            + "".join(
+                f'<a class="mega-mag-cat-chip" href="{_cat_url(c)}">'
+                f'<span class="mega-mag-cat-dot {_CAT_DOT.get(c, "mag-cover-forest")}"></span>{c}'
+                f'<span class="mega-mag-cat-count">{len(_cat_groups[c])}</span></a>'
+                for c in _active_cats if c != _cat_name
+            )
+            + '</div></section>'
+        )
+
+        _body = (
+            f'<div class="mag-cat-head"><span class="mag-cat-eyebrow">BAROGO MAGAZINE</span>'
+            f'<p class="mag-cat-summary">{_intro_text}</p>'
+            f'<div class="mag-cat-meta"><span>총 {len(_cat_arts)}편</span>'
+            + (f'<span>{_page_num} / {_cat_total_pages} 페이지</span>' if _cat_total_pages > 1 else '')
+            + '</div></div>'
+            '<section class="block">'
+            '<div class="mega-mag-grid hub-mag-grid-4">'
+            + "".join(_mag_mini_card(a) for a in _page_arts)
+            + '</div>'
+            + _mag_pagination_nav(_cat_name, _page_num, _cat_total_pages)
+            + '</section>'
+            + _other_cats_html
+        )
+
+        add(
+            path=_path,
+            url=_url,
+            slug=f"magazine-cat-{_cat_slug}" + ("" if _is_first else f"-p{_page_num}"),
+            title=_title,
+            description=_desc,
+            h1=f"{_cat_name} 매거진",
+            intro="",  # mag-cat-head로 대체
+            breadcrumbs=_crumbs,
+            og_type="website",
+            body=_body,
+            related=_rel(
+                _url,
+                ["/magazine/", "/guide/", "/review/", "/service/business-trip-massage/"],
+                title="이어서 살펴볼 페이지",
+            ),
+        )
 
 
 # ---------- Magazine article pages ----------
