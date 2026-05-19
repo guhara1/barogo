@@ -16,6 +16,19 @@ import re
 from datetime import date
 
 ROOT = pathlib.Path(__file__).parent
+
+
+def _asset_version():
+    """style.css·nav.js·magazine.js 내용 해시로 캐시 버스팅 키 생성."""
+    h = hashlib.md5()
+    for rel in ("assets/css/style.css", "assets/js/nav.js", "assets/js/magazine.js"):
+        p = ROOT / rel
+        if p.exists():
+            h.update(p.read_bytes())
+    return h.hexdigest()[:8]
+
+
+ASSET_VERSION = _asset_version()
 BUILD_DATE = date.today().isoformat()
 
 SITE = {
@@ -300,7 +313,7 @@ PAGE_TPL = """<!DOCTYPE html>
 <meta property="og:url" content="{url}">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/style.css?v={asset_v}">
 <script type="application/ld+json">{jsonld}</script>
 </head>
 <body data-page="{slug}">
@@ -323,8 +336,8 @@ PAGE_TPL = """<!DOCTYPE html>
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
 <span>예약 전화 0508-202-4719</span>
 </a>
-<script src="/assets/js/nav.js" defer></script>
-<script src="/assets/js/magazine.js" defer></script>
+<script src="/assets/js/nav.js?v={asset_v}" defer></script>
+<script src="/assets/js/magazine.js?v={asset_v}" defer></script>
 </body>
 </html>"""
 
@@ -402,6 +415,7 @@ def render(page):
         header=HEADER,
         footer=FOOTER,
         jsonld=json.dumps(jsonld, ensure_ascii=False),
+        asset_v=ASSET_VERSION,
     )
 
     out_path = ROOT / page["path"]
