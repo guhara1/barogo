@@ -43,7 +43,7 @@ export async function onRequestPost({ request, env }) {
     if (!isStr(name, 1, 50)) errors.push("성명");
     if (!isPhone(phone)) errors.push("전화번호");
     if (!isStr(region, 1, 100)) errors.push("광고 지역");
-    if (!isStr(message, 5, 2000)) errors.push("문의사항");
+    if (!isStr(message, 10, 2000)) errors.push("문의사항 (최소 10자)");
 
     if (errors.length) {
       return json({ ok: false, error: `입력 확인 필요: ${errors.join(", ")}` }, 400);
@@ -58,6 +58,23 @@ export async function onRequestPost({ request, env }) {
       { token: env.TELEGRAM_BOT_TOKEN_1, chat: env.TELEGRAM_CHAT_ID_1, label: "사장1" },
       { token: env.TELEGRAM_BOT_TOKEN_2, chat: env.TELEGRAM_CHAT_ID_2, label: "사장2" },
     ];
+
+    // 환경변수 누락 사전 점검
+    const envStatus = recipients.map(r => ({
+      label: r.label,
+      hasToken: !!r.token,
+      hasChat: !!r.chat,
+    }));
+    const anyConfigured = envStatus.some(e => e.hasToken && e.hasChat);
+    if (!anyConfigured) {
+      console.error("Telegram env not configured:", envStatus);
+      return json({
+        ok: false,
+        error: "운영팀 알림 채널이 설정되지 않았습니다. Cloudflare Pages 환경변수(TELEGRAM_BOT_TOKEN_1·TELEGRAM_CHAT_ID_1)를 확인해 주세요.",
+        debug: envStatus,
+      }, 500);
+    }
+
     const results = await Promise.allSettled(
       recipients.map(r => sendTelegram(r.token, r.chat, text))
     );
@@ -67,13 +84,26 @@ export async function onRequestPost({ request, env }) {
     ).length;
 
     if (delivered === 0) {
-      const debug = results.map((r, i) =>
-        r.status === "fulfilled"
-          ? `${recipients[i].label}: ${JSON.stringify(r.value).slice(0, 200)}`
-          : `${recipients[i].label}: ${r.reason}`
-      ).join(" | ");
-      console.error("Telegram delivery failed:", debug);
-      return json({ ok: false, error: "알림 전송에 실패했습니다. 잠시 후 다시 시도해 주세요." }, 502);
+      const debug = results.map((r, i) => {
+        if (r.status === "fulfilled") {
+          const v = r.value || {};
+          return {
+            label: recipients[i].label,
+            configured: envStatus[i].hasToken && envStatus[i].hasChat,
+            ok: v.ok,
+            error_code: v.error_code,
+            description: (v.description || "").slice(0, 200),
+            skipped: v.skipped,
+          };
+        }
+        return { label: recipients[i].label, rejected: String(r.reason).slice(0, 200) };
+      });
+      console.error("Telegram delivery failed:", JSON.stringify(debug));
+      return json({
+        ok: false,
+        error: "텔레그램 전송 실패. 토큰·채팅ID·봇 시작(/start) 여부를 확인해 주세요.",
+        debug,
+      }, 502);
     }
 
     return json({ ok: true, delivered });

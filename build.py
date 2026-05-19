@@ -11175,8 +11175,9 @@ add(
 
   <div class="pf-field">
     <label for="pf-message">문의사항 <span class="pf-req" aria-hidden="true">*</span></label>
-    <textarea id="pf-message" name="message" rows="6" maxlength="2000" placeholder="진행하고자 하는 광고·제휴 내용, 희망 시기 등을 자유롭게 작성해 주세요."required></textarea>
-    <small class="pf-counter"><span id="pf-count">0</span> / 2000</small>
+    <p class="pf-hint">최소 10글자 이상 입력해 주세요. 진행하시려는 광고·제휴 내용, 희망 시기·지역 등을 자세히 적어 주시면 회신이 더 정확합니다.</p>
+    <textarea id="pf-message" name="message" rows="6" minlength="10" maxlength="2000" placeholder="예) 강남구 도산대로 일대 지역 독점 광고 문의드립니다. 운영하시는 매장은 ○○이며, 희망 게재 시기는 다음 달부터입니다."required></textarea>
+    <small class="pf-counter"><span id="pf-count">0</span> / 2000 <span class="pf-counter-min" id="pf-count-min">(최소 10자)</span></small>
   </div>
 
   <!-- 봇 차단 허니팟 (사람에게는 안 보임) -->
@@ -11213,8 +11214,12 @@ add(
   var count = document.getElementById('pf-count');
   var ts = Date.now();
 
+  var counter = count.parentElement;
   msg.addEventListener('input', function(){
-    count.textContent = msg.value.length;
+    var len = msg.value.length;
+    count.textContent = len;
+    if (len >= 10) counter.classList.add('is-ok');
+    else counter.classList.remove('is-ok');
   });
 
   form.addEventListener('submit', function(e){
@@ -11254,7 +11259,8 @@ add(
         submit.textContent = '전송 완료';
       } else {
         var err = (res.body && res.body.error) || '전송에 실패했습니다. 잠시 후 다시 시도해 주세요.';
-        showStatus('✗ ' + err, 'error');
+        var dbg = (res.body && res.body.debug) ? '\\n[debug] ' + JSON.stringify(res.body.debug) : '';
+        showStatus('✗ ' + err + dbg, 'error');
         submit.disabled = false;
         submit.textContent = '작성 완료 · 운영팀에 전송';
       }
