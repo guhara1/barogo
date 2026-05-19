@@ -2128,19 +2128,9 @@ def _district_facts_html(facts):
 
 
 def _district_dong_card_html(name, dongs, region_slug=None):
+    # 3차 동 페이지 비활성화 — 칩은 평문 li로만 렌더 (스팸 정책 부합)
     dongs = sorted(_consolidate_dongs(dongs))
-    chip_items = []
-    for n in dongs:
-        href = DONG_PAGE_INDEX.get((region_slug, name, n)) if region_slug else None
-        if href:
-            chip_items.append(
-                f'<li class="has-link"><a href="{href}">{n}'
-                '<span class="region-districts-grid-arrow" aria-hidden="true">→</span>'
-                '</a></li>'
-            )
-        else:
-            chip_items.append(f"<li>{n}</li>")
-    chips = "".join(chip_items)
+    chips = "".join(f"<li>{n}</li>" for n in dongs)
     return (
         '<section class="region-districts" aria-label="행정동 전체">'
         '<header class="region-districts-head">'
@@ -2233,10 +2223,6 @@ def _build_seoul_districts():
             f'<h2>{d["name"]} 이용 시간 패턴</h2>'
             f'<p>{d["pattern"]}</p>'
             '</section>',
-            _shared_program_price_section(d["name"]),
-            _shared_procedure_section(d["name"]),
-            _shared_reviews_section(d["name"]),
-            _dong_verification_section(d["name"]),
             _district_faqs_html(d["name"], d["faqs"]),
             _region_cta_html(d["name"]),
         ]
@@ -3343,7 +3329,7 @@ def _build_dong_rich_body(*, dong_name, parent_name, region_name, parent_char,
 
 # Seoul 자치구 + 동 페이지 빌드 (모든 _shared_*/리치 헬퍼 정의 완료 후 실행)
 _build_seoul_districts()
-_build_seoul_dong_pages()
+# _build_seoul_dong_pages()  # 3차 동 페이지 비활성화 (스팸 정책 부합)
 
 
 # ------------------------------------------------------------
@@ -3918,10 +3904,6 @@ def _build_gyeonggi_districts():
             f'<h2>{d["name"]} 이용 시간 패턴</h2>'
             f'<p>{d["pattern"]}</p>'
             '</section>',
-            _shared_program_price_section(d["name"]),
-            _shared_procedure_section(d["name"]),
-            _shared_reviews_section(d["name"]),
-            _dong_verification_section(d["name"]),
             _district_faqs_html(d["name"], d["faqs"]),
             _region_cta_html(d["name"]),
         ]
@@ -4156,10 +4138,6 @@ def _build_gyeonggi_gu_pages():
                 f'<h2>{gu_name} 이용 시간 패턴</h2>'
                 f'<p>{gu["pattern"]}</p>'
                 '</section>',
-                _shared_program_price_section(gu_name),
-                _shared_procedure_section(gu_name),
-                _shared_reviews_section(gu_name),
-                _dong_verification_section(gu_name),
                 _district_faqs_html(gu_name, gu["faqs"]),
                 _region_cta_html(gu_name),
             ]
@@ -4181,7 +4159,8 @@ def _build_gyeonggi_gu_pages():
                 body="".join(body_parts),
                 related=related_html,
             )
-            # 동 페이지들 (3차) — 통합 본문 빌더 사용
+            # 동 페이지들 (3차) — 비활성화 (스팸 정책 부합)
+            continue
             consolidated = list(gu["_dong_slug_map"].keys())
             sorted_dongs = sorted(consolidated)
             for dong_name in consolidated:
@@ -4258,7 +4237,7 @@ def _build_gyeonggi_gu_pages():
 _register_region_dongs("gyeonggi", GYEONGGI_DISTRICTS)
 
 _build_gyeonggi_districts()
-_build_region_dong_pages("gyeonggi", "경기", GYEONGGI_DISTRICTS)
+# _build_region_dong_pages("gyeonggi", "경기", GYEONGGI_DISTRICTS)  # 3차 동 페이지 비활성화
 _build_gyeonggi_gu_pages()
 
 
@@ -4303,10 +4282,6 @@ def _build_metro_district(parent_slug, parent_name, d, all_in_parent):
         f'<h2>{d["name"]} 이용 시간 패턴</h2>'
         f'<p>{d["pattern"]}</p>'
         '</section>',
-        _shared_program_price_section(d["name"]),
-        _shared_procedure_section(d["name"]),
-        _shared_reviews_section(d["name"]),
-        _dong_verification_section(d["name"]),
         _district_faqs_html(d["name"], d["faqs"]),
         _region_cta_html(d["name"]),
     ]
@@ -4969,15 +4944,13 @@ for _d in SEJONG_DISTRICTS:
     _build_metro_district("sejong", "세종", _d, SEJONG_DISTRICTS)
 
 # 3차 행정동 페이지 일괄 생성
-_build_region_dong_pages("busan",   "부산", BUSAN_DISTRICTS)
-_build_region_dong_pages("incheon", "인천", INCHEON_DISTRICTS)
-_build_region_dong_pages("daegu",   "대구", DAEGU_DISTRICTS)
-_build_region_dong_pages("daejeon", "대전", DAEJEON_DISTRICTS)
-_build_region_dong_pages("gwangju", "광주", GWANGJU_DISTRICTS)
-_build_region_dong_pages("ulsan",   "울산", ULSAN_DISTRICTS)
-_build_region_dong_pages("sejong",  "세종", SEJONG_DISTRICTS)
-
-
+# _build_region_dong_pages("busan",   "부산", BUSAN_DISTRICTS)  # 3차 동 페이지 비활성화
+# _build_region_dong_pages("incheon", "인천", INCHEON_DISTRICTS)  # 3차 동 페이지 비활성화
+# _build_region_dong_pages("daegu",   "대구", DAEGU_DISTRICTS)  # 3차 동 페이지 비활성화
+# _build_region_dong_pages("daejeon", "대전", DAEJEON_DISTRICTS)  # 3차 동 페이지 비활성화
+# _build_region_dong_pages("gwangju", "광주", GWANGJU_DISTRICTS)  # 3차 동 페이지 비활성화
+# _build_region_dong_pages("ulsan",   "울산", ULSAN_DISTRICTS)  # 3차 동 페이지 비활성화
+# _build_region_dong_pages("sejong",  "세종", SEJONG_DISTRICTS)  # 3차 동 페이지 비활성화
 # ============================================================
 # 강원특별자치도 18 (시 7 + 군 11)
 # ============================================================
@@ -5187,9 +5160,7 @@ for _d in GANGWON_DISTRICTS:
 _register_region_dongs("gangwon", GANGWON_DISTRICTS)
 for _d in GANGWON_DISTRICTS:
     _build_metro_district("gangwon", "강원", _d, GANGWON_DISTRICTS)
-_build_region_dong_pages("gangwon", "강원", GANGWON_DISTRICTS)
-
-
+# _build_region_dong_pages("gangwon", "강원", GANGWON_DISTRICTS)  # 3차 동 페이지 비활성화
 # ============================================================
 # 충북 11 (시 3 + 군 8)
 # ============================================================
@@ -5320,9 +5291,7 @@ CHUNGBUK_DISTRICTS = [
 _register_region_dongs("chungbuk", CHUNGBUK_DISTRICTS)
 for _d in CHUNGBUK_DISTRICTS:
     _build_metro_district("chungbuk", "충북", _d, CHUNGBUK_DISTRICTS)
-_build_region_dong_pages("chungbuk", "충북", CHUNGBUK_DISTRICTS)
-
-
+# _build_region_dong_pages("chungbuk", "충북", CHUNGBUK_DISTRICTS)  # 3차 동 페이지 비활성화
 # ============================================================
 # 충남 15 (시 8 + 군 7)
 # ============================================================
@@ -5497,9 +5466,7 @@ CHUNGNAM_DISTRICTS = [
 _register_region_dongs("chungnam", CHUNGNAM_DISTRICTS)
 for _d in CHUNGNAM_DISTRICTS:
     _build_metro_district("chungnam", "충남", _d, CHUNGNAM_DISTRICTS)
-_build_region_dong_pages("chungnam", "충남", CHUNGNAM_DISTRICTS)
-
-
+# _build_region_dong_pages("chungnam", "충남", CHUNGNAM_DISTRICTS)  # 3차 동 페이지 비활성화
 # ============================================================
 # 전북특별자치도 14 (시 6 + 군 8)
 # ============================================================
@@ -5663,9 +5630,7 @@ JEONBUK_DISTRICTS = [
 _register_region_dongs("jeonbuk", JEONBUK_DISTRICTS)
 for _d in JEONBUK_DISTRICTS:
     _build_metro_district("jeonbuk", "전북", _d, JEONBUK_DISTRICTS)
-_build_region_dong_pages("jeonbuk", "전북", JEONBUK_DISTRICTS)
-
-
+# _build_region_dong_pages("jeonbuk", "전북", JEONBUK_DISTRICTS)  # 3차 동 페이지 비활성화
 # ============================================================
 # 전남 22 (시 5 + 군 17)
 # ============================================================
@@ -5917,9 +5882,7 @@ JEONNAM_DISTRICTS = [
 _register_region_dongs("jeonnam", JEONNAM_DISTRICTS)
 for _d in JEONNAM_DISTRICTS:
     _build_metro_district("jeonnam", "전남", _d, JEONNAM_DISTRICTS)
-_build_region_dong_pages("jeonnam", "전남", JEONNAM_DISTRICTS)
-
-
+# _build_region_dong_pages("jeonnam", "전남", JEONNAM_DISTRICTS)  # 3차 동 페이지 비활성화
 # ============================================================
 # 경북 22 (시 10 + 군 12) — 2023년 군위군 대구 편입으로 22개
 # ============================================================
@@ -6171,9 +6134,7 @@ GYEONGBUK_DISTRICTS = [
 _register_region_dongs("gyeongbuk", GYEONGBUK_DISTRICTS)
 for _d in GYEONGBUK_DISTRICTS:
     _build_metro_district("gyeongbuk", "경북", _d, GYEONGBUK_DISTRICTS)
-_build_region_dong_pages("gyeongbuk", "경북", GYEONGBUK_DISTRICTS)
-
-
+# _build_region_dong_pages("gyeongbuk", "경북", GYEONGBUK_DISTRICTS)  # 3차 동 페이지 비활성화
 # ============================================================
 # 경남 18 (시 8 + 군 10)
 # ============================================================
@@ -6381,9 +6342,7 @@ GYEONGNAM_DISTRICTS = [
 _register_region_dongs("gyeongnam", GYEONGNAM_DISTRICTS)
 for _d in GYEONGNAM_DISTRICTS:
     _build_metro_district("gyeongnam", "경남", _d, GYEONGNAM_DISTRICTS)
-_build_region_dong_pages("gyeongnam", "경남", GYEONGNAM_DISTRICTS)
-
-
+# _build_region_dong_pages("gyeongnam", "경남", GYEONGNAM_DISTRICTS)  # 3차 동 페이지 비활성화
 # ============================================================
 # 제주특별자치도 2 (시 2)
 # ============================================================
@@ -6415,9 +6374,7 @@ JEJU_DISTRICTS = [
 _register_region_dongs("jeju", JEJU_DISTRICTS)
 for _d in JEJU_DISTRICTS:
     _build_metro_district("jeju", "제주", _d, JEJU_DISTRICTS)
-_build_region_dong_pages("jeju", "제주", JEJU_DISTRICTS)
-
-
+# _build_region_dong_pages("jeju", "제주", JEJU_DISTRICTS)  # 3차 동 페이지 비활성화
 # ---------- service hub ----------
 add(
   path="service/index.html",
