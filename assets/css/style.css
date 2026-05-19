@@ -4942,16 +4942,16 @@ a.mag-cat-pill:hover {
 }
 .mag-author-bio-desc {
   margin: 4px 0 8px;
-  font-size: 14.5px;
-  line-height: 1.7;
-  color: rgba(255,255,255,0.82);
+  font-size: 15px;
+  line-height: 1.75;
+  color: rgba(255,255,255,0.92);
   word-break: keep-all;
 }
 .mag-author-bio-desc em {
   font-style: normal;
-  color: #fff;
-  font-weight: 600;
-  background: linear-gradient(180deg, transparent 65%, rgba(246,203,64,0.32) 65%);
+  color: #ffb547;
+  font-weight: 800;
+  letter-spacing: -0.005em;
 }
 .mag-author-bio-link {
   display: inline-flex;
