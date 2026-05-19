@@ -6785,69 +6785,788 @@ add(
 """,
 )
 
-# ---------- Guide pages ----------
-GUIDES = [
-  ("what-is-business-trip-massage", "출장마사지란?", "출장마사지의 정의와 방문 케어의 일반적인 종류, 매장형 마사지와의 차이를 정리했습니다.",
-   "출장마사지는 관리사가 고객이 지정한 장소(가정·숙소·사무실 등)로 방문해 진행하는 마사지 서비스입니다. 매장 방문이 어렵거나 일정상 이동을 최소화하고 싶은 경우에 자주 선택됩니다.",
-   [("매장형 마사지와의 차이", "장소·이동·예약 방식이 다릅니다. 출장 케어는 관리사가 이동하므로 일정 조율이 핵심입니다."),
-    ("일반적인 종류", "스웨디시·아로마·홈타이·스포츠·커플 등이 있으며, 호텔/사무실 방문 등 공간별 분류도 있습니다."),
-    ("주의할 점", "방문 마사지는 의료 행위가 아니며, 치료 효과를 보장하지 않습니다. 건강 상태에 따른 주의가 필요합니다.")]),
-  ("massage-before-after", "마사지 전후 주의사항", "마사지 전과 후에 피하면 좋은 행동, 권장 행동을 정리했습니다.",
-   "방문 마사지의 효과를 좀 더 잘 느끼기 위해서는 이용 전후에 신경 써야 할 부분이 있습니다.",
-   [("이용 전 피해야 할 것", "식사 직후·과도한 음주·과한 운동 직후는 자제합니다."),
-    ("이용 후 권장 사항", "수분 충분히 섭취, 무리한 활동 피하기, 충분한 수면을 권장합니다."),
-    ("이상 반응 시", "이상한 통증, 어지러움 등이 발생하면 무리하지 말고 휴식을 취하고 필요 시 의료기관 상담을 권장합니다.")]),
-  ("aroma-vs-swedish", "아로마와 스웨디시 차이", "두 서비스의 진행 방식, 추천 대상, 사용 도구 차이를 비교했습니다.",
-   "아로마와 스웨디시는 비슷해 보이지만 진행 방식과 목적에 차이가 있습니다.",
-   [("진행 방식", "스웨디시는 오일을 사용한 부드러운 압의 전신 케어, 아로마는 향과 함께 진행하는 이완 중심 케어입니다."),
-    ("추천 대상", "피로 회복 목적이 크다면 스웨디시, 정신적 긴장 완화 목적이 크다면 아로마가 자주 선택됩니다."),
-    ("선택 기준", "향에 민감하다면 스웨디시가, 잠들기 전 이완이 필요하다면 아로마가 적합할 수 있습니다.")]),
-  ("first-time-massage", "처음 이용 전 알아둘 점", "방문 마사지를 처음 이용하실 때 사전에 점검하면 좋은 항목을 정리했습니다.",
-   "처음 방문 마사지를 이용하시는 분들은 다음 5가지를 사전에 점검하면 좋습니다.",
-   [("코스 선택", "60분은 처음 이용에 무난한 길이입니다. 처음부터 120분을 잡지 않아도 됩니다."),
-    ("공간 점검", "매트를 펼칠 정도의 공간이 필요합니다. 호텔 객실의 경우 침대 공간이 활용됩니다."),
-    ("의류 안내", "오일 사용 코스는 일회용 의류 또는 편한 의류를 안내합니다."),
-    ("결제 시점", "보통 코스 직전·직후 결제됩니다. 호텔 방문은 사전 결제될 수도 있습니다."),
-    ("주의 사항 공유", "특정 질환·임신·외상 등이 있다면 반드시 사전에 알려주세요.")]),
-  ("massage-price-standard", "출장마사지 가격이 달라지는 이유", "방문 마사지 가격은 어떤 요소에 의해 달라지는지 분류해 설명합니다.",
-   "전국 단일가가 아닌, 4가지 변수로 비용이 정해집니다.",
-   [("코스 길이", "60·90·120분 등 시간 길이에 따라 기본 비용이 다릅니다."),
-    ("서비스 유형", "스웨디시·아로마·홈타이·스포츠 등 유형에 따라 기준이 다릅니다."),
-    ("시간대", "심야 시간대는 추가 비용이 발생할 수 있습니다."),
-    ("이동 거리", "광역 이동·외곽 지역은 이동료가 추가될 수 있습니다.")]),
-  ("safe-reservation", "안전한 예약 확인 방법", "안전하게 방문 마사지를 이용하기 위해 사전에 확인하면 좋은 항목을 정리했습니다.",
-   "온라인 검색만으로는 안전 여부를 판단하기 어렵습니다. 다음 5가지 점검 항목을 확인하시면 좋습니다.",
-   [("사업자 정보 명시", "운영 사업자명·대표자·연락처가 공개되어 있는지 확인합니다."),
-    ("가격 사전 공개", "예약 전 가격과 코스, 추가 비용 기준이 명확한지 확인합니다."),
-    ("취소·환불 규정 명시", "취소·환불 규정이 별도 페이지로 존재하는지 확인합니다."),
-    ("주의사항 안내", "건강 상태·공간 조건 등 주의사항이 안내되는지 확인합니다."),
-    ("자극적 광고 표현", "과장된 표현, 자극적인 표현이 많은 사이트는 피하는 것이 좋습니다.")]),
+# ---------- Guide pages (E-E-A-T 부합한 본격 콘텐츠) ----------
+_GUIDE_BYLINE = (
+    '<div class="guide-meta">'
+    '<div class="guide-meta-author">'
+    '<span class="guide-meta-avatar" aria-hidden="true">YH</span>'
+    '<div class="guide-meta-author-text">'
+    '<strong>바로GO 운영팀 (YH LAB)</strong>'
+    '<span>출장마사지 운영·예약 상담 7년차 · 사업자등록번호 815-26-00585</span>'
+    '</div></div>'
+    '<div class="guide-meta-info">'
+    '<span class="guide-meta-tag">최종 업데이트 · 2026-05</span>'
+    '<span class="guide-meta-tag">읽는 시간 · 약 {min}분</span>'
+    '</div></div>'
+)
+
+_GUIDE_DISCLAIMER = (
+    '<section class="block">'
+    '<div class="callout note">'
+    '<strong>면책 안내</strong>'
+    '<p>본 페이지의 정보는 일반적인 출장마사지 이용 안내를 위한 자료이며, 의료 행위나 의학적 조언이 아닙니다. '
+    '건강 상태와 관련된 결정은 의료 전문가와 상담하시기 바랍니다. '
+    '본 페이지는 YH LAB(바로GO 운영) 사업자등록번호 815-26-00585·대표 김유환·경기도 파주시 청석로 268 '
+    '의 책임 하에 작성·관리됩니다.</p>'
+    '</div>'
+    '</section>'
+)
+
+
+def _guide_toc(items):
+    li = "".join(f'<li><a href="#{anchor}">{label}</a></li>' for label, anchor in items)
+    return f'<nav class="guide-toc" aria-label="이 페이지에서 다루는 내용"><strong>이 페이지에서 다루는 내용</strong><ol>{li}</ol></nav>'
+
+
+def _faq_block(items):
+    rows = "".join(f"<details><summary>{q}</summary><p>{a}</p></details>" for q, a in items)
+    return f'<section class="block" id="faq"><h2>자주 묻는 질문</h2><div class="faq">{rows}</div></section>'
+
+
+# ===== Guide 1 — 출장마사지란? =====
+_GUIDE1_BODY = _GUIDE_BYLINE.format(min=5) + _guide_toc([
+    ("출장마사지의 정의", "definition"),
+    ("매장형 마사지와의 차이", "vs-store"),
+    ("출장마사지의 종류 6가지", "types"),
+    ("이용 흐름 한눈에 보기", "flow"),
+    ("어떤 상황에 적합한가", "when"),
+    ("자주 오해하는 점", "myths"),
+    ("자주 묻는 질문", "faq"),
+]) + """
+<section class="block" id="definition">
+<h2>출장마사지의 정의</h2>
+<p><strong>출장마사지</strong>는 관리사가 사용자가 지정한 공간(가정·호텔 객실·오피스텔·펜션·사무실 등)으로 직접 방문하여 마사지 케어를 진행하는 서비스 유형입니다. 매장으로 이동할 필요가 없어 일정에 제약이 큰 분, 심야·이른 아침 시간대 이용을 원하는 분, 호텔 체크인 후 객실에서 휴식을 함께 받고 싶은 분이 자주 선택합니다.</p>
+<p>국내에서는 \"방문 마사지\", \"홈케어\", \"홈타이\"(태국식 스트레칭 기반 출장 케어), \"호텔 마사지\" 등의 표현이 모두 출장마사지 카테고리에 포함됩니다. 본 페이지에서는 이를 통칭해 <strong>출장마사지</strong>로 안내합니다.</p>
+</section>
+
+<section class="block" id="vs-store">
+<h2>매장형 마사지와의 핵심 차이</h2>
+<div class="compare-table-wrap">
+<table class="compare-table">
+<thead><tr><th>항목</th><th>매장형 마사지</th><th>출장마사지</th></tr></thead>
+<tbody>
+<tr><th scope="row">진행 장소</th><td>매장 룸</td><td>사용자 지정 공간(가정·호텔·오피스텔)</td></tr>
+<tr><th scope="row">이동 주체</th><td>사용자가 매장 방문</td><td>관리사가 사용자 공간으로 이동</td></tr>
+<tr><th scope="row">시간 제약</th><td>매장 영업 시간 내</td><td>24시간 협의 가능(권역별 상이)</td></tr>
+<tr><th scope="row">공간 컨디션</th><td>매장 표준 환경</td><td>사용자 공간 그대로 (장비 설치 X)</td></tr>
+<tr><th scope="row">일정 조율</th><td>예약 시간 선택</td><td>관리사 이동 시간 포함 협의</td></tr>
+<tr><th scope="row">결제</th><td>매장 결제</td><td>사전 안내된 방식 결제</td></tr>
+</tbody></table>
+</div>
+<p>가장 큰 차이는 \"이동 주체\"입니다. 매장형은 사용자가 매장으로, 출장은 관리사가 사용자 공간으로 이동합니다. 이로 인해 출장마사지는 사전 일정 조율의 정확성이 가장 중요한 단계가 됩니다.</p>
+</section>
+
+<section class="block" id="types">
+<h2>출장마사지의 종류 6가지</h2>
+<ul class="check-list">
+<li><strong>스웨디시</strong> — 오일을 활용한 부드러운 압 중심 전신 이완 케어. 첫 이용자에게 가장 자주 권해지는 유형입니다.</li>
+<li><strong>아로마</strong> — 에센셜 오일을 활용한 향기 케어 중심. 정서적 안정·수면 보조 목적이 큰 분께 적합합니다.</li>
+<li><strong>홈타이(타이마사지)</strong> — 태국식 스트레칭+압 기반. 자세 교정·가동 범위 회복 목적이 큰 분께 권해집니다.</li>
+<li><strong>스포츠</strong> — 운동 후 특정 부위 집중 회복 케어. 통증·뭉침이 부위별로 누적된 분께 적합합니다.</li>
+<li><strong>커플(2인 동시)</strong> — 두 분이 같은 공간에서 동시에 받는 형태. 가정·호텔·펜션 모두 진행 가능합니다.</li>
+<li><strong>호텔/사무실 방문</strong> — 진행 장소를 기준으로 분류한 구분. 출장 일정·기업 단위 케어에 자주 선택됩니다.</li>
+</ul>
+<p>각 코스 상세 안내는 <a href="/service/">서비스 안내</a> 페이지에서 확인하실 수 있습니다.</p>
+</section>
+
+<section class="block" id="flow">
+<h2>이용 흐름 한눈에 보기</h2>
+<ol class="steps">
+<li><strong>전화 상담</strong><p>24시간 0508-202-4719 상담을 통해 권역 가능 시간·코스·진행 장소를 확인합니다.</p></li>
+<li><strong>일정 확정</strong><p>도착 시간·코스 길이·인원·옵션을 함께 합의합니다.</p></li>
+<li><strong>관리사 배정</strong><p>권역 동선을 고려해 가까운 관리사가 배정됩니다.</p></li>
+<li><strong>도착·진행</strong><p>약속 시간 직전 도착 안내 후 사용자 공간에서 코스가 시작됩니다.</p></li>
+<li><strong>결제·종료</strong><p>사전 안내된 방식으로 결제가 진행됩니다.</p></li>
+</ol>
+</section>
+
+<section class="block" id="when">
+<h2>어떤 상황에 적합한가</h2>
+<div class="dos-donts">
+<div class="dos">
+<h3>출장마사지가 적합한 상황</h3>
+<ul>
+<li>출장·여행 일정으로 호텔에 묵을 때</li>
+<li>심야·이른 아침에 이용하고 싶을 때</li>
+<li>이동이 어려운 컨디션일 때(피로 누적·감기 회복기 등)</li>
+<li>커플·가족 단위로 함께 받고 싶을 때</li>
+<li>업무가 늦게 끝나 매장 영업 시간에 맞추기 어려울 때</li>
+</ul>
+</div>
+<div class="donts">
+<h3>매장형이 더 적합한 상황</h3>
+<ul>
+<li>전문 장비(스파·사우나·물 테라피)가 필요할 때</li>
+<li>여러 코스를 코스 메뉴식으로 비교하며 선택하고 싶을 때</li>
+<li>사용자 공간 컨디션(반려동물·진행 공간 부족 등) 조성이 어려울 때</li>
+</ul>
+</div>
+</div>
+</section>
+
+<section class="block" id="myths">
+<h2>출장마사지에 대해 자주 오해하는 점</h2>
+<div class="callout warn">
+<strong>오해 1. 치료 효과를 보장한다?</strong>
+<p>출장마사지는 의료 행위가 아닙니다. 통증·질환의 치료를 보장하지 않으며, 의학적 진단이 필요한 증상은 반드시 의료기관 상담이 우선되어야 합니다.</p>
+</div>
+<div class="callout warn">
+<strong>오해 2. 가격이 매장보다 무조건 비싸다?</strong>
+<p>이동·시간대에 따라 차이는 있지만, 매장 이동·대기 시간을 환산하면 큰 차이가 없는 경우가 많습니다. 자세한 가격 변동 요인은 <a href="/guide/massage-price-standard/">가격이 달라지는 이유</a>에서 확인할 수 있습니다.</p>
+</div>
+<div class="callout warn">
+<strong>오해 3. 모든 호텔에서 가능하다?</strong>
+<p>호텔별로 룸서비스·외부 인원 출입 정책이 다릅니다. 호텔명·체크인 시각을 사전 상담에서 함께 확인하는 것이 안전합니다.</p>
+</div>
+</section>
+""" + _faq_block([
+    ("출장마사지와 홈타이는 같은 건가요?", "홈타이는 출장마사지의 한 종류입니다. 태국식 스트레칭과 압을 결합한 코스를 출장 형태로 진행할 때 \"홈타이\"라는 명칭이 자주 쓰입니다."),
+    ("호텔 객실 방문도 출장마사지인가요?", "네, 진행 장소가 호텔 객실인 출장마사지를 의미합니다. 객실 호수·체크인 정보 사전 공유가 필요합니다."),
+    ("어떤 코스부터 받는 게 좋을까요?", "출장마사지가 처음이라면 스웨디시 90분이 가장 자주 권해집니다. 컨디션과 목적에 따라 사전 전화에서 함께 권장해 드립니다."),
+    ("출장마사지는 의료 효과가 있나요?", "치료·진단의 의료 행위가 아닙니다. 컨디션 회복·휴식·이완을 목적으로 하는 케어입니다."),
+    ("처음 이용 전 준비할 것이 있나요?", "공간 정리, 충분한 수분 섭취, 식사 시점 조정 정도면 충분합니다. 자세한 점검은 <a href=\"/guide/first-time-massage/\">처음 이용 전 알아둘 점</a>을 참고해 주세요."),
+]) + _GUIDE_DISCLAIMER
+
+
+# ===== Guide 2 — 마사지 전후 주의사항 =====
+_GUIDE2_BODY = _GUIDE_BYLINE.format(min=6) + _guide_toc([
+    ("24시간 전부터 권장되는 준비", "before-24h"),
+    ("직전 1~2시간 — 식사·음주·운동", "before-2h"),
+    ("진행 직전 — 공간·복장·소지품", "right-before"),
+    ("진행 중 권장 사항", "during"),
+    ("직후 1시간 권장·금기", "after-1h"),
+    ("24시간 후까지 회복 관리", "after-24h"),
+    ("이상 반응 발생 시 대처", "abnormal"),
+    ("건강 상태별 주의 (임신·고혈압·당뇨 등)", "conditions"),
+    ("자주 묻는 질문", "faq"),
+]) + """
+<section class="block" id="before-24h">
+<h2>24시간 전부터 권장되는 준비</h2>
+<p>마사지 효과는 케어 당일만이 아니라 전후 24시간의 컨디션 관리에 영향을 받습니다. 24시간 전부터 다음 사항을 권장합니다.</p>
+<ul class="check-list">
+<li>수면 7시간 이상 확보 (수면 부족은 케어 후 어지러움 빈도를 높입니다)</li>
+<li>물 1.5~2L 분산 섭취</li>
+<li>당일 격렬한 운동·고강도 트레이닝 자제</li>
+<li>알코올 섭취 가급적 자제(혈관 확장으로 케어 후 어지러움·메스꺼움이 발생할 수 있음)</li>
+<li>피부에 자극이 큰 케어(필링·왁싱) 24시간 내 자제</li>
+</ul>
+</section>
+
+<section class="block" id="before-2h">
+<h2>직전 1~2시간 — 식사·음주·운동</h2>
+<div class="dos-donts">
+<div class="dos">
+<h3>권장</h3>
+<ul>
+<li>가벼운 식사를 1시간 전까지 마무리</li>
+<li>물 한 컵 미리 섭취</li>
+<li>편안한 옷 준비</li>
+<li>화장실 미리 다녀오기</li>
+</ul>
+</div>
+<div class="donts">
+<h3>피해야 할 것</h3>
+<ul>
+<li>케어 30분 이내 식사·과식</li>
+<li>음주 직후 케어 (반사 신경·체온 조절에 영향)</li>
+<li>고강도 운동 직후 (근육이 충혈된 상태에서 압이 가해지면 통증 ↑)</li>
+<li>카페인 과다 섭취 (이완 효과 저하)</li>
+</ul>
+</div>
+</div>
+</section>
+
+<section class="block" id="right-before">
+<h2>진행 직전 — 공간·복장·소지품</h2>
+<ul class="check-list">
+<li><strong>공간</strong> — 매트나 침구를 펼칠 수 있는 최소 공간 확보. 호텔 객실의 경우 침대 공간이 활용됩니다.</li>
+<li><strong>온도</strong> — 24~26°C 정도의 따뜻한 실내 온도가 권장됩니다. 너무 차가운 환경은 근육 이완 효과를 떨어뜨립니다.</li>
+<li><strong>조명</strong> — 너무 밝지 않게 조절. 간접 조명이나 무드등이 권장됩니다.</li>
+<li><strong>의류</strong> — 오일 사용 코스는 일회용 의류 또는 편한 의류로 갈아입습니다.</li>
+<li><strong>소지품</strong> — 귀금속·시계 등은 별도 보관 권장.</li>
+<li><strong>반려동물</strong> — 별도 공간으로 분리 부탁드립니다.</li>
+</ul>
+</section>
+
+<section class="block" id="during">
+<h2>진행 중 권장 사항</h2>
+<div class="callout tip">
+<strong>편안하게 받기 위한 팁</strong>
+<p>호흡을 깊게, 들이마실 때 4초 / 내쉴 때 6초 정도의 호흡 패턴이 권장됩니다. 압이 너무 강하거나 통증이 느껴진다면 즉시 관리사에게 알려 주세요. 케어는 \"참는\" 것이 아니라 \"이완하는\" 시간입니다.</p>
+</div>
+<p>특정 부위(목·허리·어깨)에 집중적인 케어를 원하면 진행 직전 또는 진행 초반에 요청하시면 됩니다. 코스 중간에 화장실 등 일시적 휴식이 필요하면 언제든 요청 가능합니다.</p>
+</section>
+
+<section class="block" id="after-1h">
+<h2>직후 1시간 권장·금기</h2>
+<div class="dos-donts">
+<div class="dos">
+<h3>권장</h3>
+<ul>
+<li>물 한 컵 또는 따뜻한 차 섭취</li>
+<li>15~30분 휴식</li>
+<li>천천히 일어나 어지러움 확인</li>
+<li>가벼운 스트레칭(코스가 정적이었을 경우)</li>
+</ul>
+</div>
+<div class="donts">
+<h3>피해야 할 것</h3>
+<ul>
+<li>곧바로 격렬한 운동·사우나·찜질방</li>
+<li>음주(혈관 확장 + 알코올 흡수 빨라짐)</li>
+<li>장시간 운전 (어지러움 가능성)</li>
+<li>너무 뜨거운 샤워(체온 급변)</li>
+</ul>
+</div>
+</div>
+</section>
+
+<section class="block" id="after-24h">
+<h2>24시간 후까지 회복 관리</h2>
+<ul class="check-list">
+<li>물 충분히 섭취(1.5L 이상)</li>
+<li>수면 7시간 이상 확보 (케어 효과는 수면 중에 가장 잘 안정화됩니다)</li>
+<li>강한 압 케어 후 24시간 내 근육통(\"명현 반응\"으로도 불림)이 일시적으로 나타날 수 있음 — 정상 반응</li>
+<li>가벼운 산책·스트레칭으로 혈류 유지</li>
+<li>커피·에너지 드링크는 평소 양 이하로</li>
+</ul>
+</section>
+
+<section class="block" id="abnormal">
+<h2>이상 반응 발생 시 대처</h2>
+<div class="callout warn">
+<strong>다음 증상이 있으면 즉시 멈추고 휴식하세요</strong>
+<ul>
+<li>지속되는 두통·어지러움</li>
+<li>가슴 답답함·심한 메스꺼움</li>
+<li>케어 부위의 심한 통증·붓기</li>
+<li>피부 발진·홍반</li>
+</ul>
+<p>증상이 1시간 이상 지속되거나 악화되면 의료기관 상담을 권장합니다. 케어 직후 일시적인 약한 어지러움은 흔하지만, 30분 이상 지속되거나 다른 증상을 동반하면 무리하지 마세요.</p>
+</div>
+</section>
+
+<section class="block" id="conditions">
+<h2>건강 상태별 주의</h2>
+<ul class="check-list">
+<li><strong>임신</strong> — 임신 중에는 출장마사지를 권장하지 않습니다. 임산부 전용 케어는 의료 전문가 상담 후 결정하시는 것이 안전합니다.</li>
+<li><strong>고혈압·심혈관 질환</strong> — 강한 압 코스(스포츠·홈타이)는 피하고 부드러운 압 위주의 스웨디시·아로마를 권장. 항응고제 복용 중인 경우 사전 의료기관 상담 후 결정.</li>
+<li><strong>당뇨</strong> — 발·종아리 부위 케어 시 자극이 강하지 않은 압을 권장. 케어 후 저혈당 증상 주의.</li>
+<li><strong>골절·외상 후</strong> — 부상 부위는 케어 대상이 아닙니다. 부상 후 완전 회복 전에는 케어 자제.</li>
+<li><strong>피부 질환</strong> — 발진·상처·감염 부위는 케어를 피합니다.</li>
+<li><strong>고열·감기 급성기</strong> — 회복 후 케어를 권장.</li>
+</ul>
+</section>
+""" + _faq_block([
+    ("케어 후 약간의 근육통이 있는데 정상인가요?", "강한 압 케어 후 24시간 내 가벼운 근육통은 흔히 발생합니다. 다음 날 자연스럽게 가라앉으면 정상 범위입니다. 통증이 심해지거나 48시간 이상 지속되면 휴식을 더 취하시고 필요 시 의료 상담을 권장합니다."),
+    ("케어 후 술 마셔도 되나요?", "권장하지 않습니다. 혈관 확장으로 알코올 흡수가 빨라지고 어지러움이 발생할 수 있습니다. 가급적 케어 후 4~6시간은 음주를 피하세요."),
+    ("케어 후 사우나·찜질방 가도 되나요?", "직후 1~2시간은 피하시는 것이 좋습니다. 체온이 안정된 후라면 가벼운 입욕은 가능합니다."),
+    ("케어 직후 운전해도 되나요?", "어지러움이 없다면 가능하지만, 권장은 15~30분 휴식 후입니다. 장거리 운전은 더 충분한 휴식 후 시작하세요."),
+]) + _GUIDE_DISCLAIMER
+
+
+# ===== Guide 3 — 아로마와 스웨디시 차이 =====
+_GUIDE3_BODY = _GUIDE_BYLINE.format(min=4) + _guide_toc([
+    ("한눈에 보는 비교표", "compare"),
+    ("스웨디시 — 기원과 특징", "swedish"),
+    ("아로마 — 향기 케어의 원리", "aroma"),
+    ("추천 대상 시나리오", "scenario"),
+    ("선택 가이드 — 무엇을 받을지 헷갈릴 때", "choose"),
+    ("자주 묻는 질문", "faq"),
+]) + """
+<section class="block" id="compare">
+<h2>한눈에 보는 비교표</h2>
+<div class="compare-table-wrap">
+<table class="compare-table">
+<thead><tr><th>항목</th><th>스웨디시</th><th>아로마</th></tr></thead>
+<tbody>
+<tr><th scope="row">기원</th><td>19세기 스웨덴 페르 헨리크 링이 정립한 유럽식 마사지</td><td>고대 이집트·로마부터 사용된 에센셜 오일 기반 케어</td></tr>
+<tr><th scope="row">핵심 목적</th><td>혈류 촉진·근육 이완·전신 휴식</td><td>정서적 안정·수면 보조·스트레스 완화</td></tr>
+<tr><th scope="row">압 강도</th><td>중간 (부드러움~중강도)</td><td>약~중 (부드러운 압 위주)</td></tr>
+<tr><th scope="row">오일 사용</th><td>일반 베이스 오일</td><td>에센셜 오일(라벤더·일랑일랑·베르가못 등)</td></tr>
+<tr><th scope="row">향</th><td>약하거나 무향</td><td>향이 케어의 핵심</td></tr>
+<tr><th scope="row">진행 시간</th><td>60·90·120분</td><td>60·90·120분</td></tr>
+<tr><th scope="row">권장 시간대</th><td>저녁·휴식 전</td><td>잠들기 전·이른 저녁</td></tr>
+<tr><th scope="row">권해지는 분</th><td>근육 피로·뭉침이 큰 분</td><td>수면이 얕고 정신적 긴장이 큰 분</td></tr>
+</tbody></table>
+</div>
+</section>
+
+<section class="block" id="swedish">
+<h2>스웨디시 — 기원과 특징</h2>
+<p>스웨디시 마사지는 1800년대 중반 스웨덴의 체조 치료사 페르 헨리크 링(Per Henrik Ling)이 체계화한 유럽식 마사지 기법에 뿌리를 둡니다. 다섯 가지 기본 동작(에플라쥬·페트리사쥬·프릭션·태포트망·바이브레이션)이 결합되어 혈류를 자극하고 근육의 긴장을 부드럽게 풀어 줍니다.</p>
+<p>출장마사지에서 진행되는 스웨디시는 베이스 오일을 사용해 피부와의 마찰을 줄이고, 부드러운 중강도 압으로 전신을 케어합니다. 첫 이용자에게 가장 자주 권해지는 이유는 압의 강도가 부담스럽지 않으면서도 \"케어 받은 느낌\"이 명확하기 때문입니다.</p>
+<p><strong>적합한 상황</strong>: 평일 누적된 전신 피로, 어깨·허리의 일반적 뭉침, 수면 보조보다는 컨디션 회복이 우선인 경우.</p>
+</section>
+
+<section class="block" id="aroma">
+<h2>아로마 — 향기 케어의 원리</h2>
+<p>아로마 마사지는 식물에서 추출한 에센셜 오일을 활용해 후각·피부 두 경로로 효과를 전달하는 케어입니다. 후각으로 들어온 향 분자가 변연계(감정을 담당하는 뇌 영역)에 직접 작용해 정서적 이완을 돕고, 피부로 흡수된 오일 성분이 혈관·림프계를 통해 전신에 전달됩니다.</p>
+<p>사용되는 대표적인 에센셜 오일은 다음과 같습니다.</p>
+<ul class="check-list">
+<li><strong>라벤더</strong> — 수면 보조·진정 효과로 가장 자주 사용</li>
+<li><strong>일랑일랑</strong> — 정서 안정·기분 전환</li>
+<li><strong>베르가못</strong> — 가벼운 우울감·스트레스 완화</li>
+<li><strong>로즈마리</strong> — 집중력·혈류 개선</li>
+<li><strong>유칼립투스</strong> — 호흡기 이완·상쾌함</li>
+</ul>
+<p>오일 알레르기·호흡기 민감도가 있는 분은 사전 상담 시 미리 알려 주시는 것이 안전합니다.</p>
+</section>
+
+<section class="block" id="scenario">
+<h2>추천 대상 시나리오</h2>
+<div class="dos-donts">
+<div class="dos">
+<h3>스웨디시가 적합한 경우</h3>
+<ul>
+<li>주중 누적 피로·근육 뭉침이 주된 고민</li>
+<li>운동 후 가벼운 회복이 필요할 때</li>
+<li>향에 민감하거나 무향을 선호</li>
+<li>케어 후 활동 일정이 있어 \"개운한\" 마무리가 필요할 때</li>
+<li>출장마사지가 처음일 때</li>
+</ul>
+</div>
+<div class="donts">
+<h3>아로마가 적합한 경우</h3>
+<ul>
+<li>잠들기 어려운 날이 잦거나 수면이 얕을 때</li>
+<li>정신적 긴장·불안감이 큰 시기</li>
+<li>케어 직후 바로 휴식·수면 일정일 때</li>
+<li>향 케어를 함께 즐기고 싶을 때</li>
+<li>연속된 업무로 정서적 리셋이 필요할 때</li>
+</ul>
+</div>
+</div>
+</section>
+
+<section class="block" id="choose">
+<h2>선택 가이드 — 무엇을 받을지 헷갈릴 때</h2>
+<div class="callout tip">
+<strong>간단한 선택 흐름</strong>
+<ol>
+<li>케어 후 곧바로 자야 한다면 → <strong>아로마</strong></li>
+<li>다음 일정이 있어 개운하게 마무리하고 싶다면 → <strong>스웨디시</strong></li>
+<li>향에 민감하다면 → <strong>스웨디시</strong></li>
+<li>둘 다 받고 싶다면 → 90분 이상 코스에서 두 요소를 일부 결합 가능(상담 시 요청)</li>
+</ol>
+</div>
+<p>코스 길이는 60분이 무난하며, 처음이라면 90분이 권해집니다. 둘 다 처음 받아 보신다면 스웨디시 90분 → 다음 이용 시 아로마 60~90분 순서로 비교해 보시는 것을 권장드립니다.</p>
+</section>
+""" + _faq_block([
+    ("아로마와 스웨디시를 같이 받을 수 있나요?", "전체 코스를 결합하기보다는, 사용 오일을 아로마 오일로 바꾼 \"아로마 스웨디시\" 형태로 진행하는 경우가 많습니다. 90분 이상 코스에서 안내 가능합니다."),
+    ("아로마 오일 향이 너무 강하지 않을까요?", "코스 직전 향 강도를 조절할 수 있습니다. 무향에 가까운 베이스 오일도 준비되어 있으므로 사전에 알려 주세요."),
+    ("운동 후엔 어떤 게 좋을까요?", "스웨디시가 더 적합합니다. 강한 압이 필요하면 스포츠 마사지도 함께 고려해 보세요."),
+    ("아로마 알레르기가 걱정됩니다.", "오일 알레르기·호흡기 민감도가 있다면 사전 상담에서 알려 주세요. 무향 옵션 또는 알레르겐이 낮은 오일을 선택할 수 있습니다."),
+]) + _GUIDE_DISCLAIMER
+
+
+# ===== Guide 4 — 처음 이용 전 알아둘 점 =====
+_GUIDE4_BODY = _GUIDE_BYLINE.format(min=6) + _guide_toc([
+    ("첫 이용 체크리스트 8가지", "checklist"),
+    ("코스 길이 선택 가이드", "duration"),
+    ("공간 점검 — 진행 가능한 환경 만들기", "space"),
+    ("의류·소지품", "outfit"),
+    ("결제·취소 규정", "payment"),
+    ("시간 여유 — 후속 일정 배치", "schedule"),
+    ("건강 상태 사전 공유", "health"),
+    ("예약 시 알려드릴 정보", "info"),
+    ("자주 묻는 질문", "faq"),
+]) + """
+<section class="block" id="checklist">
+<h2>첫 이용 체크리스트 8가지</h2>
+<div class="callout tip">
+<strong>전화 상담 전에 이 8가지를 확인해 두시면 일정 확정이 빠릅니다.</strong>
+</div>
+<ul class="check-list">
+<li>희망 코스 종류(스웨디시·아로마·홈타이·스포츠·커플 중)</li>
+<li>희망 코스 길이(60·90·120분)</li>
+<li>희망 시각(시작 시각·종료 시각)</li>
+<li>진행 장소 유형(가정·호텔·오피스텔·펜션)</li>
+<li>진행 장소 정확한 주소·층</li>
+<li>공동현관 출입 방식(비밀번호·카드키·키오스크)</li>
+<li>주차 가능 여부(가정·오피스텔의 경우)</li>
+<li>건강 상태 특이 사항(임신·외상·복용약 등)</li>
+</ul>
+</section>
+
+<section class="block" id="duration">
+<h2>코스 길이 선택 가이드</h2>
+<div class="compare-table-wrap">
+<table class="compare-table">
+<thead><tr><th>길이</th><th>실제 케어 시간</th><th>추천 대상</th></tr></thead>
+<tbody>
+<tr><th scope="row">60분</th><td>약 50~55분</td><td>첫 이용·짧은 시간 회복</td></tr>
+<tr><th scope="row">90분</th><td>약 80~85분</td><td>일반적 권장 길이 — 첫 이용자에게 가장 자주 권해짐</td></tr>
+<tr><th scope="row">120분</th><td>약 105~110분</td><td>충분히 받고 싶을 때·여러 부위 종합 케어</td></tr>
+</tbody></table>
+</div>
+<p>코스 시간 외에 도착 안내·준비·정리 시간이 별도 10~15분 정도 추가됩니다. 첫 이용에는 90분이 무난한 균형점입니다.</p>
+</section>
+
+<section class="block" id="space">
+<h2>공간 점검 — 진행 가능한 환경 만들기</h2>
+<ul class="check-list">
+<li><strong>공간 크기</strong> — 매트(약 2m × 1m)를 펼칠 수 있는 평평한 바닥 또는 침대 공간</li>
+<li><strong>온도</strong> — 24~26°C 권장. 너무 차가운 환경은 근육 이완을 방해</li>
+<li><strong>조명</strong> — 직접 조명보다 간접 조명 권장</li>
+<li><strong>음악</strong> — 필요 시 차분한 BGM 준비 (관리사 측에서도 준비 가능)</li>
+<li><strong>방해 요소</strong> — 반려동물 별도 공간 분리, 알림 무음, 가족이 있다면 사전 양해</li>
+</ul>
+</section>
+
+<section class="block" id="outfit">
+<h2>의류·소지품</h2>
+<p>오일 코스(스웨디시·아로마)는 일회용 의류 또는 편한 의류로 갈아입게 됩니다. 평소 입던 옷에 오일이 묻지 않도록 별도 의류로 준비하시면 좋습니다. 귀금속·시계는 별도 보관해 두시는 것을 권장합니다.</p>
+</section>
+
+<section class="block" id="payment">
+<h2>결제·취소 규정</h2>
+<p>결제는 코스 직전 또는 직후에 진행됩니다. 호텔 방문의 경우 사전 결제 방식이 적용되기도 합니다. 자세한 결제 수단은 <a href="/reservation/payment/">결제 안내</a>를 참고해 주세요.</p>
+<p>예약 변경·취소는 시간대에 따라 처리 기준이 다릅니다. 자세한 내용은 <a href="/reservation/cancel-refund/">취소·환불 규정</a>에서 확인하실 수 있습니다.</p>
+</section>
+
+<section class="block" id="schedule">
+<h2>시간 여유 — 후속 일정 배치</h2>
+<div class="callout warn">
+<strong>코스 직후 빡빡한 일정은 피하세요</strong>
+<p>코스 종료 후 15~30분 정도의 휴식 시간을 두는 것이 권장됩니다. 곧바로 외출·운전·운동 일정이 있으면 케어의 이완 효과가 떨어집니다.</p>
+</div>
+</section>
+
+<section class="block" id="health">
+<h2>건강 상태 사전 공유</h2>
+<p>다음 상황은 반드시 예약 단계에서 알려 주세요. 진행 가능 여부와 코스 조정에 영향을 줍니다.</p>
+<ul class="check-list">
+<li>임신 중이거나 임신 가능성</li>
+<li>최근 골절·외상·수술 이력 (회복 중 포함)</li>
+<li>고혈압·심혈관 질환·항응고제 복용</li>
+<li>당뇨·자가면역 질환</li>
+<li>피부 질환·감염성 질환</li>
+<li>고열·감기 급성기</li>
+<li>알레르기(오일·향)</li>
+</ul>
+</section>
+
+<section class="block" id="info">
+<h2>예약 시 알려드릴 정보</h2>
+<p>전화 상담 시 다음 정보를 함께 안내해 주시면 일정 확정이 매끄럽습니다.</p>
+<ol class="steps">
+<li><strong>희망 일시</strong><p>시작 시각·종료 시각을 모두 알려 주세요.</p></li>
+<li><strong>진행 장소 정보</strong><p>주소·층·호수·건물 형태(아파트·오피스텔·호텔·펜션).</p></li>
+<li><strong>출입 방식</strong><p>공동현관 비밀번호·키오스크·카드 키 안내.</p></li>
+<li><strong>코스 선택</strong><p>코스 종류·길이·인원(1인/2인).</p></li>
+<li><strong>건강 사항</strong><p>위 \"건강 상태 사전 공유\" 항목 중 해당되는 내용.</p></li>
+</ol>
+</section>
+""" + _faq_block([
+    ("처음인데 어떤 코스가 가장 무난할까요?", "스웨디시 90분이 첫 이용자에게 가장 자주 권해집니다. 부드러운 압의 전신 이완 코스라 부담이 적습니다."),
+    ("호텔 방문은 어떻게 다른가요?", "호텔 객실 방문은 객실 호수와 체크인 정보를 사전 공유하시면 됩니다. 일부 호텔은 외부 인원 출입 정책이 다르므로 사전 확인이 필요합니다."),
+    ("진행 중에 압이 너무 강하면?", "즉시 관리사에게 알려 주세요. 압 강도는 진행 중에도 조절 가능합니다. 케어는 \"참는\" 것이 아니라 \"이완하는\" 시간입니다."),
+    ("같이 사는 가족이 있어도 가능한가요?", "가능합니다. 별도 공간에서 진행되므로 가족이 있어도 무방하지만, 가능한 한 방해되지 않을 시간대로 안내드립니다."),
+    ("당일 예약도 가능한가요?", "권역과 시간대에 따라 가능합니다. 24시간 운영되는 0508-202-4719로 연락 주시면 즉시 확인해 드립니다."),
+]) + _GUIDE_DISCLAIMER
+
+
+# ===== Guide 5 — 가격이 달라지는 이유 =====
+_GUIDE5_BODY = _GUIDE_BYLINE.format(min=5) + _guide_toc([
+    ("가격을 결정하는 4가지 변수", "factors"),
+    ("코스 길이별 가격 흐름", "duration"),
+    ("코스 종류별 시세대", "type"),
+    ("시간대 변동 (주간·야간·심야)", "time"),
+    ("이동료·진입로 변수", "travel"),
+    ("미끼 가격 식별법", "fake-price"),
+    ("추가 비용이 발생할 수 있는 경우", "extra"),
+    ("자주 묻는 질문", "faq"),
+]) + """
+<section class="block" id="factors">
+<h2>가격을 결정하는 4가지 변수</h2>
+<p>출장마사지는 전국 단일가가 아닙니다. 다음 4가지 변수에 따라 가격이 달라집니다. 가격이 변동된다는 것 자체가 부정적인 것이 아니라, 변수에 비례해 정직하게 책정된다는 의미입니다.</p>
+<ol class="steps">
+<li><strong>코스 길이</strong><p>60·90·120분 — 시간에 비례해 책정됩니다.</p></li>
+<li><strong>코스 종류</strong><p>스웨디시·아로마·홈타이·스포츠·커플 등 유형별로 기준이 다릅니다.</p></li>
+<li><strong>예약 시간대</strong><p>심야·새벽 시간대는 일부 추가 비용이 발생할 수 있습니다.</p></li>
+<li><strong>이동 거리·진행 장소</strong><p>외곽 권역·펜션·풀빌라 등은 이동료가 추가될 수 있습니다.</p></li>
+</ol>
+</section>
+
+<section class="block" id="duration">
+<h2>코스 길이별 가격 흐름</h2>
+<p>일반적으로 60분 → 90분 → 120분 순으로 시간이 늘어날수록 비용도 비례해 증가합니다. 다만 단순 시간 비례가 아니라 30분 추가 시 2만원 안팎의 추가가 일반적이며, 120분이 60분의 정확히 2배가 되지는 않는 경우가 많습니다.</p>
+<p>코스별 시간 단위 기준 가격은 <a href="/reservation/price/">가격 안내</a> 페이지에 표로 정리되어 있습니다.</p>
+</section>
+
+<section class="block" id="type">
+<h2>코스 종류별 시세대</h2>
+<p>같은 60분이라도 코스 종류에 따라 가격이 다릅니다. 일반적으로 다음 순서로 가격이 책정됩니다(낮은 가격 → 높은 가격).</p>
+<ol class="steps">
+<li><strong>홈타이(타이)</strong> — 오일을 사용하지 않는 코스로 가장 보편적인 가격대</li>
+<li><strong>아로마</strong> — 에센셜 오일 사용으로 홈타이보다 약간 상위</li>
+<li><strong>스웨디시(힐링)</strong> — 베이스 오일 사용·중강도 압의 전신 이완 코스</li>
+<li><strong>스페셜·스포츠</strong> — 부위 집중·특수 기법 포함 코스로 상위 가격대</li>
+<li><strong>커플(2인 합산)</strong> — 두 분이 동시에 받으므로 단순 2배가 아닌 합산 금액</li>
+</ol>
+</section>
+
+<section class="block" id="time">
+<h2>시간대 변동</h2>
+<div class="compare-table-wrap">
+<table class="compare-table">
+<thead><tr><th>시간대</th><th>가격 변동</th><th>비고</th></tr></thead>
+<tbody>
+<tr><th scope="row">주간 (10시~19시)</th><td>기본 가격</td><td>가장 보편적 시간대</td></tr>
+<tr><th scope="row">저녁 (19시~22시)</th><td>기본 가격</td><td>가장 활발한 시간대</td></tr>
+<tr><th scope="row">야간 (22시~01시)</th><td>일부 시간대 추가 가능</td><td>호텔·오피스텔 객실 비중↑</td></tr>
+<tr><th scope="row">심야 (01시 이후)</th><td>추가 비용 가능</td><td>권역 일부만 가능, 사전 예약 필수</td></tr>
+</tbody></table>
+</div>
+</section>
+
+<section class="block" id="travel">
+<h2>이동료·진입로 변수</h2>
+<p>이동료는 다음과 같은 경우 추가될 수 있습니다.</p>
+<ul class="check-list">
+<li>광역 이동(서울 → 경기 외곽 등)</li>
+<li>외곽 권역(시 외곽·도 단위 군 단위)</li>
+<li>펜션·풀빌라(진입로가 좁거나 도심에서 멀리 떨어진 경우)</li>
+<li>섬·해안 일부 권역</li>
+</ul>
+<p>이동료는 사전 상담 시 미리 안내됩니다. 예약 후 일방적으로 이동료가 추가되는 일은 없습니다.</p>
+</section>
+
+<section class="block" id="fake-price">
+<h2>미끼 가격 식별법</h2>
+<div class="callout warn">
+<strong>다음 표현이 보이면 의심하세요</strong>
+<ul>
+<li>\"전국 어디든 X만원\" — 권역·시간대 무관 단일가는 비현실적</li>
+<li>\"최저가 보장\" — 시장 시세보다 비정상적으로 낮은 가격은 도착 후 추가 청구 가능성</li>
+<li>코스 길이·종류 구분 없는 단일 가격 표시</li>
+<li>가격 표시 페이지가 없거나 \"문의\"만 안내</li>
+<li>\"무한 추가\", \"무제한 시간\" 등 비상식적 표현</li>
+</ul>
+<p>정직한 운영 업체는 가격 변수와 \"부터\" 기준을 명시하고, 사전 상담에서 최종 금액을 합의합니다.</p>
+</div>
+</section>
+
+<section class="block" id="extra">
+<h2>추가 비용이 발생할 수 있는 경우</h2>
+<p>다음 상황에서는 사전 합의 하에 추가 비용이 발생할 수 있습니다. 모두 예약 단계에서 함께 안내됩니다.</p>
+<ul class="check-list">
+<li>심야·새벽 시간대 (01시 이후)</li>
+<li>외곽 권역 이동료</li>
+<li>코스 시간 연장(진행 중 추가 30분 요청 시)</li>
+<li>옵션 추가(핫스톤·아로마 오일 변경·집중 부위 추가)</li>
+<li>커플 코스 인원 추가 (1인 → 2인 전환 시)</li>
+</ul>
+<p>사전 동의 없는 추가 비용은 청구되지 않습니다.</p>
+</section>
+""" + _faq_block([
+    ("가격을 사전에 정확히 알 수 있나요?", "예약 상담 단계에서 코스·시간대·장소가 확정되면 최종 금액이 그 자리에서 안내됩니다. 그 금액 외에 추가 비용이 발생하는 일은 없습니다."),
+    ("\"부터\" 가격이라는 게 무슨 뜻인가요?", "기본 권역·일반 시간대 기준 시작 금액을 의미합니다. 시간대·이동 거리에 따라 일부 변동이 있을 수 있어 \"부터\" 표기를 사용합니다."),
+    ("가격이 너무 싼 곳은 의심해도 되나요?", "시장 평균보다 비정상적으로 낮은 가격은 도착 후 추가 청구·옵션 강요로 이어지는 경우가 많아 주의가 필요합니다. <a href=\"/guide/safe-reservation/\">안전한 예약 확인 방법</a>을 함께 참고하세요."),
+    ("가격 협상이 가능한가요?", "정찰제로 운영되므로 별도의 협상은 없습니다. 다만 길이·옵션 조정으로 예산에 맞추는 안내는 가능합니다."),
+]) + _GUIDE_DISCLAIMER
+
+
+# ===== Guide 6 — 안전한 예약 확인 방법 =====
+_GUIDE6_BODY = _GUIDE_BYLINE.format(min=5) + _guide_toc([
+    ("사업자 정보 확인 — 가장 먼저 점검할 것", "biz"),
+    ("가격 투명성 확인", "price"),
+    ("취소·환불 규정 명시 여부", "refund"),
+    ("후기·평판의 진위 판단", "review"),
+    ("위험 신호 7가지", "redflag"),
+    ("안전한 예약 진행 절차", "flow"),
+    ("문제 발생 시 신고 절차", "report"),
+    ("자주 묻는 질문", "faq"),
+]) + """
+<section class="block" id="biz">
+<h2>사업자 정보 확인 — 가장 먼저 점검할 것</h2>
+<p>출장마사지 업체를 선택할 때 가장 먼저 확인할 것은 정식 사업자 정보입니다. 다음 4가지 정보가 사이트 어디든 명확히 공개되어 있어야 합니다.</p>
+<ul class="check-list">
+<li><strong>법인명·운영자명</strong> — 누가 운영하는지</li>
+<li><strong>대표자 이름</strong> — 책임자가 누구인지</li>
+<li><strong>사업자등록번호</strong> — 국세청에 등록된 정식 번호</li>
+<li><strong>본사 주소·대표 전화</strong> — 실제 연락 가능한 정보</li>
+</ul>
+<div class="callout tip">
+<strong>본 사이트(바로GO)의 운영 정보</strong>
+<p>YH LAB · 대표 김유환 · 사업자등록번호 815-26-00585 · 본사 경기도 파주시 청석로 268 · 대표 전화 0508-202-4719</p>
+</div>
+<p>국세청 홈페이지(<code>www.hometax.go.kr</code>)의 \"사업자등록상태 조회\"에서 사업자등록번호로 정상 운영 여부를 확인할 수 있습니다.</p>
+</section>
+
+<section class="block" id="price">
+<h2>가격 투명성 확인</h2>
+<ul class="check-list">
+<li>코스별 시간 단위 가격이 표 또는 목록으로 공개되어 있는가</li>
+<li>가격 변동 변수(시간대·이동료·옵션)가 명시되어 있는가</li>
+<li>\"전국 단일가\", \"무조건 X원\" 같은 비현실적 표시가 없는가</li>
+<li>최종 가격이 \"예약 상담 시 안내\"임이 명확히 표시되는가</li>
+<li>가격 안내의 최종 업데이트 일자가 표기되어 있는가</li>
+</ul>
+</section>
+
+<section class="block" id="refund">
+<h2>취소·환불 규정 명시 여부</h2>
+<p>정식 운영 업체는 다음을 별도 페이지로 공개합니다.</p>
+<ul class="check-list">
+<li>예약 후 출발 전 취소 시 환불 기준</li>
+<li>관리사 출발 후 취소 시 처리 기준</li>
+<li>도착 후 취소·진행 거부 시 비용 발생 여부</li>
+<li>일정 변경 요청 가능 시점</li>
+</ul>
+<p>본 사이트의 규정은 <a href="/reservation/cancel-refund/">취소·환불 규정</a> 페이지에서 확인하실 수 있습니다.</p>
+</section>
+
+<section class="block" id="review">
+<h2>후기·평판의 진위 판단</h2>
+<div class="callout warn">
+<strong>주의 — 페이지 내 후기는 보조 신호일 뿐입니다</strong>
+<p>사이트에 게시된 후기는 운영자가 선별·편집한 콘텐츠일 가능성이 큽니다. 외부 검색(\"바로GO 후기\", \"YH LAB 후기\" 등)으로 다른 채널의 의견을 함께 확인하시는 것을 권장합니다.</p>
+</div>
+<p>후기의 신뢰도를 판단할 때 다음을 함께 보세요.</p>
+<ul class="check-list">
+<li>다양한 채널(블로그·커뮤니티·플랫폼 리뷰)에 후기가 분산되어 있는가</li>
+<li>구체적인 상황 묘사(시간대·코스·진행 장소 등)가 있는가, 혹은 추상적인 칭찬만 있는가</li>
+<li>부정적 의견에도 운영자 측의 합리적 응대가 보이는가</li>
+<li>최근 일자의 후기가 지속적으로 올라오는가</li>
+</ul>
+</section>
+
+<section class="block" id="redflag">
+<h2>위험 신호 7가지 — 회피 권장</h2>
+<div class="callout warn">
+<ul>
+<li>사업자 정보가 사이트 어디에도 없음</li>
+<li>가격 정보가 \"문의\"로만 안내되고 표가 없음</li>
+<li>취소·환불 규정 페이지가 별도로 존재하지 않음</li>
+<li>\"최저가 보장\", \"100% 만족\", \"전국 어디든 X원\" 같은 과장 표현이 메인 카피로 사용됨</li>
+<li>이미지가 자극적이거나 특정 신체 부위 강조 위주</li>
+<li>대표 전화가 휴대전화 번호이거나 다른 번호로 우회</li>
+<li>예약 전 사진·신상 정보를 과도하게 요구</li>
+</ul>
+</div>
+</section>
+
+<section class="block" id="flow">
+<h2>안전한 예약 진행 절차</h2>
+<ol class="steps">
+<li><strong>사업자 정보 1차 확인</strong><p>사이트 푸터·About 페이지에서 법인명·등록번호 확인.</p></li>
+<li><strong>가격·규정 페이지 확인</strong><p>가격표·취소 규정·결제 안내 페이지가 별도로 존재하는지 확인.</p></li>
+<li><strong>전화 상담 시작</strong><p>대표 번호로 전화해 응대 톤·정보 안내의 일관성 확인. 예약 강요·자극적 마케팅이 있다면 중단.</p></li>
+<li><strong>가격·코스 사전 합의</strong><p>최종 금액이 명확히 안내되는지 확인. 모호한 답변이라면 다른 업체 고려.</p></li>
+<li><strong>예약 확정</strong><p>합의된 내용을 문자·메모로 정리해 두면 안전.</p></li>
+</ol>
+</section>
+
+<section class="block" id="report">
+<h2>문제 발생 시 신고 절차</h2>
+<p>이용 중 분쟁이나 불법 행위가 의심되면 다음 절차로 신고할 수 있습니다.</p>
+<ul class="check-list">
+<li><strong>1차 — 운영 업체 고객센터</strong> 문의 (정식 사업자라면 반드시 응대됩니다)</li>
+<li><strong>2차 — 한국소비자원</strong> 1372 (소비자 분쟁 조정)</li>
+<li><strong>3차 — 관할 경찰서</strong> 112 (불법 행위 의심 시)</li>
+<li><strong>국세청 1588-0560</strong> — 사업자등록 미신고 의심 신고</li>
+</ul>
+<p>본 사이트 이용 중 불편 사항은 <a href="/support/inquiry/">고객센터 문의</a>로 접수해 주시면 처리됩니다.</p>
+</section>
+""" + _faq_block([
+    ("사업자등록번호 확인은 어떻게 하나요?", "국세청 홈택스(hometax.go.kr) → 조회/발급 → 사업자등록상태 조회에서 번호를 입력하면 \"계속 사업자\" 여부를 확인할 수 있습니다."),
+    ("후기가 너무 좋기만 한 사이트는 어떻게 봐야 하나요?", "내부 게시 후기만 모아 둔 경우 운영자 측에서 선별·편집된 콘텐츠일 가능성이 큽니다. 외부 검색을 통해 다른 채널 의견을 함께 확인하시는 것이 안전합니다."),
+    ("가격이 비정상적으로 싸면 안 되나요?", "도착 후 추가 청구·옵션 강요로 이어지는 경우가 많습니다. 시장 평균보다 30% 이상 낮은 가격은 주의가 필요합니다."),
+    ("바로GO는 어떻게 검증할 수 있나요?", "사업자등록번호 815-26-00585를 국세청 홈택스에서 조회하실 수 있고, 본사 주소(경기도 파주시 청석로 268)와 대표 전화(0508-202-4719)가 모든 페이지에 일관되게 공개되어 있습니다."),
+    ("불법 업소를 신고하려면 어디로 해야 하나요?", "관할 경찰서 112 또는 한국소비자원 1372로 신고하실 수 있습니다. 국세청 1588-0560은 사업자등록 미신고 의심 신고용입니다."),
+]) + _GUIDE_DISCLAIMER
+
+
+GUIDES_RICH = [
+    {"slug": "what-is-business-trip-massage", "name": "출장마사지란?",
+     "desc": "출장마사지의 정의, 매장형과의 차이, 코스 종류 6가지, 이용 흐름, 적합한 상황과 자주 오해하는 점을 7년차 운영팀이 정리했습니다.",
+     "body": _GUIDE1_BODY},
+    {"slug": "massage-before-after", "name": "마사지 전후 주의사항",
+     "desc": "24시간 전부터 24시간 후까지 시간순 권장·금기 사항, 이상 반응 대처, 건강 상태별(임신·고혈압·당뇨) 주의 사항 정리.",
+     "body": _GUIDE2_BODY},
+    {"slug": "aroma-vs-swedish", "name": "아로마와 스웨디시 차이",
+     "desc": "스웨디시와 아로마 마사지의 기원·진행 방식·압 강도·향·추천 대상까지 8개 항목으로 비교. 선택 가이드 포함.",
+     "body": _GUIDE3_BODY},
+    {"slug": "first-time-massage", "name": "처음 이용 전 알아둘 점",
+     "desc": "출장마사지 첫 이용자가 알아두면 좋은 체크리스트 8가지, 코스 길이 선택, 공간 점검, 결제·취소, 건강 사전 공유까지 종합 안내.",
+     "body": _GUIDE4_BODY},
+    {"slug": "massage-price-standard", "name": "출장마사지 가격이 달라지는 이유",
+     "desc": "출장마사지 가격을 결정하는 4가지 변수(코스 길이·종류·시간대·이동), 미끼 가격 식별법, 추가 비용이 발생할 수 있는 경우 정리.",
+     "body": _GUIDE5_BODY},
+    {"slug": "safe-reservation", "name": "안전한 예약 확인 방법",
+     "desc": "출장마사지 업체를 안전하게 선택하는 기준: 사업자 정보 확인, 가격 투명성, 취소·환불 규정, 후기 진위 판단, 위험 신호 7가지, 신고 절차.",
+     "body": _GUIDE6_BODY},
 ]
 
 # guide hub
 add(
   path="guide/index.html", url="/guide/", slug="guide-hub",
-  title="마사지 정보 | 가이드·비교·주의사항 | 바로GO",
-  description="출장마사지를 처음 이용하시는 분이 알면 좋은 정보를 정리했습니다. 정의, 종류, 가격 기준, 안전 확인 방법까지.",
+  title="마사지 정보 | 출장마사지 가이드·비교·주의사항 | 바로GO",
+  description="출장마사지의 정의, 코스 종류, 전후 주의사항, 가격 결정 변수, 안전한 예약 확인 방법까지. 7년차 운영팀이 정리한 6편의 가이드.",
   h1="마사지 정보",
-  intro='<p class="lede">방문 마사지를 처음 이용하시거나, 좀 더 안전하게 이용하고 싶은 분들을 위한 정보 페이지입니다.</p>',
+  intro='<p class="lede">출장마사지를 처음 이용하시거나 좀 더 안전하게 이용하고 싶은 분들을 위한 가이드 모음입니다. 정의·비교·전후 주의사항·가격 변수·업체 검증 기준까지 6편으로 정리되어 있습니다.</p>',
   breadcrumbs=[("홈","/"),("마사지 정보","/guide/")],
   body="""
 <section class="block">
-<ul class="guide-grid">
-<li><a href="/guide/what-is-business-trip-massage/"><h3>출장마사지란?</h3><p>방문 마사지의 정의와 종류</p></a></li>
-<li><a href="/guide/massage-before-after/"><h3>마사지 전후 주의사항</h3><p>이용 전·후 권장 사항</p></a></li>
-<li><a href="/guide/aroma-vs-swedish/"><h3>아로마와 스웨디시 차이</h3><p>두 서비스 비교</p></a></li>
-<li><a href="/guide/first-time-massage/"><h3>처음 이용 전 알아둘 점</h3><p>첫 이용 사전 점검</p></a></li>
-<li><a href="/guide/massage-price-standard/"><h3>가격이 달라지는 이유</h3><p>비용 결정 요소</p></a></li>
-<li><a href="/guide/safe-reservation/"><h3>안전한 예약 확인 방법</h3><p>업체 점검 5가지</p></a></li>
-</ul>
+<div class="guide-card-grid">
+  <a href="/guide/what-is-business-trip-massage/" class="guide-card">
+    <span class="guide-card-num">01</span>
+    <h3>출장마사지란?</h3>
+    <p>출장마사지의 정의, 매장형과의 차이, 코스 종류 6가지, 이용 흐름과 자주 오해하는 점.</p>
+    <span class="guide-card-meta">5분 읽기 · 기초</span>
+  </a>
+  <a href="/guide/massage-before-after/" class="guide-card">
+    <span class="guide-card-num">02</span>
+    <h3>마사지 전후 주의사항</h3>
+    <p>24시간 전부터 24시간 후까지 시간순 권장·금기, 이상 반응 대처, 건강 상태별 주의.</p>
+    <span class="guide-card-meta">6분 읽기 · 안전</span>
+  </a>
+  <a href="/guide/aroma-vs-swedish/" class="guide-card">
+    <span class="guide-card-num">03</span>
+    <h3>아로마와 스웨디시 차이</h3>
+    <p>두 코스의 기원·진행 방식·압 강도·향·추천 대상을 8개 항목으로 비교, 선택 가이드 포함.</p>
+    <span class="guide-card-meta">4분 읽기 · 비교</span>
+  </a>
+  <a href="/guide/first-time-massage/" class="guide-card">
+    <span class="guide-card-num">04</span>
+    <h3>처음 이용 전 알아둘 점</h3>
+    <p>첫 이용자 체크리스트 8가지, 코스 길이 선택, 공간 점검, 결제·취소, 건강 사전 공유.</p>
+    <span class="guide-card-meta">6분 읽기 · 첫이용</span>
+  </a>
+  <a href="/guide/massage-price-standard/" class="guide-card">
+    <span class="guide-card-num">05</span>
+    <h3>가격이 달라지는 이유</h3>
+    <p>가격 결정 4대 변수, 코스 종류별 시세대, 시간대 변동, 미끼 가격 식별법, 추가 비용 경우.</p>
+    <span class="guide-card-meta">5분 읽기 · 비용</span>
+  </a>
+  <a href="/guide/safe-reservation/" class="guide-card">
+    <span class="guide-card-num">06</span>
+    <h3>안전한 예약 확인 방법</h3>
+    <p>사업자 정보 확인법, 가격 투명성, 후기 진위 판단, 위험 신호 7가지, 신고 절차.</p>
+    <span class="guide-card-meta">5분 읽기 · 안전</span>
+  </a>
+</div>
 </section>
 """,
 )
 
-for slug, name, desc, lede, sections in GUIDES:
-    sec_html = "".join(f'<section class="block"><h2>{t}</h2><p>{c}</p></section>' for t, c in sections)
+for g in GUIDES_RICH:
+    slug, name, desc, body = g["slug"], g["name"], g["desc"], g["body"]
+    # Related links exclude the current page
+    rel_items = "".join(
+        f'<li><a href="/guide/{o["slug"]}/">{o["name"]}</a></li>'
+        for o in GUIDES_RICH if o["slug"] != slug
+    )
+    related_html = (
+        '<aside class="related">'
+        '<h2>다른 마사지 정보</h2>'
+        f'<ul>{rel_items}'
+        '<li><a href="/reservation/price/">가격 안내</a></li>'
+        '<li><a href="/reservation/how-to-book/">예약 방법</a></li>'
+        '</ul></aside>'
+    )
     add(
         path=f"guide/{slug}/index.html",
         url=f"/guide/{slug}/",
@@ -6855,15 +7574,11 @@ for slug, name, desc, lede, sections in GUIDES:
         title=f"{name} | 바로GO 마사지 정보",
         description=desc,
         h1=name,
-        intro=f'<p class="lede">{lede}</p>',
+        intro=f'<p class="lede">{desc}</p>',
         breadcrumbs=[("홈","/"),("마사지 정보","/guide/"),(name,f"/guide/{slug}/")],
         og_type="article",
-        body=sec_html + """
-<section class="block muted">
-<p><small>※ 본 정보는 일반적인 안내이며, 의료 행위나 의학적 조언이 아닙니다. 건강 상태와 관련된 결정은 의료 전문가와 상담하시기 바랍니다.</small></p>
-</section>
-""",
-        related='<aside class="related"><h2>관련 글</h2><ul><li><a href="/reservation/how-to-book/">예약 방법</a></li><li><a href="/reservation/price/">가격 기준 안내</a></li><li><a href="/guide/safe-reservation/">안전한 예약 확인 방법</a></li></ul></aside>',
+        body=body,
+        related=related_html,
     )
 
 # ---------- Support pages ----------
