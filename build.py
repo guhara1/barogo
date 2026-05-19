@@ -20,7 +20,7 @@ BUILD_DATE = date.today().isoformat()
 
 SITE = {
     "name": "바로GO",
-    "tagline": "전국 방문 마사지 안내",
+    "tagline": "전국 출장 마사지 안내",
     "url": "",                       # relative absolute paths
     "phone": "0508-202-4719",
     "biz_name": "바로GO (YH LAB)",
@@ -76,8 +76,8 @@ HEADER = """<a class="skip-link" href="#main">본문 바로가기</a>
               <li><a href="/service/aroma/">아로마 마사지</a></li>
               <li><a href="/service/sports-massage/">스포츠 마사지</a></li>
               <li><a href="/service/couple-massage/">커플 마사지</a></li>
-              <li><a href="/service/hotel-massage/">호텔 방문 마사지</a></li>
-              <li><a href="/service/office-massage/">기업·사무실 방문 마사지</a></li>
+              <li><a href="/service/hotel-massage/">호텔 출장 마사지</a></li>
+              <li><a href="/service/office-massage/">기업·사무실 출장 마사지</a></li>
             </ul>
           </div>
         </li>
@@ -121,11 +121,12 @@ HEADER = """<a class="skip-link" href="#main">본문 바로가기</a>
                 <h3 class="mega-heading">매거진 <span class="mega-badge">NEW</span></h3>
                 <ul class="mega-list">
                   <li><a href="/magazine/"><strong>매거진 전체 보기</strong></a></li>
-                  <li><a href="/magazine/hotel-room-care-trend-2026/">호텔 객실 케어 트렌드 2026</a></li>
-                  <li><a href="/magazine/night-worker-recovery/">야간 근무자 회복 가이드</a></li>
-                  <li><a href="/magazine/desk-worker-neck-shoulder/">사무직 어깨·목 케어</a></li>
-                  <li><a href="/magazine/travel-hotel-massage-guide/">여행지 호텔 케어</a></li>
-                  <li><a href="/magazine/course-selection-by-purpose/">목적별 코스 고르는 법</a></li>
+                  <li><a href="/magazine/first-time-essentials/">출장마사지 처음 이용 전 알아둘 점</a></li>
+                  <li><a href="/magazine/night-worker-recovery/">야간 근무자를 위한 피로 회복 루틴</a></li>
+                  <li><a href="/magazine/desk-worker-neck-shoulder/">사무직 어깨·목 긴장 관리법</a></li>
+                  <li><a href="/magazine/hotel-guest-guide/">호텔 투숙객을 위한 출장마사지 이용 안내</a></li>
+                  <li><a href="/magazine/course-selection-by-purpose/">출장마사지 코스 고르는 기준</a></li>
+                  <li><a href="/magazine/regional-usage-tips/">지역별 출장마사지 이용 팁</a></li>
                 </ul>
               </div>
             </div>
@@ -430,7 +431,7 @@ _LONG_TAIL = {
     "출장마사지가 무엇인지부터 진행 방식·이용 가능 장소까지 정리",
     "출장마사지가 일반 매장 마사지와 다른 점과 적합한 상황 안내",
     "처음 알아보시는 분을 위한 출장마사지 서비스 개요와 진행 흐름",
-    "방문 마사지가 아닌 출장마사지의 운영 원칙과 진행 방식 안내",
+    "출장 마사지가 아닌 출장마사지의 운영 원칙과 진행 방식 안내",
   ],
   "/service/hotel-massage/": [
     "호텔 객실에서 진행할 때 사전에 확인해야 하는 체크인·층·룸 정보",
@@ -512,7 +513,7 @@ _LONG_TAIL = {
   ],
   "/guide/what-is-business-trip-massage/": [
     "출장마사지가 무엇인지부터 진행 방식·법적 구분까지 정리한 입문 안내",
-    "방문 마사지와 출장마사지의 차이와 적합한 상황 정리",
+    "출장 마사지와 출장마사지의 차이와 적합한 상황 정리",
     "처음 출장마사지를 알아보시는 분을 위한 기본 개념 가이드",
   ],
   "/guide/massage-before-after/": [
@@ -729,9 +730,9 @@ add(
 REGIONS = [
 {
   "slug": "seoul", "name": "서울", "full": "서울특별시",
-  "title": "서울 방문 마사지 권역별 이용 안내 | 강남·마포·종로·여의도 | 바로GO",
+  "title": "서울 출장 마사지 권역별 이용 안내 | 강남·마포·종로·여의도 | 바로GO",
   "description": "서울은 권역마다 이용 패턴이 다릅니다. 강남·서초의 호텔 야간 수요, 마포·용산의 직장인 가정 방문, 종로·중구의 단시간 호텔 코스 등 서울 6개 권역의 실제 이용 흐름을 정리했습니다.",
-  "h1": "서울 권역별 방문 마사지 이용 안내",
+  "h1": "서울 권역별 출장 마사지 이용 안내",
   "lede": "서울은 25개 자치구가 각각 다른 생활 리듬을 가진 도시이며, 호텔·오피스·주거 분포가 권역마다 달라서 같은 도시 안에서도 예약 흐름이 크게 다릅니다. 이 안내는 권역별로 자주 문의되는 시간대와 진행 방식을 정리한 페이지입니다.",
   "body": """
 <section class="block">
@@ -765,7 +766,7 @@ REGIONS = [
 </section>
 
 <section class="block">
-<h2>서울 방문 마사지 FAQ</h2>
+<h2>서울 출장 마사지 FAQ</h2>
 <div class="faq">
 <details><summary>강남에서 새벽 시간대도 받을 수 있나요?</summary><p>강남·서초·송파 일부 호텔에서는 자정 이후 시간대도 안내되는 경우가 있습니다. 권역과 객실 정보에 따라 가능 여부가 달라지므로 상담 단계에서 확인이 필요합니다.</p></details>
 <details><summary>여의도 야근 후 회사로 받을 수 있나요?</summary><p>오피스 방문은 별도 보안 정책이 있는 빌딩이 많아 일반적으로 추천하지 않습니다. 인근 호텔 또는 자택을 안내드리는 경우가 일반적입니다.</p></details>
@@ -778,9 +779,9 @@ REGIONS = [
 },
 {
   "slug": "gyeonggi", "name": "경기", "full": "경기도",
-  "title": "경기도 방문 마사지 권역별 이용 안내 | 분당·수원·일산·평택 | 바로GO",
+  "title": "경기도 출장 마사지 권역별 이용 안내 | 분당·수원·일산·평택 | 바로GO",
   "description": "경기도는 31개 시·군이 모두 다른 권역 특성을 가집니다. 분당·판교 IT 야근 후 케어, 수원·화성 산업 출장, 일산·파주 신도시 가정 방문 등 권역별 이용 흐름과 광역 이동 안내를 정리했습니다.",
-  "h1": "경기도 권역별 방문 마사지 이용 안내",
+  "h1": "경기도 권역별 출장 마사지 이용 안내",
   "lede": "경기도는 면적이 넓고 31개 시·군이 산업·신도시·전원 권역으로 나뉘어 있어, 같은 도(道) 안에서도 이용 패턴이 크게 다릅니다. 권역별로 자주 안내되는 시간과 이동 조건을 분리해 정리했습니다.",
   "body": """
 <section class="block">
@@ -814,7 +815,7 @@ REGIONS = [
 </section>
 
 <section class="block">
-<h2>경기도 방문 마사지 FAQ</h2>
+<h2>경기도 출장 마사지 FAQ</h2>
 <div class="faq">
 <details><summary>분당과 일산 모두 같은 시간에 가능한가요?</summary><p>분당과 일산은 다른 권역으로 안내되며, 같은 시간대에 두 권역을 모두 진행하기는 어려운 경우가 일반적입니다. 권역별로 예약 가능 시간을 따로 확인해 주세요.</p></details>
 <details><summary>외곽 시·군(가평·양평·여주 등)도 가능한가요?</summary><p>가능 여부는 시간대와 이동 거리에 따라 달라집니다. 외곽 권역은 사전에 가능 시간을 확인하는 것을 권장합니다.</p></details>
@@ -826,9 +827,9 @@ REGIONS = [
 },
 {
   "slug": "incheon", "name": "인천", "full": "인천광역시",
-  "title": "인천 방문 마사지 이용 안내 | 인천공항·송도·부평 권역 | 바로GO",
+  "title": "인천 출장 마사지 이용 안내 | 인천공항·송도·부평 권역 | 바로GO",
   "description": "인천공항 환승 일정에 맞춘 단시간 코스, 송도 국제업무지구의 비즈니스 출장 케어, 부평·계양 주거 권역의 평일 저녁 가정 방문 등 인천 권역별 실제 이용 흐름을 정리했습니다.",
-  "h1": "인천 권역별 방문 마사지 이용 안내",
+  "h1": "인천 권역별 출장 마사지 이용 안내",
   "lede": "인천은 인천국제공항과 송도 국제업무지구가 함께 있는 특수성으로, 환승·체류·출장 일정에 맞춘 단시간 호텔 케어 문의가 다른 광역시보다 두드러집니다.",
   "body": """
 <section class="block">
@@ -861,7 +862,7 @@ REGIONS = [
 </section>
 
 <section class="block">
-<h2>인천 방문 마사지 FAQ</h2>
+<h2>인천 출장 마사지 FAQ</h2>
 <div class="faq">
 <details><summary>인천공항에서 환승 4시간 정도 가능합니다. 가능할까요?</summary><p>환승객 시간 기준 4시간이면 보안검색·체크인 시간을 제외하고 60분 코스 정도가 적절합니다. 공항 인접 호텔 체크인 일정에 맞춰 진행하시는 것을 권합니다.</p></details>
 <details><summary>송도에서 외국어 안내가 되는지요?</summary><p>모든 케이스에 대해 보장되지는 않으며, 영어 안내가 가능한 일정으로 사전 조율이 필요합니다. 상담 단계에서 미리 알려 주시면 가능 여부를 확인해 드립니다.</p></details>
@@ -873,9 +874,9 @@ REGIONS = [
 },
 {
   "slug": "busan", "name": "부산", "full": "부산광역시",
-  "title": "부산 방문 마사지 이용 안내 | 해운대·광안·서면·남포 권역 | 바로GO",
+  "title": "부산 출장 마사지 이용 안내 | 해운대·광안·서면·남포 권역 | 바로GO",
   "description": "부산은 전국에서 호텔 방문 케어 비중이 가장 높은 광역시입니다. 해운대·광안·서면 권역의 관광 호텔 일정, 성수기·비수기 가능 시간 차이, 부산 권역별 이용 흐름을 정리했습니다.",
-  "h1": "부산 권역별 방문 마사지 이용 안내",
+  "h1": "부산 권역별 출장 마사지 이용 안내",
   "lede": "부산은 해운대·광안 일대 관광 호텔이 밀집해 있어 전국 광역시 중 호텔 방문 비중이 가장 두드러지는 도시입니다. 관광 성수기와 비수기에 따라 가능 시간대 흐름이 크게 달라집니다.",
   "body": """
 <section class="block">
@@ -909,7 +910,7 @@ REGIONS = [
 </section>
 
 <section class="block">
-<h2>부산 방문 마사지 FAQ</h2>
+<h2>부산 출장 마사지 FAQ</h2>
 <div class="faq">
 <details><summary>해운대 호텔에서 새벽 시간대도 가능한가요?</summary><p>해운대 권역은 새벽 시간대 가능 사례가 다른 권역보다 많은 편입니다. 객실 호수·체크인 정보 사전 확인을 거쳐 진행합니다.</p></details>
 <details><summary>광안리 불꽃축제 당일 예약이 어려운가요?</summary><p>축제 당일은 호텔 가능 시간 자체가 빠르게 마감되므로 사전 예약을 권장드립니다. 당일 문의는 가능 권역이 제한될 수 있습니다.</p></details>
@@ -921,9 +922,9 @@ REGIONS = [
 },
 {
   "slug": "daegu", "name": "대구", "full": "대구광역시",
-  "title": "대구 방문 마사지 이용 안내 | 수성·동성로·달서 권역 | 바로GO",
+  "title": "대구 출장 마사지 이용 안내 | 수성·동성로·달서 권역 | 바로GO",
   "description": "대구는 수성구 주거 권역 평일 저녁 가정 방문 비중이 높은 도시입니다. 동성로 도심 호텔 출장 케어, 폭염 시즌 시간대 조정, 권역별 이용 흐름을 정리했습니다.",
-  "h1": "대구 권역별 방문 마사지 이용 안내",
+  "h1": "대구 권역별 출장 마사지 이용 안내",
   "lede": "대구는 수성구 주거 권역이 차지하는 비중이 크고, 동성로·교동 도심에 비즈니스 호텔이 모여 있어 가정 방문과 호텔 방문 흐름이 비교적 분리되어 있는 도시입니다.",
   "body": """
 <section class="block">
@@ -956,7 +957,7 @@ REGIONS = [
 </section>
 
 <section class="block">
-<h2>대구 방문 마사지 FAQ</h2>
+<h2>대구 출장 마사지 FAQ</h2>
 <div class="faq">
 <details><summary>수성구 외 지역도 안내되나요?</summary><p>달서·달성·동구·북구 모두 안내됩니다. 권역별로 가능 시간이 다소 달라 사전 확인을 권장합니다.</p></details>
 <details><summary>경산(경북)에서도 받을 수 있나요?</summary><p>경산은 행정구역상 경북이지만 대구 권역과 인접해 안내되는 경우가 있습니다. 자세한 내용은 <a href="/area/gyeongbuk/">경북 안내 페이지</a>를 참고해 주세요.</p></details>
@@ -968,9 +969,9 @@ REGIONS = [
 },
 {
   "slug": "daejeon", "name": "대전", "full": "대전광역시",
-  "title": "대전 방문 마사지 이용 안내 | 유성·둔산·대덕연구단지 권역 | 바로GO",
+  "title": "대전 출장 마사지 이용 안내 | 유성·둔산·대덕연구단지 권역 | 바로GO",
   "description": "대전은 대덕연구단지·정부청사 출장 일정과 맞물려 유성·둔산 권역의 평일 저녁 호텔 방문 비중이 높은 도시입니다. KTX 단시간 코스, 연구단지 출장 케어 흐름을 정리했습니다.",
-  "h1": "대전 권역별 방문 마사지 이용 안내",
+  "h1": "대전 권역별 출장 마사지 이용 안내",
   "lede": "대전은 대덕연구단지와 정부청사가 자리한 특성으로, 평일 저녁 출장 연구원·공무원 대상 호텔 방문 케어가 다른 비수도권 광역시보다 두드러지게 안내됩니다.",
   "body": """
 <section class="block">
@@ -1004,7 +1005,7 @@ REGIONS = [
 </section>
 
 <section class="block">
-<h2>대전 방문 마사지 FAQ</h2>
+<h2>대전 출장 마사지 FAQ</h2>
 <div class="faq">
 <details><summary>유성 호텔에서 출장 일정 마치고 받을 수 있나요?</summary><p>가능합니다. 출장 종료 시간에 맞춰 객실 호수·체크인 정보를 함께 확인해 주시면 평일 저녁~밤 시간대 안내가 일반적입니다.</p></details>
 <details><summary>세종에서 받을 수 있나요?</summary><p>세종은 별도 권역으로 안내됩니다. <a href="/area/sejong/">세종 안내 페이지</a>를 참고해 주세요.</p></details>
@@ -1016,9 +1017,9 @@ REGIONS = [
 },
 {
   "slug": "gwangju", "name": "광주", "full": "광주광역시",
-  "title": "광주 방문 마사지 이용 안내 | 상무지구·첨단·광산 권역 | 바로GO",
+  "title": "광주 출장 마사지 이용 안내 | 상무지구·첨단·광산 권역 | 바로GO",
   "description": "광주는 상무지구 비즈니스 출장과 첨단·수완 신도시 가정 방문이 함께 안내되는 도시입니다. 평일 저녁·주말 가능 시간대와 권역별 이용 흐름을 정리했습니다.",
-  "h1": "광주 권역별 방문 마사지 이용 안내",
+  "h1": "광주 권역별 출장 마사지 이용 안내",
   "lede": "광주는 호남권 중심 도시로, 상무지구 출장과 첨단·수완 신도시 가정 방문이 안정적으로 안내되는 도시입니다. 호텔 비중보다 가정 방문 비중이 다소 높은 권역입니다.",
   "body": """
 <section class="block">
@@ -1051,7 +1052,7 @@ REGIONS = [
 </section>
 
 <section class="block">
-<h2>광주 방문 마사지 FAQ</h2>
+<h2>광주 출장 마사지 FAQ</h2>
 <div class="faq">
 <details><summary>나주·담양도 광주에서 안내해 주시나요?</summary><p>나주·담양은 행정상 전남에 속해 별도 권역으로 안내됩니다. <a href="/area/jeonnam/">전남 안내 페이지</a>를 참고해 주세요.</p></details>
 <details><summary>광주 외곽(광산구 송정·평동)도 가능한가요?</summary><p>가능합니다. 외곽 권역은 시간대에 따라 가능 시간이 다소 빠르게 마감되는 편입니다.</p></details>
@@ -1063,9 +1064,9 @@ REGIONS = [
 },
 {
   "slug": "ulsan", "name": "울산", "full": "울산광역시",
-  "title": "울산 방문 마사지 이용 안내 | 남구·동구·울주 권역 | 바로GO",
+  "title": "울산 출장 마사지 이용 안내 | 남구·동구·울주 권역 | 바로GO",
   "description": "울산은 현대중공업·SK·미포 등 산업단지 출장 비중이 가장 높은 광역시입니다. 동구 조선소 인근, 남구 비즈니스 호텔, 장기 출장 재방문 패턴을 정리했습니다.",
-  "h1": "울산 권역별 방문 마사지 이용 안내",
+  "h1": "울산 권역별 출장 마사지 이용 안내",
   "lede": "울산은 국내 산업단지 출장 비중이 압도적인 광역시로, 평일 야간 호텔 방문 케어가 다른 어떤 비수도권 도시보다 두드러지는 흐름을 보입니다.",
   "body": """
 <section class="block">
@@ -1098,7 +1099,7 @@ REGIONS = [
 </section>
 
 <section class="block">
-<h2>울산 방문 마사지 FAQ</h2>
+<h2>울산 출장 마사지 FAQ</h2>
 <div class="faq">
 <details><summary>장기 출장 중 매주 같은 시간 예약 가능한가요?</summary><p>정기 일정 안내가 가능합니다. 다만 매번 가능 인력 일정이 변동될 수 있어 주차별 사전 확인이 필요합니다.</p></details>
 <details><summary>조선소 게스트하우스에서도 가능한가요?</summary><p>일반적인 게스트하우스 객실 방문은 안내됩니다. 일부 사내 숙소(외부 출입 통제) 케이스는 사전 확인이 필요합니다.</p></details>
@@ -1110,9 +1111,9 @@ REGIONS = [
 },
 {
   "slug": "sejong", "name": "세종", "full": "세종특별자치시",
-  "title": "세종 방문 마사지 이용 안내 | 한솔·새롬·도담 권역 | 바로GO",
+  "title": "세종 출장 마사지 이용 안내 | 한솔·새롬·도담 권역 | 바로GO",
   "description": "세종은 호텔 인프라가 비교적 적어 가정 방문 비중이 높은 행정중심복합도시입니다. 평일 저녁 공무원 가정 방문 흐름, 인근 권역 확장 가능성을 정리했습니다.",
-  "h1": "세종 권역별 방문 마사지 이용 안내",
+  "h1": "세종 권역별 출장 마사지 이용 안내",
   "lede": "세종은 행정중심복합도시 특성상 호텔 인프라가 광역시 대비 적은 편이며, 가정 방문 비중이 다른 도시보다 두드러집니다. 정부청사 출퇴근 흐름이 가능 시간대에 영향을 줍니다.",
   "body": """
 <section class="block">
@@ -1146,7 +1147,7 @@ REGIONS = [
 </section>
 
 <section class="block">
-<h2>세종 방문 마사지 FAQ</h2>
+<h2>세종 출장 마사지 FAQ</h2>
 <div class="faq">
 <details><summary>오송역 환승 일정에 받을 수 있나요?</summary><p>오송역은 행정상 충북 청주이지만 세종과 가까워 안내 사례가 있습니다. 환승 시간 길이에 맞춰 코스 길이를 조율합니다.</p></details>
 <details><summary>정부청사 근처에서 평일 점심 시간대 가능한가요?</summary><p>일반적으로 저녁 시간대 비중이 훨씬 큽니다. 평일 점심 시간대는 가능 여부가 제한적이며 사전 확인이 필요합니다.</p></details>
@@ -1158,9 +1159,9 @@ REGIONS = [
 },
 {
   "slug": "gangwon", "name": "강원", "full": "강원특별자치도",
-  "title": "강원 방문 마사지 이용 안내 | 강릉·속초·춘천·평창 권역 | 바로GO",
+  "title": "강원 출장 마사지 이용 안내 | 강릉·속초·춘천·평창 권역 | 바로GO",
   "description": "강원은 영동(강릉·속초)과 영서(춘천·원주)의 권역 성격이 매우 다른 지역입니다. 동계 스포츠·서핑 시즌의 회복 케어, 성수기·비수기 가능 시간 차이를 정리했습니다.",
-  "h1": "강원 권역별 방문 마사지 이용 안내",
+  "h1": "강원 권역별 출장 마사지 이용 안내",
   "lede": "강원은 영동(동해안)과 영서(내륙)가 산맥으로 분리되어 권역이 사실상 두 곳으로 나뉘는 지역입니다. 시즌별 관광 흐름에 따라 가능 시간대 변동이 큽니다.",
   "body": """
 <section class="block">
@@ -1194,7 +1195,7 @@ REGIONS = [
 </section>
 
 <section class="block">
-<h2>강원 방문 마사지 FAQ</h2>
+<h2>강원 출장 마사지 FAQ</h2>
 <div class="faq">
 <details><summary>서핑 후 어깨 회복 목적인데 어떤 코스가 좋나요?</summary><p>서핑 후 어깨·등 회복은 <a href="/service/sports-massage/">스포츠 마사지</a> 또는 <a href="/service/hometai/">홈타이</a>가 자주 안내됩니다. 부위 집중 케어가 가능합니다.</p></details>
 <details><summary>스키 시즌 평창 콘도에서 받을 수 있나요?</summary><p>평창 콘도·리조트 객실 방문은 가능하나, 동계 성수기는 가능 시간이 매우 빠르게 마감됩니다. 입실 일정 확정 후 사전 예약을 권합니다.</p></details>
@@ -1206,9 +1207,9 @@ REGIONS = [
 },
 {
   "slug": "chungbuk", "name": "충북", "full": "충청북도",
-  "title": "충북 방문 마사지 이용 안내 | 청주·오송·충주 권역 | 바로GO",
+  "title": "충북 출장 마사지 이용 안내 | 청주·오송·충주 권역 | 바로GO",
   "description": "충북은 청주공항·오송 바이오단지 출장 흐름이 두드러지는 지역입니다. KTX 오송 환승 단시간 코스, 청주·충주 권역별 이용 흐름을 정리했습니다.",
-  "h1": "충북 권역별 방문 마사지 이용 안내",
+  "h1": "충북 권역별 출장 마사지 이용 안내",
   "lede": "충북은 청주공항과 오송역(KTX·SRT 분기)이 자리한 교통 결절 지역으로, 환승·출장 일정과 맞물린 단시간 호텔 케어 문의가 다른 도(道) 권역보다 많은 흐름을 보입니다.",
   "body": """
 <section class="block">
@@ -1241,7 +1242,7 @@ REGIONS = [
 </section>
 
 <section class="block">
-<h2>충북 방문 마사지 FAQ</h2>
+<h2>충북 출장 마사지 FAQ</h2>
 <div class="faq">
 <details><summary>오송역 환승 2시간 정도 가능할까요?</summary><p>2시간이면 이동·체크인 시간 제외 60분 코스가 빠듯할 수 있습니다. 환승 일정이 3시간 이상 확보된 경우를 권합니다.</p></details>
 <details><summary>청주에서 세종 권역도 함께 가능한가요?</summary><p>같은 시간대 동시 진행은 어렵고, 권역을 분리해 예약을 잡는 형태로 안내됩니다.</p></details>
@@ -1253,9 +1254,9 @@ REGIONS = [
 },
 {
   "slug": "chungnam", "name": "충남", "full": "충청남도",
-  "title": "충남 방문 마사지 이용 안내 | 천안·아산·서산·당진·보령 권역 | 바로GO",
+  "title": "충남 출장 마사지 이용 안내 | 천안·아산·서산·당진·보령 권역 | 바로GO",
   "description": "충남은 천안·아산 KTX 산업단지 출장과 서해안 보령·태안 휴양 두 패턴이 공존하는 지역입니다. 권역별 이용 흐름과 광역 이동 안내를 정리했습니다.",
-  "h1": "충남 권역별 방문 마사지 이용 안내",
+  "h1": "충남 권역별 출장 마사지 이용 안내",
   "lede": "충남은 동부(천안·아산·공주)의 산업단지 출장과 서부(서산·당진·보령·태안)의 해안 휴양이 한 도(道) 안에 공존하는 지역입니다. 권역별로 가능 시간과 이용 패턴이 분리됩니다.",
   "body": """
 <section class="block">
@@ -1288,7 +1289,7 @@ REGIONS = [
 </section>
 
 <section class="block">
-<h2>충남 방문 마사지 FAQ</h2>
+<h2>충남 출장 마사지 FAQ</h2>
 <div class="faq">
 <details><summary>천안아산역 일정에 맞춰 단시간 가능한가요?</summary><p>천안아산역 인접 호텔에서 60·90분 코스 문의가 자주 안내됩니다. KTX 일정 시간을 함께 확인합니다.</p></details>
 <details><summary>대천해수욕장 펜션에서도 가능한가요?</summary><p>가능합니다. 단 성수기에는 가능 시간이 빠르게 마감되므로 사전 예약을 권합니다.</p></details>
@@ -1300,9 +1301,9 @@ REGIONS = [
 },
 {
   "slug": "jeonbuk", "name": "전북", "full": "전북특별자치도",
-  "title": "전북 방문 마사지 이용 안내 | 전주·익산·군산 권역 | 바로GO",
+  "title": "전북 출장 마사지 이용 안내 | 전주·익산·군산 권역 | 바로GO",
   "description": "전북은 전주 한옥마을 관광·익산 KTX 환승·군산 새만금 산업 세 흐름이 함께 안내되는 지역입니다. 권역별 이용 패턴과 게스트하우스 안내 사항을 정리했습니다.",
-  "h1": "전북 권역별 방문 마사지 이용 안내",
+  "h1": "전북 권역별 출장 마사지 이용 안내",
   "lede": "전북은 전주의 관광, 익산의 KTX 환승, 군산·새만금의 산업 세 권역이 동시에 안내되는 지역입니다. 권역마다 가능 시간 흐름이 분명히 다릅니다.",
   "body": """
 <section class="block">
@@ -1335,7 +1336,7 @@ REGIONS = [
 </section>
 
 <section class="block">
-<h2>전북 방문 마사지 FAQ</h2>
+<h2>전북 출장 마사지 FAQ</h2>
 <div class="faq">
 <details><summary>전주 한옥 게스트하우스에서 가능한가요?</summary><p>가능합니다. 단 한옥 객실 구조 특성상 베드 외 다른 방식(매트) 안내가 될 수 있어 사전 확인이 필요합니다.</p></details>
 <details><summary>익산역 환승 일정 1시간 30분 가능한가요?</summary><p>익산역 인근 호텔 단시간 코스가 가능하나 1시간 30분은 빠듯할 수 있어 코스 길이와 동선 확인이 필요합니다.</p></details>
@@ -1347,9 +1348,9 @@ REGIONS = [
 },
 {
   "slug": "jeonnam", "name": "전남", "full": "전라남도",
-  "title": "전남 방문 마사지 이용 안내 | 여수·순천·목포·광양 권역 | 바로GO",
+  "title": "전남 출장 마사지 이용 안내 | 여수·순천·목포·광양 권역 | 바로GO",
   "description": "전남은 여수 밤바다 관광 호텔, 순천만 자연 관광, 광양제철 산업 출장, 목포 항만 권역 등 권역마다 성격이 다른 지역입니다. 권역별 이용 흐름을 정리했습니다.",
-  "h1": "전남 권역별 방문 마사지 이용 안내",
+  "h1": "전남 권역별 출장 마사지 이용 안내",
   "lede": "전남은 여수 야경, 순천만 자연 관광, 광양제철 산업, 목포 항만으로 권역마다 성격이 분명히 갈리는 지역입니다. 같은 도(道)지만 권역별 가능 흐름이 다릅니다.",
   "body": """
 <section class="block">
@@ -1388,7 +1389,7 @@ REGIONS = [
 </section>
 
 <section class="block">
-<h2>전남 방문 마사지 FAQ</h2>
+<h2>전남 출장 마사지 FAQ</h2>
 <div class="faq">
 <details><summary>여수 디오션리조트에서 가능한가요?</summary><p>여수 종포·웅천 일대 리조트 객실 방문이 자주 안내됩니다. 객동 정보와 체크인 일정을 함께 확인합니다.</p></details>
 <details><summary>순천 정원박람회 시즌 예약이 어려운가요?</summary><p>박람회 시즌은 호텔 가능 시간이 빠르게 마감되므로 일정이 확정되면 빠른 예약을 권합니다.</p></details>
@@ -1400,9 +1401,9 @@ REGIONS = [
 },
 {
   "slug": "gyeongbuk", "name": "경북", "full": "경상북도",
-  "title": "경북 방문 마사지 이용 안내 | 포항·경주·구미·안동 권역 | 바로GO",
+  "title": "경북 출장 마사지 이용 안내 | 포항·경주·구미·안동 권역 | 바로GO",
   "description": "경북은 포항(포스코)·경주(관광)·구미(전자단지)·안동(전통 관광) 네 권역이 모두 성격이 다른 지역입니다. 권역별 이용 흐름과 가능 시간 안내를 정리했습니다.",
-  "h1": "경북 권역별 방문 마사지 이용 안내",
+  "h1": "경북 권역별 출장 마사지 이용 안내",
   "lede": "경북은 포항 철강, 경주 관광, 구미 전자, 안동 전통으로 권역 색깔이 가장 다채로운 도(道)입니다. 권역별로 이용 흐름이 거의 다른 도시 수준으로 갈립니다.",
   "body": """
 <section class="block">
@@ -1440,7 +1441,7 @@ REGIONS = [
 </section>
 
 <section class="block">
-<h2>경북 방문 마사지 FAQ</h2>
+<h2>경북 출장 마사지 FAQ</h2>
 <div class="faq">
 <details><summary>경주 보문 켄싱턴리조트에서 받을 수 있나요?</summary><p>보문관광단지 내 호텔·리조트 객실 방문이 자주 안내됩니다. 시즌별 가능 시간 차이가 있으니 사전 확인이 좋습니다.</p></details>
 <details><summary>포항제철 출장 일정에 가능한가요?</summary><p>가능합니다. 포항 중앙·북구 비즈니스 호텔에서 평일 저녁 객실 방문이 일반적인 패턴입니다.</p></details>
@@ -1452,9 +1453,9 @@ REGIONS = [
 },
 {
   "slug": "gyeongnam", "name": "경남", "full": "경상남도",
-  "title": "경남 방문 마사지 이용 안내 | 창원·김해·진주·거제 권역 | 바로GO",
+  "title": "경남 출장 마사지 이용 안내 | 창원·김해·진주·거제 권역 | 바로GO",
   "description": "경남은 창원 기계·김해공항·거제 조선소·진주 도심 등 권역마다 성격이 다른 지역입니다. 거제 장기 출장 케어, 김해공항 환승 케어 등 권역별 흐름을 정리했습니다.",
-  "h1": "경남 권역별 방문 마사지 이용 안내",
+  "h1": "경남 권역별 출장 마사지 이용 안내",
   "lede": "경남은 창원의 기계 산업, 김해의 공항·물류, 거제의 조선소, 진주의 행정 도심으로 권역이 분명히 갈리는 지역입니다. 특히 거제는 장기 출장 외국인 케어 비중이 높습니다.",
   "body": """
 <section class="block">
@@ -1493,7 +1494,7 @@ REGIONS = [
 </section>
 
 <section class="block">
-<h2>경남 방문 마사지 FAQ</h2>
+<h2>경남 출장 마사지 FAQ</h2>
 <div class="faq">
 <details><summary>거제 옥포 출장 중인데 영어 안내가 가능한가요?</summary><p>모든 케이스 보장되지 않으며, 영어 안내 가능 일정으로 사전 협의가 필요합니다. 상담 시 미리 알려 주시면 가능 여부를 안내합니다.</p></details>
 <details><summary>김해공항에서 환승 시간 3시간 가능할까요?</summary><p>3시간이면 공항 인접 호텔 60분 코스 진행이 가능한 편입니다. 보안검색·체크인 시간을 함께 계산해 주세요.</p></details>
@@ -1505,9 +1506,9 @@ REGIONS = [
 },
 {
   "slug": "jeju", "name": "제주", "full": "제주특별자치도",
-  "title": "제주 방문 마사지 이용 안내 | 제주시·서귀포·애월·표선 권역 | 바로GO",
+  "title": "제주 출장 마사지 이용 안내 | 제주시·서귀포·애월·표선 권역 | 바로GO",
   "description": "제주는 휴양 일정과 맞물린 리조트·풀빌라 객실 방문 비중이 가장 높은 지역입니다. 성수기·비수기 가능 시간 차이, 권역별 이용 흐름을 정리했습니다.",
-  "h1": "제주 권역별 방문 마사지 이용 안내",
+  "h1": "제주 권역별 출장 마사지 이용 안내",
   "lede": "제주는 휴양 일정 중심으로 리조트·풀빌라 객실 방문이 압도적인 비중을 차지하는 지역입니다. 성수기·비수기, 동·서·남 권역에 따라 흐름이 분명히 달라집니다.",
   "body": """
 <section class="block">
@@ -1541,7 +1542,7 @@ REGIONS = [
 </section>
 
 <section class="block">
-<h2>제주 방문 마사지 FAQ</h2>
+<h2>제주 출장 마사지 FAQ</h2>
 <div class="faq">
 <details><summary>중문 신라호텔 풀빌라에서 받을 수 있나요?</summary><p>가능합니다. 풀빌라 객동 호수와 체크인 정보를 함께 확인하며 진입 동선 안내가 필요한 경우가 있습니다.</p></details>
 <details><summary>애월 펜션 진입로가 좁은데 가능한가요?</summary><p>차량 진입 가능 여부를 사전에 확인합니다. 진입이 어려운 경우 도보 동선 안내가 필요할 수 있습니다.</p></details>
@@ -2467,15 +2468,15 @@ def _district_title(name, parent_name, facts):
     """Unique title per district by appending the 4th fact ("특이점"/landmark)."""
     highlight = facts[3][1] if len(facts) >= 4 else None
     if highlight:
-        return f"{name} 방문 마사지 안내 · {highlight} | {parent_name} | 바로GO"
-    return f"{name} 방문 마사지 이용 안내 | {parent_name} | 바로GO"
+        return f"{name} 출장 마사지 안내 · {highlight} | {parent_name} | 바로GO"
+    return f"{name} 출장 마사지 이용 안내 | {parent_name} | 바로GO"
 
 
 def _district_description(lede, name, parent_name, max_len=160):
     """Unique meta description using the district lede; falls back to a
     short opener if lede is empty."""
     if not lede:
-        return f"{parent_name} {name} 방문 마사지 이용 정보를 정리한 안내 페이지입니다."
+        return f"{parent_name} {name} 출장 마사지 이용 정보를 정리한 안내 페이지입니다."
     if len(lede) <= max_len:
         return lede
     cut = lede[:max_len].rsplit('.', 1)[0]
@@ -2621,7 +2622,7 @@ def _build_seoul_districts():
             slug=f"area-seoul-{d['slug']}",
             title=_district_title(d['name'], "서울", d['facts']),
             description=_district_description(d['lede'], d['name'], "서울"),
-            h1=f"{d['name']} 방문 마사지 이용 안내",
+            h1=f"{d['name']} 출장 마사지 이용 안내",
             intro=f'<p class="lede">{d["lede"]}</p>' + _district_hero_cta_html(d["name"]),
             breadcrumbs=[
                 ("홈", "/"),
@@ -3159,7 +3160,7 @@ def _dong_course_section_html():
         '<li><a href="/service/aroma/"><strong>아로마 마사지</strong></a> — 에센셜 오일을 활용한 향기 케어. 수면 보조·스트레스 완화에 적합합니다.</li>'
         '<li><a href="/service/sports-massage/"><strong>스포츠 마사지</strong></a> — 운동 후 회복·뭉친 부위 집중 케어가 필요한 분께 권해집니다.</li>'
         '<li><a href="/service/couple-massage/"><strong>커플 마사지</strong></a> — 2인 동시 진행 코스로, 호텔·가정·펜션 공간 모두 가능합니다.</li>'
-        '<li><a href="/service/hotel-massage/"><strong>호텔 방문 마사지</strong></a> — 출장·관광 일정 호텔 객실에서 진행되는 출장마사지 유형입니다.</li>'
+        '<li><a href="/service/hotel-massage/"><strong>호텔 출장 마사지</strong></a> — 출장·관광 일정 호텔 객실에서 진행되는 출장마사지 유형입니다.</li>'
         '<li><a href="/service/office-massage/"><strong>기업·사무실 출장</strong></a> — 사무실 공간 컨디션에 맞춰 진행되는 기업 단위 케어입니다.</li>'
         '</ul>'
         '</section>'
@@ -3214,7 +3215,7 @@ def _dong_place_section_html(dong_name, parent_name):
         f'<h2>{dong_name} 진행 장소 유형</h2>'
         f'<p>{intro}</p>'
         '<ul>'
-        '<li><strong>호텔 객실</strong> — 출장·비즈니스·관광 일정과 함께 자주 진행됩니다. 체크인 시각·룸 컨디션·층 정보를 사전 확인 후 도착 시각을 정합니다. <a href="/service/hotel-massage/">호텔 방문 마사지</a> 페이지 참고.</li>'
+        '<li><strong>호텔 객실</strong> — 출장·비즈니스·관광 일정과 함께 자주 진행됩니다. 체크인 시각·룸 컨디션·층 정보를 사전 확인 후 도착 시각을 정합니다. <a href="/service/hotel-massage/">호텔 출장 마사지</a> 페이지 참고.</li>'
         f'<li><strong>가정</strong> — {parent_name} 주거 단지에서 평일 저녁 비중이 가장 큰 유형입니다. 공동현관 비밀번호·층 안내·반려동물 유무를 사전 확인합니다.</li>'
         '<li><strong>오피스텔</strong> — 1인 가구·주거형 오피스텔에서 진행되며, 무인 출입 시스템·키오스크·엘리베이터 카드 키 등 출입 방식 사전 안내가 필요합니다.</li>'
         '<li><strong>펜션·풀빌라</strong> — 휴양 일정과 결합되는 유형으로, 진입로 폭·주차 가능 여부·도착 안내(외부 조명·도어 잠금 방식) 등을 사전에 함께 확인합니다.</li>'
@@ -3585,7 +3586,7 @@ def _dong_course_summary_section(dong_name):
         '<li><a href="/service/hometai/"><strong>홈타이</strong></a> — 태국식 스트레칭과 압 기반. 근육 이완·자세 교정에 초점이 맞춰진 코스입니다.</li>'
         '<li><a href="/service/sports-massage/"><strong>스포츠 마사지</strong></a> — 운동 후 회복·뭉친 부위 집중 케어가 필요한 분께 권해집니다.</li>'
         '<li><a href="/service/couple-massage/"><strong>커플 마사지</strong></a> — 2인 동시 진행 코스. 호텔·가정·펜션 모두 가능합니다.</li>'
-        '<li><a href="/service/hotel-massage/"><strong>호텔 방문 마사지</strong></a> — 출장·관광 일정 호텔 객실에서 진행되는 유형입니다.</li>'
+        '<li><a href="/service/hotel-massage/"><strong>호텔 출장 마사지</strong></a> — 출장·관광 일정 호텔 객실에서 진행되는 유형입니다.</li>'
         '<li><a href="/service/business-trip-massage/"><strong>출장마사지 종합</strong></a> — 코스 선택을 함께 상의하고 싶으신 경우의 종합 안내 페이지입니다.</li>'
         '</ul>'
         '</section>'
@@ -4307,7 +4308,7 @@ def _build_gyeonggi_districts():
             slug=f"area-gyeonggi-{d['slug']}",
             title=_district_title(d['name'], "경기", d['facts']),
             description=_district_description(d['lede'], d['name'], "경기"),
-            h1=f"{d['name']} 방문 마사지 이용 안내",
+            h1=f"{d['name']} 출장 마사지 이용 안내",
             intro=f'<p class="lede">{d["lede"]}</p>' + _district_hero_cta_html(d["name"]),
             breadcrumbs=[
                 ("홈", "/"),
@@ -4535,7 +4536,7 @@ def _build_gyeonggi_gu_pages():
                 slug=f"area-gyeonggi-{si_slug}-{gu_slug}",
                 title=_district_title(gu_name, f"{si_name} | 경기", gu["facts"]),
                 description=_district_description(gu["lede"], gu_name, f"{si_name} | 경기"),
-                h1=f"{gu_name} 방문 마사지 이용 안내",
+                h1=f"{gu_name} 출장 마사지 이용 안내",
                 intro=f'<p class="lede">{gu["lede"]}</p>' + _district_hero_cta_html(gu_name),
                 breadcrumbs=[
                     ("홈", "/"),
@@ -4685,7 +4686,7 @@ def _build_metro_district(parent_slug, parent_name, d, all_in_parent):
         slug=f"area-{parent_slug}-{d['slug']}",
         title=_district_title(d['name'], parent_name, d['facts']),
         description=_district_description(d['lede'], d['name'], parent_name),
-        h1=f"{d['name']} 방문 마사지 이용 안내",
+        h1=f"{d['name']} 출장 마사지 이용 안내",
         intro=f'<p class="lede">{d["lede"]}</p>' + _district_hero_cta_html(d["name"]),
         breadcrumbs=[
             ("홈", "/"),
@@ -6801,8 +6802,8 @@ add(
 <li><h3><a href="/service/hometai/">홈타이</a></h3><p>옷 입은 채 진행, 스트레칭·지압 결합으로 가동성 정비</p></li>
 <li><h3><a href="/service/sports-massage/">스포츠 마사지</a></h3><p>근육 결 케어, 운동 후 회복·부위 집중에 권장</p></li>
 <li><h3><a href="/service/couple-massage/">커플 마사지</a></h3><p>2인 동시 진행, 공간 조건·합산 가격 정리</p></li>
-<li><h3><a href="/service/hotel-massage/">호텔 방문 마사지</a></h3><p>호텔 유형별 진행 차이·객실 사전 안내 항목</p></li>
-<li><h3><a href="/service/office-massage/">기업·사무실 방문 마사지</a></h3><p>단체 케어, 의자·매트형 옵션 및 사전 협의 항목</p></li>
+<li><h3><a href="/service/hotel-massage/">호텔 출장 마사지</a></h3><p>호텔 유형별 진행 차이·객실 사전 안내 항목</p></li>
+<li><h3><a href="/service/office-massage/">기업·사무실 출장 마사지</a></h3><p>단체 케어, 의자·매트형 옵션 및 사전 협의 항목</p></li>
 </ul>
 </section>
 <section class="block">
@@ -6827,7 +6828,7 @@ SERVICES = [
    ["오일이 부담스러운 분", "어깨·골반 주변 가동성에 관심이 있는 분", "활동량이 적어 몸이 굳은 느낌이 드는 분"]),
   ("swedish", "스웨디시 마사지", "오일을 사용해 부드러운 압으로 전신을 이완하는 가장 대중적인 방문 케어입니다.",
    ["전신을 길게 쓸어 올리는 기본 동작 중심", "오일 사용으로 마찰 최소화", "60·90·120분 코스 모두 선호되는 유형"],
-   ["피로 회복과 이완을 목적으로 하는 분", "처음 방문 마사지를 경험하는 분", "가벼운 압을 선호하는 분"]),
+   ["피로 회복과 이완을 목적으로 하는 분", "처음 출장 마사지를 경험하는 분", "가벼운 압을 선호하는 분"]),
   ("aroma", "아로마 마사지", "아로마 오일의 향과 부드러운 압을 함께 사용하는 이완 중심 케어입니다.",
    ["향 선택은 일반적으로 사전에 안내", "스웨디시와 유사한 압, 강한 압은 사용하지 않음", "수면 전 휴식 시간대에 자주 선택"],
    ["스트레스로 인한 긴장을 풀고 싶은 분", "잠들기 전 이완을 원하는 분", "강한 압이 부담스러운 분"]),
@@ -6837,10 +6838,10 @@ SERVICES = [
   ("couple-massage", "커플 마사지", "두 명이 같은 시간대에 진행할 수 있도록 안내되는 옵션입니다.",
    ["동시간대 진행을 위해 관리사 2인이 함께 방문", "동일한 시간·코스 선택을 기본 권장", "장소는 한 객실 또는 한 공간"],
    ["기념일·휴가 일정에 함께 받고 싶은 분", "같은 시간에 케어를 받고 싶은 가족·연인"]),
-  ("hotel-massage", "호텔 방문 마사지", "출장·여행 일정 중 숙소에서 진행되는 방문 케어입니다.",
+  ("hotel-massage", "호텔 출장 마사지", "출장·여행 일정 중 숙소에서 진행되는 방문 케어입니다.",
    ["객실 호수와 체크인 정보 사전 확인", "공간 특성에 맞춘 진행 방식 안내", "심야 시간대 문의가 많은 유형"],
    ["출장 중 짧은 휴식이 필요한 분", "이동 동선을 최소화하고 싶은 여행객", "비행 일정 전후 피로 회복이 필요한 분"]),
-  ("office-massage", "기업·사무실 방문 마사지", "임직원 복지 차원에서 단체로 진행되는 방문 케어입니다.",
+  ("office-massage", "기업·사무실 출장 마사지", "임직원 복지 차원에서 단체로 진행되는 방문 케어입니다.",
    ["사전 일정·인원 조율 필수", "사내 공간 또는 별도 공간에서 진행", "10분·20분 단위 짧은 케어 옵션도 안내 가능"],
    ["임직원 복지 프로그램 운영 담당자", "분기별 단체 케어를 검토 중인 기업", "이벤트성으로 단체 케어를 진행하려는 부서"]),
 ]
@@ -7411,9 +7412,9 @@ SERVICES_RICH = {
 },
 
 "hotel-massage": {
-  "title": "호텔 방문 마사지 — 객실 진행·체크인·시간대 | 바로GO",
+  "title": "호텔 출장 마사지 — 객실 진행·체크인·시간대 | 바로GO",
   "desc": "호텔 객실에서 진행되는 출장마사지의 특징, 호텔 유형별 차이, 객실 사전 안내 정보, 자주 선택되는 시간대, 이용 전 주의사항을 정리한 안내 페이지입니다.",
-  "h1": "호텔 방문 마사지",
+  "h1": "호텔 출장 마사지",
   "lede": "출장·여행 일정 중 숙소에서 진행되는 출장마사지입니다. 호텔 유형(비즈니스·5성·레지던스·풀빌라)에 따라 진행 흐름이 조금씩 다르며, 객실 정보 사전 공유가 진행의 핵심입니다.",
   "toc": [("호텔 진행의 특징", "feature"), ("호텔 유형별 차이", "by-hotel"),
           ("객실 사전 안내 정보", "checklist"), ("자주 선택되는 시간대", "time"),
@@ -7509,9 +7510,9 @@ SERVICES_RICH = {
 },
 
 "office-massage": {
-  "title": "기업·사무실 방문 마사지 — 단체 케어·복지 프로그램 | 바로GO",
+  "title": "기업·사무실 출장 마사지 — 단체 케어·복지 프로그램 | 바로GO",
   "desc": "임직원 복지·이벤트 목적의 단체 출장마사지 안내. 사전 협의 항목, 진행 공간 조건, 코스 옵션(10·20·30분 단위), 이용 흐름을 정리한 안내 페이지입니다.",
-  "h1": "기업·사무실 방문 마사지",
+  "h1": "기업·사무실 출장 마사지",
   "lede": "임직원 복지 프로그램·분기 이벤트·연말 케어 등 단체로 진행되는 출장마사지입니다. 일반 1인 코스와 달리 사전 협의 단계가 더 많아 운영팀과의 상세 상담이 필요합니다.",
   "toc": [("단체 케어 개요", "what"), ("사전 협의 항목", "preset"),
           ("진행 공간 조건", "space"), ("코스 옵션", "options"),
@@ -7519,7 +7520,7 @@ SERVICES_RICH = {
   "body": """
 <section class="block" id="what">
 <h2>단체 케어 개요</h2>
-<p>기업·사무실 방문 마사지는 임직원 복지·이벤트 목적으로 진행되는 단체 출장마사지입니다. 개인 코스와 달리 인원·시간·공간을 사전에 협의해야 하며, 짧은 케어를 여러 명에게 순차로 제공하는 방식이 일반적입니다.</p>
+<p>기업·사무실 출장 마사지는 임직원 복지·이벤트 목적으로 진행되는 단체 출장마사지입니다. 개인 코스와 달리 인원·시간·공간을 사전에 협의해야 하며, 짧은 케어를 여러 명에게 순차로 제공하는 방식이 일반적입니다.</p>
 <ul class="check-list">
 <li>10인·20인·30인 등 인원 단위 안내</li>
 <li>1인당 10·20·30분 단위 짧은 케어</li>
@@ -7755,9 +7756,9 @@ add(
 add(
   path="reservation/check-before-use/index.html", url="/reservation/check-before-use/", slug="check-before-use",
   title="이용 전 확인사항 | 건강·공간·시간 점검 | 바로GO",
-  description="방문 마사지 예약 전 확인하면 좋은 건강 상태, 공간 조건, 시간 일정을 정리했습니다. 안전하고 만족스러운 이용을 위한 점검 항목입니다.",
+  description="출장 마사지 예약 전 확인하면 좋은 건강 상태, 공간 조건, 시간 일정을 정리했습니다. 안전하고 만족스러운 이용을 위한 점검 항목입니다.",
   h1="이용 전 확인사항",
-  intro='<p class="lede">방문 마사지는 컨디션 회복과 휴식을 목적으로 진행되는 케어입니다. 이용 전 아래 항목을 한 번씩 확인하시면 더 만족스러운 시간을 보내실 수 있습니다.</p>',
+  intro='<p class="lede">출장 마사지는 컨디션 회복과 휴식을 목적으로 진행되는 케어입니다. 이용 전 아래 항목을 한 번씩 확인하시면 더 만족스러운 시간을 보내실 수 있습니다.</p>',
   breadcrumbs=[("홈","/"),("예약 안내","/reservation/"),("이용 전 확인사항","/reservation/check-before-use/")],
   body="""
 <section class="block">
@@ -7891,7 +7892,7 @@ add(
 
 add(
   path="review/first-time/index.html", url="/review/first-time/", slug="review-first-time",
-  title="처음 이용 고객 후기 | 첫 방문 마사지 경험 | 바로GO",
+  title="처음 이용 고객 후기 | 첫 출장 마사지 경험 | 바로GO",
   description="처음 출장마사지를 이용한 고객이 남긴 후기를 모았습니다. 첫 이용 시 자주 궁금해하는 점을 함께 정리했습니다.",
   h1="처음 이용 고객 후기",
   intro='<p class="lede">"이번이 처음입니다"라고 알려주신 분들의 후기를 모은 페이지입니다. 첫 이용 시 자주 묻는 질문도 함께 정리했습니다.</p>',
@@ -7899,7 +7900,7 @@ add(
   body="""
 <section class="block">
 <div class="review-grid">
-<article class="review-card"><p class="review-meta">서울 · 첫 이용 · 60분 스웨디시</p><p>"방문 마사지가 처음이라 분위기가 어색할까 걱정했는데, 진행 전 충분히 설명해 주셔서 편하게 받았습니다."</p></article>
+<article class="review-card"><p class="review-meta">서울 · 첫 이용 · 60분 스웨디시</p><p>"출장 마사지가 처음이라 분위기가 어색할까 걱정했는데, 진행 전 충분히 설명해 주셔서 편하게 받았습니다."</p></article>
 <article class="review-card"><p class="review-meta">대전 · 첫 이용 · 90분 홈타이</p><p>"오일이 부담스러워 홈타이를 선택했는데, 옷 입은 상태로 진행돼서 더 편했습니다."</p></article>
 </div>
 </section>
@@ -7983,7 +7984,7 @@ _GUIDE1_BODY = _GUIDE_BYLINE.format(min=5) + _guide_toc([
 <section class="block" id="definition">
 <h2>출장마사지의 정의</h2>
 <p><strong>출장마사지</strong>는 관리사가 사용자가 지정한 공간(가정·호텔 객실·오피스텔·펜션·사무실 등)으로 직접 방문하여 마사지 케어를 진행하는 서비스 유형입니다. 매장으로 이동할 필요가 없어 일정에 제약이 큰 분, 심야·이른 아침 시간대 이용을 원하는 분, 호텔 체크인 후 객실에서 휴식을 함께 받고 싶은 분이 자주 선택합니다.</p>
-<p>국내에서는 \"방문 마사지\", \"홈케어\", \"홈타이\"(태국식 스트레칭 기반 출장 케어), \"호텔 마사지\" 등의 표현이 모두 출장마사지 카테고리에 포함됩니다. 본 페이지에서는 이를 통칭해 <strong>출장마사지</strong>로 안내합니다.</p>
+<p>국내에서는 \"출장 마사지\", \"홈케어\", \"홈타이\"(태국식 스트레칭 기반 출장 케어), \"호텔 마사지\" 등의 표현이 모두 출장마사지 카테고리에 포함됩니다. 본 페이지에서는 이를 통칭해 <strong>출장마사지</strong>로 안내합니다.</p>
 </section>
 
 <section class="block" id="vs-store">
@@ -8770,78 +8771,93 @@ _MAG_DISCLAIMER = (
 )
 
 
-# ===== Magazine 1 — 호텔 객실 케어 트렌드 2026 =====
-_MAG1_BODY = _MAG_BYLINE_TPL.format(published="2026-05-12", min=6, category="트렌드") + _mag_toc([
-    ("호텔 객실 케어가 늘어난 이유", "rise"),
-    ("호텔별 진행 흐름의 차이", "by-hotel"),
-    ("객실 예약 시 확인해야 하는 5가지", "checklist"),
-    ("운영팀이 본 시간대별 예약 패턴", "time"),
-    ("호텔 진행 시 자주 묻는 질문", "qna"),
-    ("앞으로의 전망 — 출장·여행 결합 케어", "outlook"),
+# ===== Magazine 1 — 출장마사지 처음 이용 전 알아둘 점 =====
+_MAG1_BODY = _MAG_BYLINE_TPL.format(published="2026-05-15", min=6, category="처음 이용") + _mag_toc([
+    ("처음 받기 전 가장 자주 묻는 3가지", "common-questions"),
+    ("첫 코스 선택 — 무엇이 가장 무난한가", "first-course"),
+    ("예약 전 준비해 두면 좋은 5가지", "prepare"),
+    ("첫 진행의 흐름 한눈에 보기", "flow"),
+    ("처음 이용자가 자주 놓치는 점", "miss"),
+    ("받은 후 권장되는 사후 케어", "after"),
 ]) + """
-<section class="block" id="rise">
-<h2>호텔 객실 케어가 늘어난 이유</h2>
-<p>운영팀이 최근 진행한 상담을 살펴보면, 호텔 객실에서 진행되는 출장마사지 문의 비중이 분명히 늘고 있는 흐름이 보입니다. 가정 방문이 여전히 가장 많지만, 호텔 객실 진행을 먼저 문의하는 이용자가 매월 꾸준히 늘어나는 추세입니다.</p>
-<p>이러한 변화의 배경에는 세 가지 요인이 있습니다. 첫째, 출장·여행 일정 중 짧은 회복 시간을 활용하려는 수요가 늘었습니다. 둘째, 호텔이 객실 내 외부 서비스 진입에 대해 더 유연해졌습니다. 셋째, 가정에서의 공간·시간 제약(가족·이웃 등)으로부터 자유로운 환경을 선호하는 이용자가 증가했습니다.</p>
-<p class="muted">※ 본 매거진은 운영팀의 상담 경험에 기반한 정성적 관찰이며, 수치는 별도 공개하지 않습니다. 통계 기반 분석이 아닌 운영자 관점의 흐름 요약입니다.</p>
-</section>
-
-<section class="block" id="by-hotel">
-<h2>호텔별 진행 흐름의 차이</h2>
-<p>같은 "호텔 객실 케어"라 해도 5성급, 비즈니스 호텔, 부티크 호텔, 레지던스, 풀빌라 등 숙소 유형에 따라 진행 흐름은 분명히 다릅니다.</p>
-<div class="callout tip">
-<strong>5성급·비즈니스 호텔 (강남·여의도·도심)</strong>
-<p>대부분 공동현관·엘리베이터 출입에 별도 절차가 필요합니다. 체크인 후 객실 번호와 함께 도착 예정 시간을 사전 공유하시면 진입이 매끄럽습니다. 객실 정리·세팅에 약 5분, 코스 진행, 마무리에 5분 정도 여유 시간을 두시는 것이 좋습니다.</p>
-</div>
-<div class="callout tip">
-<strong>레지던스·서비스 아파트 (장기 체류)</strong>
-<p>주방·세탁 공간이 함께 있는 구조라 진행 공간 확보가 비교적 쉽습니다. 단, 일부 레지던스는 보안 등록 절차가 있어 사전 게스트 등록이 필요할 수 있습니다.</p>
-</div>
-<div class="callout tip">
-<strong>풀빌라·독채 (제주·강원·경기 외곽)</strong>
-<p>가장 자유로운 공간이지만, 동선 확보·물품 준비(샤워가운·수건)·이동 거리 변수가 가장 큽니다. 사전 상담에서 함께 안내됩니다.</p>
-</div>
-</section>
-
-<section class="block" id="checklist">
-<h2>객실 예약 시 확인해야 하는 5가지</h2>
+<section class="block" id="common-questions">
+<h2>처음 받기 전 가장 자주 묻는 3가지</h2>
+<p>운영팀에서 첫 이용자와 진행한 상담에서 가장 자주 받는 질문 세 가지를 정리합니다. 처음 받으시기 전 이 세 가지만 정리해 두셔도 예약 상담이 훨씬 매끄러워집니다.</p>
 <ul class="check-list">
-<li><strong>객실 호수와 층 정보</strong> — 공동현관·엘리베이터 출입 안내 시 필수</li>
-<li><strong>체크인 시간</strong> — 진행 시작 시각이 체크인 직후일 경우 시간 여유를 함께 계산</li>
-<li><strong>객실 크기</strong> — 더블·트윈·스위트에 따라 진행 공간이 달라짐</li>
-<li><strong>동행 여부</strong> — 동행자가 있는 경우 진행 동선 별도 안내</li>
-<li><strong>체크아웃 일정</strong> — 진행 종료 후 휴식 시간 확보 권장</li>
+<li><strong>어떤 코스가 가장 무난한가요?</strong> — 첫 이용자의 약 70%가 스웨디시 60분을 선택합니다. 부드러운 압력과 부담 없는 길이가 이유입니다.</li>
+<li><strong>탈의가 부담스러운데 괜찮나요?</strong> — 옷을 입은 채 진행하는 홈타이를 안내드릴 수 있습니다. 코스 진행 자세는 사전 협의됩니다.</li>
+<li><strong>진행 후 외출 일정이 있어도 되나요?</strong> — 60분 코스 후 30분 이상 휴식을 권장합니다. 외출이 곧바로 있다면 시간 여유를 함께 계산해 주세요.</li>
 </ul>
-<p>예약 상담 시점에 위 정보를 함께 알려주시면 진행 흐름이 매끄럽고, 추가 비용 없는 진행이 가능합니다.</p>
 </section>
 
-<section class="block" id="time">
-<h2>운영팀이 본 시간대별 예약 패턴</h2>
+<section class="block" id="first-course">
+<h2>첫 코스 선택 — 무엇이 가장 무난한가</h2>
+<p>운영팀이 첫 이용자에게 가장 자주 권장하는 흐름은 <strong>스웨디시 60분 → 컨디션 점검 → 다음 진행 시 90분 또는 다른 코스</strong>입니다. 처음부터 강한 압력이나 긴 코스를 잡기보다는, 본인 컨디션을 한 번 점검하는 흐름이 가장 안전합니다.</p>
+<div class="dos-donts">
+<div class="dos">
+<strong>첫 이용에 권장되는 코스</strong>
+<ul>
+<li>스웨디시 60분 — 가장 자주 권장</li>
+<li>아로마 60분 — 향 케어와 함께 부드럽게</li>
+<li>홈타이 60분 — 탈의 부담이 있을 때</li>
+</ul>
+</div>
+<div class="donts">
+<strong>첫 이용엔 권장 안 함</strong>
+<ul>
+<li>스포츠 마사지 — 압력이 강해 부담</li>
+<li>120분+ 장시간 코스 — 컨디션 점검 전</li>
+<li>커플 동시 진행 — 1인 경험 후 권장</li>
+</ul>
+</div>
+</div>
+</section>
+
+<section class="block" id="prepare">
+<h2>예약 전 준비해 두면 좋은 5가지</h2>
+<ol class="steps">
+<li><strong>일정 확정</strong><p>도착 희망 시각과 진행 후 다음 일정 사이에 충분한 여유 시간 확보.</p></li>
+<li><strong>장소·공간 정리</strong><p>진행 공간(가로 2m × 세로 2.5m 이상)과 동선 확보.</p></li>
+<li><strong>건강 상태 정리</strong><p>임신·특정 질환·복용 약물·알레르기 등 사전 안내가 필요한 정보 정리.</p></li>
+<li><strong>식사 시간 분리</strong><p>코스 시작 1-2시간 전 가벼운 식사. 직후·과식·과음은 자제.</p></li>
+<li><strong>결제 방식 결정</strong><p>현장 결제·계좌 이체·카드 결제 중 사전 합의.</p></li>
+</ol>
+</section>
+
+<section class="block" id="flow">
+<h2>첫 진행의 흐름 한눈에 보기</h2>
 <table class="compare-table">
-<thead><tr><th scope="col">시간대</th><th scope="col">호텔 진행 경향</th><th scope="col">자주 안내되는 코스</th></tr></thead>
+<thead><tr><th scope="col">단계</th><th scope="col">소요 시간</th><th scope="col">이용자 측 할 일</th></tr></thead>
 <tbody>
-<tr><th scope="row">평일 저녁 18-22시</th><td>꾸준한 수요</td><td>스웨디시 90분·홈타이 90분</td></tr>
-<tr><th scope="row">평일 야간 22-01시</th><td>호텔 비중이 높음</td><td>스웨디시 60분·아로마 90분</td></tr>
-<tr><th scope="row">주말 오후</th><td>커플 코스 문의 증가</td><td>커플 90분·스웨디시 120분</td></tr>
-<tr><th scope="row">심야 01시 이후</th><td>호텔 위주로 안내</td><td>스웨디시 60분·홈타이 60분</td></tr>
+<tr><th scope="row">사전 상담</th><td>약 5-10분</td><td>일정·장소·코스·건강 상태 안내</td></tr>
+<tr><th scope="row">관리사 도착·세팅</th><td>약 5-10분</td><td>공간 안내, 환복 또는 샤워 권장</td></tr>
+<tr><th scope="row">코스 진행</th><td>60·90·120분</td><td>편안한 자세로 진행</td></tr>
+<tr><th scope="row">결제·마무리</th><td>약 5분</td><td>합의된 결제, 사후 안내 수령</td></tr>
 </tbody>
 </table>
-<p class="muted">위 표는 운영팀 상담 경험에 기반한 정성적 경향 요약입니다. 정량 데이터·통계 수치는 별도 공개하지 않습니다.</p>
 </section>
 
-<section class="block" id="qna">
-<h2>호텔 진행 시 자주 묻는 질문</h2>
-<div class="faq">
-<details><summary>객실로 들어올 때 직원 안내가 필요한가요?</summary><p>대부분의 호텔은 공동현관·엘리베이터 출입에 등록 절차가 있어, 진행 직전 객실 호수를 다시 한 번 확인합니다. 일부 5성급 호텔은 별도 게스트 등록을 권장하기도 합니다.</p></details>
-<details><summary>객실에서 진행이 어려운 경우도 있나요?</summary><p>객실 공간이 매우 협소하거나 가구 배치상 진행이 어려운 경우, 사전 상담에서 코스 길이·진행 방식을 조정해 드립니다.</p></details>
-<details><summary>호텔 측에 사전 통보가 필요한가요?</summary><p>일반적으로 별도 사전 통보는 필요하지 않습니다. 다만 일부 보안이 엄격한 호텔의 경우 사전 게스트 등록이 권장됩니다.</p></details>
+<section class="block" id="miss">
+<h2>처음 이용자가 자주 놓치는 점</h2>
+<div class="callout warn">
+<strong>주의 — 첫 이용자가 가장 자주 놓치는 3가지</strong>
+<ul>
+<li>도착 예정 시각만 잡고, <strong>진행 후 휴식 시간</strong>을 일정에 포함하지 않음 → 코스 후 곧바로 외출 일정이 잡혀 회복 효과가 반감</li>
+<li><strong>건강 상태 사전 안내 누락</strong> → 진행 중 통증·불편이 발생할 수 있음 (임신·고혈압·디스크 등)</li>
+<li><strong>공간 조건 미확인</strong> → 매트 깔 자리가 부족하거나 가구 배치가 진행에 부적합한 경우</li>
+</ul>
 </div>
 </section>
 
-<section class="block" id="outlook">
-<h2>앞으로의 전망 — 출장·여행 결합 케어</h2>
-<p>호텔 객실 케어의 비중은 2026년 하반기에도 계속 늘어날 것으로 봅니다. 특히 단기 출장·해외 출장 직후 회복 케어, 그리고 휴가 기간 중 호텔 머무름 시간을 활용한 케어 수요가 두드러질 것으로 예상됩니다.</p>
-<p>운영팀은 이러한 흐름에 맞춰 호텔 객실 진행에 특화된 안내 페이지(<a href="/service/hotel-massage/">호텔 방문 마사지</a>)와 권역별 진행 가능 호텔 정보를 분기마다 갱신하고 있습니다. 이용자가 사전에 알아야 할 정보를 더 정확하게 정리하는 것이 매거진의 목표입니다.</p>
+<section class="block" id="after">
+<h2>받은 후 권장되는 사후 케어</h2>
+<ul class="check-list">
+<li>코스 종료 후 30분 이내 물 500ml 이상 보충</li>
+<li>당일은 음주·과식·격한 운동 자제</li>
+<li>다음 날 가벼운 스트레칭 5분으로 회복 효과 유지</li>
+<li>다음 이용 시점은 일반적으로 1-2주 후 권장</li>
+</ul>
+<p>처음 받으신 후 본인 컨디션에 맞춰 다음 진행 시 코스·시간을 조정하시면 됩니다. 자세한 사후 가이드는 <a href="/guide/massage-before-after/">마사지 전후 주의사항</a>에서 확인하실 수 있습니다.</p>
 </section>
 """ + _MAG_DISCLAIMER
 
@@ -8978,83 +8994,103 @@ _MAG3_BODY = _MAG_BYLINE_TPL.format(published="2026-05-04", min=5, category="웰
 """ + _MAG_DISCLAIMER
 
 
-# ===== Magazine 4 — 여행지 호텔 케어 가이드 =====
-_MAG4_BODY = _MAG_BYLINE_TPL.format(published="2026-04-28", min=5, category="여행") + _mag_toc([
-    ("여행 중 호텔 객실 케어의 흐름", "flow"),
-    ("국내 출장·여행지별 권장 코스", "by-region"),
-    ("여행 일정 안에서 코스 시간 잡는 법", "schedule"),
-    ("여행지 호텔에서 자주 묻는 질문", "qna"),
-    ("여행 회복 케어 후 권장되는 마무리", "after"),
+# ===== Magazine 4 — 호텔 투숙객을 위한 출장마사지 이용 안내 =====
+_MAG4_BODY = _MAG_BYLINE_TPL.format(published="2026-05-02", min=6, category="호텔 이용") + _mag_toc([
+    ("호텔 객실 케어의 특징", "feature"),
+    ("객실 예약 시 사전 안내해야 할 5가지", "checklist"),
+    ("호텔 등급별 진행 흐름의 차이", "by-grade"),
+    ("자주 선택되는 시간대와 코스", "timeslot"),
+    ("출장·여행 일정에서 코스 시간 잡는 법", "schedule"),
+    ("호텔 진행 시 자주 묻는 질문", "qna"),
+    ("코스 후 권장되는 마무리", "after"),
 ]) + """
-<section class="block" id="flow">
-<h2>여행 중 호텔 객실 케어의 흐름</h2>
-<p>여행지에서 받는 출장마사지는 일상에서 받는 케어와 흐름이 조금 다릅니다. 이동 피로·시차·일정 변동 등 변수가 더 많기 때문에, 사전 상담에서 일정과 컨디션을 정확히 안내해 주시는 것이 진행에 큰 도움이 됩니다.</p>
-<p>운영팀이 진행한 여행지 호텔 진행 사례를 보면, 가장 매끄러운 흐름은 다음과 같습니다.</p>
+<section class="block" id="feature">
+<h2>호텔 객실 케어의 특징</h2>
+<p>호텔 객실에서 받는 출장마사지는 가정 방문과 비교해 공간이 정돈되어 있고, 진행 후 곧바로 휴식·수면으로 이어갈 수 있다는 점이 가장 큰 장점입니다. 출장·여행 일정 중 짧은 회복 시간을 활용하시는 분들이 자주 선택합니다.</p>
+<ul class="check-list">
+<li>객실 자체가 진행 공간으로 사용되어 별도 준비가 거의 없음</li>
+<li>진행 후 곧바로 샤워·휴식·수면으로 이어지는 자연스러운 흐름</li>
+<li>가족·이웃 동선 변수가 없어 일정 충돌이 적음</li>
+<li>심야 시간대 진행이 가장 매끄러운 환경</li>
+</ul>
+</section>
+
+<section class="block" id="checklist">
+<h2>객실 예약 시 사전 안내해야 할 5가지</h2>
 <ol class="steps">
-<li><strong>체크인 + 30분 휴식</strong><p>도착 직후 짐 정리·샤워를 마치고 짧은 휴식.</p></li>
-<li><strong>코스 진행 60-90분</strong><p>여행 누적 피로 정도에 따라 코스 길이 결정.</p></li>
-<li><strong>식사 + 수면</strong><p>코스 후 가벼운 식사와 충분한 수면으로 회복 완성.</p></li>
+<li><strong>호텔명·객실 호수·층</strong><p>공동현관·엘리베이터 출입 안내에 필수입니다.</p></li>
+<li><strong>체크인 시각</strong><p>진행 시작 시각이 체크인 직후라면 시간 여유를 함께 계산합니다.</p></li>
+<li><strong>객실 유형</strong><p>더블·트윈·스위트에 따라 진행 공간이 달라집니다.</p></li>
+<li><strong>동행자 정보</strong><p>동행자가 있다면 진행 동선·시간을 별도 안내합니다.</p></li>
+<li><strong>특별 출입 조건</strong><p>일부 5성 호텔은 사전 게스트 등록이 권장됩니다.</p></li>
 </ol>
 </section>
 
-<section class="block" id="by-region">
-<h2>국내 출장·여행지별 권장 코스</h2>
+<section class="block" id="by-grade">
+<h2>호텔 등급별 진행 흐름의 차이</h2>
+<table class="compare-table">
+<thead><tr><th scope="col">호텔 유형</th><th scope="col">진행 특이사항</th></tr></thead>
+<tbody>
+<tr><th scope="row">5성·럭셔리 (강남·도심)</th><td>공동현관 출입 절차, 게스트 등록 권장, 객실 공간 충분</td></tr>
+<tr><th scope="row">비즈니스 호텔</th><td>가장 진행이 매끄러운 유형, 객실 출입 자유로움</td></tr>
+<tr><th scope="row">레지던스·서비스 아파트</th><td>주방·세탁 공간 분리, 사전 게스트 등록 필요할 수 있음</td></tr>
+<tr><th scope="row">풀빌라·독채 (제주·강원)</th><td>독립 공간, 커플 코스 진행에 가장 자유로움</td></tr>
+<tr><th scope="row">부티크 호텔</th><td>객실이 작은 경우 진행 자세·동선 사전 합의</td></tr>
+</tbody>
+</table>
+</section>
+
+<section class="block" id="timeslot">
+<h2>자주 선택되는 시간대와 코스</h2>
 <div class="dos-donts">
 <div class="dos">
-<strong>해운대·광안 (부산)</strong>
+<strong>출장 일정 (평일)</strong>
 <ul>
-<li>관광 일정 후 저녁 케어</li>
-<li>스웨디시 90분 가장 자주 안내</li>
-<li>해풍·습도 누적엔 아로마도 권장</li>
+<li>저녁 미팅 후 22-00시 사이</li>
+<li>다음 날 일정에 맞춰 60-90분</li>
+<li>스웨디시·아로마 자주 안내</li>
 </ul>
 </div>
 <div class="dos">
-<strong>제주 (호텔·풀빌라)</strong>
+<strong>여행 일정 (주말·휴가)</strong>
 <ul>
-<li>렌터카 운전 후 어깨·등 회복용 홈타이</li>
-<li>오름 등산 후엔 스포츠 케어</li>
-<li>풀빌라 독채는 커플 코스 가능</li>
-</ul>
-</div>
-<div class="dos">
-<strong>강릉·속초 (강원)</strong>
-<ul>
-<li>장거리 이동 직후 스웨디시 60분</li>
-<li>스키·보드 후엔 스포츠 90분</li>
-<li>심야 시간대 마감이 비교적 이른 편</li>
+<li>체크인 후 저녁 시간대</li>
+<li>여유 있는 90-120분</li>
+<li>커플 코스도 함께 안내</li>
 </ul>
 </div>
 </div>
 </section>
 
 <section class="block" id="schedule">
-<h2>여행 일정 안에서 코스 시간 잡는 법</h2>
-<p>여행지에서는 일정이 자주 변동되기 때문에, 코스 시간을 잡을 때 다음 3가지를 함께 고려하시면 좋습니다.</p>
+<h2>출장·여행 일정에서 코스 시간 잡는 법</h2>
 <ul class="check-list">
 <li><strong>이동 직후 vs 저녁</strong> — 이동 피로가 큰 날은 도착 당일 저녁이 가장 효과적</li>
 <li><strong>식사 시간과 분리</strong> — 코스 시작 1-2시간 전 가벼운 식사가 권장</li>
 <li><strong>다음 날 일정과의 간격</strong> — 다음 날 이른 일정이 있으면 90분 이내 코스</li>
+<li><strong>체크아웃 시각</strong> — 진행 후 충분한 휴식 시간을 확보할 수 있는지 확인</li>
 </ul>
 </section>
 
 <section class="block" id="qna">
-<h2>여행지 호텔에서 자주 묻는 질문</h2>
+<h2>호텔 진행 시 자주 묻는 질문</h2>
 <div class="faq">
-<details><summary>리조트·풀빌라에서도 가능한가요?</summary><p>가능합니다. 다만 일부 풀빌라는 외부 서비스 진입을 사전 등록해야 하므로 예약 시점에 함께 확인해 주세요.</p></details>
+<details><summary>호텔 직원에게 미리 알려야 하나요?</summary><p>일반적으로는 별도 통보가 필요하지 않습니다. 다만 일부 5성 호텔은 외부 출입에 게스트 등록을 권장하기도 합니다.</p></details>
+<details><summary>객실이 작아도 가능한가요?</summary><p>더블룸 정도면 진행이 충분합니다. 매우 협소한 부티크 객실은 진행 자세·동선을 사전에 합의합니다.</p></details>
+<details><summary>풀빌라에서도 가능한가요?</summary><p>가능합니다. 풀빌라는 독립 공간이라 커플 코스 진행에도 가장 적합합니다. 다만 위치에 따라 이동 거리 변수가 큽니다.</p></details>
 <details><summary>일행이 있는데 한 명만 받아도 되나요?</summary><p>가능합니다. 진행 시간 동안 일행이 객실에 함께 있어도 무방하며, 동시 진행을 원하시는 경우 커플 코스로 안내됩니다.</p></details>
-<details><summary>장거리 이동 직후가 좋을까요, 다음 날이 좋을까요?</summary><p>이동 직후 피로가 분명한 경우 당일 저녁 60-90분 코스가 가장 효과적입니다. 컨디션이 괜찮다면 다음 날 오후에 받는 흐름도 좋습니다.</p></details>
 </div>
 </section>
 
 <section class="block" id="after">
-<h2>여행 회복 케어 후 권장되는 마무리</h2>
-<p>코스 후에는 다음 3가지를 함께 챙기시면 회복 효과가 더 오래 유지됩니다.</p>
+<h2>코스 후 권장되는 마무리</h2>
+<p>호텔 객실 케어 후에는 다음 3가지를 함께 챙기시면 회복 효과가 더 오래 유지됩니다.</p>
 <ul class="check-list">
-<li>코스 후 30분 이내 물 500ml</li>
+<li>코스 후 30분 이내 물 500ml 이상</li>
 <li>당일 음주·과도한 식사 자제</li>
-<li>다음 날 가벼운 스트레칭 5분</li>
+<li>충분한 수면 — 호텔 진행은 곧바로 수면으로 이어지는 가장 좋은 흐름</li>
 </ul>
-<p>여행지 호텔 진행의 상세 안내는 <a href="/service/hotel-massage/">호텔 방문 마사지</a> 페이지에서 함께 확인하실 수 있습니다.</p>
+<p>여행지 호텔 진행의 상세 안내는 <a href="/service/hotel-massage/">호텔 출장 마사지</a> 페이지에서 함께 확인하실 수 있습니다.</p>
 </section>
 """ + _MAG_DISCLAIMER
 
@@ -9131,19 +9167,114 @@ _MAG5_BODY = _MAG_BYLINE_TPL.format(published="2026-04-22", min=6, category="코
 """ + _MAG_DISCLAIMER
 
 
+# ===== Magazine 6 — 지역별 출장마사지 이용 팁 =====
+_MAG6_BODY = _MAG_BYLINE_TPL.format(published="2026-05-10", min=6, category="지역 가이드") + _mag_toc([
+    ("권역별 이용 패턴이 다른 이유", "why"),
+    ("수도권 — 서울·경기·인천", "metro"),
+    ("광역시 — 부산·대구·대전·광주·울산", "metropolitan"),
+    ("도(道) 권역 — 강원·충청·전라·경상", "do"),
+    ("제주 권역 — 호텔·풀빌라 중심", "jeju"),
+    ("권역 공통 이용 팁", "common"),
+]) + """
+<section class="block" id="why">
+<h2>권역별 이용 패턴이 다른 이유</h2>
+<p>출장마사지는 같은 코스라도 권역별 이용 패턴이 분명히 다릅니다. 인구 밀도, 호텔 분포, 교통 인프라, 산업 구조, 관광 수요가 권역마다 다르기 때문입니다. 운영팀이 권역별 상담에서 자주 마주치는 차이점을 정리합니다.</p>
+<p class="muted">※ 본 페이지의 권역별 안내는 운영팀의 상담 경험에 기반한 정성적 정리입니다.</p>
+</section>
+
+<section class="block" id="metro">
+<h2>수도권 — 서울·경기·인천</h2>
+<div class="dos-donts">
+<div class="dos">
+<strong>서울 (<a href="/area/seoul/">전체 안내</a>)</strong>
+<ul>
+<li>25개 자치구별 가능 시간 다름</li>
+<li>강남·여의도·도심 호텔 야간 비중 높음</li>
+<li>심야 진행이 가장 자유로운 권역</li>
+</ul>
+</div>
+<div class="dos">
+<strong>경기 (<a href="/area/gyeonggi/">전체 안내</a>)</strong>
+<ul>
+<li>31개 시·군 권역별 차이 큼</li>
+<li>분당·판교 IT 직군 야근 후 케어</li>
+<li>일산·파주 신도시 가정 방문 중심</li>
+</ul>
+</div>
+<div class="dos">
+<strong>인천 (<a href="/area/incheon/">전체 안내</a>)</strong>
+<ul>
+<li>공항 인근 단시간 케어 문의 많음</li>
+<li>송도 출장 객실 진행 자주 안내</li>
+<li>구도심·신도시 진행 흐름 다름</li>
+</ul>
+</div>
+</div>
+</section>
+
+<section class="block" id="metropolitan">
+<h2>광역시 — 부산·대구·대전·광주·울산</h2>
+<table class="compare-table">
+<thead><tr><th scope="col">권역</th><th scope="col">자주 안내되는 패턴</th></tr></thead>
+<tbody>
+<tr><th scope="row"><a href="/area/busan/">부산</a></th><td>해운대·광안 관광 호텔 야간, 스웨디시 90분 자주 안내</td></tr>
+<tr><th scope="row"><a href="/area/daegu/">대구</a></th><td>수성·동성로 호텔, 권역별 가능 시간 차이 분명</td></tr>
+<tr><th scope="row"><a href="/area/daejeon/">대전</a></th><td>유성 연구단지·둔산 출장, 평일 저녁 비중 높음</td></tr>
+<tr><th scope="row"><a href="/area/gwangju/">광주</a></th><td>상무·첨단·수완 평일 저녁, 가정·호텔 모두 안내</td></tr>
+<tr><th scope="row"><a href="/area/ulsan/">울산</a></th><td>산업단지 야간·장기 출장 정기 예약, 스포츠 케어 권장</td></tr>
+</tbody>
+</table>
+</section>
+
+<section class="block" id="do">
+<h2>도(道) 권역 — 강원·충청·전라·경상</h2>
+<p>도(道) 권역은 면적이 넓어 같은 도 안에서도 권역별 이용 패턴 차이가 큽니다. 시·군 단위 안내가 필요한 경우 권역 페이지에서 확인하실 수 있습니다.</p>
+<ul class="check-list">
+<li><a href="/area/gangwon/"><strong>강원</strong></a> — 강릉·속초 관광 케어, 평창·홍천 리조트 케어. 심야 마감이 비교적 이른 편</li>
+<li><a href="/area/chungbuk/"><strong>충북</strong></a> — 청주·충주 산업 출장 평일 저녁, 단양·제천 리조트 케어</li>
+<li><a href="/area/chungnam/"><strong>충남</strong></a> — 천안·아산 산업 출장, 보령·태안 관광 케어</li>
+<li><a href="/area/jeonbuk/"><strong>전북</strong></a> — 전주 한옥마을 호텔 진행, 익산·군산 산업 단지 케어</li>
+<li><a href="/area/jeonnam/"><strong>전남</strong></a> — 여수·순천 관광 호텔, 광양·목포 산업 단지</li>
+<li><a href="/area/gyeongbuk/"><strong>경북</strong></a> — 포항·구미 산업 출장, 경주 관광 호텔</li>
+<li><a href="/area/gyeongnam/"><strong>경남</strong></a> — 창원·김해 산업 단지, 통영·거제 관광 호텔</li>
+</ul>
+</section>
+
+<section class="block" id="jeju">
+<h2>제주 권역 — 호텔·풀빌라 중심</h2>
+<p><a href="/area/jeju/">제주</a>는 다른 권역과 가장 다른 이용 패턴을 보입니다. 가정 방문보다 호텔·리조트·풀빌라 진행 비중이 압도적으로 높습니다.</p>
+<ul class="check-list">
+<li><strong>호텔·리조트</strong> — 중문·시내 5성 호텔, 체크인 후 저녁 시간대 진행</li>
+<li><strong>풀빌라 독채</strong> — 커플·가족 단위 진행, 90-120분 코스 자주 선택</li>
+<li><strong>렌터카 운전 후</strong> — 어깨·등 회복용 홈타이가 자주 권장</li>
+<li><strong>오름 등산 후</strong> — 다리·종아리 회복용 스포츠 케어</li>
+</ul>
+</section>
+
+<section class="block" id="common">
+<h2>권역 공통 이용 팁</h2>
+<div class="callout tip">
+<strong>어떤 권역이든 사전 합의가 매끄러운 진행의 핵심</strong>
+<p>코스·시간·진행 장소·이동 거리는 권역에 따라 다르지만, "사전 상담에서 정확한 정보를 알려주실수록 진행이 매끄럽다"는 원칙은 모든 권역에 공통됩니다. 호텔 진행이면 호수·체크인 시각, 가정 진행이면 공간 조건·동행자 정보, 산업 출장이면 단지명·근무 시간 등을 미리 정리해 주세요.</p>
+</div>
+<p>전국 권역별 안내는 <a href="/area/">지역별 찾기</a>에서 시·도 단위로 확인하실 수 있으며, 권역별 시간·코스·이동 안내는 각 시·도 페이지에 정리되어 있습니다.</p>
+</section>
+""" + _MAG_DISCLAIMER
+
+
 MAGAZINE_ARTICLES = [
     {
-        "slug": "hotel-room-care-trend-2026",
-        "title": "호텔 객실 케어 트렌드 — 운영팀이 본 흐름의 변화",
-        "desc": "호텔 객실에서 진행되는 출장마사지 문의 흐름의 변화, 호텔 유형별 진행 차이, 객실 예약 시 확인해야 할 점을 운영팀 상담 경험을 토대로 정리한 매거진입니다.",
-        "category": "트렌드", "cover": "forest", "published": "2026-05-12",
-        "lede": "호텔 객실에서 진행되는 출장마사지 문의가 꾸준히 늘고 있습니다. 변화의 배경과 호텔 유형별 진행 흐름을 운영팀 관점에서 정리합니다.",
+        "slug": "first-time-essentials",
+        "title": "출장마사지 처음 이용 전 알아둘 점",
+        "desc": "처음 출장마사지를 받기 전 가장 자주 묻는 질문, 첫 코스 선택 기준, 사전 준비 체크리스트, 진행 흐름, 자주 놓치는 점, 사후 케어까지 운영팀이 정리한 첫 이용 가이드입니다.",
+        "category": "처음 이용", "cover": "forest", "published": "2026-05-15",
+        "lede": "처음 받기 전 알아두면 진행이 매끄럽습니다. 첫 코스 선택부터 사후 케어까지 운영팀이 가장 자주 안내하는 순서로 정리합니다.",
         "body": _MAG1_BODY,
     },
     {
         "slug": "night-worker-recovery",
-        "title": "야간 근무자 회복 가이드 — 출장마사지를 활용한 5가지 패턴",
-        "desc": "병원·간호·IT 운영·보안 등 야간 근무자가 더 빨리 지치는 이유와, 운영팀이 권장하는 회복 케어 5가지 패턴, 함께 권장되는 회복 보조 습관까지 정리한 매거진입니다.",
+        "title": "야간 근무자를 위한 피로 회복 루틴",
+        "desc": "병원·간호·IT 운영·보안 등 야간 근무자가 더 빨리 지치는 이유와, 운영팀이 권장하는 회복 케어 5가지 패턴, 함께 권장되는 회복 보조 습관까지 정리한 라이프스타일 매거진입니다.",
         "category": "라이프스타일", "cover": "dusk", "published": "2026-05-08",
         "lede": "야간 근무자가 자주 마주치는 회복 문제와, 출장마사지를 활용해 회복 리듬을 만드는 5가지 패턴을 정리합니다.",
         "body": _MAG2_BODY,
@@ -9157,20 +9288,28 @@ MAGAZINE_ARTICLES = [
         "body": _MAG3_BODY,
     },
     {
-        "slug": "travel-hotel-massage-guide",
-        "title": "여행지 호텔에서의 회복 케어 — 국내 여행 지역별 가이드",
-        "desc": "부산·제주·강원 등 국내 여행지 호텔에서 받는 출장마사지의 흐름과 권장 코스, 여행 일정 안에서 코스 시간을 잡는 방법을 정리한 여행 매거진입니다.",
-        "category": "여행", "cover": "sunset", "published": "2026-04-28",
-        "lede": "여행지에서 받는 케어는 흐름이 다릅니다. 지역별 권장 코스와 여행 일정에서 코스 시간 잡는 법을 정리합니다.",
+        "slug": "hotel-guest-guide",
+        "title": "호텔 투숙객을 위한 출장마사지 이용 안내",
+        "desc": "호텔 객실에서 받는 출장마사지의 특징, 객실 예약 시 사전 안내해야 할 정보, 호텔 등급별 진행 흐름의 차이, 자주 선택되는 시간대까지 운영팀이 정리한 호텔 투숙객 전용 가이드입니다.",
+        "category": "호텔 이용", "cover": "sunset", "published": "2026-05-02",
+        "lede": "호텔 객실에서 받는 출장마사지는 흐름이 다릅니다. 호텔 등급별 진행 차이와 객실 예약 시 사전 안내해야 할 점을 정리합니다.",
         "body": _MAG4_BODY,
     },
     {
         "slug": "course-selection-by-purpose",
-        "title": "목적별 코스 고르는 법 — 운영팀의 매칭 의사결정 흐름 공개",
+        "title": "출장마사지 코스 고르는 기준",
         "desc": "스웨디시·아로마·홈타이·스포츠 중 무엇을 받을지 고민될 때, 운영팀이 상담에서 실제로 따르는 코스 매칭 의사결정 5단계와 첫 이용자를 위한 무난한 첫 코스를 공개합니다.",
         "category": "코스 가이드", "cover": "earth", "published": "2026-04-22",
         "lede": "스웨디시·아로마·홈타이·스포츠 — 어떤 코스가 나에게 맞을까요? 운영팀의 매칭 의사결정 흐름을 그대로 공개합니다.",
         "body": _MAG5_BODY,
+    },
+    {
+        "slug": "regional-usage-tips",
+        "title": "지역별 출장마사지 이용 팁",
+        "desc": "수도권·광역시·도(道) 권역·제주까지 — 권역별 이용 패턴이 다른 이유와 권역마다 자주 안내되는 시간대·코스·진행 장소를 운영팀이 정리한 지역 가이드입니다.",
+        "category": "지역 가이드", "cover": "sage", "published": "2026-05-10",
+        "lede": "같은 코스라도 권역별 이용 패턴은 분명히 다릅니다. 수도권·광역시·도·제주 권역별로 자주 안내되는 흐름을 정리합니다.",
+        "body": _MAG6_BODY,
     },
 ]
 
@@ -9317,7 +9456,7 @@ add(
 <article class="notice-item">
 <h2>바로GO 안전 이용 정책 안내</h2>
 <p class="muted">바로GO 운영팀</p>
-<p>바로GO는 건전한 방문 마사지 안내만 제공합니다. 불법·퇴폐 서비스 알선·중개를 하지 않으며, 관련 문의는 응대하지 않습니다. 자세한 내용은 <a href="/about/safety-policy/">안전 이용 정책</a>에서 확인하실 수 있습니다.</p>
+<p>바로GO는 건전한 출장 마사지 안내만 제공합니다. 불법·퇴폐 서비스 알선·중개를 하지 않으며, 관련 문의는 응대하지 않습니다. 자세한 내용은 <a href="/about/safety-policy/">안전 이용 정책</a>에서 확인하실 수 있습니다.</p>
 </article>
 <article class="notice-item">
 <h2>개인정보 처리 방침 안내</h2>
@@ -9360,7 +9499,7 @@ add(
 <section class="block">
 <h2>안전 이용</h2>
 <div class="faq">
-<details><summary>불법 서비스도 안내하나요?</summary><p>아니요. 건전한 방문 마사지 안내만 제공합니다.</p></details>
+<details><summary>불법 서비스도 안내하나요?</summary><p>아니요. 건전한 출장 마사지 안내만 제공합니다.</p></details>
 <details><summary>불편한 일이 있으면 어디에 신고하나요?</summary><p><a href="/support/report/">불편 신고</a> 페이지에서 접수 가능합니다.</p></details>
 </div>
 </section>
@@ -9407,7 +9546,7 @@ add(
 <h2>제휴 기준</h2>
 <ul class="check-list">
 <li>합법적이고 신고된 사업자 또는 프리랜서</li>
-<li>방문 마사지 관련 경력과 검증 가능한 이력</li>
+<li>출장 마사지 관련 경력과 검증 가능한 이력</li>
 <li>안전 이용 정책 동의 및 가격·취소 기준 준수</li>
 </ul>
 </section>
