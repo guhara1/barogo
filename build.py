@@ -324,6 +324,7 @@ PAGE_TPL = """<!DOCTYPE html>
 <span>예약 전화 0508-202-4719</span>
 </a>
 <script src="/assets/js/nav.js" defer></script>
+<script src="/assets/js/magazine.js" defer></script>
 </body>
 </html>"""
 
@@ -10060,7 +10061,43 @@ for art in MAGAZINE_ARTICLES:
     # 다크 에디토리얼 히어로 + 디렉터 바이라인을 본문 최상단에 자동 주입
     hero_html = _mag_hero_banner(art["slug"], art["category"], art["title"], art["lede"])
     byline_html = _mag_byline(art["slug"], art["published"], _mag_read_min_for(art["slug"]), art["category"])
-    body_html = hero_html + byline_html + '<div class="mag-article-body">' + art["body"] + '</div>' + prev_next_html
+
+    # 본문 첫머리의 <nav class="mag-toc">...</nav>를 분리 → 사이드 스티키에 배치
+    raw_body = art["body"]
+    _toc_match = re.search(r'<nav class="mag-toc"[^>]*>.*?</nav>', raw_body, re.S)
+    if _toc_match:
+        side_toc = _toc_match.group(0)
+        clean_body = raw_body.replace(side_toc, "", 1)
+    else:
+        side_toc = ""
+        clean_body = raw_body
+
+    # 글 끝 디렉터 바이오 카드 (큰 사이즈)
+    _author = _mag_author_for(art["slug"])
+    author_bio_html = (
+        '<aside class="mag-author-bio">'
+        f'<span class="mag-author-bio-avatar" aria-hidden="true">{_author["name"][0]}</span>'
+        '<div class="mag-author-bio-text">'
+        f'<span class="mag-author-bio-eyebrow">WRITTEN BY</span>'
+        f'<strong class="mag-author-bio-name">{_author["name"]} <span>{_author["role"]}</span></strong>'
+        f'<p class="mag-author-bio-desc">바로GO 에디토리얼팀에서 <em>{_author["specialty"]}</em>를 담당합니다. 운영 데이터·상담 기록을 바탕으로 신뢰할 수 있는 가이드를 집필합니다.</p>'
+        '<a class="mag-author-bio-link" href="/magazine/">바로GO 매거진 더 보기 →</a>'
+        '</div></aside>'
+    )
+
+    # 진행률 바
+    progress_html = '<div class="mag-progress" aria-hidden="true"><div class="mag-progress-bar"></div></div>'
+
+    body_html = (
+        progress_html +
+        hero_html +
+        byline_html +
+        '<div class="mag-article-grid">'
+        '<aside class="mag-article-side">' + side_toc + '</aside>'
+        '<div class="mag-article-body">' + clean_body + author_bio_html + '</div>'
+        '</div>' +
+        prev_next_html
+    )
     add(
         path=f"magazine/{art['slug']}/index.html",
         url=source_url,
