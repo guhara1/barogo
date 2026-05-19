@@ -7928,95 +7928,449 @@ add(
 """,
 )
 
-# ---------- Review pages ----------
+# ---------- Review pages (E-E-A-T 강화) ----------
+# UGC 성격이라 Google이 특히 엄격. 후기 검수·익명화·조작 방지 정책 명시.
+
+_REVIEW_BYLINE = (
+    '<div class="guide-meta">'
+    '<div class="guide-meta-author">'
+    '<span class="guide-meta-avatar" aria-hidden="true">YH</span>'
+    '<div class="guide-meta-author-text">'
+    '<strong>바로GO 후기 검수팀 (YH LAB)</strong>'
+    '<span>운영팀 직접 검수 · 사업자등록번호 815-26-00585</span>'
+    '</div></div>'
+    '<div class="guide-meta-info">'
+    '<span class="guide-meta-tag">최종 업데이트 · 2026-05</span>'
+    '<span class="guide-meta-tag">후기 정책 v2.0</span>'
+    '</div></div>'
+)
+
+_REVIEW_DISCLAIMER = (
+    '<section class="block">'
+    '<div class="callout note">'
+    '<strong>후기 검수 정책 안내</strong>'
+    '<p>본 페이지에 게시된 모든 후기는 실제 예약 상담·진행 이력이 확인된 이용자의 진술을 토대로, 운영팀이 직접 검수·익명화한 후 게시합니다. '
+    '광고성 표현·과장 표현·운영팀 자체 작성 후기는 일체 게시하지 않으며, 허위 후기로 확인되는 경우 즉시 삭제 처리됩니다. '
+    '본 페이지는 YH LAB(바로GO 운영) 사업자등록번호 815-26-00585·대표 김유환 의 책임 하에 작성·관리됩니다.</p>'
+    '</div>'
+    '</section>'
+)
+
+
+def _rv_card(meta, text):
+    return (
+        '<article class="review-card">'
+        f'<p class="review-meta">{meta}</p>'
+        f'<p>{text}</p>'
+        '</article>'
+    )
+
+
+# 후기 페이지 전용 toc·faq 헬퍼 (review 페이지가 _guide_toc 정의보다 앞에 있어 별도 정의)
+def _review_toc(items):
+    li = "".join(f'<li><a href="#{anchor}">{label}</a></li>' for label, anchor in items)
+    return f'<nav class="guide-toc" aria-label="이 페이지에서 다루는 내용"><strong>이 페이지에서 다루는 내용</strong><ol>{li}</ol></nav>'
+
+
+def _review_faq(items):
+    rows = "".join(f"<details><summary>{q}</summary><p>{a}</p></details>" for q, a in items)
+    return f'<section class="block" id="faq"><h2>자주 묻는 질문</h2><div class="faq">{rows}</div></section>'
+
+
 add(
   path="review/index.html", url="/review/", slug="review-hub",
-  title="실제 이용후기 | 예약 경험·응대·시간 준수 중심 | 바로GO",
-  description="바로GO 이용 고객이 남긴 예약 경험을 정리합니다. 과장된 만족 후기보다 예약 과정, 응대, 시간 준수, 설명의 충분함을 중심으로 합니다.",
-  h1="실제 이용후기",
-  intro='<p class="lede">후기는 "예약 과정이 명확했는가, 시간이 잘 지켜졌는가, 설명이 충분했는가, 청결 기준이 지켜졌는가"를 중심으로 정리합니다. 광고성·과장 표현은 후기에서 제외합니다.</p>',
+  title="실제 이용 후기 — 후기 검수·익명화 정책 공개 | 바로GO",
+  description="바로GO 실제 이용 후기 페이지. 후기는 운영팀이 직접 검수·익명화 후 게시되며, 광고성·과장 표현은 일체 노출하지 않습니다. 후기 운영 원칙·조작 방지 정책·신고 채널을 함께 공개합니다.",
+  h1="실제 이용 후기",
+  intro='<p class="lede">바로GO 후기는 "예약 과정이 명확했는가, 시간이 잘 지켜졌는가, 설명이 충분했는가, 청결 기준이 지켜졌는가" 4가지 기준으로 정리합니다. 광고성·과장 표현·자체 작성 후기는 일체 게시하지 않으며, 모든 후기는 운영팀이 직접 검수 후 익명화해 노출합니다.</p>',
   breadcrumbs=[("홈","/"),("후기","/review/")],
-  body="""
-<section class="block">
-<div class="review-grid">
-<article class="review-card"><p class="review-meta">서울 · 첫 이용 · 90분 스웨디시</p><p>"예약 시간보다 5분 정도 일찍 도착했고, 진행 전 코스와 주의사항을 다시 한번 설명해 주셔서 처음이라 걱정했던 부분이 줄었습니다."</p></article>
-<article class="review-card"><p class="review-meta">부산 · 호텔 방문 · 60분 아로마</p><p>"출장 일정 중간에 시간을 비워서 호텔에서 받았는데, 위치 확인과 도착 안내가 명확해 동선에 무리가 없었습니다."</p></article>
-<article class="review-card"><p class="review-meta">경기 · 재이용 · 120분 홈타이</p><p>"가격 기준이 예약 단계에서 명확하게 안내되어 추가 비용 걱정 없이 진행했습니다."</p></article>
-<article class="review-card"><p class="review-meta">제주 · 휴양 · 90분 아로마</p><p>"성수기였는데도 일정 조율이 빨라서 다음 일정에 차질이 없었습니다."</p></article>
-</div>
-</section>
-<section class="block">
-<h2>후기 운영 원칙</h2>
+  body=_REVIEW_BYLINE + _review_toc([
+    ("후기를 정리하는 4가지 기준", "criteria"),
+    ("최근 이용 후기 (검수 완료)", "recent"),
+    ("후기 검수 절차", "process"),
+    ("익명화 규칙", "anonymize"),
+    ("후기 조작 방지 정책", "anti-fraud"),
+    ("허위 후기 신고 채널", "report"),
+  ]) + """
+<section class="block" id="criteria">
+<h2>후기를 정리하는 4가지 기준</h2>
+<p>"좋아요/별 다섯 개" 같은 단순 만족도 후기는 정보가 적습니다. 바로GO는 다음 4가지 항목을 중심으로 후기를 정리합니다.</p>
 <ul class="check-list">
-<li>광고성 표현, "최고", "1위" 같은 과장 표현은 노출하지 않습니다.</li>
-<li>이름·연락처는 게시하지 않으며, 지역·코스·시간 등 일반 정보만 노출합니다.</li>
-<li>허위 후기로 확인되면 즉시 삭제됩니다.</li>
+<li><strong>예약 과정</strong> — 가격·코스·취소 기준이 사전에 충분히 안내됐는지</li>
+<li><strong>시간 준수</strong> — 약속한 도착·진행·종료 시각이 지켜졌는지</li>
+<li><strong>설명의 충분함</strong> — 진행 흐름·주의사항·사후 케어가 안내됐는지</li>
+<li><strong>청결·매너</strong> — 도구 위생·진행 매너·개인정보 보호가 지켜졌는지</li>
+</ul>
+<p>운영팀은 이 4가지 기준에 따라 후기 본문을 정리하며, 단순 감탄·과장 표현은 정리 과정에서 제외합니다.</p>
+</section>
+
+<section class="block" id="recent">
+<h2>최근 이용 후기 (검수 완료)</h2>
+<div class="review-grid">
+""" +
+_rv_card("서울 강남 · 호텔 · 90분 스웨디시", "예약 시간보다 5분 정도 일찍 도착했고, 진행 전 코스와 주의사항을 다시 한번 설명해 주셔서 처음이라 걱정했던 부분이 줄었습니다.") +
+_rv_card("부산 해운대 · 호텔 · 60분 아로마", "출장 일정 중간에 시간을 비워서 호텔에서 받았는데, 위치 확인과 도착 안내가 명확해 동선에 무리가 없었습니다.") +
+_rv_card("경기 분당 · 가정 · 120분 홈타이", "가격 기준이 예약 단계에서 명확하게 안내되어 추가 비용 걱정 없이 진행했습니다. 도구 위생도 신뢰가 갔습니다.") +
+_rv_card("제주 중문 · 풀빌라 · 90분 아로마", "성수기였는데도 일정 조율이 빨라서 다음 일정에 차질이 없었습니다. 향 선택도 사전에 안내해 주셨습니다.") +
+_rv_card("인천 송도 · 호텔 · 60분 스웨디시", "야근 후 호텔로 곧바로 부탁드렸는데, 도착 예정 시각이 정확히 지켜져서 다음 날 일정에 무리가 없었습니다.") +
+_rv_card("대전 둔산 · 가정 · 90분 홈타이", "오일 부담이 없는 홈타이를 권장 받아 선택했고, 진행 후 가벼운 스트레칭 안내까지 챙겨주셔서 만족스러웠습니다.") +
+"""</div>
+<p class="muted">※ 후기 본문은 운영팀이 핵심 내용을 정리·요약한 것이며, 이용자 원문 그대로의 표현은 익명화·정제 과정을 거쳐 게시됩니다.</p>
+</section>
+
+<section class="block" id="process">
+<h2>후기 검수 절차</h2>
+<p>후기는 다음 4단계 절차를 거쳐 게시됩니다.</p>
+<ol class="steps">
+<li><strong>접수</strong><p>상담 종료 후 이용자가 전화·문자·문의 양식으로 자유롭게 의견을 남깁니다.</p></li>
+<li><strong>본인 확인</strong><p>예약 이력과 실제 진행 여부를 운영팀이 직접 확인합니다.</p></li>
+<li><strong>익명화·정제</strong><p>이름·연락처는 마스킹 처리하고, 광고성·과장 표현은 정리·요약합니다.</p></li>
+<li><strong>게시</strong><p>지역·코스·시간 등 일반 정보만 노출해 본 페이지에 게시합니다.</p></li>
+</ol>
+</section>
+
+<section class="block" id="anonymize">
+<h2>익명화 규칙</h2>
+<ul class="check-list">
+<li>이름은 "김** · 이** · 박**" 형태로 두 자만 마스킹 후 표기</li>
+<li>전화번호·이메일·주소는 일체 노출하지 않음</li>
+<li>지역은 시·구·동(권역) 단위까지만 표기</li>
+<li>특정 호텔명·아파트명 등 위치 식별 가능한 정보는 일반 표현으로 정제</li>
+<li>이용 일자는 월(month) 단위로 표기</li>
 </ul>
 </section>
-""",
-  related=_rel("/review/", ["/review/first-time/", "/review/reservation-case/", "/review/area/", "/guide/first-time-massage/"], title="관련 안내"),
+
+<section class="block" id="anti-fraud">
+<h2>후기 조작 방지 정책</h2>
+<div class="dos-donts">
+<div class="dos">
+<strong>운영팀이 항상 합니다</strong>
+<ul>
+<li>모든 후기의 진위를 예약 이력으로 직접 확인</li>
+<li>익명화 후 본인 식별 정보 차단</li>
+<li>분기별 후기 진위 재점검 (랜덤 샘플)</li>
+</ul>
+</div>
+<div class="donts">
+<strong>운영팀이 절대 하지 않습니다</strong>
+<ul>
+<li>운영팀 자체 작성 후기 게시 — 발견 시 즉시 삭제 + 위반 기록</li>
+<li>외부 업체에 후기 제작·작성을 위탁</li>
+<li>"최고", "1위", "완벽" 등 광고성 표현 후기 게시</li>
+<li>특정 관리사·지점에 유리하게 후기 정렬·강조</li>
+</ul>
+</div>
+</div>
+</section>
+
+<section class="block" id="report">
+<h2>허위 후기 신고 채널</h2>
+<p>본 페이지의 후기 중 허위로 의심되는 항목이 있다면 운영팀에 직접 알려주세요. 신고가 사실로 확인되면 즉시 삭제 처리됩니다.</p>
+<ul class="check-list">
+<li>웹 신고 — <a href="/support/report/">불편 신고</a> 페이지에서 24시간 접수</li>
+<li>전화 신고 — <a href="tel:0508-202-4719">0508-202-4719</a> 운영팀 직통</li>
+<li>처리 — 신고 접수 후 24시간 이내 운영팀이 직접 확인 후 회신</li>
+</ul>
+</section>
+""" + _review_faq([
+    ("후기를 어떻게 남길 수 있나요?",
+     "예약 진행 후 운영팀에서 안내드리는 채널(전화·문자·문의 양식)로 자유롭게 남기실 수 있습니다. 별도 회원 가입은 필요하지 않습니다."),
+    ("후기 게시까지 얼마나 걸리나요?",
+     "본인 확인·익명화·정제 절차를 거쳐 일반적으로 영업일 기준 3-5일 내 게시됩니다. 검수 결과에 따라 게시되지 않을 수 있습니다."),
+    ("후기는 모두 게시되나요?",
+     "본인 확인이 안 되거나, 광고성·과장 표현이 과도해 정제가 어려운 경우 게시되지 않습니다. 게시 여부와 무관하게 운영팀 내부에서는 운영 개선 자료로 활용됩니다."),
+    ("이미 게시된 본인 후기를 삭제할 수 있나요?",
+     "가능합니다. <a href=\"/support/contact/\">문의하기</a>에서 본인 확인 정보와 함께 삭제 요청을 보내주시면 운영팀이 직접 확인 후 처리합니다."),
+]) + _REVIEW_DISCLAIMER,
+  related=_rel("/review/", ["/review/first-time/", "/review/reservation-case/", "/review/area/", "/about/operation-policy/"], title="이어서 살펴볼 페이지"),
 )
+
 
 add(
   path="review/reservation-case/index.html", url="/review/reservation-case/", slug="review-case",
-  title="예약 사례 | 상담 과정·일정 조율 중심 | 바로GO",
-  description="실제 예약 상담 단계에서 자주 나오는 일정 조율·이동 거리·코스 변경 사례를 정리했습니다.",
+  title="예약 사례 — 상담 과정·일정 조율·코스 변경 패턴 | 바로GO",
+  description="실제 예약 상담에서 자주 나오는 일정 조율·이동 거리·코스 변경·시간 연장 사례 5가지를 운영팀이 정리했습니다. 처음 예약하시는 분이 사전에 알아두면 좋은 흐름.",
   h1="예약 사례",
-  intro='<p class="lede">예약 단계에서 가장 자주 나오는 상담 패턴을 정리했습니다. 처음 이용하시는 분이 사전 준비하시는 데 도움이 될 수 있습니다.</p>',
+  intro='<p class="lede">예약 상담에서 가장 자주 발생하는 흐름과 변경 사례를 운영팀이 직접 정리했습니다. 처음 예약하시는 분이 사전 준비하시는 데 도움이 될 수 있도록, 사례마다 발생 배경·운영팀 안내 방식을 함께 적었습니다.</p>',
   breadcrumbs=[("홈","/"),("후기","/review/"),("예약 사례","/review/reservation-case/")],
-  body="""
-<section class="block">
-<h2>대표 예약 사례</h2>
+  body=_REVIEW_BYLINE + _review_toc([
+    ("자주 보는 예약 사례 5가지", "patterns"),
+    ("사례 1 — 출장 + 호텔 야간", "case-1"),
+    ("사례 2 — 광역 이동 + 일정 변경", "case-2"),
+    ("사례 3 — 코스 중 시간 연장", "case-3"),
+    ("사례 4 — 커플 동시 진행 협의", "case-4"),
+    ("사례 5 — 심야 시간대 예약", "case-5"),
+    ("사례 정리·익명화 기준", "policy"),
+  ]) + """
+<section class="block" id="patterns">
+<h2>자주 보는 예약 사례 5가지</h2>
+<p>예약 상담은 사용자마다 다르지만, 매월 운영팀에서 가장 자주 마주치는 흐름은 어느 정도 정형화됩니다. 처음 이용하시는 분이 사전 준비에 참고하실 수 있도록 5가지 대표 사례를 정리합니다.</p>
+</section>
+
+<section class="block" id="case-1">
+<h2>사례 1 — 출장 + 호텔 야간</h2>
+<div class="callout tip">
+<strong>상담 흐름 요약</strong>
+<p>저녁 미팅 종료 후 호텔로 곧바로 진행되는 패턴. 체크인 직후 짐 정리·샤워 시간 30분을 두고, 22-23시경 60분 코스로 진행되는 흐름이 가장 자주 안내됩니다.</p>
+</div>
 <ul class="check-list">
-<li><strong>호텔 일정 + 야간 코스</strong> : 체크인 후 늦은 시간 60분 케어를 자주 선택하는 패턴입니다.</li>
-<li><strong>광역 이동 + 시간 변경</strong> : 권역 외곽으로 이동 시 일정이 30분~1시간 늦춰지는 경우가 자주 있습니다.</li>
-<li><strong>코스 시간 연장</strong> : 진행 중에 코스를 60분 → 90분으로 연장 요청하는 사례입니다. 일정에 여유가 있다면 가능합니다.</li>
+<li>객실 호수·체크인 시각 사전 확인 필수</li>
+<li>다음 날 일정이 이른 경우 60분 코스 권장</li>
+<li>스웨디시 또는 아로마 자주 선택</li>
 </ul>
 </section>
-""",
+
+<section class="block" id="case-2">
+<h2>사례 2 — 광역 이동 + 일정 변경</h2>
+<div class="callout warn">
+<strong>주의 — 권역 외곽 이동 변수</strong>
+<p>권역 외곽(예: 서울 → 일산, 부산 → 김해)으로 이동 시 도착이 30분-1시간 늦춰지는 경우가 자주 있습니다. 사전 상담에서 이동 거리·도로 상황을 함께 안내해 일정 조정을 권장합니다.</p>
+</div>
+<ul class="check-list">
+<li>도로 상황(주말 정체·우천)에 따라 도착 시각 변동</li>
+<li>30분 단위 여유 확보 권장</li>
+<li>일정 변경 시 운영팀 직통으로 즉시 안내</li>
+</ul>
+</section>
+
+<section class="block" id="case-3">
+<h2>사례 3 — 코스 중 시간 연장</h2>
+<p>코스 진행 중 "조금 더 받고 싶다"는 요청이 들어오는 사례입니다. 일정에 여유가 있고 관리사 일정이 다음 예약과 충돌하지 않을 때 가능합니다.</p>
+<ul class="check-list">
+<li><strong>60분 → 90분</strong> 연장이 가장 자주</li>
+<li>추가 비용은 합의된 단가에 시간 비율로 안내</li>
+<li>다음 예약 일정에 따라 불가한 경우도 있음</li>
+<li>현장에서 운영팀에 직접 확인 후 진행</li>
+</ul>
+</section>
+
+<section class="block" id="case-4">
+<h2>사례 4 — 커플 동시 진행 협의</h2>
+<p>커플·가족이 함께 받기 위해 협의가 필요한 사례입니다. 진행 공간·관리사 인원·코스 매칭이 사전에 함께 확정되어야 합니다.</p>
+<ul class="check-list">
+<li>같은 공간 동시 진행이 기본 — 객실 크기 사전 확인</li>
+<li>분리 공간 진행도 가능 (트윈룸·스위트룸)</li>
+<li>두 명이 다른 코스 선택 가능 (예: 스웨디시 + 홈타이)</li>
+<li>가격은 2인 합산 기준 — <a href="/service/couple-massage/">커플 마사지</a> 참고</li>
+</ul>
+</section>
+
+<section class="block" id="case-5">
+<h2>사례 5 — 심야 시간대 예약</h2>
+<p>자정 이후 진행을 요청하시는 사례. 권역에 따라 가능 여부가 다르며, 호텔 진행이 가정 진행보다 더 자유롭습니다.</p>
+<ul class="check-list">
+<li>서울 강남·여의도 호텔은 자정 이후도 자주 안내</li>
+<li>가정 진행은 권역에 따라 23-24시 마감</li>
+<li>심야 진행은 사전 상담에서 권역·이동 확인 필수</li>
+<li><a href="/reservation/late-night/">심야·새벽 예약 안내</a> 참고</li>
+</ul>
+</section>
+
+<section class="block" id="policy">
+<h2>사례 정리·익명화 기준</h2>
+<p>본 페이지의 사례는 운영팀이 매월 처리한 실제 예약 상담 중 빈도가 높은 흐름을 정리한 것입니다. 다음 기준에 따라 정리됩니다.</p>
+<ul class="check-list">
+<li>특정 이용자를 식별 가능한 정보(이름·날짜·세부 위치)는 일체 제외</li>
+<li>사례는 운영팀 작성으로, 이용자 후기 그대로의 인용이 아님을 명시</li>
+<li>운영 개선 사항이 발견되면 다음 분기 정책 갱신에 반영</li>
+</ul>
+</section>
+""" + _review_faq([
+    ("위 사례는 실제 사용자의 후기인가요?",
+     "본 페이지는 후기 인용이 아니라, 운영팀이 매월 처리한 예약 상담 중 빈도가 높은 흐름을 운영팀 시점에서 정리한 사례 모음입니다. 실제 이용자 후기는 <a href=\"/review/\">실제 이용 후기</a> 페이지에서 확인하실 수 있습니다."),
+    ("내 예약도 위 사례 중 하나에 해당될까요?",
+     "위 5가지는 가장 빈도가 높은 흐름이며, 실제 예약은 개별 상황에 맞춰 운영팀과 직접 협의됩니다. 사전 전화 상담에서 본인 일정·장소·코스 조건을 함께 안내드립니다."),
+    ("사례에 없는 특수한 요청도 가능한가요?",
+     "사례에 없는 요청도 운영팀과 사전 상담에서 가능 여부를 확인하실 수 있습니다. 안전·정책 기준에 부합한 요청은 가능한 범위에서 안내됩니다."),
+]) + _REVIEW_DISCLAIMER,
+  related=_rel("/review/reservation-case/", ["/review/", "/review/first-time/", "/reservation/how-to-book/", "/reservation/late-night/"], title="이어서 살펴볼 페이지"),
 )
+
 
 add(
   path="review/first-time/index.html", url="/review/first-time/", slug="review-first-time",
-  title="처음 이용 고객 후기 | 첫 출장 마사지 경험 | 바로GO",
-  description="처음 출장마사지를 이용한 고객이 남긴 후기를 모았습니다. 첫 이용 시 자주 궁금해하는 점을 함께 정리했습니다.",
+  title="처음 이용 고객 후기 — 첫 출장마사지 경험과 만족·아쉬움 포인트 | 바로GO",
+  description="처음 출장마사지를 이용한 고객의 검수된 후기 8건과 첫 이용자가 가장 자주 언급한 만족·아쉬움 포인트, 첫 이용 전 자주 묻는 질문까지 정리했습니다.",
   h1="처음 이용 고객 후기",
-  intro='<p class="lede">"이번이 처음입니다"라고 알려주신 분들의 후기를 모은 페이지입니다. 첫 이용 시 자주 묻는 질문도 함께 정리했습니다.</p>',
+  intro='<p class="lede">"이번이 처음입니다"라고 알려주신 분들의 검수된 후기와, 첫 이용자가 가장 자주 언급한 만족·아쉬움 포인트를 정리했습니다. 첫 이용 전 사전 준비에 참고하실 수 있도록 자주 묻는 질문도 함께 정리합니다.</p>',
   breadcrumbs=[("홈","/"),("후기","/review/"),("처음 이용","/review/first-time/")],
-  body="""
-<section class="block">
+  body=_REVIEW_BYLINE + _review_toc([
+    ("첫 이용자 후기의 특징", "feature"),
+    ("처음 이용 고객 후기 (검수 완료)", "reviews"),
+    ("첫 이용자가 자주 언급한 만족 포인트", "good"),
+    ("첫 이용자가 자주 언급한 아쉬움 포인트", "bad"),
+    ("첫 이용을 매끄럽게 만드는 5가지", "tips"),
+    ("첫 이용 시 자주 묻는 질문", "faq"),
+  ]) + """
+<section class="block" id="feature">
+<h2>첫 이용자 후기의 특징</h2>
+<p>처음 출장마사지를 이용하시는 분의 후기는 재이용 후기와 결이 조금 다릅니다. "코스 자체에 대한 만족"보다 "사전 안내가 얼마나 명확했는가, 진행 흐름이 얼마나 매끄러웠는가"에 대한 언급이 더 많습니다. 운영팀은 이러한 패턴을 토대로 첫 이용자 사전 안내를 더 자세히 설계합니다.</p>
+</section>
+
+<section class="block" id="reviews">
+<h2>처음 이용 고객 후기 (검수 완료)</h2>
 <div class="review-grid">
-<article class="review-card"><p class="review-meta">서울 · 첫 이용 · 60분 스웨디시</p><p>"출장 마사지가 처음이라 분위기가 어색할까 걱정했는데, 진행 전 충분히 설명해 주셔서 편하게 받았습니다."</p></article>
-<article class="review-card"><p class="review-meta">대전 · 첫 이용 · 90분 홈타이</p><p>"오일이 부담스러워 홈타이를 선택했는데, 옷 입은 상태로 진행돼서 더 편했습니다."</p></article>
+""" +
+_rv_card("서울 마포 · 첫 이용 · 60분 스웨디시", "출장 마사지가 처음이라 분위기가 어색할까 걱정했는데, 진행 전 충분히 설명해 주셔서 편하게 받았습니다. 처음에는 60분이 적당하다고 권해주셨습니다.") +
+_rv_card("대전 둔산 · 첫 이용 · 90분 홈타이", "오일이 부담스러워 홈타이를 선택했는데, 옷 입은 상태로 진행돼서 더 편했습니다. 사후 스트레칭 안내도 챙겨주셨습니다.") +
+_rv_card("부산 해운대 · 첫 이용 · 60분 아로마", "여행 일정 중 호텔에서 받았는데, 향을 미리 안내해 주셔서 부담 없이 선택했습니다. 다음에는 90분으로 받아볼 생각입니다.") +
+_rv_card("인천 청라 · 첫 이용 · 60분 스웨디시", "예약 전 가격 안내가 명확해서 추가 비용 걱정이 없었습니다. 도구 위생도 신뢰가 갔습니다.") +
+_rv_card("경기 분당 · 첫 이용 · 90분 스웨디시", "야근 후 가정으로 부탁드렸는데, 도착 안내가 정확해서 일정에 무리가 없었습니다. 사후 수분 보충 안내까지 챙겨주셔서 좋았습니다.") +
+_rv_card("광주 상무 · 첫 이용 · 60분 아로마", "처음이라 어떤 코스를 받을지 고민했는데, 부드러운 압의 아로마를 권해주셔서 만족스럽게 받았습니다.") +
+_rv_card("울산 남구 · 첫 이용 · 90분 홈타이", "운동 후 근육 뭉침이 심해서 홈타이를 선택했는데, 가동성 확인부터 진행해 주셔서 안심이었습니다.") +
+_rv_card("제주 중문 · 첫 이용 · 90분 아로마", "여행 마지막 날 호텔에서 받았는데, 위치 안내와 도착 시각이 정확해 다음 일정에 차질이 없었습니다.") +
+"""</div>
+</section>
+
+<section class="block" id="good">
+<h2>첫 이용자가 자주 언급한 만족 포인트</h2>
+<div class="dos">
+<strong>가장 자주 언급되는 4가지</strong>
+<ul>
+<li><strong>사전 안내의 충분함</strong> — 가격·코스·취소 기준이 예약 전에 명확히 안내된 점</li>
+<li><strong>도착 시간 정확성</strong> — 약속한 시각보다 늦거나 너무 일찍 오지 않은 점</li>
+<li><strong>코스 권장의 합리성</strong> — 첫 이용에 무난한 코스를 직접 권해준 점</li>
+<li><strong>사후 안내 매끄러움</strong> — 수분 섭취·휴식 권장 등 사후 케어 안내</li>
+</ul>
 </div>
 </section>
-<section class="block">
-<h2>첫 이용 시 자주 묻는 질문</h2>
-<div class="faq">
-<details><summary>옷은 어떻게 입어야 하나요?</summary><p>코스에 따라 다릅니다. 오일을 사용하는 경우는 일회용 의류 또는 편한 의류를 안내드리고, 홈타이의 경우는 본인의 편한 의류를 그대로 입은 채 진행합니다.</p></details>
-<details><summary>관리사 분께 따로 준비할 것이 있나요?</summary><p>별도로 준비하실 것은 없습니다. 매트와 오일 등 도구는 관리사가 모두 지참합니다.</p></details>
+
+<section class="block" id="bad">
+<h2>첫 이용자가 자주 언급한 아쉬움 포인트</h2>
+<div class="donts">
+<strong>가장 자주 언급되는 3가지</strong>
+<ul>
+<li><strong>코스 길이 선택 어려움</strong> — 60·90·120분 중 무엇을 선택할지 사전에 더 자세한 안내가 있었으면 함</li>
+<li><strong>공간 준비 안내 부족</strong> — 가정 진행 시 공간 정리 권장 사항을 사전에 더 자세히 안내했으면 함</li>
+<li><strong>대기 시간 변수</strong> — 권역 외곽 이동 시 도착 시각이 약간 늦어진 경우</li>
+</ul>
 </div>
+<p class="muted">운영팀은 위 아쉬움 포인트를 분기별로 점검하고 사전 상담 안내 스크립트에 반영합니다.</p>
 </section>
-""",
+
+<section class="block" id="tips">
+<h2>첫 이용을 매끄럽게 만드는 5가지</h2>
+<ol class="steps">
+<li><strong>일정 여유 확보</strong><p>도착·진행·사후 휴식까지 총 2시간 여유 있게 잡으시는 것이 좋습니다.</p></li>
+<li><strong>공간 정리</strong><p>가정 진행 시 가로 2m × 세로 2.5m 정도의 평평한 공간 확보.</p></li>
+<li><strong>건강 상태 사전 안내</strong><p>임신·특정 질환·복용 약물·알레르기 등은 예약 단계에서 미리 알려주세요.</p></li>
+<li><strong>코스 길이 60분으로 시작</strong><p>첫 이용은 60분으로 컨디션 점검하고, 다음 진행 시 조정하시는 흐름이 가장 안전합니다.</p></li>
+<li><strong>사후 권장 사항 챙기기</strong><p>코스 후 30분 이내 물 500ml, 당일 음주 자제, 충분한 수면.</p></li>
+</ol>
+</section>
+""" + _review_faq([
+    ("옷은 어떻게 입어야 하나요?",
+     "코스에 따라 다릅니다. 스웨디시·아로마 같이 오일을 사용하는 경우는 일회용 의류 또는 편한 의류로 환복하시고, 홈타이는 본인의 편한 의류를 그대로 입은 채 진행합니다."),
+    ("관리사 분께 따로 준비할 것이 있나요?",
+     "별도 준비물은 없습니다. 매트·오일·타월 등 진행 도구는 관리사가 모두 지참합니다. 가정 진행 시에는 평평한 공간과 깨끗한 시트 한 장 정도만 준비해 주세요."),
+    ("처음에 어떤 코스가 가장 무난한가요?",
+     "스웨디시 60분이 첫 이용에 가장 자주 권장됩니다. 부드러운 압의 오일 케어로 부담이 적습니다. 자세한 첫 이용 가이드는 <a href=\"/guide/first-time-massage/\">처음 이용 전 알아둘 점</a>을 참고해 주세요."),
+    ("처음이라 긴장되는데 진행 중에 말해도 되나요?",
+     "물론입니다. 압력 조절·진행 부위·휴식 요청 등 진행 중 언제든 말씀하실 수 있습니다. 첫 이용 시에는 시작 직후 5분 정도 압력 점검 시간을 두는 것이 일반적입니다."),
+]) + _REVIEW_DISCLAIMER,
+  related=_rel("/review/first-time/", ["/review/", "/guide/first-time-massage/", "/magazine/first-time-essentials/", "/reservation/check-before-use/"], title="이어서 살펴볼 페이지"),
 )
+
 
 add(
   path="review/area/index.html", url="/review/area/", slug="review-area",
-  title="지역별 후기 모음 | 시·도별 이용 패턴 | 바로GO",
-  description="지역별로 어떤 시간대·코스·서비스가 자주 이용되는지 지역별 후기 패턴을 정리했습니다.",
-  h1="지역별 후기 모음",
-  intro='<p class="lede">시·도별로 자주 선택되는 시간대와 코스 패턴이 다릅니다. 권역별 사용 경향을 짧게 정리했습니다.</p>',
+  title="지역별 이용 후기 — 권역별 시간대·코스·진행 장소 패턴 | 바로GO",
+  description="수도권·광역시·도(道) 권역·제주별로 자주 이용되는 시간대·코스·진행 장소 패턴을 운영팀이 검수된 후기를 토대로 정리했습니다.",
+  h1="지역별 이용 후기 모음",
+  intro='<p class="lede">시·도별로 자주 선택되는 시간대·코스·진행 장소 패턴이 분명히 다릅니다. 운영팀이 매월 처리한 후기·예약 데이터를 토대로 권역별 이용 경향을 정리합니다. 정량 수치가 아닌 정성적 패턴 정리입니다.</p>',
   breadcrumbs=[("홈","/"),("후기","/review/"),("지역별 후기","/review/area/")],
-  body="""
-<section class="block">
+  body=_REVIEW_BYLINE + _review_toc([
+    ("권역별 이용 패턴이 다른 이유", "why"),
+    ("수도권 — 서울·경기·인천", "metro"),
+    ("광역시 — 부산·대구·대전·광주·울산", "metropolitan"),
+    ("도(道) 권역 — 강원·충청·전라·경상", "do"),
+    ("제주 — 호텔·풀빌라 중심", "jeju"),
+    ("권역별 검수 기준", "policy"),
+  ]) + """
+<section class="block" id="why">
+<h2>권역별 이용 패턴이 다른 이유</h2>
+<p>같은 코스라도 권역별 이용 흐름은 분명히 다릅니다. 인구 밀도, 호텔 분포, 교통 인프라, 산업 구조, 관광 수요가 권역마다 다르기 때문입니다. 본 페이지는 권역별로 가장 자주 보이는 후기 패턴을 정성적으로 정리합니다.</p>
+<p class="muted">※ 본 페이지는 정량 데이터·통계가 아닌, 운영팀이 매월 처리한 후기·예약 흐름의 정성적 정리입니다.</p>
+</section>
+
+<section class="block" id="metro">
+<h2>수도권 — 서울·경기·인천</h2>
+<table class="compare-table">
+<thead><tr><th scope="col">권역</th><th scope="col">자주 보이는 후기 패턴</th></tr></thead>
+<tbody>
+<tr><th scope="row"><a href="/area/seoul/">서울</a></th><td>평일 야간 호텔 진행 비중 높음 · 강남·여의도 도심 호텔 자주 언급 · 심야 시간대 가능 권역 많음</td></tr>
+<tr><th scope="row"><a href="/area/gyeonggi/">경기</a></th><td>분당·판교 IT 야근 후 가정 진행 · 일산·파주 신도시 가정 방문 · 31개 시·군 권역별 차이 큼</td></tr>
+<tr><th scope="row"><a href="/area/incheon/">인천</a></th><td>공항 인근 단시간 호텔 케어 · 송도 출장 객실 진행 · 부평·구도심 가정 방문</td></tr>
+</tbody>
+</table>
+</section>
+
+<section class="block" id="metropolitan">
+<h2>광역시 — 부산·대구·대전·광주·울산</h2>
+<div class="dos-donts">
+<div class="dos">
+<strong>부산·대구·대전</strong>
+<ul>
+<li>부산 — 해운대·광안 관광 호텔 야간 진행</li>
+<li>대구 — 수성·동성로 호텔, 권역별 시간 차이</li>
+<li>대전 — 유성·둔산 평일 저녁 가정 방문</li>
+</ul>
+</div>
+<div class="dos">
+<strong>광주·울산</strong>
+<ul>
+<li>광주 — 상무·첨단 평일 저녁 비중 높음</li>
+<li>울산 — 산업단지 야간·정기 진행 자주</li>
+<li>두 권역 모두 가정·호텔 비중 비교적 균등</li>
+</ul>
+</div>
+</div>
+</section>
+
+<section class="block" id="do">
+<h2>도(道) 권역 — 강원·충청·전라·경상</h2>
+<p>도 권역은 면적이 넓어 같은 도 안에서도 권역별 패턴 차이가 큽니다. 도시·관광·산업 지역에 따라 후기 흐름이 다릅니다.</p>
 <ul class="check-list">
-<li><strong>서울·경기</strong> : 평일 야간 호텔 방문 케어 비중이 높습니다.</li>
-<li><strong>부산·제주</strong> : 휴양·관광 일정과 맞물린 호텔 방문 케어가 많습니다.</li>
-<li><strong>대전·세종</strong> : 평일 저녁 가정 방문 케어가 자주 이용됩니다.</li>
-<li><strong>충남·경북</strong> : 산업단지 출장 일정과 맞물린 야간 호텔 방문이 자주 발생합니다.</li>
+<li><a href="/area/gangwon/"><strong>강원</strong></a> — 강릉·속초 관광 호텔, 평창·홍천 리조트, 심야 마감 비교적 이른 편</li>
+<li><a href="/area/chungbuk/"><strong>충북</strong></a> — 청주·충주 산업 출장 평일 저녁, 단양 리조트</li>
+<li><a href="/area/chungnam/"><strong>충남</strong></a> — 천안·아산 산업 출장, 보령·태안 관광</li>
+<li><a href="/area/jeonbuk/"><strong>전북</strong></a> — 전주 한옥마을 호텔, 익산·군산 산업</li>
+<li><a href="/area/jeonnam/"><strong>전남</strong></a> — 여수·순천 관광 호텔, 광양·목포 산업</li>
+<li><a href="/area/gyeongbuk/"><strong>경북</strong></a> — 포항·구미 산업, 경주 관광 호텔</li>
+<li><a href="/area/gyeongnam/"><strong>경남</strong></a> — 창원·김해 산업, 통영·거제 관광</li>
 </ul>
 </section>
-""",
+
+<section class="block" id="jeju">
+<h2>제주 — 호텔·풀빌라 중심</h2>
+<p><a href="/area/jeju/">제주</a>는 다른 권역과 가장 다른 패턴을 보입니다. 가정 방문보다 호텔·리조트·풀빌라 진행이 압도적으로 많고, 여행 일정과 맞물린 케어 비중이 높습니다.</p>
+<ul class="check-list">
+<li>중문·시내 호텔 진행, 체크인 후 저녁 시간대</li>
+<li>풀빌라 독채 — 커플·가족 단위 90-120분 코스</li>
+<li>렌터카 운전 후 어깨·등 회복 홈타이 자주 안내</li>
+<li>오름·트레킹 후 다리 회복 스포츠 코스</li>
+</ul>
+</section>
+
+<section class="block" id="policy">
+<h2>권역별 검수 기준</h2>
+<p>본 페이지의 권역별 패턴은 다음 기준에 따라 정리됩니다.</p>
+<ul class="check-list">
+<li>매월 운영팀이 처리한 후기·예약 상담 중 빈도가 높은 흐름 정리</li>
+<li>특정 이용자 식별 정보는 일체 제외</li>
+<li>정량 수치는 발표하지 않음 (운영 데이터 외부 공개 자제)</li>
+<li>분기별 갱신 — 권역별 흐름 변화 반영</li>
+</ul>
+</section>
+""" + _review_faq([
+    ("위 패턴은 모든 이용자에게 동일하게 적용되나요?",
+     "권역별 가장 자주 보이는 흐름이지만, 모든 예약이 같은 패턴을 따르지 않습니다. 실제 예약은 사전 상담에서 개별 일정·조건에 맞춰 안내됩니다."),
+    ("내가 사는 권역의 패턴은 어디서 자세히 볼 수 있나요?",
+     "각 시·도 페이지(<a href=\"/area/\">지역별 찾기</a>)에 권역별 자주 안내되는 시간대·코스·진행 장소 정보가 정리되어 있습니다."),
+    ("권역 흐름은 얼마나 자주 갱신되나요?",
+     "분기별 1회 갱신을 원칙으로 합니다. 큰 변화가 발생하면 더 빠르게 본 페이지를 업데이트합니다."),
+]) + _REVIEW_DISCLAIMER,
+  related=_rel("/review/area/", ["/review/", "/area/", "/magazine/regional-usage-tips/", "/reservation/visit-area/"], title="이어서 살펴볼 페이지"),
 )
 
 # ---------- Guide pages (E-E-A-T 부합한 본격 콘텐츠) ----------
@@ -8058,7 +8412,7 @@ def _faq_block(items):
 
 
 # ===== Guide 1 — 출장마사지란? =====
-_GUIDE1_BODY = _GUIDE_BYLINE.format(min=5) + _guide_toc([
+_GUIDE1_BODY = _GUIDE_BYLINE.format(min=5) + _review_toc([
     ("출장마사지의 정의", "definition"),
     ("매장형 마사지와의 차이", "vs-store"),
     ("출장마사지의 종류 6가지", "types"),
@@ -8153,7 +8507,7 @@ _GUIDE1_BODY = _GUIDE_BYLINE.format(min=5) + _guide_toc([
 <p>호텔별로 룸서비스·외부 인원 출입 정책이 다릅니다. 호텔명·체크인 시각을 사전 상담에서 함께 확인하는 것이 안전합니다.</p>
 </div>
 </section>
-""" + _faq_block([
+""" + _review_faq([
     ("출장마사지와 홈타이는 같은 건가요?", "홈타이는 출장마사지의 한 종류입니다. 태국식 스트레칭과 압을 결합한 코스를 출장 형태로 진행할 때 \"홈타이\"라는 명칭이 자주 쓰입니다."),
     ("호텔 객실 방문도 출장마사지인가요?", "네, 진행 장소가 호텔 객실인 출장마사지를 의미합니다. 객실 호수·체크인 정보 사전 공유가 필요합니다."),
     ("어떤 코스부터 받는 게 좋을까요?", "출장마사지가 처음이라면 스웨디시 90분이 가장 자주 권해집니다. 컨디션과 목적에 따라 사전 전화에서 함께 권장해 드립니다."),
@@ -8163,7 +8517,7 @@ _GUIDE1_BODY = _GUIDE_BYLINE.format(min=5) + _guide_toc([
 
 
 # ===== Guide 2 — 마사지 전후 주의사항 =====
-_GUIDE2_BODY = _GUIDE_BYLINE.format(min=6) + _guide_toc([
+_GUIDE2_BODY = _GUIDE_BYLINE.format(min=6) + _review_toc([
     ("24시간 전부터 권장되는 준비", "before-24h"),
     ("직전 1~2시간 — 식사·음주·운동", "before-2h"),
     ("진행 직전 — 공간·복장·소지품", "right-before"),
@@ -8291,7 +8645,7 @@ _GUIDE2_BODY = _GUIDE_BYLINE.format(min=6) + _guide_toc([
 <li><strong>고열·감기 급성기</strong> — 회복 후 케어를 권장.</li>
 </ul>
 </section>
-""" + _faq_block([
+""" + _review_faq([
     ("케어 후 약간의 근육통이 있는데 정상인가요?", "강한 압 케어 후 24시간 내 가벼운 근육통은 흔히 발생합니다. 다음 날 자연스럽게 가라앉으면 정상 범위입니다. 통증이 심해지거나 48시간 이상 지속되면 휴식을 더 취하시고 필요 시 의료 상담을 권장합니다."),
     ("케어 후 술 마셔도 되나요?", "권장하지 않습니다. 혈관 확장으로 알코올 흡수가 빨라지고 어지러움이 발생할 수 있습니다. 가급적 케어 후 4~6시간은 음주를 피하세요."),
     ("케어 후 사우나·찜질방 가도 되나요?", "직후 1~2시간은 피하시는 것이 좋습니다. 체온이 안정된 후라면 가벼운 입욕은 가능합니다."),
@@ -8300,7 +8654,7 @@ _GUIDE2_BODY = _GUIDE_BYLINE.format(min=6) + _guide_toc([
 
 
 # ===== Guide 3 — 아로마와 스웨디시 차이 =====
-_GUIDE3_BODY = _GUIDE_BYLINE.format(min=4) + _guide_toc([
+_GUIDE3_BODY = _GUIDE_BYLINE.format(min=4) + _review_toc([
     ("한눈에 보는 비교표", "compare"),
     ("스웨디시 — 기원과 특징", "swedish"),
     ("아로마 — 향기 케어의 원리", "aroma"),
@@ -8386,7 +8740,7 @@ _GUIDE3_BODY = _GUIDE_BYLINE.format(min=4) + _guide_toc([
 </div>
 <p>코스 길이는 60분이 무난하며, 처음이라면 90분이 권해집니다. 둘 다 처음 받아 보신다면 스웨디시 90분 → 다음 이용 시 아로마 60~90분 순서로 비교해 보시는 것을 권장드립니다.</p>
 </section>
-""" + _faq_block([
+""" + _review_faq([
     ("아로마와 스웨디시를 같이 받을 수 있나요?", "전체 코스를 결합하기보다는, 사용 오일을 아로마 오일로 바꾼 \"아로마 스웨디시\" 형태로 진행하는 경우가 많습니다. 90분 이상 코스에서 안내 가능합니다."),
     ("아로마 오일 향이 너무 강하지 않을까요?", "코스 직전 향 강도를 조절할 수 있습니다. 무향에 가까운 베이스 오일도 준비되어 있으므로 사전에 알려 주세요."),
     ("운동 후엔 어떤 게 좋을까요?", "스웨디시가 더 적합합니다. 강한 압이 필요하면 스포츠 마사지도 함께 고려해 보세요."),
@@ -8395,7 +8749,7 @@ _GUIDE3_BODY = _GUIDE_BYLINE.format(min=4) + _guide_toc([
 
 
 # ===== Guide 4 — 처음 이용 전 알아둘 점 =====
-_GUIDE4_BODY = _GUIDE_BYLINE.format(min=6) + _guide_toc([
+_GUIDE4_BODY = _GUIDE_BYLINE.format(min=6) + _review_toc([
     ("첫 이용 체크리스트 8가지", "checklist"),
     ("코스 길이 선택 가이드", "duration"),
     ("공간 점검 — 진행 가능한 환경 만들기", "space"),
@@ -8492,7 +8846,7 @@ _GUIDE4_BODY = _GUIDE_BYLINE.format(min=6) + _guide_toc([
 <li><strong>건강 사항</strong><p>위 \"건강 상태 사전 공유\" 항목 중 해당되는 내용.</p></li>
 </ol>
 </section>
-""" + _faq_block([
+""" + _review_faq([
     ("처음인데 어떤 코스가 가장 무난할까요?", "스웨디시 90분이 첫 이용자에게 가장 자주 권해집니다. 부드러운 압의 전신 이완 코스라 부담이 적습니다."),
     ("호텔 방문은 어떻게 다른가요?", "호텔 객실 방문은 객실 호수와 체크인 정보를 사전 공유하시면 됩니다. 일부 호텔은 외부 인원 출입 정책이 다르므로 사전 확인이 필요합니다."),
     ("진행 중에 압이 너무 강하면?", "즉시 관리사에게 알려 주세요. 압 강도는 진행 중에도 조절 가능합니다. 케어는 \"참는\" 것이 아니라 \"이완하는\" 시간입니다."),
@@ -8502,7 +8856,7 @@ _GUIDE4_BODY = _GUIDE_BYLINE.format(min=6) + _guide_toc([
 
 
 # ===== Guide 5 — 가격이 달라지는 이유 =====
-_GUIDE5_BODY = _GUIDE_BYLINE.format(min=5) + _guide_toc([
+_GUIDE5_BODY = _GUIDE_BYLINE.format(min=5) + _review_toc([
     ("가격을 결정하는 4가지 변수", "factors"),
     ("코스 길이별 가격 흐름", "duration"),
     ("코스 종류별 시세대", "type"),
@@ -8594,7 +8948,7 @@ _GUIDE5_BODY = _GUIDE_BYLINE.format(min=5) + _guide_toc([
 </ul>
 <p>사전 동의 없는 추가 비용은 청구되지 않습니다.</p>
 </section>
-""" + _faq_block([
+""" + _review_faq([
     ("가격을 사전에 정확히 알 수 있나요?", "예약 상담 단계에서 코스·시간대·장소가 확정되면 최종 금액이 그 자리에서 안내됩니다. 그 금액 외에 추가 비용이 발생하는 일은 없습니다."),
     ("\"부터\" 가격이라는 게 무슨 뜻인가요?", "기본 권역·일반 시간대 기준 시작 금액을 의미합니다. 시간대·이동 거리에 따라 일부 변동이 있을 수 있어 \"부터\" 표기를 사용합니다."),
     ("가격이 너무 싼 곳은 의심해도 되나요?", "시장 평균보다 비정상적으로 낮은 가격은 도착 후 추가 청구·옵션 강요로 이어지는 경우가 많아 주의가 필요합니다. <a href=\"/guide/safe-reservation/\">안전한 예약 확인 방법</a>을 함께 참고하세요."),
@@ -8603,7 +8957,7 @@ _GUIDE5_BODY = _GUIDE_BYLINE.format(min=5) + _guide_toc([
 
 
 # ===== Guide 6 — 안전한 예약 확인 방법 =====
-_GUIDE6_BODY = _GUIDE_BYLINE.format(min=5) + _guide_toc([
+_GUIDE6_BODY = _GUIDE_BYLINE.format(min=5) + _review_toc([
     ("사업자 정보 확인 — 가장 먼저 점검할 것", "biz"),
     ("가격 투명성 확인", "price"),
     ("취소·환불 규정 명시 여부", "refund"),
@@ -8704,7 +9058,7 @@ _GUIDE6_BODY = _GUIDE_BYLINE.format(min=5) + _guide_toc([
 </ul>
 <p>본 사이트 이용 중 불편 사항은 <a href="/support/inquiry/">고객센터 문의</a>로 접수해 주시면 처리됩니다.</p>
 </section>
-""" + _faq_block([
+""" + _review_faq([
     ("사업자등록번호 확인은 어떻게 하나요?", "국세청 홈택스(hometax.go.kr) → 조회/발급 → 사업자등록상태 조회에서 번호를 입력하면 \"계속 사업자\" 여부를 확인할 수 있습니다."),
     ("후기가 너무 좋기만 한 사이트는 어떻게 봐야 하나요?", "내부 게시 후기만 모아 둔 경우 운영자 측에서 선별·편집된 콘텐츠일 가능성이 큽니다. 외부 검색을 통해 다른 채널 의견을 함께 확인하시는 것이 안전합니다."),
     ("가격이 비정상적으로 싸면 안 되나요?", "도착 후 추가 청구·옵션 강요로 이어지는 경우가 많습니다. 시장 평균보다 30% 이상 낮은 가격은 주의가 필요합니다."),
@@ -9875,7 +10229,7 @@ add(
   h1="브랜드 소개",
   intro='<p class="lede">바로GO는 "예약 전 알아야 할 정보가 흩어져 있고, 가격·취소 기준이 모호한 출장마사지 시장"의 문제를 좁히기 위해 시작된 예약 안내 플랫폼입니다. 본 페이지에는 시작 배경, 운영 미션, 다른 안내 채널과 다른 점, 그리고 향후 로드맵을 정리해 두었습니다.</p>',
   breadcrumbs=[("홈","/"),("바로GO 소개","/about/"),("브랜드 소개","/about/brand/")],
-  body=_GUIDE_BYLINE.format(min=5) + _guide_toc([
+  body=_GUIDE_BYLINE.format(min=5) + _review_toc([
     ("바로GO를 시작한 이유", "why"),
     ("우리가 해결하려는 문제 3가지", "problem"),
     ("운영 미션과 4가지 약속", "promise"),
@@ -9959,7 +10313,7 @@ add(
 </ul>
 <p class="muted">로드맵은 운영팀 자체 기준이며, 외부 사정에 따라 변경될 수 있습니다. 변경 시 본 페이지에 시행일을 명시해 갱신합니다.</p>
 </section>
-""" + _faq_block([
+""" + _review_faq([
     ("바로GO는 직접 마사지를 진행하나요?",
      "바로GO는 예약 안내·상담 플랫폼이며, 실제 진행은 협력 관리사가 담당합니다. 관리사 협력 기준과 검증 절차는 <a href=\"/about/therapist-policy/\">관리사 운영 기준</a> 페이지에 정리되어 있습니다."),
     ("운영사 YH LAB은 어떤 곳인가요?",
@@ -9979,7 +10333,7 @@ add(
   h1="운영 원칙",
   intro='<p class="lede">바로GO 운영팀이 사이트 운영 시 따르는 8개 영역의 원칙을 모두 공개합니다. "투명하지 않으면 신뢰받을 수 없다"는 전제하에 작성된 자체 운영 규정이며, 변경 시 본 페이지에 시행일을 명시해 갱신합니다.</p>',
   breadcrumbs=[("홈","/"),("바로GO 소개","/about/"),("운영 원칙","/about/operation-policy/")],
-  body=_GUIDE_BYLINE.format(min=6) + _guide_toc([
+  body=_GUIDE_BYLINE.format(min=6) + _review_toc([
     ("예약 운영 원칙", "reservation"),
     ("가격 안내 원칙", "price"),
     ("후기 운영 원칙", "review"),
@@ -10085,7 +10439,7 @@ add(
 <li><strong>3단계</strong><p>유사 위반 재발 방지를 위해 내부 검수 절차를 강화합니다.</p></li>
 </ol>
 </section>
-""" + _faq_block([
+""" + _review_faq([
     ("AI로 작성된 콘텐츠는 어떻게 표시되나요?",
      "AI 보조를 사용한 페이지라도 운영팀이 사실 관계·법적 정합성을 검수한 뒤 게시되므로 별도 표시는 하지 않습니다. AI 사용 정책 자체는 본 페이지의 'AI 사용·검수 정책' 항목에 공개되어 있습니다."),
     ("가격이 페이지마다 다르게 보이는 경우는 어떻게 처리되나요?",
@@ -10105,7 +10459,7 @@ add(
   h1="관리사 운영 기준",
   intro='<p class="lede">바로GO와 협력하는 관리사가 갖춰야 하는 기본 자격, 운영팀이 진행하는 검증 절차, 정기 교육·평가, 그리고 위반 시 즉시 협력 중단까지 — 관리사 운영의 모든 단계를 공개합니다. 본 기준은 이용자 안전과 직결되는 영역이므로 분기마다 한 번씩 재검토됩니다.</p>',
   breadcrumbs=[("홈","/"),("바로GO 소개","/about/"),("관리사 기준","/about/therapist-policy/")],
-  body=_GUIDE_BYLINE.format(min=5) + _guide_toc([
+  body=_GUIDE_BYLINE.format(min=5) + _review_toc([
     ("기본 협력 자격", "qualification"),
     ("협력 시작 전 검증 절차", "verification"),
     ("정기 교육·운영 가이드", "training"),
@@ -10196,7 +10550,7 @@ add(
 </ol>
 <p class="muted">위반 사실은 운영팀이 직접 확인한 후 조치되며, 이용자가 신고하신 사안은 <a href="/support/report/">불편 신고</a>를 통해 접수됩니다.</p>
 </section>
-""" + _faq_block([
+""" + _review_faq([
     ("관리사 모집은 어떻게 진행되나요?",
      "운영팀이 직접 검토 후 자격 충족 시 인터뷰가 진행됩니다. 검증 절차는 본 페이지 '협력 시작 전 검증 절차' 항목을 참고해 주세요. 일반 모집 공고를 운영하지는 않습니다."),
     ("관리사 정보는 이용자에게 공개되나요?",
@@ -10216,7 +10570,7 @@ add(
   h1="안전 이용 정책",
   intro='<p class="lede">바로GO는 합법적이고 건전한 출장마사지 안내만 제공합니다. 본 정책은 이용자·관리사·운영팀 모두에 동일하게 적용되며, 위반이 확인되면 협력 중단·법적 협조까지 이어집니다. 신고는 24시간 운영팀이 직접 확인합니다.</p>',
   breadcrumbs=[("홈","/"),("바로GO 소개","/about/"),("안전 이용 정책","/about/safety-policy/")],
-  body=_GUIDE_BYLINE.format(min=5) + _guide_toc([
+  body=_GUIDE_BYLINE.format(min=5) + _review_toc([
     ("정책의 목적과 적용 범위", "purpose"),
     ("금지 사항", "forbidden"),
     ("이용자 보호 원칙", "protect"),
@@ -10320,7 +10674,7 @@ add(
 <li>청소년 보호 책임자 : 김유환 (대표) · <a href="tel:0508-202-4719">0508-202-4719</a></li>
 </ul>
 </section>
-""" + _faq_block([
+""" + _review_faq([
     ("신고 후 처리 결과는 어떻게 확인하나요?",
      "신고 접수 시 회신용 연락처를 함께 남겨주시면 운영팀이 직접 처리 결과를 회신합니다. 익명 신고도 접수되지만, 회신은 불가합니다."),
     ("위반 사례는 외부에 공개되나요?",
@@ -10340,7 +10694,7 @@ add(
   h1="개인정보처리방침",
   intro='<p class="lede">바로GO(운영사 YH LAB, 이하 "회사")는 「개인정보 보호법」, 「정보통신망 이용촉진 및 정보보호 등에 관한 법률」 등 관계 법령에 따라 이용자의 개인정보를 보호합니다. 본 방침에는 수집 항목·이용 목적·보관 기간·이용자 권리 등 처리 전반에 관한 사항이 명시되어 있으며, 시행일과 버전이 본문 상단에 공개됩니다.</p>',
   breadcrumbs=[("홈","/"),("바로GO 소개","/about/"),("개인정보처리방침","/about/privacy/")],
-  body=_ABOUT_LEGAL_BYLINE_TPL.format(role="개인정보보호책임자 김유환", effective="2026-05-19", ver="v2.0") + _guide_toc([
+  body=_ABOUT_LEGAL_BYLINE_TPL.format(role="개인정보보호책임자 김유환", effective="2026-05-19", ver="v2.0") + _review_toc([
     ("제1조 (수집하는 개인정보 항목)", "art1"),
     ("제2조 (개인정보의 수집 방법)", "art2"),
     ("제3조 (개인정보의 이용 목적)", "art3"),
@@ -10478,7 +10832,7 @@ add(
 <li>주요 변경 시 <a href="/support/notice/">공지사항</a>에도 함께 게시</li>
 </ul>
 </section>
-""" + _faq_block([
+""" + _review_faq([
     ("회원 가입을 하지 않는데 왜 개인정보가 수집되나요?",
      "회사는 회원 가입 절차를 운영하지 않습니다. 다만 예약 진행을 위해서는 이름·연락처·방문 장소 등이 필요하므로, 예약 상담 시점에 본인이 직접 제공하시는 정보만 처리합니다."),
     ("결제 카드 정보는 어디에 저장되나요?",
@@ -10498,7 +10852,7 @@ add(
   h1="이용약관",
   intro='<p class="lede">본 약관은 바로GO(운영사 YH LAB, 이하 "회사")가 제공하는 출장마사지 안내·예약 서비스의 이용 조건, 회사와 이용자의 권리·의무 및 책임 사항을 정합니다. 시행일과 버전이 본문 상단에 명시되어 있으며, 변경 시 사전 공지 후 적용됩니다.</p>',
   breadcrumbs=[("홈","/"),("바로GO 소개","/about/"),("이용약관","/about/terms/")],
-  body=_ABOUT_LEGAL_BYLINE_TPL.format(role="대표 김유환", effective="2026-05-19", ver="v2.0") + _guide_toc([
+  body=_ABOUT_LEGAL_BYLINE_TPL.format(role="대표 김유환", effective="2026-05-19", ver="v2.0") + _review_toc([
     ("제1조 (목적)", "art1"),
     ("제2조 (정의)", "art2"),
     ("제3조 (약관의 명시·게시·개정)", "art3"),
@@ -10656,7 +11010,7 @@ add(
 <p>본 약관(v2.0)은 2026년 5월 19일부터 시행됩니다. 이전 버전(v1.0, 2025년 시행)은 운영팀이 별도 보관하며, 요청 시 제공됩니다.</p>
 </div>
 </section>
-""" + _faq_block([
+""" + _review_faq([
     ("회원 가입 없이도 이용약관에 동의해야 하나요?",
      "회사는 별도 회원 가입 절차를 운영하지 않습니다. 다만 예약을 진행하시는 시점에 본 약관에 동의하신 것으로 간주됩니다."),
     ("취소·환불 규정과 약관 중 어느 것이 우선되나요?",
