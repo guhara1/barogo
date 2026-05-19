@@ -3027,7 +3027,7 @@ def _build_seoul_dong_pages():
                 path=f"area/seoul/{parent_slug}/{dong_slug}/index.html",
                 url=f"/area/seoul/{parent_slug}/{dong_slug}/",
                 slug=f"area-seoul-{parent_slug}-{dong_slug}",
-                title=f"{dong_name} 출장마사지 안내 · {parent_name} | 서울 | 바로GO",
+                title=_dong_title(dong_name, parent_name, "서울"),
                 description=desc,
                 h1=f"{dong_name} 출장마사지 이용 안내",
                 intro=f'<p class="lede">{intro_lede}</p>' + _district_hero_cta_html(dong_name),
@@ -3117,17 +3117,61 @@ _DONG_INTRO_TPL = [
     "{dong}은 {parent} 권역의 한 동입니다. {p_short} 인근 동과 시간대 가능 여부가 공유됩니다.",
 ]
 
-# 8개의 디스크립션 변형 (160자 이내) — 출장마사지 키워드 + 동·부모·지역명 결합
+# 18개의 디스크립션 변형 (160자 이내) — 구조·어순·강조 키워드 모두 다름
 _DONG_DESC_TPL = [
     "{dong}({parent}) 출장마사지 가능 시간·진행 장소·코스 안내. {region} 권역 동 단위 정보를 24시간 전화 상담으로 바로 확인.",
-    "{region} {parent} {dong} 출장마사지 안내 — 호텔·가정·오피스텔 진행 장소와 권역 가능 시간, 코스 종류를 정리한 정보 페이지.",
+    "{region} {parent} {dong} 출장마사지 — 호텔·가정·오피스텔 진행 장소와 권역 가능 시간, 코스 종류를 정리한 정보 페이지.",
     "{dong} 출장마사지 권역 안내. {region} {parent} 인접 동과 동일한 권역 흐름이 적용되며, 정확한 시간은 전화 확인이 가장 빠릅니다.",
     "{parent} {dong} 권역 출장마사지 — 가능 시간·이동·코스를 {region} 권역 기준으로 정리. YH LAB(바로GO) 운영.",
     "{dong} 출장마사지 가능 시간 안내({region} {parent}). 권역 일대 진행 장소·이동 가능 여부 24시간 전화 확인.",
     "{region} {parent} 행정 단위 {dong} 출장마사지 안내. 권역 가능 시간·코스·결제 정보를 페이지·전화로 확인 가능합니다.",
     "{dong} 권역 출장마사지 가능 안내. {region} {parent} 일대 동선·진행 장소 정보를 24시간 전화 상담으로 안내드립니다.",
     "{dong} 출장마사지 안내 — {region} {parent} 권역의 진행 장소·시간대·코스·결제·취소 규정을 정리한 정보 페이지.",
+    "야간·심야 시간대도 안내되는 {dong}({parent} {region}) 출장마사지 정보. 권역 동선·진행 장소·코스 길이를 사전 상담으로 확정합니다.",
+    "{region} {parent} {dong} 출장마사지 예약 흐름과 코스(스웨디시·아로마·홈타이·스포츠) 가능 여부를 권역 기준으로 정리한 안내 페이지.",
+    "{dong} 일대 출장마사지 — 진행 장소(호텔·가정)에 따라 달라지는 동선·시간을 {parent}({region}) 권역 기준으로 사전 안내합니다.",
+    "{parent} {dong} 출장마사지 24시간 상담. {region} 권역의 코스·이동·결제·취소 규정을 한 페이지에서 확인하실 수 있습니다.",
+    "처음 이용 시에도 {dong}({parent}) 권역 출장마사지가 매끄럽게 진행될 수 있도록, {region} 권역 가능 시간과 코스 안내를 정리했습니다.",
+    "{region} 권역 중 {parent} 일대 {dong}에서 진행되는 출장마사지 정보. 호텔 객실·가정·오피스텔 진행 시 사전 안내 항목 포함.",
+    "{dong} 출장마사지({region} {parent}) — 코스별 시작 가격, 시간대별 가능 여부, 결제·취소 정책을 운영팀이 직접 정리한 페이지.",
+    "{parent} {dong} 권역 출장마사지 진행 흐름과 사전 확인 항목 정리. 일정·장소·코스가 확정되는 5단계 절차 안내({region} 권역).",
+    "{dong}의 출장마사지 가능 권역, 코스 길이, 야간·심야 시간대 운영 여부 정리({region} {parent} 권역) — 24시간 상담 안내.",
+    "{region} {parent} {dong}에서 출장마사지를 예약하실 때 알아두면 좋은 정보 — 진행 장소·이동·코스·결제까지 한 페이지에 정리.",
 ]
+
+
+# 14개의 타이틀 변형 (50자 내외) — 구조·어순·핵심 키워드 모두 다름
+_DONG_TITLE_TPL = [
+    "{dong} 출장마사지 — {parent}·{region} 권역 안내 | 바로GO",
+    "{region} {parent} {dong} 출장마사지 가능 시간·코스 | 바로GO",
+    "{dong}({parent}) 출장마사지 진행 장소·시간대 안내 | 바로GO",
+    "{parent} {dong} 권역 출장마사지 예약 안내 | 바로GO",
+    "{dong} 출장마사지 24시간 전화 상담 · {parent} {region} | 바로GO",
+    "{region} {parent}, {dong} 출장마사지 권역 정보 | 바로GO",
+    "{dong} 출장마사지 코스·결제·취소 안내({parent} {region}) | 바로GO",
+    "출장마사지 {dong} — {parent}({region}) 진행 가능 시간 | 바로GO",
+    "{parent} 산하 {dong} 출장마사지 정보 페이지 | 바로GO",
+    "{region} 출장마사지 {parent} {dong} 야간·심야 진행 안내 | 바로GO",
+    "{dong} 일대 출장마사지 호텔·가정 진행 안내 · {parent} | 바로GO",
+    "{region} {parent} {dong} 출장마사지 진행 흐름과 사전 확인 항목 | 바로GO",
+    "{dong} 권역 출장마사지 — {parent} {region} 운영 안내 | 바로GO",
+    "{parent} {dong} 출장마사지 가능 권역·코스 길이 안내({region}) | 바로GO",
+]
+
+
+def _dong_title(dong_name, parent_name, region_name):
+    """동 페이지 타이틀 — 14개 풀에서 hash-기반 선택. 동마다 다른 구조."""
+    idx = _dong_pick(dong_name, "title", len(_DONG_TITLE_TPL))
+    return _DONG_TITLE_TPL[idx].format(dong=dong_name, parent=parent_name, region=region_name)
+
+
+def _dong_description(dong_name, parent_name, region_name):
+    """동 페이지 디스크립션 — 18개 풀에서 hash-기반 선택. 160자 내."""
+    idx = _dong_pick(dong_name, "desc", len(_DONG_DESC_TPL))
+    text = _DONG_DESC_TPL[idx].format(dong=dong_name, parent=parent_name, region=region_name)
+    if len(text) > 160:
+        text = text[:160].rsplit(' ', 1)[0]
+    return text
 
 # 추가 보조 단락 (권역 운영 패턴 묘사) — 부모 character + dong-localized 변형
 _DONG_PATTERN_TPL = [
@@ -3847,7 +3891,7 @@ def _build_subordinate_dong_pages(region_slug, region_name, district):
             path=f"area/{region_slug}/{parent_slug}/{dong_slug}/index.html",
             url=f"/area/{region_slug}/{parent_slug}/{dong_slug}/",
             slug=f"area-{region_slug}-{parent_slug}-{dong_slug}",
-            title=f"{dong_name} 출장마사지 안내 · {parent_name} | {region_name} | 바로GO",
+            title=_dong_title(dong_name, parent_name, region_name),
             description=desc_text,
             h1=f"{dong_name} 출장마사지 이용 안내",
             intro=f'<p class="lede">{intro_lede}</p>' + _district_hero_cta_html(dong_name),
@@ -4635,7 +4679,7 @@ def _build_gyeonggi_gu_pages():
                     path=f"area/gyeonggi/{si_slug}/{gu_slug}/{dong_slug}/index.html",
                     url=f"/area/gyeonggi/{si_slug}/{gu_slug}/{dong_slug}/",
                     slug=f"area-gyeonggi-{si_slug}-{gu_slug}-{dong_slug}",
-                    title=f"{dong_name} 출장마사지 안내 · {gu_name} | {si_name} | 경기 | 바로GO",
+                    title=_dong_title(dong_name, gu_name, f"경기 {si_name}"),
                     description=desc_text,
                     h1=f"{dong_name} 출장마사지 이용 안내",
                     intro=f'<p class="lede">{intro_lede}</p>' + _district_hero_cta_html(dong_name),
