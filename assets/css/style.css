@@ -113,12 +113,22 @@ button { font: inherit; cursor: pointer; }
 
 .brand {
   display: inline-flex;
-  align-items: baseline;
+  align-items: center;
   gap: 8px;
   font-weight: 800;
   letter-spacing: -0.01em;
   flex-shrink: 0;
   white-space: nowrap;
+  line-height: 1;
+}
+.brand-logo {
+  display: block;
+  height: 40px;
+  width: auto;
+  max-width: 100%;
+}
+@media (max-width: 720px) {
+  .brand-logo { height: 32px; }
 }
 .brand-mark { font-size: 22px; white-space: nowrap; }
 .brand-mark.accent { color: var(--color-accent); }
@@ -404,6 +414,12 @@ button { font: inherit; cursor: pointer; }
   color: #fff;
   font-weight: 800;
   font-size: 18px;
+}
+.footer-logo {
+  display: block;
+  height: 48px;
+  width: auto;
+  margin: 0 0 10px;
 }
 .footer-sub { margin: 0; font-size: 13px; color: #94a3b8; }
 .footer-biz p { margin: 2px 0; font-size: 13.5px; }

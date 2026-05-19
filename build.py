@@ -37,8 +37,7 @@ HEADER = """<a class="skip-link" href="#main">본문 바로가기</a>
 <header class="site-header" role="banner">
   <div class="header-inner">
     <a href="/" class="brand" aria-label="바로GO 홈으로 이동">
-      <span class="brand-mark">바로</span><span class="brand-mark accent">GO</span>
-      <span class="brand-tag">전국 방문 마사지 안내</span>
+      <img class="brand-logo" src="/assets/img/barogo_logo_true_transparent.png" alt="바로GO" width="142" height="44" decoding="async">
     </a>
     <button class="nav-toggle" type="button" aria-controls="primary-nav" aria-expanded="false" aria-label="메뉴 열기">
       <span></span><span></span><span></span>
@@ -156,8 +155,8 @@ HEADER = """<a class="skip-link" href="#main">본문 바로가기</a>
 FOOTER = """<footer class="site-footer">
   <div class="container footer-grid">
     <div>
-      <p class="footer-brand">바로GO</p>
-      <p class="footer-sub">전국 방문 마사지 예약 안내 플랫폼</p>
+      <img class="footer-logo" src="/assets/img/barogo_logo_true_transparent.png" alt="바로GO" width="168" height="52" decoding="async" loading="lazy">
+      <p class="footer-sub">전국 출장마사지 예약 안내 플랫폼</p>
       <p class="footer-sub">건전하고 안전한 이용을 위한 안내를 제공합니다.</p>
     </div>
     <div class="footer-biz">
@@ -192,7 +191,9 @@ PAGE_TPL = """<!DOCTYPE html>
 <meta property="og:type" content="{og_type}">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{description}">
-<meta property="og:image" content="/assets/img/og-default.svg">
+<meta property="og:image" content="/assets/img/1.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta property="og:site_name" content="바로GO">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:url" content="{url}">
@@ -278,7 +279,7 @@ def render(page):
                 "url": url,
                 "description": page["description"],
                 "isPartOf": {"@type": "WebSite", "name": "바로GO", "url": "/"},
-                "primaryImageOfPage": "/assets/img/og-default.svg",
+                "primaryImageOfPage": "/assets/img/1.png",
                 "dateModified": BUILD_DATE,
             },
             breadcrumb_jsonld(breadcrumbs),
