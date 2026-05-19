@@ -762,7 +762,7 @@ add(
 REGIONS = [
 {
   "slug": "seoul", "name": "서울", "full": "서울특별시",
-  "title": "서울 출장마사지 권역별 이용 안내 | 강남·마포·종로·여의도 | 바로GO",
+  "title": "서울 출장마사지 | 강남·마포·종로·여의도 권역 안내 - 바로GO",
   "description": "서울은 권역마다 이용 패턴이 다릅니다. 강남·서초의 호텔 야간 수요, 마포·용산의 직장인 가정 방문, 종로·중구의 단시간 호텔 코스 등 서울 6개 권역의 실제 이용 흐름을 정리했습니다.",
   "h1": "서울 권역별 출장마사지 이용 안내",
   "lede": "서울은 25개 자치구가 각각 다른 생활 리듬을 가진 도시이며, 호텔·오피스·주거 분포가 권역마다 달라서 같은 도시 안에서도 예약 흐름이 크게 다릅니다. 이 안내는 권역별로 자주 문의되는 시간대와 진행 방식을 정리한 페이지입니다.",
@@ -811,7 +811,7 @@ REGIONS = [
 },
 {
   "slug": "gyeonggi", "name": "경기", "full": "경기도",
-  "title": "경기도 출장마사지 권역별 이용 안내 | 분당·수원·일산·평택 | 바로GO",
+  "title": "경기 출장마사지 | 분당·수원·일산·평택 권역 안내 - 바로GO",
   "description": "경기도는 31개 시·군이 모두 다른 권역 특성을 가집니다. 분당·판교 IT 야근 후 케어, 수원·화성 산업 출장, 일산·파주 신도시 가정 방문 등 권역별 이용 흐름과 광역 이동 안내를 정리했습니다.",
   "h1": "경기도 권역별 출장마사지 이용 안내",
   "lede": "경기도는 면적이 넓고 31개 시·군이 산업·신도시·전원 권역으로 나뉘어 있어, 같은 도(道) 안에서도 이용 패턴이 크게 다릅니다. 권역별로 자주 안내되는 시간과 이동 조건을 분리해 정리했습니다.",
@@ -859,7 +859,7 @@ REGIONS = [
 },
 {
   "slug": "incheon", "name": "인천", "full": "인천광역시",
-  "title": "인천 출장마사지 이용 안내 | 인천공항·송도·부평 권역 | 바로GO",
+  "title": "인천 출장마사지 | 송도·부평·공항 권역 안내 - 바로GO",
   "description": "인천공항 환승 일정에 맞춘 단시간 코스, 송도 국제업무지구의 비즈니스 출장 케어, 부평·계양 주거 권역의 평일 저녁 가정 방문 등 인천 권역별 실제 이용 흐름을 정리했습니다.",
   "h1": "인천 권역별 출장마사지 이용 안내",
   "lede": "인천은 인천국제공항과 송도 국제업무지구가 함께 있는 특수성으로, 환승·체류·출장 일정에 맞춘 단시간 호텔 케어 문의가 다른 광역시보다 두드러집니다.",
@@ -906,7 +906,7 @@ REGIONS = [
 },
 {
   "slug": "busan", "name": "부산", "full": "부산광역시",
-  "title": "부산 출장마사지 이용 안내 | 해운대·광안·서면·남포 권역 | 바로GO",
+  "title": "부산 출장마사지 | 해운대·광안·서면 권역 안내 - 바로GO",
   "description": "부산은 전국에서 호텔 방문 케어 비중이 가장 높은 광역시입니다. 해운대·광안·서면 권역의 관광 호텔 일정, 성수기·비수기 가능 시간 차이, 부산 권역별 이용 흐름을 정리했습니다.",
   "h1": "부산 권역별 출장마사지 이용 안내",
   "lede": "부산은 해운대·광안 일대 관광 호텔이 밀집해 있어 전국 광역시 중 호텔 방문 비중이 가장 두드러지는 도시입니다. 관광 성수기와 비수기에 따라 가능 시간대 흐름이 크게 달라집니다.",
@@ -954,7 +954,7 @@ REGIONS = [
 },
 {
   "slug": "daegu", "name": "대구", "full": "대구광역시",
-  "title": "대구 출장마사지 이용 안내 | 수성·동성로·달서 권역 | 바로GO",
+  "title": "대구 출장마사지 | 수성·동성로·달서 권역 안내 - 바로GO",
   "description": "대구는 수성구 주거 권역 평일 저녁 가정 방문 비중이 높은 도시입니다. 동성로 도심 호텔 출장 케어, 폭염 시즌 시간대 조정, 권역별 이용 흐름을 정리했습니다.",
   "h1": "대구 권역별 출장마사지 이용 안내",
   "lede": "대구는 수성구 주거 권역이 차지하는 비중이 크고, 동성로·교동 도심에 비즈니스 호텔이 모여 있어 가정 방문과 호텔 방문 흐름이 비교적 분리되어 있는 도시입니다.",
@@ -1001,7 +1001,7 @@ REGIONS = [
 },
 {
   "slug": "daejeon", "name": "대전", "full": "대전광역시",
-  "title": "대전 출장마사지 이용 안내 | 유성·둔산·대덕연구단지 권역 | 바로GO",
+  "title": "대전 출장마사지 | 유성·둔산·대덕 권역 안내 - 바로GO",
   "description": "대전은 대덕연구단지·정부청사 출장 일정과 맞물려 유성·둔산 권역의 평일 저녁 호텔 방문 비중이 높은 도시입니다. KTX 단시간 코스, 연구단지 출장 케어 흐름을 정리했습니다.",
   "h1": "대전 권역별 출장마사지 이용 안내",
   "lede": "대전은 대덕연구단지와 정부청사가 자리한 특성으로, 평일 저녁 출장 연구원·공무원 대상 호텔 방문 케어가 다른 비수도권 광역시보다 두드러지게 안내됩니다.",
@@ -1049,7 +1049,7 @@ REGIONS = [
 },
 {
   "slug": "gwangju", "name": "광주", "full": "광주광역시",
-  "title": "광주 출장마사지 이용 안내 | 상무지구·첨단·광산 권역 | 바로GO",
+  "title": "광주 출장마사지 | 상무·첨단·광산 권역 안내 - 바로GO",
   "description": "광주는 상무지구 비즈니스 출장과 첨단·수완 신도시 가정 방문이 함께 안내되는 도시입니다. 평일 저녁·주말 가능 시간대와 권역별 이용 흐름을 정리했습니다.",
   "h1": "광주 권역별 출장마사지 이용 안내",
   "lede": "광주는 호남권 중심 도시로, 상무지구 출장과 첨단·수완 신도시 가정 방문이 안정적으로 안내되는 도시입니다. 호텔 비중보다 가정 방문 비중이 다소 높은 권역입니다.",
@@ -1096,7 +1096,7 @@ REGIONS = [
 },
 {
   "slug": "ulsan", "name": "울산", "full": "울산광역시",
-  "title": "울산 출장마사지 이용 안내 | 남구·동구·울주 권역 | 바로GO",
+  "title": "울산 출장마사지 | 남구·동구·울주 권역 안내 - 바로GO",
   "description": "울산은 현대중공업·SK·미포 등 산업단지 출장 비중이 가장 높은 광역시입니다. 동구 조선소 인근, 남구 비즈니스 호텔, 장기 출장 재방문 패턴을 정리했습니다.",
   "h1": "울산 권역별 출장마사지 이용 안내",
   "lede": "울산은 국내 산업단지 출장 비중이 압도적인 광역시로, 평일 야간 호텔 방문 케어가 다른 어떤 비수도권 도시보다 두드러지는 흐름을 보입니다.",
@@ -1143,7 +1143,7 @@ REGIONS = [
 },
 {
   "slug": "sejong", "name": "세종", "full": "세종특별자치시",
-  "title": "세종 출장마사지 이용 안내 | 한솔·새롬·도담 권역 | 바로GO",
+  "title": "세종 출장마사지 | 한솔·새롬·도담 권역 안내 - 바로GO",
   "description": "세종은 호텔 인프라가 비교적 적어 가정 방문 비중이 높은 행정중심복합도시입니다. 평일 저녁 공무원 가정 방문 흐름, 인근 권역 확장 가능성을 정리했습니다.",
   "h1": "세종 권역별 출장마사지 이용 안내",
   "lede": "세종은 행정중심복합도시 특성상 호텔 인프라가 광역시 대비 적은 편이며, 가정 방문 비중이 다른 도시보다 두드러집니다. 정부청사 출퇴근 흐름이 가능 시간대에 영향을 줍니다.",
@@ -1191,7 +1191,7 @@ REGIONS = [
 },
 {
   "slug": "gangwon", "name": "강원", "full": "강원특별자치도",
-  "title": "강원 출장마사지 이용 안내 | 강릉·속초·춘천·평창 권역 | 바로GO",
+  "title": "강원 출장마사지 | 강릉·속초·춘천·평창 권역 안내 - 바로GO",
   "description": "강원은 영동(강릉·속초)과 영서(춘천·원주)의 권역 성격이 매우 다른 지역입니다. 동계 스포츠·서핑 시즌의 회복 케어, 성수기·비수기 가능 시간 차이를 정리했습니다.",
   "h1": "강원 권역별 출장마사지 이용 안내",
   "lede": "강원은 영동(동해안)과 영서(내륙)가 산맥으로 분리되어 권역이 사실상 두 곳으로 나뉘는 지역입니다. 시즌별 관광 흐름에 따라 가능 시간대 변동이 큽니다.",
@@ -1239,7 +1239,7 @@ REGIONS = [
 },
 {
   "slug": "chungbuk", "name": "충북", "full": "충청북도",
-  "title": "충북 출장마사지 이용 안내 | 청주·오송·충주 권역 | 바로GO",
+  "title": "충북 출장마사지 | 청주·오송·충주 권역 안내 - 바로GO",
   "description": "충북은 청주공항·오송 바이오단지 출장 흐름이 두드러지는 지역입니다. KTX 오송 환승 단시간 코스, 청주·충주 권역별 이용 흐름을 정리했습니다.",
   "h1": "충북 권역별 출장마사지 이용 안내",
   "lede": "충북은 청주공항과 오송역(KTX·SRT 분기)이 자리한 교통 결절 지역으로, 환승·출장 일정과 맞물린 단시간 호텔 케어 문의가 다른 도(道) 권역보다 많은 흐름을 보입니다.",
@@ -1286,7 +1286,7 @@ REGIONS = [
 },
 {
   "slug": "chungnam", "name": "충남", "full": "충청남도",
-  "title": "충남 출장마사지 이용 안내 | 천안·아산·서산·당진·보령 권역 | 바로GO",
+  "title": "충남 출장마사지 | 천안·아산·서산·당진 권역 안내 - 바로GO",
   "description": "충남은 천안·아산 KTX 산업단지 출장과 서해안 보령·태안 휴양 두 패턴이 공존하는 지역입니다. 권역별 이용 흐름과 광역 이동 안내를 정리했습니다.",
   "h1": "충남 권역별 출장마사지 이용 안내",
   "lede": "충남은 동부(천안·아산·공주)의 산업단지 출장과 서부(서산·당진·보령·태안)의 해안 휴양이 한 도(道) 안에 공존하는 지역입니다. 권역별로 가능 시간과 이용 패턴이 분리됩니다.",
@@ -1333,7 +1333,7 @@ REGIONS = [
 },
 {
   "slug": "jeonbuk", "name": "전북", "full": "전북특별자치도",
-  "title": "전북 출장마사지 이용 안내 | 전주·익산·군산 권역 | 바로GO",
+  "title": "전북 출장마사지 | 전주·익산·군산 권역 안내 - 바로GO",
   "description": "전북은 전주 한옥마을 관광·익산 KTX 환승·군산 새만금 산업 세 흐름이 함께 안내되는 지역입니다. 권역별 이용 패턴과 게스트하우스 안내 사항을 정리했습니다.",
   "h1": "전북 권역별 출장마사지 이용 안내",
   "lede": "전북은 전주의 관광, 익산의 KTX 환승, 군산·새만금의 산업 세 권역이 동시에 안내되는 지역입니다. 권역마다 가능 시간 흐름이 분명히 다릅니다.",
@@ -1380,7 +1380,7 @@ REGIONS = [
 },
 {
   "slug": "jeonnam", "name": "전남", "full": "전라남도",
-  "title": "전남 출장마사지 이용 안내 | 여수·순천·목포·광양 권역 | 바로GO",
+  "title": "전남 출장마사지 | 여수·순천·목포·광양 권역 안내 - 바로GO",
   "description": "전남은 여수 밤바다 관광 호텔, 순천만 자연 관광, 광양제철 산업 출장, 목포 항만 권역 등 권역마다 성격이 다른 지역입니다. 권역별 이용 흐름을 정리했습니다.",
   "h1": "전남 권역별 출장마사지 이용 안내",
   "lede": "전남은 여수 야경, 순천만 자연 관광, 광양제철 산업, 목포 항만으로 권역마다 성격이 분명히 갈리는 지역입니다. 같은 도(道)지만 권역별 가능 흐름이 다릅니다.",
@@ -1433,7 +1433,7 @@ REGIONS = [
 },
 {
   "slug": "gyeongbuk", "name": "경북", "full": "경상북도",
-  "title": "경북 출장마사지 이용 안내 | 포항·경주·구미·안동 권역 | 바로GO",
+  "title": "경북 출장마사지 | 포항·경주·구미·안동 권역 안내 - 바로GO",
   "description": "경북은 포항(포스코)·경주(관광)·구미(전자단지)·안동(전통 관광) 네 권역이 모두 성격이 다른 지역입니다. 권역별 이용 흐름과 가능 시간 안내를 정리했습니다.",
   "h1": "경북 권역별 출장마사지 이용 안내",
   "lede": "경북은 포항 철강, 경주 관광, 구미 전자, 안동 전통으로 권역 색깔이 가장 다채로운 도(道)입니다. 권역별로 이용 흐름이 거의 다른 도시 수준으로 갈립니다.",
@@ -1485,7 +1485,7 @@ REGIONS = [
 },
 {
   "slug": "gyeongnam", "name": "경남", "full": "경상남도",
-  "title": "경남 출장마사지 이용 안내 | 창원·김해·진주·거제 권역 | 바로GO",
+  "title": "경남 출장마사지 | 창원·김해·진주·거제 권역 안내 - 바로GO",
   "description": "경남은 창원 기계·김해공항·거제 조선소·진주 도심 등 권역마다 성격이 다른 지역입니다. 거제 장기 출장 케어, 김해공항 환승 케어 등 권역별 흐름을 정리했습니다.",
   "h1": "경남 권역별 출장마사지 이용 안내",
   "lede": "경남은 창원의 기계 산업, 김해의 공항·물류, 거제의 조선소, 진주의 행정 도심으로 권역이 분명히 갈리는 지역입니다. 특히 거제는 장기 출장 외국인 케어 비중이 높습니다.",
@@ -1538,7 +1538,7 @@ REGIONS = [
 },
 {
   "slug": "jeju", "name": "제주", "full": "제주특별자치도",
-  "title": "제주 출장마사지 이용 안내 | 제주시·서귀포·애월·표선 권역 | 바로GO",
+  "title": "제주 출장마사지 | 제주시·서귀포·애월 권역 안내 - 바로GO",
   "description": "제주는 휴양 일정과 맞물린 리조트·풀빌라 객실 방문 비중이 가장 높은 지역입니다. 성수기·비수기 가능 시간 차이, 권역별 이용 흐름을 정리했습니다.",
   "h1": "제주 권역별 출장마사지 이용 안내",
   "lede": "제주는 휴양 일정 중심으로 리조트·풀빌라 객실 방문이 압도적인 비중을 차지하는 지역입니다. 성수기·비수기, 동·서·남 권역에 따라 흐름이 분명히 달라집니다.",
@@ -2496,16 +2496,28 @@ _DONG_GA_RE      = re.compile(r'[0-9·.]*가(?=동$)')
 DONG_PAGE_INDEX = {}
 
 
-# 자치구·시 단위 (2차) 타이틀 풀 — 자연스러운 한국어 8개 변형
+# 자치구·시 (2차) 타이틀 풀 — 사용자 샘플 패턴 적용
 _DISTRICT_TITLE_TPL = [
-    "{parent} {name} 출장마사지 안내 | 바로GO",
-    "{name} 출장마사지 — {parent} 권역 안내 | 바로GO",
-    "{name}({parent}) 출장마사지 — 가능 시간과 코스 | 바로GO",
-    "{name} 출장마사지 ({parent}) — 호텔·가정 방문 안내 | 바로GO",
-    "{parent} {name} 출장마사지 예약 안내 | 바로GO",
-    "{name} 일대 출장마사지 — {parent} 권역 안내 | 바로GO",
-    "{parent} {name}에서 받는 출장마사지 이용 안내 | 바로GO",
-    "{name} 권역 출장마사지 안내 ({parent}) | 바로GO",
+    "{name} 출장마사지 | {parent} 호텔·가정 방문 안내 - 바로GO",
+    "{name} 출장마사지 | {parent} 24시간 예약 안내 - 바로GO",
+    "{name} 출장마사지 | {parent} 권역 이용 안내 - 바로GO",
+    "{name} 출장마사지 | {parent} 코스·가격 안내 - 바로GO",
+    "{name} 출장마사지 | {parent} 야간·심야 예약 안내 - 바로GO",
+    "{name} 출장마사지 | {parent} 숙소·자택 방문 안내 - 바로GO",
+    "{name} 출장마사지 | {parent} 예약·상담 안내 - 바로GO",
+    "{name} 출장마사지 | {parent} 가능 시간 안내 - 바로GO",
+]
+
+# 자치구·시 (2차) 디스크립션 풀 — 액션·혜택 중심
+_DISTRICT_DESC_TPL = [
+    "{name} 출장마사지 24시간 예약 안내 ({parent}). 스웨디시·아로마·홈타이 코스별 가격과 호텔·가정 방문 가능 시간을 정리했습니다.",
+    "{parent} {name} 출장마사지 — 호텔 객실·가정·오피스텔 방문 가능, 코스 60·90·120분 운영, 사전 상담으로 일정 확정.",
+    "{name} 출장마사지 예약 안내({parent}) — 평일 야간·주말·심야 가능 시간, 스웨디시·아로마·홈타이·스포츠 코스 운영.",
+    "{parent} {name} 일대 출장마사지 — 24시간 전화 상담으로 코스·가격·진행 장소를 함께 확정합니다. 추가 비용 없음.",
+    "{name}({parent}) 출장마사지 — 호텔·가정 방문 빠른 예약. 코스별 시작 가격과 시간대별 가능 여부를 사전에 안내해드립니다.",
+    "{parent} {name} 출장마사지 가격·코스 안내. 호텔 객실 방문, 가정 방문, 오피스텔 방문 모두 24시간 예약 가능합니다.",
+    "{name} 출장마사지 야간·심야 예약({parent}) — 호텔·가정 방문 모두 가능. 사전 상담으로 일정·코스를 함께 확정합니다.",
+    "{parent} {name} 출장마사지 — 스웨디시·아로마·홈타이 등 코스별 가격, 가능 시간, 진행 장소를 한 페이지에 정리했습니다.",
 ]
 
 
@@ -2517,14 +2529,13 @@ def _district_title(name, parent_name, facts):
 
 
 def _district_description(lede, name, parent_name, max_len=160):
-    """Unique meta description using the district lede; falls back to a
-    short opener if lede is empty."""
-    if not lede:
-        return f"{parent_name} {name} 일대에서 받으실 수 있는 출장마사지 이용 안내 — 가능 시간, 코스, 진행 장소 정보를 정리한 페이지입니다."
-    if len(lede) <= max_len:
-        return lede
-    cut = lede[:max_len].rsplit('.', 1)[0]
-    return cut + ('.' if not cut.endswith('.') else '')
+    """자치구·시 디스크립션 — 서비스 의도 풀에서 hash 선택. lede는 본문에서만 활용."""
+    seed = f"{parent_name}|{name}|desc".encode("utf-8")
+    idx = int(hashlib.md5(seed).hexdigest(), 16) % len(_DISTRICT_DESC_TPL)
+    text = _DISTRICT_DESC_TPL[idx].format(name=name, parent=parent_name)
+    if len(text) > max_len:
+        text = text[:max_len].rsplit(' ', 1)[0]
+    return text
 
 def _consolidate_dongs(dongs):
     """행정동 리스트 단순화·중복 제거.
@@ -3139,58 +3150,70 @@ _DONG_INTRO_TPL = [
     "{dong}은 {parent} 권역의 한 동입니다. {p_short} 인근 동과 시간대 가능 여부가 공유됩니다.",
 ]
 
-# 16개의 디스크립션 변형 (160자 이내) — 자연스러운 한국어 카피
-# 어순 원칙: {region}(상위) → {parent}(중위) → {dong}(하위)
-_DONG_DESC_TPL = [
-    "{region} {parent} {dong} 일대에서 받으실 수 있는 출장마사지 안내입니다. 가능 시간, 코스 종류, 진행 장소 정보를 한 페이지에 정리했습니다.",
-    "{parent} {dong}에서 출장마사지를 처음 알아보시는 분을 위한 안내 — 코스별 가격, 예약 절차, 사전 확인사항을 정리한 페이지입니다.",
-    "{dong}({parent}) 출장마사지 이용 안내. 호텔 객실, 가정, 오피스텔 등 진행 장소별 안내사항과 가능 시간대를 확인하실 수 있습니다.",
-    "{region} {parent} {dong} 권역에서 진행되는 출장마사지 — 사전 상담, 일정 확정, 진행, 결제까지의 절차를 정리한 안내 페이지입니다.",
-    "{dong} 일대에서 출장마사지를 받으실 때 알아두면 좋은 정보. {parent} 권역의 가능 시간과 코스 안내를 운영팀이 직접 정리했습니다.",
-    "{parent} {dong} 출장마사지 — 스웨디시·아로마·홈타이·스포츠 등 코스별 가격과 시간을 안내해드리며, 24시간 전화 상담이 가능합니다.",
-    "{region}에서 출장마사지를 받으실 수 있는 {parent} {dong} 권역 안내. 호텔 객실·가정·오피스텔 진행 장소별 안내사항을 정리했습니다.",
-    "{dong}({region} {parent}) 출장마사지 야간·심야 시간대 가능 안내. 진행 장소와 코스 길이는 사전 상담에서 함께 결정됩니다.",
-    "{parent} {dong}에서 받는 출장마사지 — 코스별 시작 가격, 시간대별 가능 여부, 결제·취소 정책을 운영팀이 정리한 페이지입니다.",
-    "{region} {parent} {dong} 출장마사지 이용 안내. 처음 이용하시는 분도 매끄럽게 진행하실 수 있도록 사전 안내사항을 정리했습니다.",
-    "{dong} 권역 출장마사지를 알아보시는 분을 위한 안내. {parent}({region}) 일대 시간대, 코스, 진행 장소 정보를 확인하실 수 있습니다.",
-    "{parent} {dong} 출장마사지 진행 흐름과 사전 확인 항목 안내. {region} 권역의 가능 시간과 코스 정보를 한 페이지에 정리했습니다.",
-    "{region} {parent} {dong} 출장마사지 호텔·가정 방문 안내. 코스 길이, 진행 장소, 결제 방식까지 한 번에 확인하실 수 있습니다.",
-    "{dong} 일대에서 출장마사지를 받으실 때 알아두면 좋은 정보를 정리했습니다 — {region} {parent} 권역 기준 이용 안내입니다.",
-    "{region} {parent} {dong}에서 출장마사지를 처음 받으시는 분을 위한 안내. 코스 선택, 공간 준비, 사전 권장사항을 정리했습니다.",
-    "{dong}({parent}) 권역 출장마사지 안내 — {region} 일대 호텔 객실·가정·오피스텔 진행 가능 정보를 운영팀이 정리한 페이지입니다.",
-]
-
-
-# 14개의 타이틀 변형 (45-60자 권장) — 자연스러운 한국어 어순·검색 의도 명확
-# 어순 원칙: {region}(상위) → {parent}(중위) → {dong}(하위), 한국어 검색 의도 키워드 자연 결합
+# 동(3·4차) 타이틀 풀 — 사용자 샘플 패턴: "{동} 출장마사지 | {부모} {액션} - 바로GO"
+# {parent_disp}는 _dong_title에서 region까지 포함해서 빌드 (경기 시-구 케이스용)
 _DONG_TITLE_TPL = [
-    "{region} {parent} {dong} 출장마사지 이용 안내 | 바로GO",
-    "{parent} {dong} 출장마사지 — 가능 시간과 코스 안내 | 바로GO",
-    "{dong} 출장마사지 ({parent}) — 호텔·가정 방문 안내 | 바로GO",
-    "{region} {parent} {dong} 출장마사지 예약 안내 | 바로GO",
-    "{parent} {dong}에서 받는 출장마사지 안내 | 바로GO",
-    "{dong} 일대 출장마사지 — {parent} 권역 안내 | 바로GO",
-    "{region} {parent} {dong} 출장마사지 가격·코스 안내 | 바로GO",
-    "{dong} 출장마사지 ({region} {parent}) 가능 시간 안내 | 바로GO",
-    "{parent} {dong} 출장마사지 — 야간·심야 가능 시간 | 바로GO",
-    "{region} {dong} 출장마사지 — {parent} 권역 이용 안내 | 바로GO",
-    "{parent} {dong} 권역 출장마사지 안내 | 바로GO",
-    "{dong}({parent}) 출장마사지 — 호텔 객실·가정 방문 | 바로GO",
-    "{region} {parent} {dong} 출장마사지 코스·시간 안내 | 바로GO",
-    "{parent} {dong} 출장마사지 — 진행 가능 시간 정리 | 바로GO",
+    "{dong} 출장마사지 | {parent_disp} 숙소·자택 방문 안내 - 바로GO",
+    "{dong} 출장마사지 | {parent_disp} 호텔·가정 예약 안내 - 바로GO",
+    "{dong} 출장마사지 | {parent_disp} 중심 생활권 이용 안내 - 바로GO",
+    "{dong} 출장마사지 | {parent_disp} 주거지역 예약 안내 - 바로GO",
+    "{dong} 출장마사지 | {parent_disp} 예약 전 확인사항 - 바로GO",
+    "{dong} 출장마사지 | {parent_disp} 권역 이용 안내 - 바로GO",
+    "{dong} 출장마사지 | {parent_disp} 24시간 예약 안내 - 바로GO",
+    "{dong} 출장마사지 | {parent_disp} 야간·심야 예약 안내 - 바로GO",
+    "{dong} 출장마사지 | {parent_disp} 코스·가격 안내 - 바로GO",
+    "{dong} 출장마사지 | {parent_disp} 가능 시간 안내 - 바로GO",
+    "{dong} 출장마사지 | {parent_disp} 호텔 객실 방문 안내 - 바로GO",
+    "{dong} 출장마사지 | {parent_disp} 자택 방문 예약 안내 - 바로GO",
+    "{dong} 출장마사지 | {parent_disp} 예약·상담 안내 - 바로GO",
+    "{dong} 출장마사지 | {parent_disp} 즉시 예약 안내 - 바로GO",
 ]
+
+
+# 동(3·4차) 디스크립션 풀 — 액션·혜택 중심 (검색 의도 매칭)
+_DONG_DESC_TPL = [
+    "{dong} 출장마사지 안내 — {parent_disp} 숙소·자택 방문 가능. 코스별 가격, 가능 시간, 예약 절차를 정리했으며 24시간 전화 상담이 가능합니다.",
+    "{parent_disp} {dong} 출장마사지 예약 — 스웨디시·아로마·홈타이 코스 운영, 호텔·가정·오피스텔 방문 가능. 사전 동의 없는 추가 비용은 없습니다.",
+    "{dong}({parent_disp}) 출장마사지 — 평일 야간·주말·심야 예약 가능. 코스 60·90·120분 운영, 코스별 가격을 사전에 안내해드립니다.",
+    "{parent_disp} {dong} 출장마사지 가격·코스 안내. 호텔 객실 방문, 가정 방문 모두 가능하며 24시간 전화 상담으로 일정·코스를 확정합니다.",
+    "{dong} 출장마사지 빠른 예약({parent_disp}) — 호텔·가정·오피스텔 방문 가능. 스웨디시·아로마·홈타이·스포츠 코스 운영, 추가 비용 없음.",
+    "{parent_disp} {dong} 출장마사지 24시간 예약. 코스별 시작 가격과 시간대별 가능 여부를 한 페이지에 정리했으며, 사전 상담으로 일정 확정.",
+    "{dong} 일대 출장마사지 예약 안내 — {parent_disp} 권역 가능 시간·코스 정보. 호텔 객실·가정 방문 모두 24시간 전화 상담 가능합니다.",
+    "{parent_disp} {dong}에서 받는 출장마사지 — 코스·가격·진행 장소가 사전 상담에서 함께 확정됩니다. 처음 이용도 매끄럽게 안내해드립니다.",
+    "{dong} 출장마사지 야간·심야 예약 가능({parent_disp}) — 호텔·가정 방문 모두 가능, 코스 60·90·120분 운영, 사전 상담으로 일정 확정.",
+    "{parent_disp} {dong} 호텔·가정 출장마사지 — 코스별 가격, 가능 시간, 결제 방식까지 한 번에 확인하실 수 있습니다. 24시간 전화 예약.",
+    "{dong} 출장마사지 안내({parent_disp}) — 스웨디시·아로마·홈타이·스포츠 코스 운영. 호텔 객실 방문, 가정 방문 모두 빠르게 예약 가능합니다.",
+    "{parent_disp} {dong} 출장마사지 예약 — 전화 상담으로 일정·코스·진행 장소를 함께 확정하며, 사전 동의 없는 추가 비용은 발생하지 않습니다.",
+    "{dong} 출장마사지({parent_disp}) — 호텔 객실·가정·오피스텔 방문 가능. 코스별 가격과 가능 시간을 사전에 안내해드립니다.",
+    "{parent_disp} {dong} 출장마사지 처음 이용 안내 — 코스 추천, 시간대별 가능 여부, 사전 준비사항까지 한 페이지에 정리했습니다.",
+    "{dong} 일대 출장마사지 예약({parent_disp}) — 24시간 전화 상담으로 호텔·가정 방문 일정과 코스를 함께 확정합니다.",
+    "{parent_disp} {dong}에서 출장마사지 받기 — 첫 이용자를 위한 코스 추천, 시간대별 가능 여부, 가격 안내까지 한 페이지에서 확인.",
+]
+
+
+def _dong_parent_disp(parent_name, region_name):
+    """타이틀·디스크립션용 {parent_disp} 빌드.
+    경기 시-구 케이스('경기 성남시' + '분당구')는 '성남시 분당구'로 합쳐 시명을 포함시킨다.
+    그 외(서울·인천·경기 시 단독)는 parent_name만 사용."""
+    if region_name and region_name.startswith("경기 ") and " " in region_name.strip():
+        si = region_name.replace("경기 ", "", 1).strip()
+        if si and si != parent_name:
+            return f"{si} {parent_name}"
+    return parent_name
 
 
 def _dong_title(dong_name, parent_name, region_name):
-    """동 페이지 타이틀 — 14개 풀에서 hash-기반 선택. 동마다 다른 구조."""
+    """동 페이지 타이틀 — 14개 풀에서 hash-기반 선택."""
     idx = _dong_pick(dong_name, "title", len(_DONG_TITLE_TPL))
-    return _DONG_TITLE_TPL[idx].format(dong=dong_name, parent=parent_name, region=region_name)
+    parent_disp = _dong_parent_disp(parent_name, region_name)
+    return _DONG_TITLE_TPL[idx].format(dong=dong_name, parent_disp=parent_disp)
 
 
 def _dong_description(dong_name, parent_name, region_name):
-    """동 페이지 디스크립션 — 18개 풀에서 hash-기반 선택. 160자 내."""
+    """동 페이지 디스크립션 — 16개 풀에서 hash-기반 선택. 160자 내."""
     idx = _dong_pick(dong_name, "desc", len(_DONG_DESC_TPL))
-    text = _DONG_DESC_TPL[idx].format(dong=dong_name, parent=parent_name, region=region_name)
+    parent_disp = _dong_parent_disp(parent_name, region_name)
+    text = _DONG_DESC_TPL[idx].format(dong=dong_name, parent_disp=parent_disp)
     if len(text) > 160:
         text = text[:160].rsplit(' ', 1)[0]
     return text
@@ -3874,10 +3897,7 @@ def _build_subordinate_dong_pages(region_slug, region_name, district):
     sorted_dongs = sorted(consolidated)
     for dong_name in consolidated:
         dong_slug = slug_map.get(dong_name) or _romanize_dong(dong_name)
-        di = _dong_pick(dong_name, "desc", len(_DONG_DESC_TPL))
-        desc_text = _DONG_DESC_TPL[di].format(dong=dong_name, parent=parent_name, region=region_name)
-        if len(desc_text) > 160:
-            desc_text = desc_text[:160].rsplit(' ', 1)[0]
+        desc_text = _dong_description(dong_name, parent_name, region_name)
         intro_lede = _dong_long_intro(dong_name, parent_name, parent_char)
         siblings = [n for n in sorted_dongs if n != dong_name]
         sib_chips = "".join(
@@ -4662,10 +4682,7 @@ def _build_gyeonggi_gu_pages():
             sorted_dongs = sorted(consolidated)
             for dong_name in consolidated:
                 dong_slug = gu["_dong_slug_map"][dong_name]
-                di = _dong_pick(dong_name, "desc", len(_DONG_DESC_TPL))
-                desc_text = _DONG_DESC_TPL[di].format(dong=dong_name, parent=gu_name, region=f"경기 {si_name}")
-                if len(desc_text) > 160:
-                    desc_text = desc_text[:160].rsplit(' ', 1)[0]
+                desc_text = _dong_description(dong_name, gu_name, f"경기 {si_name}")
                 intro_lede = _dong_long_intro(dong_name, gu_name, gu["character"])
                 siblings = [n for n in sorted_dongs if n != dong_name]
                 sib_chips = "".join(
