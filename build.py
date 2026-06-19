@@ -55,6 +55,9 @@ SITE = {
     "address_street": "청석로 268",
 }
 
+# 제주 권역 전용 대표번호 — 제주 하위 전 지역(제주시·서귀포 등) 페이지에 적용된다.
+JEJU_PHONE = "0508-202-4723"
+
 # -------- shared HTML fragments --------
 
 HEADER = """<a class="skip-link" href="#main">본문 바로가기</a>
@@ -496,6 +499,10 @@ def render(page):
             if url == "/" else ""
         ),
     )
+
+    # 제주 권역 페이지는 전용 대표번호를 사용한다 (데스크탑·모바일·JSON-LD 포함).
+    if url.startswith("/area/jeju/") or url == "/area/jeju":
+        html = html.replace(SITE["phone"], JEJU_PHONE)
 
     out_path = ROOT / page["path"]
     out_path.parent.mkdir(parents=True, exist_ok=True)
