@@ -32,10 +32,10 @@ ASSET_VERSION = _asset_version()
 BUILD_DATE = date.today().isoformat()
 
 # 카노니컬 도메인 — 사이트맵·RSS·IndexNow 절대 URL용
-SITE_ORIGIN = "https://barogo.vip"
+SITE_ORIGIN = "https://barogo-1eb.pages.dev"
 
 # 검색엔진 사이트 소유확인 (메인 페이지에만 출력)
-NAVER_SITE_VERIFICATION = "b57d88f4a33afb6841a11b9daeab602026073743"
+NAVER_SITE_VERIFICATION = "4cba3e7b0cddc8516db4bcfc9f9bdf6a043f11af"
 GOOGLE_SITE_VERIFICATION = "Z42u1VVXAU0EyvtQBxa370QqMgpBPnrHW4kV7Gcevug"
 
 # IndexNow 키 — 32~128자 hex (Bing·Yandex·Naver 빠른 인덱싱 프로토콜)
@@ -193,7 +193,7 @@ HEADER = """<a class="skip-link" href="#main">본문 바로가기</a>
 
 FOOTER = """<footer class="site-footer" role="contentinfo" itemscope itemtype="https://schema.org/Organization">
   <meta itemprop="name" content="바로GO (YH LAB)">
-  <meta itemprop="url" content="https://barogo.example/">
+  <meta itemprop="url" content="https://barogo-1eb.pages.dev/">
   <div class="container footer-top">
     <div class="footer-brand-col">
       <picture>
