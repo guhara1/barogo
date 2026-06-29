@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
 <channel>
 <title>바로GO 매거진 — 출장마사지 운영팀 안내</title>
-<link>https://barogo-1eb.pages.dev/magazine/</link>
-<atom:link href="https://barogo-1eb.pages.dev/rss.xml" rel="self" type="application/rss+xml" />
+<link>https://barogovip.netlify.app/magazine/</link>
+<atom:link href="https://barogovip.netlify.app/rss.xml" rel="self" type="application/rss+xml" />
 <description>출장마사지 운영팀이 직접 안내하는 코스·예약·라이프스타일·웰니스 매거진</description>
 <language>ko-KR</language>
-<lastBuildDate>Sat, 27 Jun 2026 09:00:00 +0900</lastBuildDate>
+<lastBuildDate>Mon, 29 Jun 2026 09:00:00 +0900</lastBuildDate>
 <generator>barogo static</generator>
 <copyright>© YH LAB · 바로GO</copyright>
-<image><url>https://barogo-1eb.pages.dev/assets/img/barogo_logo_true_transparent.png</url><title>바로GO 매거진</title><link>https://barogo-1eb.pages.dev/magazine/</link></image>
+<image><url>https://barogovip.netlify.app/assets/img/barogo_logo_true_transparent.png</url><title>바로GO 매거진</title><link>https://barogovip.netlify.app/magazine/</link></image>
 <item>
 <title>출장마사지 처음 이용 전 알아둘 점</title>
-<link>https://barogo-1eb.pages.dev/magazine/first-time-essentials/</link>
-<guid isPermaLink="true">https://barogo-1eb.pages.dev/magazine/first-time-essentials/</guid>
+<link>https://barogovip.netlify.app/magazine/first-time-essentials/</link>
+<guid isPermaLink="true">https://barogovip.netlify.app/magazine/first-time-essentials/</guid>
 <pubDate>Fri, 15 May 2026 09:00:00 +0900</pubDate>
 <category>처음 이용</category>
 <description>처음 출장마사지를 받기 전 가장 자주 묻는 질문, 첫 코스 선택 기준, 사전 준비 체크리스트, 진행 흐름, 자주 놓치는 점, 사후 케어까지 운영팀이 정리한 첫 이용 가이드입니다.</description>
@@ -21,8 +21,8 @@
 </item>
 <item>
 <title>수면 질 회복 — 잠 못 드는 사람을 위한 케어 흐름</title>
-<link>https://barogo-1eb.pages.dev/magazine/sleep-quality-recovery/</link>
-<guid isPermaLink="true">https://barogo-1eb.pages.dev/magazine/sleep-quality-recovery/</guid>
+<link>https://barogovip.netlify.app/magazine/sleep-quality-recovery/</link>
+<guid isPermaLink="true">https://barogovip.netlify.app/magazine/sleep-quality-recovery/</guid>
 <pubDate>Tue, 12 May 2026 09:00:00 +0900</pubDate>
 <category>웰니스</category>
 <description>입면 지연·중간 각성·얕은 수면 등 운영팀이 상담에서 자주 관찰한 4가지 수면 패턴과, 패턴별 권장 코스·저녁 회복 흐름·수면 환경 점검을 정리한 웰니스 매거진입니다.</description>
@@ -30,8 +30,8 @@
 </item>
 <item>
 <title>지역별 출장마사지 이용 팁</title>
-<link>https://barogo-1eb.pages.dev/magazine/regional-usage-tips/</link>
-<guid isPermaLink="true">https://barogo-1eb.pages.dev/magazine/regional-usage-tips/</guid>
+<link>https://barogovip.netlify.app/magazine/regional-usage-tips/</link>
+<guid isPermaLink="true">https://barogovip.netlify.app/magazine/regional-usage-tips/</guid>
 <pubDate>Sun, 10 May 2026 09:00:00 +0900</pubDate>
 <category>지역 가이드</category>
 <description>수도권·광역시·도(道) 권역·제주까지 — 권역별 이용 패턴이 다른 이유와 권역마다 자주 안내되는 시간대·코스·진행 장소를 운영팀이 정리한 지역 가이드입니다.</description>
@@ -39,8 +39,8 @@
 </item>
 <item>
 <title>야간 근무자를 위한 피로 회복 루틴</title>
-<link>https://barogo-1eb.pages.dev/magazine/night-worker-recovery/</link>
-<guid isPermaLink="true">https://barogo-1eb.pages.dev/magazine/night-worker-recovery/</guid>
+<link>https://barogovip.netlify.app/magazine/night-worker-recovery/</link>
+<guid isPermaLink="true">https://barogovip.netlify.app/magazine/night-worker-recovery/</guid>
 <pubDate>Fri, 08 May 2026 09:00:00 +0900</pubDate>
 <category>라이프스타일</category>
 <description>병원·간호·IT 운영·보안 등 야간 근무자가 더 빨리 지치는 이유와, 운영팀이 권장하는 회복 케어 5가지 패턴, 함께 권장되는 회복 보조 습관까지 정리한 라이프스타일 매거진입니다.</description>
@@ -48,8 +48,8 @@
 </item>
 <item>
 <title>결혼 준비기 회복 케어 — 예식 4주 전부터의 컨디션 흐름</title>
-<link>https://barogo-1eb.pages.dev/magazine/wedding-prep-recovery/</link>
-<guid isPermaLink="true">https://barogo-1eb.pages.dev/magazine/wedding-prep-recovery/</guid>
+<link>https://barogovip.netlify.app/magazine/wedding-prep-recovery/</link>
+<guid isPermaLink="true">https://barogovip.netlify.app/magazine/wedding-prep-recovery/</guid>
 <pubDate>Wed, 06 May 2026 09:00:00 +0900</pubDate>
 <category>라이프스타일</category>
 <description>운영팀이 자주 받는 신부·신랑 상담 패턴을 바탕으로, 예식 4주 전부터 신혼여행 직후까지의 권장 케어 시점·코스 구성·비권장 시점을 정리한 라이프스타일 매거진입니다.</description>
@@ -57,8 +57,8 @@
 </item>
 <item>
 <title>사무직 어깨·목 — 데스크워크 누적이 만드는 변화와 케어 흐름</title>
-<link>https://barogo-1eb.pages.dev/magazine/desk-worker-neck-shoulder/</link>
-<guid isPermaLink="true">https://barogo-1eb.pages.dev/magazine/desk-worker-neck-shoulder/</guid>
+<link>https://barogovip.netlify.app/magazine/desk-worker-neck-shoulder/</link>
+<guid isPermaLink="true">https://barogovip.netlify.app/magazine/desk-worker-neck-shoulder/</guid>
 <pubDate>Mon, 04 May 2026 09:00:00 +0900</pubDate>
 <category>웰니스</category>
 <description>1-3년차 사무직 이용자가 가장 자주 호소하는 어깨·목 누적 신호 4가지와 단계별 권장 코스, 함께 권장되는 자세 가이드를 정리한 웰니스 매거진입니다.</description>
@@ -66,8 +66,8 @@
 </item>
 <item>
 <title>호텔 투숙객을 위한 출장마사지 이용 안내</title>
-<link>https://barogo-1eb.pages.dev/magazine/hotel-guest-guide/</link>
-<guid isPermaLink="true">https://barogo-1eb.pages.dev/magazine/hotel-guest-guide/</guid>
+<link>https://barogovip.netlify.app/magazine/hotel-guest-guide/</link>
+<guid isPermaLink="true">https://barogovip.netlify.app/magazine/hotel-guest-guide/</guid>
 <pubDate>Sat, 02 May 2026 09:00:00 +0900</pubDate>
 <category>호텔 이용</category>
 <description>호텔 객실에서 받는 출장마사지의 특징, 객실 예약 시 사전 안내해야 할 정보, 호텔 등급별 진행 흐름의 차이, 자주 선택되는 시간대까지 운영팀이 정리한 호텔 투숙객 전용 가이드입니다.</description>
@@ -75,8 +75,8 @@
 </item>
 <item>
 <title>이사 직후 회복 케어 — 박스·계단·새 환경 적응까지</title>
-<link>https://barogo-1eb.pages.dev/magazine/post-moving-recovery/</link>
-<guid isPermaLink="true">https://barogo-1eb.pages.dev/magazine/post-moving-recovery/</guid>
+<link>https://barogovip.netlify.app/magazine/post-moving-recovery/</link>
+<guid isPermaLink="true">https://barogovip.netlify.app/magazine/post-moving-recovery/</guid>
 <pubDate>Thu, 30 Apr 2026 09:00:00 +0900</pubDate>
 <category>라이프스타일</category>
 <description>이사 다음 날부터 1주일까지의 회복 흐름을 운영팀이 정리. 등·허리·어깨·하체 누적 부위와 권장 코스 구성, 명절·이사 등 복합 활동 직후 권장되는 회복 시점을 안내합니다.</description>
@@ -84,8 +84,8 @@
 </item>
 <item>
 <title>만성 두통·편두통 — 어떤 회복 케어가 권장되는가</title>
-<link>https://barogo-1eb.pages.dev/magazine/chronic-headache-care/</link>
-<guid isPermaLink="true">https://barogo-1eb.pages.dev/magazine/chronic-headache-care/</guid>
+<link>https://barogovip.netlify.app/magazine/chronic-headache-care/</link>
+<guid isPermaLink="true">https://barogovip.netlify.app/magazine/chronic-headache-care/</guid>
 <pubDate>Tue, 28 Apr 2026 09:00:00 +0900</pubDate>
 <category>웰니스</category>
 <description>긴장형 두통이 누적되는 사람에게 보이는 사전 신호, 긴장형과 편두통의 일반적 차이, 의료 진료가 우선인 신호, 운영팀이 권장하는 코스 흐름까지 정리한 웰니스 매거진입니다.</description>
@@ -93,8 +93,8 @@
 </item>
 <item>
 <title>출장마사지 코스 고르는 기준</title>
-<link>https://barogo-1eb.pages.dev/magazine/course-selection-by-purpose/</link>
-<guid isPermaLink="true">https://barogo-1eb.pages.dev/magazine/course-selection-by-purpose/</guid>
+<link>https://barogovip.netlify.app/magazine/course-selection-by-purpose/</link>
+<guid isPermaLink="true">https://barogovip.netlify.app/magazine/course-selection-by-purpose/</guid>
 <pubDate>Wed, 22 Apr 2026 09:00:00 +0900</pubDate>
 <category>코스 가이드</category>
 <description>스웨디시·아로마·홈타이·스포츠 중 무엇을 받을지 고민될 때, 운영팀이 상담에서 실제로 따르는 코스 매칭 의사결정 5단계와 첫 이용자를 위한 무난한 첫 코스를 공개합니다.</description>
@@ -102,8 +102,8 @@
 </item>
 <item>
 <title>명절 후 가사 노동 회복 — 어깨·허리·손목 케어</title>
-<link>https://barogo-1eb.pages.dev/magazine/post-holiday-recovery/</link>
-<guid isPermaLink="true">https://barogo-1eb.pages.dev/magazine/post-holiday-recovery/</guid>
+<link>https://barogovip.netlify.app/magazine/post-holiday-recovery/</link>
+<guid isPermaLink="true">https://barogovip.netlify.app/magazine/post-holiday-recovery/</guid>
 <pubDate>Mon, 20 Apr 2026 09:00:00 +0900</pubDate>
 <category>라이프스타일</category>
 <description>추석·설 연휴 직후 운영팀 상담이 늘어나는 패턴과, 가사 노동이 누적되는 부위 4곳(어깨·허리·손목·하체), 권장 코스 시점·구성, 운전·장거리 이동 누적 케어까지 정리한 라이프스타일 매거진입니다.</description>
@@ -111,8 +111,8 @@
 </item>
 <item>
 <title>운동 후 회복 케어 — 웨이트·러닝·필라테스 이용자를 위한</title>
-<link>https://barogo-1eb.pages.dev/magazine/post-workout-recovery/</link>
-<guid isPermaLink="true">https://barogo-1eb.pages.dev/magazine/post-workout-recovery/</guid>
+<link>https://barogovip.netlify.app/magazine/post-workout-recovery/</link>
+<guid isPermaLink="true">https://barogovip.netlify.app/magazine/post-workout-recovery/</guid>
 <pubDate>Wed, 15 Apr 2026 09:00:00 +0900</pubDate>
 <category>웰니스</category>
 <description>주 3-5회 운동하는 이용자에게 자주 보이는 회복 부족 신호와, 종목·강도별 누적 부위 차이, 운영팀이 권장하는 케어 시점과 코스 구성을 정리한 운동인 전용 웰니스 매거진입니다.</description>
@@ -120,8 +120,8 @@
 </item>
 <item>
 <title>장거리 비행·시차 회복 — 권역별 케어 시점</title>
-<link>https://barogo-1eb.pages.dev/magazine/jetlag-flight-recovery/</link>
-<guid isPermaLink="true">https://barogo-1eb.pages.dev/magazine/jetlag-flight-recovery/</guid>
+<link>https://barogovip.netlify.app/magazine/jetlag-flight-recovery/</link>
+<guid isPermaLink="true">https://barogovip.netlify.app/magazine/jetlag-flight-recovery/</guid>
 <pubDate>Sun, 12 Apr 2026 09:00:00 +0900</pubDate>
 <category>라이프스타일</category>
 <description>비행 후 가장 자주 호소되는 다리 부종·등 굳음·수면 리듬 깨짐을 권역별(일본·유럽·미주)로 정리. 도착 당일·다음 날·2-3일 후 권장 시점과 코스 구성, 시차 큰 권역 특별 안내를 운영팀이 정리합니다.</description>
@@ -129,8 +129,8 @@
 </item>
 <item>
 <title>여성 컨디션 사이클별 회복 케어</title>
-<link>https://barogo-1eb.pages.dev/magazine/womens-cycle-care/</link>
-<guid isPermaLink="true">https://barogo-1eb.pages.dev/magazine/womens-cycle-care/</guid>
+<link>https://barogovip.netlify.app/magazine/womens-cycle-care/</link>
+<guid isPermaLink="true">https://barogovip.netlify.app/magazine/womens-cycle-care/</guid>
 <pubDate>Wed, 08 Apr 2026 09:00:00 +0900</pubDate>
 <category>웰니스</category>
 <description>여성 이용자의 상담에서 자주 관찰된 시기별 케어 수요와, 주기별 권장 코스·강도, 케어를 피하는 것이 권장되는 시기, 함께 권장되는 회복 습관까지 운영팀이 정리한 웰니스 매거진입니다.</description>

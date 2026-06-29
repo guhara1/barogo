@@ -32,10 +32,10 @@ ASSET_VERSION = _asset_version()
 BUILD_DATE = date.today().isoformat()
 
 # 카노니컬 도메인 — 사이트맵·RSS·IndexNow 절대 URL용
-SITE_ORIGIN = "https://barogo-1eb.pages.dev"
+SITE_ORIGIN = "https://barogovip.netlify.app"
 
 # 검색엔진 사이트 소유확인 (메인 페이지에만 출력)
-NAVER_SITE_VERIFICATION = "4cba3e7b0cddc8516db4bcfc9f9bdf6a043f11af"
+NAVER_SITE_VERIFICATION = "ffde22edf74b48eb419fd93056bb4d4d55ddc2ff"
 GOOGLE_SITE_VERIFICATION = "Z42u1VVXAU0EyvtQBxa370QqMgpBPnrHW4kV7Gcevug"
 
 # IndexNow 키 — 32~128자 hex (Bing·Yandex·Naver 빠른 인덱싱 프로토콜)
@@ -193,7 +193,7 @@ HEADER = """<a class="skip-link" href="#main">본문 바로가기</a>
 
 FOOTER = """<footer class="site-footer" role="contentinfo" itemscope itemtype="https://schema.org/Organization">
   <meta itemprop="name" content="바로GO (YH LAB)">
-  <meta itemprop="url" content="https://barogo-1eb.pages.dev/">
+  <meta itemprop="url" content="https://barogovip.netlify.app/">
   <div class="container footer-top">
     <div class="footer-brand-col">
       <picture>
@@ -402,6 +402,42 @@ def breadcrumb_jsonld(items):
     return {"@type": "BreadcrumbList", "itemListElement": elements}
 
 
+# 본문에 들어 있는 <details><summary>질문</summary>답변</details> 블록을
+# 자동으로 추출해 FAQPage JSON-LD 로 변환한다. 별도 입력 없이 모든 페이지의
+# FAQ 가 구조화 데이터로 노출되어 네이버·빙·구글이 Q&A 를 인식한다.
+_FAQ_BLOCK_RE = re.compile(
+    r'<details[^>]*>\s*<summary[^>]*>(.*?)</summary>(.*?)</details>',
+    re.DOTALL,
+)
+_HTML_TAG_RE = re.compile(r'<[^>]+>')
+
+
+def _strip_html(text):
+    """태그 제거 + 공백 정규화로 스키마용 평문을 만든다."""
+    return re.sub(r'\s+', ' ', _HTML_TAG_RE.sub(' ', text)).strip()
+
+
+def faq_jsonld(body, url):
+    """본문 FAQ(details/summary)를 FAQPage 노드로. 없으면 None."""
+    entities = []
+    for q_html, a_html in _FAQ_BLOCK_RE.findall(body or ""):
+        q = _strip_html(q_html)
+        a = _strip_html(a_html)
+        if q and a:
+            entities.append({
+                "@type": "Question",
+                "name": q,
+                "acceptedAnswer": {"@type": "Answer", "text": a},
+            })
+    if not entities:
+        return None
+    return {
+        "@type": "FAQPage",
+        "@id": url + "#faq",
+        "mainEntity": entities,
+    }
+
+
 def render(page):
     url = page["url"]
     breadcrumbs = page.get("breadcrumbs", [])
@@ -471,6 +507,11 @@ def render(page):
         if page.get("article_keywords"):
             article_schema["keywords"] = page["article_keywords"]
         graph.append(article_schema)
+
+    # 본문 FAQ(details/summary) → FAQPage 스키마 자동 추가
+    faq_node = faq_jsonld(page.get("body", ""), url)
+    if faq_node:
+        graph.append(faq_node)
 
     jsonld = {
         "@context": "https://schema.org",
