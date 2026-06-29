@@ -786,6 +786,10 @@ button { font: inherit; cursor: pointer; }
 }
 .related li a:hover { border-color: var(--color-accent); color: var(--color-accent); }
 
+.home-longtail { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px; }
+.home-longtail .related { margin-top: 0; }
+@media (max-width: 720px) { .home-longtail { grid-template-columns: 1fr; } }
+
 @media (max-width: 720px) {
   .two-col { grid-template-columns: 1fr; }
 }
